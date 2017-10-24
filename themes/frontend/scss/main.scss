@@ -1,0 +1,128 @@
+
+body {
+    width: 100%;
+    height: 100%;
+    font-weight: 300;
+    color: #666;
+    background-color: #fff;
+   font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    overflow-x: hidden;
+    font-weight: 400;
+    padding: 0 !important;
+}
+
+@font-face {
+    font-family: 'helenaregular';
+    src: url('../fonts/helena-webfont.woff2') format('woff2'),
+        url('../fonts/helena-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.open-sans {
+    font-family: 'Lato', sans-serif;
+}
+.heading{
+    font-family: 'Quicksand', sans-serif;
+}
+.btn{
+    font-family: 'Lato', sans-serif;
+}
+html {
+    width: 100%;
+    height: 100%;
+}
+
+.total-tab-sec {
+    padding: 50px 0 50px !important;
+    .top-area {
+        .prof-nav {
+            .nav-tabs {
+                >li {
+
+                    &:first-child{
+                        border-top-left-radius:8px;
+                    }
+                    &:last-child{
+                        border-top-right-radius:8px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.index-body{ 
+    .btm-area {
+        font-family: 'Lato', sans-serif !important;
+    }
+}
+
+
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 0px;
+    font-weight: 400;
+    color: #111;
+}
+ul, ol{ list-style-type: none; padding: 0; margin: 0;}
+
+a {
+    color: #000;
+    outline: none;
+    &:hover{
+        color: #BF1E2E;
+    }
+
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+    outline: none;
+}
+.red{
+    color: #ff0000;
+}
+.main-body-wrap{padding-top: 81px;}
+@import 'all-scss-part/nav.scss';
+@import 'all-scss-part/home.scss';
+@import 'all-scss-part/all-mixing.scss';
+@import 'all-scss-part/1.perfil-informaciones_personales.scss';
+@import 'all-scss-part/1.perfil-mi_cuenta_password.scss';
+@import 'all-scss-part/1.perfil-v_hiculo.scss';
+@import 'all-scss-part/1.perfil-opiniones.scss';
+@import 'all-scss-part/1.perfil-V_hiculo_detalles.scss';
+@import 'all-scss-part/1.perfil-verificaciones.scss';
+@import 'all-scss-part/2.annuncio-example.scss';
+@import 'all-scss-part/2.annuncio-trip_cancelled.scss';
+@import 'all-scss-part/2.annuncios.scss';
+@import 'all-scss-part/5.dinero-bank_details.scss';
+@import 'all-scss-part/mensajes.scss';
+@import 'all-scss-part/buscar.scss';
+@import 'all-scss-part/publicar.scss';
+
+@import 'all-scss-part/preceptos_de_confidencialidad.scss';
+
+@import 'all-scss-part/static_pages.scss';
+
+@import 'all-scss-part/como_funciona.scss';
+@import 'all-scss-part/quien-somos.scss';
+@import 'all-scss-part/reglamento-interno.scss';
+
+
+@import 'all-scss-part/footer.scss';
+@import 'all-scss-part/modal.scss';
+@import 'all-scss-part/sign_up.scss';
+@import 'all-scss-part/login.scss';
+@import 'all-scss-part/responsive.scss';
+
+

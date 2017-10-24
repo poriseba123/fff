@@ -1,0 +1,246 @@
+@import 'all-mixing.scss';
+.header{
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    /*box-shadow: 2px 2px 6px 1px rgba(0, 0, 0, 0.1);*/
+
+    &.darkHeader{
+        background-color: #392061;
+        z-index: 9999 !important;
+        @include box-shadow(2px, 2px, 6px, 1px, rgba(0, 0, 0, 0.1));
+    }
+
+    .navbar-custom{
+        background: #fff;
+        padding: 1px 0;
+        border-color: #e1e2e2;
+        margin-bottom: 0;
+        border-width: 1px 0 0;
+        border-style: solid;
+        border-radius: 0;
+        width: 100%;
+        padding: 3px 0px;
+        .navbar-header{
+            .navbar-toggle{
+                position: absolute;
+                top:0px;
+                right: 0px;
+            }
+        }
+        ul.nav{ 
+            li{ 
+                padding: 27px 0;
+                a {
+                    color: #000000;
+                    font-size: 15px;
+                    font-weight: 400;
+                    text-transform: none;
+                    padding-top: 7px;
+                    padding-bottom: 7px;
+                    margin: 0px 0;
+                    &:focus{
+                        outline: none;
+                        background: transparent;
+                    }
+                    &:hover{
+                        border-bottom: 0px solid #fff;
+                        color: #40C1C2;
+                        background-color: #fff;
+                    }
+
+                }
+
+                .btn.btn-signin {
+                    background-color: #BF1E2E;
+                    color: #fff !important;
+                    padding: 7px 15px;
+                    @include transition(all 500ms ease-in-out);
+                    @include border-radius(0);
+                    font-size: 16px;
+                }
+                .btn.btn-signin:hover{
+                    color: #fff;
+                    background-color:#F5210A ;
+
+                }
+                .btn.btn-signin:hover i{
+                    color: #fff;
+
+
+                }
+                .btn.btn-signup {
+                    background-color: rgba(255, 255, 255, 0);
+                    color: #000;
+                    padding: 7px 15px;
+                    transition: all .5s ease-in-out;
+                    border: 1px solid #ececec;
+                    font-size: 15px;
+                    border-radius: 4px;
+                    text-transform: uppercase;
+                }
+                .btn.btn-signup:hover{
+                    color: #47c1c1;
+                    background-color:transparent ;
+
+                }
+                .dash-drop{
+                    margin: 8px 0 0;
+                    cursor: pointer;
+                }
+                .show-on-hover-2{
+
+                    .headr-prof-pic {
+                        width: 40px;
+                        height: 40px;
+                        border: 2px solid #f0f0f0;
+                        display: inline;
+                        font-size: 18px;
+                        color: #333;
+                        border-radius: 50%;
+                    }
+                }
+
+                .cst-drop-down{
+                    margin-top:30px;
+                    .dropdown-menu{
+                        li{
+                            a{
+                                padding: 20px 15px;
+                                border-bottom: 1px solid rgba(57, 32, 97, 0.1);
+                            }
+                        }
+                    }
+                }
+
+                h1 {
+                    color: #fff;
+                    display: inline;
+                    font-size: 16px;
+                    font-weight: 500;
+                }
+
+                .dropdown-menu {
+                    border-top: 2px solid #392061;
+                    width: 100%;
+                    padding: 0px 0px;
+                    li{
+                        padding: 0px !important;
+                        a{
+                            padding: 8px 8px!important;
+                            font-size: 12px;
+                            color: #3b3b3b;
+                        }
+                        &:hover{
+                            background-color: #F8F8F8;
+                        }
+                    }
+                }
+                .btn-signup{
+                    margin-top: 0px;
+                }
+                &.active{
+                    .btn.btn-signup{
+                        color: #47c1c1;
+                        background-color:transparent ;
+
+                    }
+                }
+            }
+            .btn-fr-right{
+                padding-left: 0px;
+                padding-right: 20px;
+            }
+            .btn-fr-left{
+                padding-right: 20px;
+            }
+            &.home-nav{
+                li{
+                    a{
+                        text-transform: none;
+                        &:hover{
+                            background: transparent none repeat scroll 0 0;
+                            color: #47c1c1;
+                            border: none;
+                        }
+                        &:focus{
+                            background: transparent none repeat scroll 0 0;
+                            color: #47c1c1;
+                            border: none;
+                        }
+                        &.btn-primary{
+                            color: #fff;
+                            border: solid 1px;
+                            background-color: #337ab7;
+                            border-color: #2e6da4;
+                            &:focus{
+                                background-color: #286090;
+                                border-color: #204d74;
+                                color: #fff;
+                            }
+                            &:hover{
+                                background-color: #286090;
+                                border-color: #204d74;
+                                color: #fff;
+                            }
+                        }
+                    }
+                    &.active{
+                        a{
+                            background: transparent none repeat scroll 0 0;
+                            color: #47c1c1; 
+                            border: none;
+                            &.btn-primary{
+                                background-color: #286090;
+                                border-color: #204d74;
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.bit-num-warp{
+    background-color:#d9dbdd;
+    line-height: 0px;
+    h1{
+        color: #fff;
+        background-color: #369444;
+        display: inline-block;
+        font-size: 14px;
+        padding: 6px 13px 6px;
+        position: relative;
+        width: 400px;
+        text-align: right;
+        &:after{
+            background: url(../images/top-bid-arrow.png) no-repeat;
+            content: "";
+            position: absolute;
+            top: -2px;
+            right: -47px;
+            width: 51px;
+            height: 100%;
+        }
+    }
+    p{
+        color: #333; 
+        display: inline-block;
+        font-size: 14px;
+        margin-bottom: 0px;
+        padding: 6px;
+        padding-left: 15px;
+    }
+}
+
+.site-logo{
+    a{
+        img{
+            width: 230px;
+            padding-top:27px;
+        }
+    }
+
+}

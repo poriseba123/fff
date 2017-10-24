@@ -1,0 +1,36 @@
+.modal .form .form-group .btn {
+    background-color: #47c1c1;
+    color: #fff;
+    border-radius: 2%;
+    font-size: 16px;
+    padding: 5px 10px;
+}
+.modal .form .form-group .btn:hover {
+    background-color: #333;
+    color: #fff;
+}
+.modal .form .form-group .btn.btn-close {
+    border-color: #e7505a;
+    color: #e7505a;
+    background: 0 0;
+}
+.modal .form .form-group .btn.btn-close:hover {
+    border-color: #e7505a;
+    color: #fff;
+    background-color: #e7505a;
+}
+
+.modal .modal-body a{color: #47c1c1;}
+
+.modal .identityuploaddocField {
+    margin-top: 15px;
+}
+.modal .identityuploaddoc .identityuploaddocField span {
+    background: #47c1c1;
+    padding: 0 30px;
+    border: 1px solid #47c1c1;
+}
+.modal .identityuploaddoc .identityuploaddocField span i {
+    color: #FFF;
+    font-size: 20px;
+}

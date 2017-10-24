@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs">
+    <li class="<?= (Yii::$app->controller->id == "user" && Yii::$app->controller->action->id == "profile") ? "active" : "" ?>"><a href="<?= Yii::$app->urlManager->createUrl("user/profile") ?>">Información personal</a></li>
+    <li class="<?= (Yii::$app->controller->id == "user" && Yii::$app->controller->action->id == "userverification") ? "active" : "" ?>"><a href="<?= Yii::$app->urlManager->createUrl("user/userverification") ?>">Verificaciones</a></li>
+    <li class="<?= (Yii::$app->controller->id == "vehicle" && (Yii::$app->controller->action->id == "addvehicle" || Yii::$app->controller->action->id == "editvehicle")) ? "active" : "" ?>"><a href="<?= Yii::$app->urlManager->createUrl("vehicle/addvehicle") ?>">Vehículo</a></li>
+    <li class="<?= (Yii::$app->controller->id == "publicprofile" && Yii::$app->controller->action->id == "opinions") ? "active" : "" ?>"><a href="<?= Yii::$app->urlManager->createUrl(['publicprofile/opinions','id'=> Yii::$app->user->id]); ?>">Clasificaciones</a></li>
+    <li class="<?= (Yii::$app->controller->id == "user" && Yii::$app->controller->action->id == "changepassword") ? "active" : "" ?>"><a href="<?= Yii::$app->urlManager->createUrl('user/changepassword'); ?>">Mi cuenta</a></li>
+</ul>

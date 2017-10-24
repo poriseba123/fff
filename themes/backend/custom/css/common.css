@@ -1,0 +1,32 @@
+.page-header.navbar .page-logo .logo-default {
+    margin-top: 13px !important;
+    height: 25px;
+    width: 150px;
+}
+.page-logo a span {
+    font-size: 25px;
+    color: #fff;
+}
+.page-logo a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+
+.portlet .listing-view-title{
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid rgba(158, 158, 158, 0.32);
+}
+
+.portlet .listing-view-title h4, .portlet .listing-view-title i{
+    font-weight: bold;
+    color: #00BCD4;
+}
+
+.portlet .listing-view-title i{
+    padding-right: 5px;
+}
+
+.page-content ul.breadcrumb {
+    background-color: #fff;
+}

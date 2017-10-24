@@ -1,0 +1,24 @@
+dev-deployment:
+  variables:
+    GIT_STRATEGY: fetch
+  script:
+    - bash ~/gitlab/dev/deploy-yii-2.0.sh
+  environment:
+      name: Development
+      url : http://newtestserver.com/dev/123vamos/
+  tags:
+    - dev
+  only:
+    - dev 
+apps-deployment:    
+  variables:
+      GIT_STRATEGY: fetch
+  script:
+    - bash ~/gitlab/apps/deploy-yii-2.0.sh
+  environment:
+      name: UAT
+      url : http://newtestserver.com/apps/123vamos/
+  tags:
+    - apps-yii2
+  only:
+    - apps

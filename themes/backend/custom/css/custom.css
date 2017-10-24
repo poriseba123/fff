@@ -1,0 +1,33 @@
+.page-logo a span {
+    font-size: 25px;
+    color: #fff;
+}
+.page-logo a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+.page-content ul.breadcrumb {
+    background-color: #fff;
+}
+
+.form .form-row-seperated .form-group .form-group {
+    border-bottom: none;
+}
+
+img.drivingimage {
+    height: 150px;
+    width: 100%;
+}
+
+.vehicel-color-span{
+    padding: 0px 10px;
+    border-radius: 2px;
+    margin: -5px;
+}
+
+.modal .modal-header .modal-title{
+    text-align: center;
+    font-weight: 600;
+    color: #FFF;
+}
+.modal .modal-header{background-color: #e7505a;}

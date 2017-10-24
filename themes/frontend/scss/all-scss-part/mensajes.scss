@@ -1,0 +1,297 @@
+@import 'all-mixing.scss';
+.total-tab-sec{
+    padding: 50px 0px 150px 0px;
+    .top-area{
+        .media{
+            .media-left{
+
+            }
+            .media-body{
+                vertical-align: middle;
+            }
+        }
+
+        .prof-nav {
+            padding-right:0px;
+            .nav-tabs {
+                border-bottom: 0px;
+                background: #fff;
+                display: flex;
+                width: auto;
+                padding-top: 25px;
+                >li {
+                    float: left;
+                    margin-bottom: -1px;
+                    flex: 1 1 auto;
+                    color: #808080 !important;
+                    font-size: 18px;
+                    font-weight: 400;
+                    display: block;
+                    position: relative;
+                    border: 1px solid #f2f2f2;
+                    &.active a{
+                        color: #47c1c1 ; 
+                        cursor: pointer;
+                    }
+
+                }
+            }
+            .nav {
+                >li {
+
+                    >a {
+                        padding: 0;
+                        margin: 0;
+                        text-align: center;
+                        line-height: 40px;
+                        display: block;
+                        border: none;
+                        color:#808080 !important;
+                        &:hover{
+                            color: #47c1c1 ;
+                            background-color: transparent;
+                            border: none;
+                        }
+                    }
+                }
+            }
+        }
+
+
+    }
+}
+.mensajes{
+    font-family: Quicksand,sans-serif;
+    .btm-area{
+        border: 1px solid #f2f2f2;
+        padding:50px 0 100px;
+        font-family: 'Open Sans', sans-serif;
+        .media{
+            border: solid #eee;
+            border-width: 1px 2px;
+            padding: 15px;
+            margin-top: 15px;
+            .media-body{
+                padding-left: 15px;
+                h4.mensajes-name {
+                    color: #333;
+                    font-size: 18px;
+                    font-weight: 600;
+                }
+                p{
+                    margin-bottom: 2px;
+                    &.mensajes-title {
+                        color: #333;
+                        font-size: 16px;
+                    }
+                    &.sm-date {
+                        color: #999;
+                        font-size: 12px;
+                    }
+                }
+            }
+            &:hover{
+                background-color: #eee;
+            }
+            &:first-child {
+                margin-top: 0;
+            }
+        }
+    }
+    &.mensajes-detail{
+        .btm-area{
+            border: 1px solid #f2f2f2;
+            padding:50px 0 ;
+           font-family: 'Lato', sans-serif;
+            h2.car-share-title{
+                color: #bfbfbf;
+                margin-bottom: 20px;
+                font-family: Quicksand,sans-serif;
+                font-size: 20px;
+            }
+            .media{
+                border: none;
+                border-width: 0;
+                margin-top: 15px;
+                padding: 5px;
+
+                .media-body{
+                    padding-left: 15px;
+                    border: solid #eee;
+                    border-width: 1px 2px;
+                    padding: 15px;
+                    h4.mensajes-name {
+                        color: #333;
+                        font-size: 18px;
+                        font-weight: 600;
+                    }
+                    p{
+                        margin-bottom: 2px;
+                        &.mensajes-title {
+                            color: #333;
+                            font-size: 16px;
+                        }
+                        &.sm-date {
+                            color: #999;
+                            font-size: 12px;
+                            &.senalar{
+                                a{
+                                    color: #47c1c1;
+                                    font-size: 16px;
+                                }
+                            }
+                        }
+                    }
+                    &.active{
+                        background-color: #eee;
+                    }
+                }
+                &:hover{
+                    background-color: transparent;
+                    .media-body{
+                        background-color: #eee;
+                    }
+                }
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
+            .msg-block{
+                margin-left: auto;
+                padding: 5px 5px 5px 0;
+                width: calc(100% - 75px);
+                .msg-body{
+                    border: solid #eee;
+                    border-width: 1px 2px;
+                    padding: 25px 15px;
+                    textarea.form-control.cust-textarea{
+                        border: none;
+                        resize: none;
+                        height: 80px;
+                        box-shadow: none;
+                    }
+                    .all-default-btn{
+                        padding: 8px 45px;
+                        margin-right: 50px;
+                    }
+                }
+                .foot-part p{
+                    font-family: Open Sans;
+                    font-weight: 400;
+                    font-size: 20px;
+                }
+            }
+        } 
+    }
+    .foot-part{
+        padding: 15px;
+        p{
+            font-family: Quicksand,sans-serif;
+            color: #a8a8a8;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 18px;
+            text-align: center;
+            a{
+                color: #47c1c1 ;  
+            }
+        }
+    }
+
+
+
+
+    .btn.btn-play {
+        padding: 9px 45px;
+        text-transform: uppercase;
+        background: #F5210A;
+        color: #fff;
+        font-size: 20px;
+        font-weight: 600;
+        text-align: center;
+        @include transition(all 500ms ease-in-out);
+        outline:none;
+        @include border-radius(0);
+        &:hover{
+            color: #F5210A;
+            background-color:#fff ;
+
+        }
+    }
+    .btn.btn-know {
+        padding: 16px 15px;
+        text-transform: uppercase;
+        background: #F80000;
+        color: #fff;
+        font-size: 20px;
+        text-align: center;
+        @include transition(all 500ms ease-in-out);
+        outline:none;
+        @include border-radius(0);
+        &:hover{
+            color: #F80000;
+            background-color:#fff ;
+
+        }
+    }
+
+    .btn.btn-contact {
+        background-color: #FF6600;
+        color: #fff !important;
+        padding: 7px 15px;
+        font-size: 16px;
+        @include transition(all 500ms ease-in-out);
+        outline:none;
+        &:hover{
+            color: #fff;
+            background-color:#15964B ;
+
+        }
+    }
+    .btn.btn-sign-up {
+        background-color: #BF1E2E;
+        border: 1px solid #BF1E2E;
+        color: #fff !important;
+        padding: 10px 8px;
+        font-size: 16px;
+        font-weight: 600;
+        @include transition(all 500ms ease-in-out);
+        outline:none;
+        @include border-radius(0);
+        &:hover{
+            color: #F80000 !important;
+            background-color:#fff ;
+            border: 1px solid #F80000;
+
+        }
+    }
+    .outher-btn {
+        width: 100%;
+        height: 35px;
+        color: #fff;
+        margin: 0 ;
+        border: 0px;
+        background: #666;
+        border: 1px solid #666;
+        @include transition(all 500ms ease-in-out);
+        outline:none;
+        @include border-radius(0);
+        &:hover{
+            color: #fff !important;
+            background-color:#a60000 ;
+            border: 1px solid #a60000;
+
+        }
+    }
+}
+.cust-my-modal-2.right-review-modal{
+    textarea.form-control.cust-textarea{
+        border: solid #eee;
+        border-width: 1px 2px;
+        height: 150px;
+        resize: none;
+        @include border-radius(0);
+        box-shadow: none;
+        font-weight: 200;
+    }
+}

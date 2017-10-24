@@ -1,0 +1,28 @@
+.login .logo a span {
+    font-size: 30px;
+    color: #b0e0e6;
+    font-weight: 600;
+}
+.login .logo {
+    margin: 60px auto 0;
+    padding: 15px;
+    text-align: center;
+}
+.login .logo a:hover{
+    text-decoration: none;
+    color: #fff;
+}
+
+.modal .modal-header{
+    background: #4a4846;
+    color: #fff;
+    text-align: center;
+}
+
+h4.modal-title.forgot-title {
+    font-size: 20px;
+}
+
+.modal-body p {
+    margin: 1px 0px 10px 0;
+}

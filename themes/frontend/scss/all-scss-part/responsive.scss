@@ -1,0 +1,776 @@
+@import 'all-mixing.scss';
+@media only screen and (min-device-width: 992px) and (max-device-width: 1199px) {
+   .footer {
+        .ftr-single-sec {
+            .foot-nav {
+                li {
+                    list-style-type: none;
+                    font-size: 13px;
+                    font-weight: 400;
+                    padding: 6px 0;
+                }
+            }
+            .ftr-heading {
+                font-size: 14px !important;
+                margin-bottom: 10px;
+                padding-bottom: 18px;
+                    height: 20px;
+            }
+        }
+    }
+
+
+
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 991px) {
+
+    /**************index-start*************/ 
+    .four-icon-sec {
+        padding: 60px 0;
+    }
+    .buscar-sec {
+        padding: 35px 0;
+    }
+    .publicar-sec {
+        padding: 60px 0;
+        .all-default-btn {
+            margin: 25px 0 0;
+        }
+    }
+
+    /**************index-end*************/ 
+
+    /**************footer-start*************/ 
+    .footer {
+        .ftr-single-sec {
+            .ftr-heading {
+                font-size: 17px;
+                margin-bottom: 10px;
+                padding-bottom: 0px;
+            }
+            margin-top: 12px;
+            margin: 15px 0 20px;
+        }
+        .social {
+            margin-bottom: 10px;
+            margin-top: 15px;
+        }
+    }
+    /**************footer-end*************/ 
+
+    /**************log_in-start*************/ 
+    .login-wrap {
+        padding: 60px 0 0;
+    }
+    /**************log_in-end*************/ 
+
+    /**************dash-board-start*************/ 
+    .account-6 {
+        .btm-area {
+            .ttl-media-area {
+                .media {
+                    .media-body {
+                        .spinner-q {
+                            margin-bottom: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .account-9 {
+        .btm-area {
+            .ttl-media-area {
+                .grp-media-area {
+                    .price-box {
+                        h1 {
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**************dash-board-end*************/ 
+
+
+    /**************change-13_9_17-start*************/ 
+    .footer {
+        .ftr-single-sec {
+            .foot-nav {
+                li {
+                    list-style-type: none;
+                    font-size: 13px;
+                    font-weight: 400;
+                    padding: 6px 0;
+                }
+            }
+            .ftr-heading {
+                font-size: 14px !important;
+                margin-bottom: 10px;
+                padding-bottom: 18px;
+                height: 35px;
+            }
+        }
+    }
+    .reglamento-func-page-sec {
+        .upper-part-text {
+            .upper-part-text-wrp {
+                margin-bottom: 45px;
+                text-align: center;
+            }
+        }
+    }
+
+
+    .no-pad-new-left{
+        padding-left: 0px;
+    }
+    /**************change-13_9_17-end*************/ 
+   .signup-wrap {
+	.img-wrap {
+		img {
+			display: inline-block !important;
+			width: 100% !important;
+			margin-bottom: 3px !important;
+		}
+	}
+}
+
+
+}
+
+@media (max-width:767px) {
+
+    /**************navigation-start*************/
+    .main-body-wrap {
+        padding-top: 60px;
+    }
+
+    .header{
+        .nav-sec{
+            .navbar-custom{
+                .navbar-toggle{
+                    margin-right: 0px;
+                    padding-right: 0px;
+                }
+            }
+        }
+    }
+    .navbar-toggle{
+        margin-right: 0px;
+        padding-right: 0px;
+    }
+    .site-logo {
+        a {
+            img {
+                width: 150px;
+                display: inline-block;
+                padding-top: 20px;
+            }
+        }
+    }
+    .header {
+        .navbar-custom {
+            ul.nav {
+                li {
+                    padding: 15px 0;
+                    .show-on-hover-2 {
+                        .headr-prof-pic {
+                            margin-left: 15px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    /**************navigation-end*************/
+
+    /**************footer-start*************/
+    .footer {
+        .ftr-single-sec {
+            .ftr-heading {
+                font-size: 17px;
+                color: #bfbfbf;
+                font-weight: 400;
+                margin-bottom: 0px !important;
+                padding-bottom: 0px !important;
+            }
+            margin-top: 12px;
+            margin: 14px 0 0;
+            margin-bottom: 25px;
+            .foot-nav {
+                li {
+                    padding: 5px 0;
+                }
+            }
+        }
+        .social {
+            padding: 0;
+            margin-bottom: 0px;
+            margin-top: 10px;
+        }
+    }
+    /**************footer-end*************/
+
+
+
+    /**************index-start*************/ 
+    .banner-sec {
+        padding: 100px 0 10px;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        h1.title {
+            color: #fff;
+            text-align: center;
+            position: relative;
+            font-size: 70px;
+            padding-top: 0;
+            font-weight: 400;
+            top: -50px;
+            font-family: helenaregular;
+        }
+        h2.subtitle {
+            color: #fff;
+            text-align: center;
+            position: relative;
+            font-size: 25px;
+        }
+    }
+    .search-sec {
+        h3.serach-title {
+            text-align: center;
+        }
+    }
+    .search-btm-sec {
+        img {
+            border: none;
+            width: 468px;
+            margin-top: 13px;
+            margin-right: 0;
+            text-align: right;
+        }
+        background-size: cover;
+        padding: 10px 0;
+    }
+    .four-icon-sec {
+        padding: 40px 0;
+    }
+    .buscar-sec {
+        background-position: 50%;
+        background-attachment: scroll;
+        background-size: cover;
+        padding: 30px 0;
+    }
+
+    .four-icon-sec {
+        .icon-wrap {
+            img.title-icon {
+                height: 60px;
+                margin: 0 auto 0px;
+            }
+            margin-bottom: 30px;
+        }
+    }
+    .publicar-sec {
+        padding: 45px 0;
+        .single-publicar-wrap {
+            .icon-wrap {
+                margin-bottom: 0px;
+            }
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .all-default-btn {
+            margin: 15px 0 0;
+        }
+    }
+    /**************index-end*************/ 
+
+    /**************log_in-start*************/ 
+    .login-wrap {
+        padding: 45px 0 0;
+    }
+    /**************log_in-end*************/ 
+
+    /**************registration-start*************/ 
+    .signup-wrap {
+        h2.signup-title {
+            font-size: 25px;
+        }
+        padding: 15px 0 25px;
+        .signup-detail {
+            margin-bottom: 35px;
+        }
+    }
+    /**************registration-end*************/ 
+
+    /**************dashboard-menu-start*************/ 
+    .align-for-mobile{
+        text-align: left!important;
+        margin-left: 15px;
+    }
+    .total-tab-sec {
+        .top-area {
+            .prof-nav {
+                .nav-tabs {
+                    >li {
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+    }
+
+
+    .index-body {
+        .btm-area {
+            .prof-nav {
+                .nav-tabs {
+                    >li {
+                        float: none;
+                        margin-bottom: -1px;
+                        font-size: 15px;
+                        font-weight: 400;
+                        display: block;
+                        position: relative;
+                    }
+                    border-bottom: 0;
+                    background: #fff;
+                    display: -ms-flexbox;
+                    display: block;
+                    width: auto;
+                }
+            }
+            .cmn-upper-pad {
+                padding-top: 10px;
+            }
+        }
+    }
+
+
+    .account-3 {
+        .btm-area {
+            .prof-nav {
+                .nav-tabs {
+                    border-bottom: 0;
+                    background: #fff;
+                    display: -ms-flexbox;
+                    display: block;
+                    width: auto;
+                    >li {
+                        float: none;
+                        margin-bottom: -1px;
+                        font-size: 15px;
+                        font-weight: 400;
+                        display: block;
+                        position: relative;
+                    }
+                }
+            }
+        }
+    }
+    .account-6 {
+        .btm-area {
+            .prof-nav {
+                .nav-tabs {
+                    border-bottom: 0;
+                    background: #fff;
+                    display: -ms-flexbox;
+                    display: block;
+                    width: auto;
+                    >li {
+                        float: none;
+                        margin-bottom: -1px;
+                        font-size: 15px;
+                        font-weight: 400;
+                        display: block;
+                        position: relative;
+                    }
+                }
+            }
+        }
+    }
+    .account-1 {
+        .btm-area {
+            .prof-nav {
+                .nav-tabs {
+                    border-bottom: 0;
+                    background: #fff;
+                    display: -ms-flexbox;
+                    display: block;
+                    width: auto;
+                    >li {
+                        float: none;
+                        margin-bottom: -1px;
+                        font-size: 15px;
+                        font-weight: 400;
+                        display: block;
+                        position: relative;
+                    }
+                }
+            }
+        }
+    }
+
+    .foot-part {
+        padding: 40px 10px!important;
+        font-size: 15px;
+    }
+
+    .account-6 {
+        .btm-area {
+            .ttl-media-area {
+                .media {
+                    .media-body {
+                        .spinner-q {
+                            margin-bottom: 15px;
+                        }
+                    }
+                    .media-left {
+                        padding-right: 40px;
+                        display: block;
+                        margin-bottom: 15px;
+                    }
+                }
+            }
+            .cmn-upper-pad {
+                padding-top: 30px;
+                p {
+                    padding-bottom: 20px !important;
+                    text-align: center !important;
+                    padding: 0 0px 30px !important;
+                }
+            }
+        }
+    }
+
+    .spinner-q{
+        .spinner{
+            margin-bottom: 15px;
+        }
+    }
+
+    .account-2 {
+        .btm-area {
+            .cmn-bbtm-pad {
+                .media {
+                    .media-body {
+                        p {
+                            color: gray;
+                            font-size: 15px;
+                            font-weight: 400;
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .account-2 {
+        .btm-area {
+            .cmn-bbtm-pad {
+                .media {
+                    .media-body {
+                        p {
+                            color: gray;
+                            font-size: 15px;
+                            font-weight: 400;
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+            .cmn-upper-pad {
+                h1 {
+                    font-size: 20px;
+                    line-height: 25px;
+                }
+            }
+        }
+    }
+
+    .account-9 {
+        .btm-area {
+            .ttl-media-area {
+                .grp-media-area {
+                    .price-box {
+                        h1 {
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .cast-mob-para{
+        text-align: left !important;
+    }
+    .cust-mobi-btn{
+        width: 100%;
+    }
+
+    .reglamento-intro-sec-2 {
+        h1.title {
+            font-size: 35px;
+        }
+        padding: 102px 0 0px;
+        background-position: 71%;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        background-size: cover;
+        background-position-y: 40%;
+    }
+    .preceptos_de_confidencialidad {
+        padding: 10px 0 0;
+    }
+    .terminos_y_condiciones {
+        padding: 10px 0 0;
+    }
+    .preguntas_y_respuestas-2 {
+        padding: 10px 0 0;
+    }
+
+    /**************dashboard-menu-end*************/ 
+
+
+    /**************inner-pages-start*************/ 
+    .buscar-4-top-sec {
+        .decoreted-box-3 {
+            .doted-top {
+                .left-part {
+                    ul {
+                        li {
+                            a {
+                                font-size: 12px;
+                            }
+                            padding-right: 20px;
+                            padding-left: 0px;
+                            background: url(../images/blk_arrow.png) no-repeat right 6px;
+                            background-size: 10px;
+                            padding-right: 20px;
+                            padding-left: 0px;
+                            background: url(../images/blk_arrow.png) no-repeat right 6px;
+                            background-size: 10px;
+                            &:first-child {
+                                padding-left: 0;
+                                padding-right: 20px;
+                                padding-left: 0;
+                                padding-right: 15px;
+                            }
+                            &:last-child {
+                                background: none;
+                                padding-right: 0px;
+                                padding-left: 5px;
+                                background: none;
+                                padding-right: 0;
+                                padding-left: 2px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .total-tab-sec {
+        padding: 50px 0px 0px !important;
+    }
+    .foot-part {
+        padding: 40px 10px 0px!important;
+        font-size: 15px;
+    }
+
+
+    .account-9 {
+        .btm-area {
+            .ttl-media-area {
+                .castom-mda-box {
+                    .md-hd {
+                        background-color: #e2e2e2;
+                        padding: 15px 15px;
+                        h1 {
+                            font-size: 15px !important;
+                        }
+                        p {
+                            font-size: 15px !important;
+                        }
+                    }
+                    .media {
+                        padding: 30px 0px !important;
+                        border: 2px solid #e2e2e2;
+                        margin-top: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .mensajes.mensajes-detail {
+        .btm-area {
+            .msg-block {
+                .msg-body {
+                    textarea.form-control.cust-textarea {
+                        border: none;
+                        resize: none;
+                        height: 50px;
+                        box-shadow: none;
+                    }
+                }
+            }
+        }
+    }
+
+    /**************inner-pages-end*************/ 
+
+    /**************change-13_9_17-start*************/ 
+    .footer {
+        padding: 32px 0 15px;
+        position: relative;
+        background-color: rgba(204, 204, 204, 0.16);
+        text-align: center;
+    }
+    .reglamento-intro-sec {
+        h1.title {
+            font-size: 45px;
+        }
+    }
+    .reglamento-func-page-sec {
+        padding: 70px 0;
+        .upper-part-text {
+            .upper-part-text-wrp {
+                margin-bottom: 50px;
+            }
+        }
+    }
+
+    .account-9 {
+        .btm-area {
+            .ttl-media-area {
+                .castom-mda-box {
+                    .md-hd {
+                        p {
+                            font-size: 18px;
+                            margin-bottom: 0;
+                            text-align: left !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .top-area {
+        .prof-nav {
+            .nav-tabs {
+                >li {
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+
+    .no-pad-new-left {
+        padding-left: 15px;
+    }
+    .publicar-top {
+        h2.publicar-title {
+            color: #333;
+            font-size: 20px;
+            margin: 2px 0 15px;
+            padding-left: 17px;
+        }
+    }
+
+    .mpp-mrg-btn{
+        margin-bottom: 25px
+    }
+
+    .new_width_form{
+        width:100% !important;
+    }
+
+    .reglamento-intro-sec {
+        background: url(../images/reglamento-interno-123vamos.png);
+        padding: 115px 0 0px;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        background-size: cover;
+        background-position-y: 0%;
+        h1.title {
+            font-size: 35px;
+        }
+    }
+
+    .como-func-banner-sec {
+        background: url(../images/compartir-viaje-colombia-anuncios.png);
+        padding: 115px 0 0px;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        background-size: cover;
+        background-position-y: 0%;
+        h1.title {
+            font-size: 35px;
+        }
+    }
+
+    .como-func-page-sec {
+        padding: 80px 0 0;
+    }
+
+  .top-area {
+	.prof-nav {
+		padding-right: 15px;
+	}
+}
+.total-tab-sec {
+	.top-area {
+		.prof-nav {
+			padding-right:15px;
+		}
+	}
+}
+
+.new-sys-label{
+           padding-left: 0px !important;
+}
+.new-sys-label-2{
+     padding-left: 0px !important;
+     margin-left: 0px !important;
+     margin-top: 20px !important;
+     display: block !important;
+     
+}
+.for-width-nw-frm{
+    width: 100% !important;
+}
+.publicar-2-btm {
+	.value-percentage {
+		display: block;
+		padding: 10px 0;
+		width: 100%;
+	}
+}
+
+.cast-img-warp{
+    
+}
+    /**************change-13_9_17-end*************/ 
+
+
+
+}
+
+@media (max-width:480px){
+
+}
+
+
