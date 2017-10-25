@@ -1,6 +1,6 @@
 <?php
-//error_reporting(E_ALL); 
-//ini_set('display_errors', '1');
+error_reporting(E_ALL); 
+ini_set('display_errors', '1');
 //exit('fff');
 // comment out the following two lines when deployed to production
 defined('YII_DEBUG') or define('YII_DEBUG', true);
