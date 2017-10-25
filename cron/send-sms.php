@@ -26,7 +26,7 @@ if (mysqli_num_rows($result) > 0) {
     exit("User Does Not Found");
 }
 
-//$nexmo_msg = 'Hola ' . $model->first_name . ' ' . $model->last_name . '. Tu codigo para confermar tu celular es ' . $otp . '.El equipo 123Vamos';
+//$nexmo_msg = 'Hola ' . $model->first_name . ' ' . $model->last_name . '. Tu codigo para confermar tu celular es ' . $otp . '.El equipo poriseba';
 //$res = Yii::$app->nexmo->sendSms($code . $phone, 'Nexmo', $nexmo_msg);
 
 function sendClientSMS($mobCode, $mobNo, $msg) {

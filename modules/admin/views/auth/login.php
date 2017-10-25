@@ -11,7 +11,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="content">
     <!-- BEGIN LOGIN FORM -->
-    <form class="login-form" id="123vamos-admin-login" action="" method="post">
+    <form class="login-form" id="poriseba-admin-login" action="" method="post">
         <input type="hidden" name="_csrf" value="<?= Yii::$app->request->getCsrfToken(); ?>"/>
         <h3 class="form-title text-center">Login to your account</h3>
         <div class="form-group">

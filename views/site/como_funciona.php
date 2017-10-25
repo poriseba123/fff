@@ -68,12 +68,12 @@ realizada tu reserva puedes llamar al conductor para ponerse de acuerdo con los 
 
                 <div class="bottom-part-text">
                     <h1>Publica un viaje</h1>
-                    <p>Indica la fecha y el horario de tu trayecto, tu itinerario y el precio por pasajero. 123Vamos te indicará el precio recomendado para aumentar tus oportunidades de compartir vehículo.</p>
+                    <p>Indica la fecha y el horario de tu trayecto, tu itinerario y el precio por pasajero. poriseba te indicará el precio recomendado para aumentar tus oportunidades de compartir vehículo.</p>
                 </div>
 
                 <div class="bottom-part-text">
                     <h1>Los pasajeros reservan y realizan los pagos en línea</h1>
-                    <p>Tus pasajeros reservan y pagan en línea a través de 123Vamos. Serás notificado instantáneamente por email y mensaje de texto por cada nueva reserva. Puedes comunicarte rápidamente con el pasajero para fijar los detalles finales del viaje (lugar y hora exacta del encuentro, indicaciones del lugar de recogida, etc.)</p>
+                    <p>Tus pasajeros reservan y pagan en línea a través de poriseba. Serás notificado instantáneamente por email y mensaje de texto por cada nueva reserva. Puedes comunicarte rápidamente con el pasajero para fijar los detalles finales del viaje (lugar y hora exacta del encuentro, indicaciones del lugar de recogida, etc.)</p>
                 </div>
 
                 <div class="bottom-part-text">

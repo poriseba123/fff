@@ -125,7 +125,7 @@
                             </div>
                         </div>
                         <div class="foot-part">
-                            <p>Las informaciónes recabadas por 123Vamos están utilizadas para crear su cuenta y publicarla en nuestra plataforma. Son  obligatorias. 
+                            <p>Las informaciónes recabadas por 123poriseba están utilizadas para crear su cuenta y publicarla en nuestra plataforma. Son  obligatorias. 
                                 Al completar esta información, está aceptando nuestras <a href="#">Condiciones Generales.</a> Puede consultar nuestros <a href="#">Preceptos de Confidencialidad</a> para saber más. 
                             </p>
                         </div>

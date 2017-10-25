@@ -88,7 +88,7 @@ class UserController extends FrontendController {
                     $email_setting['body'] = "El usuario " . $model->first_name . " " . $model->last_name . " registró su foto de perfil. Porfavorverificala. ";
                     $email_setting['subject'] = "Foto de perfil";
                     $email_data = [
-                        'to' => 'verificaciones@123vamos.co',
+                        'to' => 'verificaciones@poriseba.co',
                         'subject' => $email_setting['subject'],
                         'template' => 'forget_pass',
                         'body' => $email_setting['body']
@@ -207,7 +207,7 @@ class UserController extends FrontendController {
                 $data['type'] = 'error';
             } else {
                 $code = $model->phoneCode->phonecode;
-                $nexmo_msg = 'Hola ' . $model->first_name . ' ' . $model->last_name . '. Tu codigo para confermar tu celular es ' . $otp . '.El equipo 123Vamos';
+                $nexmo_msg = 'Hola ' . $model->first_name . ' ' . $model->last_name . '. Tu codigo para confermar tu celular es ' . $otp . '.El equipo poriseba';
                 $res = Yii::$app->nexmo->sendSms($code . $phone, 'Nexmo', $nexmo_msg);
                 if ($res['type'] == 'success') {
                     $model->phone_verify_code = $otp;
@@ -308,7 +308,7 @@ class UserController extends FrontendController {
                                 $email_setting['body'] = "El usuario " . $user->first_name . " " . $user->last_name . " registró su documento deidentidad. Porfavorverificalo.";
                                 $email_setting['subject'] = "Imagen de identificación guardada";
                                 $email_data = [
-                                    'to' => 'verificaciones@123vamos.co',
+                                    'to' => 'verificaciones@poriseba.co',
                                     'subject' => $email_setting['subject'],
                                     'template' => 'forget_pass',
                                     'body' => $email_setting['body']

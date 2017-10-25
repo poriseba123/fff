@@ -72,7 +72,7 @@ use yii\helpers\Html;
                                                             $follower = Yii::$app->instagram->getUser();
                                                             $media = Yii::$app->instagram->getUserMedia();
                                                             if (count($media) > 0 && isset($media->data)) {?>
-                                                            <a href="https://www.instagram.com/undostresvamos/"><div>
+                                                            <a href="https://www.instagram.com/"><div>
                                                                <?php foreach ($media->data as $k => $row) {
                                                                     if ($k == 5) {
                                                                         break;
@@ -130,13 +130,13 @@ use yii\helpers\Html;
                                                                     <td align="center" valign="middle" style="border-collapse:collapse;color:#999;display:block;font-family:Verdana, Sans-serif;font-size:10px;font-weight:normal;line-height:130%">
                                                                         <div style="text-align: center; color: #999999">
                                                                             <p>Copyright &copy; <?= date('Y'); ?> <a href="<?= Url::base(true); ?>" style="color:#41c1c2;"><?= $this->context->getProjectName() ?></a>, All rights reserved.</p>
-                                                                            <p>Puede contactar nuestro equipo : <a href="mailto:contact@123vamos.co" style="color:#41c1c2;">contact@123vamos.co</a></p>
+                                                                            <p>Puede contactar nuestro equipo : <a href="mailto:contact@poriseba.co" style="color:#41c1c2;">contact@poriseba.co</a></p>
                                                                             <!--<p><a href="%UNSUBSCRIBELINK%&ALL" style="color:#41c1c2;">Desincribirse</a></p>-->
                                                                             <!--<p>%SENDER-INFO-SINGLELINE%</p>-->
 <!--                                                                            <font color="#999999">
                                                                                 <center>
                                                                                     Copyright &copy; <?= date('Y'); ?> <a href="<?= Url::base(true); ?>" ><?= $this->context->getProjectName() ?></a>, All rights reserved.
-                                                                                    <br/>Puede contactar nuestro equipo : <a href="mailto:contact@undostresvamos.com" >contact@undostresvamos.com</a>
+                                                                                    <br/>Puede contactar nuestro equipo : <a href="mailto:" >contact@</a>
                                                                                     <br/>
                                                                                     <br/>
                                                                                     <a href="%UNSUBSCRIBELINK%&ALL">Desincribirse</a>

@@ -5,16 +5,16 @@ function siteURL() {
     return $protocol;
 }
 
-define('PROJECT_NAME', '123VAMOS');
-define('CONTACT_EMAIL', 'admin@123vamos.co');
+define('PROJECT_NAME', 'poriseba');
+define('CONTACT_EMAIL', 'admin@poriseba.co');
 
-define('FROM_NAME', '123VAMOS');
-define('FROM_EMAIL', 'no-reply@123vamos.co');
+define('FROM_NAME', 'poriseba');
+define('FROM_EMAIL', 'no-reply@poriseba.co');
 
 $reqUri = explode("/", $_SERVER['REQUEST_URI']);
 
 define('SITE_URL', siteURL());
-define('HOME_URL', SITE_URL . $_SERVER['SERVER_NAME'] .'/'. $reqUri[1].'/123vamos/');
+define('HOME_URL', SITE_URL . $_SERVER['SERVER_NAME'] .'/'. $reqUri[1].'/poriseba/');
 
 //================ retrive social url ======================
 $fbSql = "SELECT * FROM settings WHERE slug = 'facebook_url'";

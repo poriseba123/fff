@@ -72,7 +72,7 @@ use yii\widgets\LinkPager;
 
                                     <div class="foot-part">
                                         <p>
-                                La información recibida por 123Vamos es utilizada para crear y verificar tu cuenta, por eso es obligatoria. Al completar esta información estás aceptando nuestras <a href="<?= Url::toRoute(['site/terminos_y_condiciones']); ?>" class="greenlink" target="_blank">Condiciones Generales</a>. Para saber más puedes consultar nuestras <a href="<?= Url::toRoute(['site/preceptos_de_confidencialidad']); ?>" class="greenlink" target="_blank">Políticas de Confidencialidad</a>.
+                                La información recibida por poriseba es utilizada para crear y verificar tu cuenta, por eso es obligatoria. Al completar esta información estás aceptando nuestras <a href="<?= Url::toRoute(['site/terminos_y_condiciones']); ?>" class="greenlink" target="_blank">Condiciones Generales</a>. Para saber más puedes consultar nuestras <a href="<?= Url::toRoute(['site/preceptos_de_confidencialidad']); ?>" class="greenlink" target="_blank">Políticas de Confidencialidad</a>.
                             </p>
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@ use yii\widgets\LinkPager;
                                         <input type="hidden" name="step" id="step" value="step1">
                                 <div class="text-center">
                                     <div class="mdl-prt">
-                                        <h1>Reportar a un moderador 123Vamos</h1>
+                                        <h1>Reportar a un moderador poriseba</h1>
                                         <div class="chk-group btn-block">
                                             <div class="step1 text-left">
                                                 <div class="radio">

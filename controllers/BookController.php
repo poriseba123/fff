@@ -248,7 +248,7 @@ class BookController extends FrontendController {
         $user_master= UserMaster::findOne($bm->user_id);
         $user_ph_code=$user_master->phoneCode->phonecode;
         $user_phone=$user_ph_code.$user_master->phone;
-        $user_msg='Hola '.$name.'. El conductor '.$driver_name.' aceptó tu solicituad de viaje por el trayecto '.$departure_city.' > '.$arrival_city.'. Tienes que pagaren la plataforma con el enlace que te mandemos por correo electrónico en las 6 proxímas horas. Si no lo confermas, la solicitud va a vencer y tendrías que conseguir un nuevo viaje. El equipo 123Vamos';
+        $user_msg='Hola '.$name.'. El conductor '.$driver_name.' aceptó tu solicituad de viaje por el trayecto '.$departure_city.' > '.$arrival_city.'. Tienes que pagaren la plataforma con el enlace que te mandemos por correo electrónico en las 6 proxímas horas. Si no lo confermas, la solicitud va a vencer y tendrías que conseguir un nuevo viaje. El equipo poriseba';
         if($user_master->phone!=''){
         Yii::$app->nexmo->sendSms($user_phone, 'Nexmo', $user_msg);
         }
@@ -257,7 +257,7 @@ class BookController extends FrontendController {
 //        $driver_ph_code=$driver_master->phoneCode->phonecode;
 //        $driver_phone=$driver_ph_code.$driver_master->phone;
 ////        $driver_msg="Hi ".$driver_name." a passenger name ".$name." cancelled a trip.Booking id was ".$bm->trackId;
-//        $driver_msg='Hola '.$driver_name.'. El pasajero '.$name.' canceló su reservación por '.$departure_city.' > '.$arrival_city.'. ¡Puedes conseguir otros pasajeros en la plataforma! El equipo 123Vamos';
+//        $driver_msg='Hola '.$driver_name.'. El pasajero '.$name.' canceló su reservación por '.$departure_city.' > '.$arrival_city.'. ¡Puedes conseguir otros pasajeros en la plataforma! El equipo poriseba';
 //        if($driver_master->phone!=''){
 //        Yii::$app->nexmo->sendSms($driver_phone, 'Nexmo', $driver_msg);
 //        }
@@ -318,7 +318,7 @@ class BookController extends FrontendController {
         $user_master= UserMaster::findOne($bm->user_id);
         $user_ph_code=$user_master->phoneCode->phonecode;
         $user_phone=$user_ph_code.$user_master->phone;
-        $user_msg='Hola '.$name.'. El conductor '.$driver_name.' rechazó tu solicitud de viaje por '.$departure_city.' > '.$arrival_city.'. ¡Lo sentimos! No pagaste nada y puedes conseguir un nuevo compañero de viaje por la plataforma. El equipo 123Vamos';
+        $user_msg='Hola '.$name.'. El conductor '.$driver_name.' rechazó tu solicitud de viaje por '.$departure_city.' > '.$arrival_city.'. ¡Lo sentimos! No pagaste nada y puedes conseguir un nuevo compañero de viaje por la plataforma. El equipo poriseba';
         if($user_master->phone!=''){
         Yii::$app->nexmo->sendSms($user_phone, 'Nexmo', $user_msg);
         }
@@ -474,7 +474,7 @@ class BookController extends FrontendController {
         $driver_ph_code=$driver_master->phoneCode->phonecode;
         $driver_phone=$driver_ph_code.$driver_master->phone;
 //        $driver_msg="Hi ".$driver_name." a passenger name ".$name." cancelled a trip.Booking id was ".$bm->trackId;
-        $driver_msg='Hola '.$driver_name.'. El pasajero '.$name.' canceló su reservación por '.$departure_city.' > '.$arrival_city.'. ¡Puedes conseguir otros pasajeros en la plataforma! El equipo 123Vamos';
+        $driver_msg='Hola '.$driver_name.'. El pasajero '.$name.' canceló su reservación por '.$departure_city.' > '.$arrival_city.'. ¡Puedes conseguir otros pasajeros en la plataforma! El equipo poriseba';
         if($driver_master->phone!=''){
         Yii::$app->nexmo->sendSms($driver_phone, 'Nexmo', $driver_msg);
         }
@@ -663,7 +663,7 @@ class BookController extends FrontendController {
         $driver_ph_code=$driver_master->phoneCode->phonecode;
         $driver_phone=$driver_ph_code.$driver_master->phone;
 //        $driver_msg="Hi ".$driver_name." a passenger name ".$name." sent you a booking request.Booking id is ".$model->trackId.".Please approve as soon as possible.";
-        $driver_msg='Hola '.$driver_name.'. Recibiste un solicitud de viaje de '.$name.' por el trayecto '.$departure_city.' > '.$arrival_city.'. Tienes que confermarlo en la plataforma en las 6 proxímas horas. Si no lo confermas, la solicitud va a vencer y tendrías que conseguir un nuevo pasajero. El equipo 123Vamos';
+        $driver_msg='Hola '.$driver_name.'. Recibiste un solicitud de viaje de '.$name.' por el trayecto '.$departure_city.' > '.$arrival_city.'. Tienes que confermarlo en la plataforma en las 6 proxímas horas. Si no lo confermas, la solicitud va a vencer y tendrías que conseguir un nuevo pasajero. El equipo poriseba';
         if($driver_master->phone!=''){
         Yii::$app->nexmo->sendSms($driver_phone, 'Nexmo', $driver_msg);
         }
@@ -785,7 +785,7 @@ class BookController extends FrontendController {
         $user_ph_code=$user_master->phoneCode->phonecode;
         $user_phone=$user_ph_code.$user_master->phone;
 //        $user_msg="Hi ".$name." you have successfully book a trip.Your booking id is ".$model->trackId;
-        $user_msg='Hola '.$name.'. Tu solicitud de viaje '.$model->trackId.' por el trayecto '.$departure_city.' > '.$arrival_city.' ha sido confermada. ¡Buon viaje! El equipo 123Vamos.';
+        $user_msg='Hola '.$name.'. Tu solicitud de viaje '.$model->trackId.' por el trayecto '.$departure_city.' > '.$arrival_city.' ha sido confermada. ¡Buon viaje! El equipo poriseba.';
         if($user_master->phone!=''){
         Yii::$app->nexmo->sendSms($user_phone, 'Nexmo', $user_msg);
         }
@@ -794,7 +794,7 @@ class BookController extends FrontendController {
         $driver_ph_code=$driver_master->phoneCode->phonecode;
         $driver_phone=$driver_ph_code.$driver_master->phone;
 //        $driver_msg="Hi ".$driver_name." a passenger name ".$name." successfully book your trip.Booking id is ".$model->trackId;
-        $driver_msg='Hola '.$driver_name.'. Recibiste un solicitud de viaje de '.$name.' por el trayecto '.$departure_city.' > '.$arrival_city.'. Asegurete de poder recibir los pagosde tus pasajerosen la plataforma luego del viaje. El equipo 123Vamos';
+        $driver_msg='Hola '.$driver_name.'. Recibiste un solicitud de viaje de '.$name.' por el trayecto '.$departure_city.' > '.$arrival_city.'. Asegurete de poder recibir los pagosde tus pasajerosen la plataforma luego del viaje. El equipo poriseba';
         if($driver_master->phone!=''){
         Yii::$app->nexmo->sendSms($driver_phone, 'Nexmo', $driver_msg);
         }

@@ -16,7 +16,7 @@ class LanguageController extends FrontendController {
 
             $cookies = Yii::$app->response->cookies;
             $cookies->add(new \yii\web\Cookie([
-                'name' => '123vamos_language',
+                'name' => 'poriseba_language',
                 'value' => $reqLang,
                 'expire'=> time() + (60 * 60 * 24)
             ]));

@@ -114,7 +114,7 @@ class VehicleController extends FrontendController {
                     $email_setting['body']="El usuario ".$user->first_name." ".$user->last_name." registró su foto de auto. Porfavorverificala.";
                     $email_setting['subject']="Imagen del coche guardada";
                     $email_data = [
-                        'to' => 'verificaciones@123vamos.co',
+                        'to' => 'verificaciones@poriseba.co',
                         'subject' => $email_setting['subject'],
                         'template' => 'forget_pass',
                         'body' => $email_setting['body']
@@ -199,7 +199,7 @@ class VehicleController extends FrontendController {
                     $email_setting['body']="El usuario ".$user->first_name." ".$user->last_name." registró su foto de auto. Porfavorverificala.";
                     $email_setting['subject']="Imagen del coche guardada";
                     $email_data = [
-                        'to' => 'verificaciones@123vamos.co',
+                        'to' => 'verificaciones@poriseba.co',
                         'subject' => $email_setting['subject'],
                         'template' => 'forget_pass',
                         'body' => $email_setting['body']
