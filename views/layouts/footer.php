@@ -14,7 +14,7 @@ use yii\helpers\Url;
                         <div class="row">
                             <div class="col-sm-12">
                                 <ul class="foot-nav">
-                                    <li> <a href="mailto:contact@123vamos.co">contact@123vamos.co</a></li>
+                                    <li> <a href="mailto:contact@poriseba.co">contact@poriseba.co</a></li>
                                     <li> <a href="javascript:;" onclick="$('#newsletterModal').modal('show');">¿Quieres inscribirte a nuestras noticias?</a></li>
                                 </ul>
                             </div>
@@ -38,7 +38,7 @@ use yii\helpers\Url;
                 </div>
                 <div class="col-md-3 col-sm-3">
                     <div class="ftr-single-sec">
-                        <h4 class="ftr-heading">SOBRE 123VAMOS</h4>
+                        <h4 class="ftr-heading">SOBRE poriseba</h4>
                         <div class="row">
                             <div class="col-sm-12">
                                 <ul class="foot-nav">

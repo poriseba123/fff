@@ -21,7 +21,7 @@ use yii\web\View;
                                 <h4 class="panel-title">
                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                         <i class="more-less glyphicon glyphicon-chevron-down"></i>
-                                        ¿Qué es 123Vamos?
+                                        ¿Qué es 123poriseba?
                                     </a>
                                 </h4>
                             </div>
@@ -29,11 +29,11 @@ use yii\web\View;
                                 <div class="panel-body">
                                     <div class="bottom-part-text-smi">
                                         <div class="smi-line-grid-2">
-                                            <p>123Vamos pone en contacto a conductores y pasajeros que desean hacer un mismo viaje. </p>
+                                            <p>123poriseba pone en contacto a conductores y pasajeros que desean hacer un mismo viaje. </p>
                                             <p>Los conductores ofrecen los puestos libres en sus vehículos y los pasajeros interesados en el mismo trayecto pueden reservar su lugar. ¿Desea saber más? ¡Descubra rápidamente <a href="<?= Url::toRoute(['site/como_funciona']); ?>" class="greenlink" target="_blank">Como Funciona</a>!</p>
-                                            <p>Simple, económico y alegre, 123Vamos permite a cientos de conductores ahorrar cantidades importantes en sus trayectos y a los pasajeros a viajar por un mejor precio hacia ciertos destinos a través de toda Colombia. </p>
-                                            <p>El registro es rápido y gratuito. ¡123Vamos le permite viajar con toda confianza!</p>
-                                            <p><a href="<?= Url::toRoute(['registration/index']); ?>" class="greenlink" target="_blank">Registrarme en 123Vamos.</a></p>       
+                                            <p>Simple, económico y alegre, 123poriseba permite a cientos de conductores ahorrar cantidades importantes en sus trayectos y a los pasajeros a viajar por un mejor precio hacia ciertos destinos a través de toda Colombia. </p>
+                                            <p>El registro es rápido y gratuito. ¡123poriseba le permite viajar con toda confianza!</p>
+                                            <p><a href="<?= Url::toRoute(['registration/index']); ?>" class="greenlink" target="_blank">Registrarme en 123poriseba.</a></p>       
                                         </div>
                                     </div>
                                 </div>
@@ -52,10 +52,10 @@ use yii\web\View;
                                     <div class="panel-body">
                                         <div class="bottom-part-text-smi">
                                             <div class="smi-line-grid-2">
-                                                <p>¡El registro en 123Vamos es completamente gratis!</p>
+                                                <p>¡El registro en 123poriseba es completamente gratis!</p>
                                                 <p>Es obligatorio registrarse si desea disfrutar del contacto entre conductores y pasajeros y ahorrar dinero en sus viajes futuros. </p>
-                                                <p>Ser miembro de 123Vamos le permite ofrecer sus puestos libres y viajes con mejores precios hacia miles de destinos.</p>
-                                                <p><a href="<?= Url::toRoute(['registration/index']); ?>" class="greenlink" target="_blank">¡Inscribirme en 123Vamos!</a></p>       
+                                                <p>Ser miembro de 123poriseba le permite ofrecer sus puestos libres y viajes con mejores precios hacia miles de destinos.</p>
+                                                <p><a href="<?= Url::toRoute(['registration/index']); ?>" class="greenlink" target="_blank">¡Inscribirme en 123poriseba!</a></p>       
                                             </div>
                                         </div>
                                     </div>
@@ -76,7 +76,7 @@ use yii\web\View;
                                     <div class="panel-body">
                                         <div class="bottom-part-text-smi">
                                             <div class="smi-line-grid-2">
-                                                <p>Es necesario tener más de 18 años para inscribirse y utilizar los servicios de 123Vamos. </p>
+                                                <p>Es necesario tener más de 18 años para inscribirse y utilizar los servicios de 123poriseba. </p>
 
                                             </div>
                                         </div>
@@ -97,7 +97,7 @@ use yii\web\View;
                                     <div class="panel-body">
                                         <div class="bottom-part-text-smi">
                                             <div class="smi-line-grid-2">
-                                                <p>Cada persona que utilice los servicios de 123Vamos debe tener su propio perfil. Es primordial para la confianza y la buena organización al momento de compartir vehículo. </p> 
+                                                <p>Cada persona que utilice los servicios de 123poriseba debe tener su propio perfil. Es primordial para la confianza y la buena organización al momento de compartir vehículo. </p> 
                                                 <p>Cada perfil creado en el sitio es autenticado, manualmente evaluado y un cierto número de datos es verificado con las preguntas de seguridad y confianza entre los miembros, es el caso específico del número telefónico. </p>
                                                 <p>Si usted reserva con un conductor basado en la calidad de sus comentarios recibidos y resulta ser otra persona quien se presenta al encuentro, la confianza habrá sido rota y usted estará en su derecho de anular el trayecto. </p> 
                                                 <p>Igualmente, si usted acepta la reservación de un pasajero luego de haber visto su perfil y es otra persona quien se presenta, usted está en su derecho de negarse a llevar a la persona ya que no corresponde con la que realizó la reservación. </p>
@@ -123,7 +123,7 @@ use yii\web\View;
                                                 <p>La inscripción a través de Facebook no es obligatoria pero le permite registrarse más rápido y con más facilidad.</p>
                                                 <p>Si su número de teléfono aparece como ya utilizado es porque está ligado a otra cuenta previamente registrada en el sitio. Atención, ¡no es posible utilizar un mismo número de teléfono para varias cuentas!</p>
                                                 <p>Si usted ha olvidado su contraseña, es necesario seguir el proceso de recuperación al hacer clic en “<a href="<?= Url::toRoute(['site/login']); ?>" class="greenlink" target="_blank">¿Contraseña olvida?</a>”, en la ventana de identificación.</p>
-                                                <p>Si un miembro se ha registrado usando su número de teléfono, o si una cuenta ya existe con sus datos de Facebook, o por cualquier otro caso, le invitamos a <a href="mailto:contact@123vamos.co" class="greenlink">contactarnos</a>. </p>
+                                                <p>Si un miembro se ha registrado usando su número de teléfono, o si una cuenta ya existe con sus datos de Facebook, o por cualquier otro caso, le invitamos a <a href="mailto:contact@123poriseba.co" class="greenlink">contactarnos</a>. </p>
                                             </div>
                                         </div>
                                     </div>
@@ -209,13 +209,13 @@ use yii\web\View;
                                                 <p>El envío del código de 4 cifras es inmediato de haber ingresado su número de teléfono móvil en el campo de verificación. </p>
                                                 <p>Si usted no ha recibido el mensaje de texto luego de 10 minutos se puede tratar de un problema con su teléfono o su operadora. </p>
                                                 <p>Se le agradece verificar los puntos siguientes:</p>
-                                                <p>-que el número haya sido registrado correctamente en su perfil 123Vamos. </p>
+                                                <p>-que el número haya sido registrado correctamente en su perfil 123poriseba. </p>
                                                 <p>-que la memoria de su teléfono no esté llena o saturada. </p>
                                                 <p>-que su teléfono esté configurado para recibir todo tipo de mensaje y especialmente los mensajes de números desconocidos, las compañías de envío pueden estar localizadas en un país diferente al suyo. </p>
                                                 <p>-que su contrato telefónico permita la recepción de mensajes de texto de otros países (la opción de “roaming” activada)</p>
                                                 <p>-que usted no tenga ciertos parámetros activados que bloqueen la recepción de ciertos mensajes.</p>
                                                 <p>Si a pesar de todas estas verificaciones usted no recibe el mensaje de texto en cuestión lo invitamos primeramente a contactar a su compañía operadora para recibir asistencia en el tema.</p>
-                                                <p>Y si el problema no es solucionado lo invitamos a <a href="mailto:contact@123vamos.co" class="greenlink">contactarnos</a> a través de este formulario, e indicarnos su compañía operadora y tipo de contrato con el fin de que nosotros podamos proceder a realizar una verificación manual, al llamarlo al número en cuestión para verificar que usted sea el propietario.</p>
+                                                <p>Y si el problema no es solucionado lo invitamos a <a href="mailto:contact@123poriseba.co" class="greenlink">contactarnos</a> a través de este formulario, e indicarnos su compañía operadora y tipo de contrato con el fin de que nosotros podamos proceder a realizar una verificación manual, al llamarlo al número en cuestión para verificar que usted sea el propietario.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -235,7 +235,7 @@ use yii\web\View;
                                     <div class="panel-body">
                                         <div class="bottom-part-text-smi">
                                             <div class="smi-line-grid-2">
-                                                <p>La comunidad 123Vamos se basa en la confianza entre sus miembros. Nosotros les exigimos a los miembros dejarnos verificar varios elementos de su perfil para asegurar la fiabilidad, confianza y la seguridad en el lecho de la comunidad. </p>
+                                                <p>La comunidad 123poriseba se basa en la confianza entre sus miembros. Nosotros les exigimos a los miembros dejarnos verificar varios elementos de su perfil para asegurar la fiabilidad, confianza y la seguridad en el lecho de la comunidad. </p>
                                                 <p>Al verificar su documento de identidad, usted mejorará sus oportunidades de encontrar compañeros para compartir vehículo en sus viajes. Todos los otros miembros verás que su identificación está verificada y ¡estarán más inclinados a viajar con usted! </p>
                                                 <p>Usted puede verificar su cédula de ciudadanía, su pasaporte o su permiso de conducir. Un servidor se encargará de la verificación pero nosotros no compartiremos con ningún tercero la imagen de su identificación. Los otros miembros no tendrán acceso a sus datos: ellos no verán más que una marca de verificación y la mención de la identificación que ha sido verificada en su perfil. </p>
 
@@ -258,8 +258,8 @@ use yii\web\View;
                                     <div class="panel-body">
                                         <div class="bottom-part-text-smi">
                                             <div class="smi-line-grid-2">
-                                                <p>¡Para nada! Por el contrario, es una garantía de confianza y de seguridad para los usuarios de 123Vamos. Eso le permitirá obtener muchos más compañeros de viaje. </p>
-                                                <p>Además, su identificación no será visible para los visitantes de su perfil de 123Vamos. Los otros miembros no verán más que la mención de su identificación verificada en su perfil.</p>
+                                                <p>¡Para nada! Por el contrario, es una garantía de confianza y de seguridad para los usuarios de 123poriseba. Eso le permitirá obtener muchos más compañeros de viaje. </p>
+                                                <p>Además, su identificación no será visible para los visitantes de su perfil de 123poriseba. Los otros miembros no verán más que la mención de su identificación verificada en su perfil.</p>
 
 
                                             </div>
@@ -281,7 +281,7 @@ use yii\web\View;
                                     <div class="panel-body">
                                         <div class="bottom-part-text-smi">
                                             <div class="smi-line-grid-2">
-                                                <p>123Vamos es una plataforma de conexión entre personas que deseen efectuar viajes juntos. Es importante y simplemente tranquilizador ver a las personas con quien uno va a viajar. ¡También es más fácil reconocerse en el lugar del encuentro!</p>
+                                                <p>123poriseba es una plataforma de conexión entre personas que deseen efectuar viajes juntos. Es importante y simplemente tranquilizador ver a las personas con quien uno va a viajar. ¡También es más fácil reconocerse en el lugar del encuentro!</p>
                                                 <p>En promedio, ¡los usuarios con foto son 3 veces más contactados! Dos minutos serán suficientes para cargar su foto y le permitirá tener más compañeros de viaje en el futuro. </p>
                                                 <p>Usted puede adjuntar su foto desde la página siguiente: Añadir una foto</p>
                                                 <p>Usted tiene la posibilidad de enviarnos su foto en formato jpeg, gif o png (máximo 2mb)</p>
@@ -455,7 +455,7 @@ use yii\web\View;
                                     <div class="panel-body">
                                         <div class="bottom-part-text-smi">
                                             <div class="smi-line-grid-2">
-                                                <p>¡Dejar un comentario sobre sus compañeros es importante! Es gracias a su comentario que la confianza aumenta cada día entre los miembros de 123Vamos.</p>
+                                                <p>¡Dejar un comentario sobre sus compañeros es importante! Es gracias a su comentario que la confianza aumenta cada día entre los miembros de 123poriseba.</p>
                                                 <p>El hecho de publicar un comentario luego de compartir vehículo permite informar a la comunidad de la calidad de la experiencia junto al usuario en cuestión.</p>  
                                                 <p>¡Mientras más comentarios positivos tenga un usuario, más confiable será!</p> 
                                                 <p>Si la publicación de una opinión concierne a un conductor, preguntas adicionales son hechas al pasajero: la evaluación de la forma de conducir es diferente ya que ella será publicada de forma anónima y permite simplemente crear un promedio en el perfil del conductor. Es un cuestionario simple, es suficiente con escoger la casilla que mejor convenga a la experiencia del pasajero en el trayecto del viaje. </p>  
@@ -467,7 +467,7 @@ use yii\web\View;
                                                 <p>Su contenido es ofensivo, difamatorio o discriminatorio</p>
                                                 <p>Su contenido no tiene relación con la valoración dada. </p>
                                                 <p>Su contenido no es explicado. </p>
-                                                <p>El sistema de comentarios permite al conjunto de la comunidad de 123Vamos hacerse una opinión sobre un usuario y preferirlo al momento de un trayecto. Es importante que un comentario sea factual y argumentado, especialmente si es negativo.</p>
+                                                <p>El sistema de comentarios permite al conjunto de la comunidad de 123poriseba hacerse una opinión sobre un usuario y preferirlo al momento de un trayecto. Es importante que un comentario sea factual y argumentado, especialmente si es negativo.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -488,7 +488,7 @@ use yii\web\View;
                                         <div class="bottom-part-text-smi">
                                             <div class="smi-line-grid-2">
                                                 <p>Recibir una opinión negativa nunca es agradable y siempre parece injustificable para la persona que lo recibe, ya que es desagradable ser el objeto de críticas. Sin embargo, incluso si comprendemos que un comentario le puede parecer injusto, no podemos eliminarlo. </p>
-                                                <p>123Vamos es una comunidad de miembros que interactúan de manera autónoma, no hacemos más que dirigirla. Los únicos comentarios que nos encargamos de eliminar son aquellos de carácter ofensivo, racista o discriminatorio. </p>
+                                                <p>123poriseba es una comunidad de miembros que interactúan de manera autónoma, no hacemos más que dirigirla. Los únicos comentarios que nos encargamos de eliminar son aquellos de carácter ofensivo, racista o discriminatorio. </p>
                                                 <p><a href="#">Ver mis comentarios</a></p>
 
                                             </div>
@@ -510,7 +510,7 @@ use yii\web\View;
                                     <div class="panel-body">
                                         <div class="bottom-part-text-smi">
                                             <div class="smi-line-grid-2">
-                                                <p>123Vamos es una plataforma para compartir vehículo, lo que significa que los gastos de transporte son compartidos entre los pasajeros en un ambiente no profesional y no lucrativo. Esta situación no es diferente del uso corriente de un vehículo autorizado para transportar amigos, colegas o niños. En este caso y ya que esta actividad no genera ninguna ganancia para el conductor, ningún seguro automovilístico específica es exigida de parte de terceras personas. </p>
+                                                <p>123poriseba es una plataforma para compartir vehículo, lo que significa que los gastos de transporte son compartidos entre los pasajeros en un ambiente no profesional y no lucrativo. Esta situación no es diferente del uso corriente de un vehículo autorizado para transportar amigos, colegas o niños. En este caso y ya que esta actividad no genera ninguna ganancia para el conductor, ningún seguro automovilístico específica es exigida de parte de terceras personas. </p>
                                                 <p>En caso de un accidente, todos los pasajeros están indemnizados por la « responsabilidad civil de terceros ». Este seguro es obligatorio para el conductor, ninguna extensión de este seguro es necesaria.</p>
                                                 
                                             </div>
@@ -532,7 +532,7 @@ use yii\web\View;
                                     <div class="panel-body">
                                         <div class="bottom-part-text-smi">
                                             <div class="smi-line-grid-2">
-                                                <p>No, y es necesario tener mínimo 18 años para poder utilizar la plataforma 123Vamos. </p>
+                                                <p>No, y es necesario tener mínimo 18 años para poder utilizar la plataforma 123poriseba. </p>
                                             </div>
                                         </div>
                                     </div>
@@ -655,7 +655,7 @@ use yii\web\View;
                                             <div class="smi-line-grid-2">
                                                 <p>Los reembolsos son realizados dependiendo del momento en el que usted anule su reservación y dependiendo del motivo de la anulación:</p>
                                                 <p>-Si usted anula más de 24 horas antes de la salida, reembolso integral menos la cantidad de gastos de reservación pagados en el momento de la reservación. </p>
-                                                <p>-Si usted anula en las últimas 24 horas, usted recuperará 50% de la cantidad dirigida al conductor. La retención de 50% le permite a 123Vamos indemnizar al conductor por la anulación tardía. </p>
+                                                <p>-Si usted anula en las últimas 24 horas, usted recuperará 50% de la cantidad dirigida al conductor. La retención de 50% le permite a 123poriseba indemnizar al conductor por la anulación tardía. </p>
                                                 <p>-Si usted anula luego de la salida o si bien usted no se presenta al momento de la salida, no recibirá un reembolso y su conductor recibirá su dinero como si usted hubiese viajado con él. </p>
                                                 <p>-Si la anulación es de parte del conductor, el reembolso será integral menos la cantidad de gastos de reservación pagados al momento del registro de la reservación que será llevado a cabo en su favor. </p>
                                                 <p>Por lo tanto, es importante pensar en la anulación de su reservación o registro de su reclamo lo más pronto posible en el sitio para que el reembolso pueda ser realizado de forma correspondiente. </p>
@@ -859,7 +859,7 @@ use yii\web\View;
                                                 <p>Haga clic en el botón « Continuar » para pasar directamente a la segunda parte de su anuncio</p>
                                                 <p>Verifique toda la información </p>
                                                 <p>Haga clic en « Continuar y publicar » para registrar sus modificaciones. </p>
-                                                <p>Si el problema persiste, le invitamos a <a href="mailto:contact@123vamos.co" class="greenlink">contactarnos</a> para describirnos el problema en cuestión. </p>
+                                                <p>Si el problema persiste, le invitamos a <a href="mailto:contact@123poriseba.co" class="greenlink">contactarnos</a> para describirnos el problema en cuestión. </p>
                                             </div>
                                         </div>
                                     </div>
@@ -888,7 +888,7 @@ use yii\web\View;
                                                 <p>Indique la razón de su anulación (esta información no serpa publicada y nos permite simplemente mejorar nuestro servicio)</p>
                                                 <p>Confirme la anulación al hacer clic en « Sí, anular este trayecto ».</p>
                                                 <p>De esa forma, otras reservaciones no podrán ser realizadas y sus pasajeros serán inmediatamente notificados de su anulación por correo electrónico y por mensaje de texto, luego recibirán igualmente su reembolso. </p>
-                                                <p>La tarifa de anulación es registrada en su perfil, es tomada en cuenta si las reservaciones están en proceso. No hay sanciones por la anulación de un trayecto, y el motivo que usted escoja al momento de validar su anulación no es publicado. Sin embargo, con el fin de garantizar la fiabilidad de los anuncios y proteger a los pasajeros de anulaciones inoportunas, 123Vamos se reserva el derecho de suspender su posibilidad de publicar anuncios con reservación en línea su usted anula muy seguido. </p>
+                                                <p>La tarifa de anulación es registrada en su perfil, es tomada en cuenta si las reservaciones están en proceso. No hay sanciones por la anulación de un trayecto, y el motivo que usted escoja al momento de validar su anulación no es publicado. Sin embargo, con el fin de garantizar la fiabilidad de los anuncios y proteger a los pasajeros de anulaciones inoportunas, 123poriseba se reserva el derecho de suspender su posibilidad de publicar anuncios con reservación en línea su usted anula muy seguido. </p>
                                                 <p>Usted puede contactar directamente a su pasajero (además de la anulación realizada en el sitio) para notificarle de su anulación, ¡él sabrá apreciar ese esfuerzo de su parte!</p>
                                             </div>
                                         </div>
@@ -911,7 +911,7 @@ use yii\web\View;
                                             <div class="smi-line-grid-2">
                                                 <p>Como el conductor, usted está indemnizado en cado de anulación de último minuto. </p>
                                                 <p>El hecho que sus pasajeros reserven en línea reduce la posibilidad de una anulación antes de la salida porque ellos se comprometen al pagar su lugar de forma adelantada. Sin embargo, nadie está exento de un imprevisto y es posible que uno de sus pasajeros se encuentre en la obligación de anular su reservación.</p>
-                                                <p>Las condiciones de anulación de 123Vamos son las siguientes:</p>
+                                                <p>Las condiciones de anulación de 123poriseba son las siguientes:</p>
                                                 <p>Su pasajero anula más de 24 horas antes de la salida: el lugar que estaba reservado para él pasa automáticamente a estar disponible en el sitio. Usted tiene entonces oportunidad de que otro pasajero la reserve antes de su salida. </p>
                                                 <p>Su pasajero anula en las últimas 24 horas antes de la salida: el lugar que estaba reservado pasa automáticamente a estar disponible en el sitio, y usted recibe una indemnización de 50% de la cantidad que usted había exigido por lugar. Esta indemnización le será enviada incluso si otro pasajero reserva el lugar en cuestión antes de su salida. </p>
                                                 <p>Su pasajero anula luego de la salida o no se presenta al momento de la salida: usted recibe su contribución como si él hubiese hecho el viaje. En ese caso, a usted le basta con reportar luego en su cuenta y en el trayecto en cuestión que la persona no se presentó para que los equipos puedan tomar en cuenta su reclamo. </p>
@@ -956,9 +956,9 @@ use yii\web\View;
                                     <div class="panel-body">
                                         <div class="bottom-part-text-smi">
                                             <div class="smi-line-grid-2">
-                                                <p>123Vamos es una comunidad de miles de usuarios, que debemos dirigir, supervisar, moderar en todo momento. Y a pesar de todas las verificaciones que hacemos, nada podrá reemplazar el uso que usted tiene del sitio y el tiempo que pasa ahí. </p>
+                                                <p>123poriseba es una comunidad de miles de usuarios, que debemos dirigir, supervisar, moderar en todo momento. Y a pesar de todas las verificaciones que hacemos, nada podrá reemplazar el uso que usted tiene del sitio y el tiempo que pasa ahí. </p>
                                                 <p>Ya que ustedes son los usuarios del sitio, son ustedes quienes pueden reportarnos las cosas anormales o aquellas que puedan representar un problema para el sitio. </p>
-                                                <p>No dude de <a href="mailto:contact@123vamos.co" class="greenlink">contactarnos</a> en el momento que detecte cualquier cosa anormal:</p>
+                                                <p>No dude de <a href="mailto:contact@123poriseba.co" class="greenlink">contactarnos</a> en el momento que detecte cualquier cosa anormal:</p>
                                                 <p>-En cada anuncio y perfil, existe un enlace para reportar directamente cualquier comportamiento sospechoso. </p>
                                             </div>
                                         </div>

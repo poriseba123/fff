@@ -60,7 +60,7 @@ $config = [
             'identityClass' => 'app\models\UserMaster',
             'enableAutoLogin' => true,
             'identityCookie' => [
-                'name' => '_123vamosFrontendUser', // unique for frontend
+                'name' => '_porisebaFrontendUser', // unique for frontend
                 'httpOnly' => true,
             ],
             'loginUrl' => ['site/login'],

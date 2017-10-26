@@ -30,7 +30,7 @@ $media = Yii::$app->instagram->getUserMedia();
     <div class="container">
         <div class="row">
             <div class="col-md-7 col-sm-7">
-                <h2 class="signup-title heading">¿AÚN NO ERES MIEMBRO DE 123VAMOS?<?php // Yii::t("app", "¿AÚN NO ES MIEMBRO DE 123VAMOS?")    ?></h2>
+                <h2 class="signup-title heading">¿AÚN NO ERES MIEMBRO DE poriseba?<?php // Yii::t("app", "¿AÚN NO ES MIEMBRO DE poriseba?")    ?></h2>
                 <h3 class="signup-subtitle">Regístrate en unos segundos con Facebook</h3>
                 <div class="text-center">
                     <a href="javascript:;" onclick="facebookLogin()">
@@ -104,7 +104,7 @@ $media = Yii::$app->instagram->getUserMedia();
                             </p>
                             <p>
                                 <span>
-                                    La información que solicitamos es obligatoria para ser miembro, es guardada por 123Vamos para crear tu cuenta. Para poner fin a tu suscripción por favor contáctanos a <a href="mailto:contact@123vamos.co" class="greenlink" target="_blank">contact@123vamos.co</a>.Tu tienes derecho a acceder, rectificar y retirar tu información.
+                                    La información que solicitamos es obligatoria para ser miembro, es guardada por poriseba para crear tu cuenta. Para poner fin a tu suscripción por favor contáctanos a <a href="mailto:contact@poriseba.co" class="greenlink" target="_blank">contact@poriseba.co</a>.Tu tienes derecho a acceder, rectificar y retirar tu información.
                                 </span>
                             </p>
                         </div>
@@ -115,9 +115,9 @@ $media = Yii::$app->instagram->getUserMedia();
             <div class="col-md-4 col-md-offset-1 col-sm-5 hidden-xs">
                 <div class="img-wrap cast-img-warp" style="text-align: center;">
                     <?php if($device=="mobile"){ ?>
-                    <div class="fb-page" data-href="<?= $this->context->getFacebookLink() ?>" data-tabs="timeline" data-width="220" data-height="140" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="<?= $this->context->getFacebookLink() ?>" class="fb-xfbml-parse-ignore"><a href="<?= $this->context->getFacebookLink() ?>">123Vamos</a></blockquote></div>
+                    <div class="fb-page" data-href="<?= $this->context->getFacebookLink() ?>" data-tabs="timeline" data-width="220" data-height="140" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="<?= $this->context->getFacebookLink() ?>" class="fb-xfbml-parse-ignore"><a href="<?= $this->context->getFacebookLink() ?>">poriseba</a></blockquote></div>
                     <?php }else{ ?>
-                    <div class="fb-page" data-href="<?= $this->context->getFacebookLink() ?>" data-tabs="timeline" data-width="288" data-height="148" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="<?= $this->context->getFacebookLink() ?>" class="fb-xfbml-parse-ignore"><a href="<?= $this->context->getFacebookLink() ?>">123Vamos</a></blockquote></div>
+                    <div class="fb-page" data-href="<?= $this->context->getFacebookLink() ?>" data-tabs="timeline" data-width="288" data-height="148" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true"><blockquote cite="<?= $this->context->getFacebookLink() ?>" class="fb-xfbml-parse-ignore"><a href="<?= $this->context->getFacebookLink() ?>">poriseba</a></blockquote></div>
                     <?php } ?>
                 </div>
                 <?php

@@ -5,7 +5,7 @@ use yii\web\View;
 ?>
 <!--<section class="banner-sec">
     <div class="container">
-        <h1 class="title">123 Vamos</h1>
+        <h1 class="title">123 poriseba</h1>
         <h2 class="subtitle heading">Una nueva comunidad para compartir tus viajes en Colombia.</h2>
     </div>
 </section>
@@ -59,7 +59,7 @@ use yii\web\View;
         <div class="row">
             <div class="col-sm-3">
                 <div class="icon-wrap">
-                    <img src="<?= $this->context->getStaticImage('safe-123vamos-icon.png')?>" alt="" class="center-block img-responsive title-icon" />
+                    <img src="<?= $this->context->getStaticImage('safe-poriseba-icon.png')?>" alt="" class="center-block img-responsive title-icon" />
                     <h3 class="title heading">Es súper seguro.</h3>
                     <p class="title-detail">
                         Verificamos cada documento de identidad y foto para que nuestra plataforma sea una comunidad fiable. ¡Para que viajes tranquilo!
@@ -68,7 +68,7 @@ use yii\web\View;
             </div>
             <div class="col-sm-3">
                 <div class="icon-wrap">
-                    <img src="<?= $this->context->getStaticImage('fast-123vamos-icon.png')?>" alt="" class="center-block img-responsive title-icon" />
+                    <img src="<?= $this->context->getStaticImage('fast-poriseba-icon.png')?>" alt="" class="center-block img-responsive title-icon" />
                     <h3 class="title heading">Es más rápido.</h3>
                     <p class="title-detail">
                         En solo unos segundos puedes consultar anuncios, ver perfiles de usuarios y encontrar las personas perfectas para compartir tu trayecto por toda Colombia.
@@ -77,7 +77,7 @@ use yii\web\View;
             </div>
             <div class="col-sm-3">
                 <div class="icon-wrap">
-                    <img src="<?= $this->context->getStaticImage('cheap-123vamos-icon.png')?>" alt="" class="center-block img-responsive title-icon" />
+                    <img src="<?= $this->context->getStaticImage('cheap-poriseba-icon.png')?>" alt="" class="center-block img-responsive title-icon" />
                     <h3 class="title heading">Es más barato.</h3>
                     <p class="title-detail">
                         Porque compartir tu viaje con otros miembros de nuestra comunidad, divides los gastos del trayecto. Y puedes encontrar nuevos amigos al mismo tiempo ¡Para que viajes más!
@@ -86,7 +86,7 @@ use yii\web\View;
             </div>
             <div class="col-sm-3">
                 <div class="icon-wrap">
-                    <img src="<?= $this->context->getStaticImage('environment-123vamos-icon.png')?>" alt="" class="center-block img-responsive title-icon" />
+                    <img src="<?= $this->context->getStaticImage('environment-poriseba-icon.png')?>" alt="" class="center-block img-responsive title-icon" />
                     <h3 class="title heading">Es mejor para el ambiente</h3>
                     <p class="title-detail">
                         Hay demasiadas personas que viajan solas en un carro. Hagamos algo bueno por nuestro planeta ¡Compartemos nuestros
@@ -135,7 +135,7 @@ use yii\web\View;
             <div class="col-sm-4">
                 <div class="single-publicar-wrap">
                     <div class="icon-wrap"><i class="fa fa-car"></i></div>
-                    <h4 class="publicar-title">Medellín - Bogotá con 123Vamos</h4>
+                    <h4 class="publicar-title">Medellín - Bogotá con poriseba</h4>
                     <p class="publicar-title">desde $51.000</p>
                 </div>
             </div>

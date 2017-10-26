@@ -72,7 +72,7 @@ class AdminController extends Controller {
 //        return Yii::$app->mailer->compose()
 //                ->setTo($data['to'])
 //                ->setFrom([])
-//                ->setFrom(['noreply@123vamos.com' => $this->getProjectName()])
+//                ->setFrom(['noreply@poriseba.com' => $this->getProjectName()])
 //                ->setSubject(isset($data['subject']) ? $data['subject'] : '')
 //                ->setHtmlBody($view)
 //                ->send();

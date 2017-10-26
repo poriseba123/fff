@@ -9,7 +9,7 @@ $(document).ready(function () {
     });
 });
 
-$('#123vamos-admin-login').submit(function (e) {
+$('#poriseba-admin-login').submit(function (e) {
     e.preventDefault();
     loader_start();
     $('#admin-login-sub-btn').attr('disabled', true);

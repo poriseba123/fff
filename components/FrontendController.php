@@ -16,8 +16,8 @@ class FrontendController extends Controller {
 
     public function __construct($id, $module, $config = array()) {
         $cookies = Yii::$app->request->cookies;
-        if ($cookies->has('123vamos_language')) {
-            Yii::$app->language = $cookies->get('123vamos_language')->value;
+        if ($cookies->has('poriseba_language')) {
+            Yii::$app->language = $cookies->get('poriseba_language')->value;
         } else {
             Yii::$app->language = "es";
         }
