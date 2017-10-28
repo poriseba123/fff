@@ -54,7 +54,7 @@ class AuthController extends AdminController {
             Yii::$app->response->redirect(['admin/dashboard/']);
         }
         if (Yii::$app->request->isAjax) {
-            $resp = [];
+			$resp = [];
             $resp['flag'] = false;
             $model = new LoginForm();
             if ($model->load(Yii::$app->request->post()) && $model->login()) {

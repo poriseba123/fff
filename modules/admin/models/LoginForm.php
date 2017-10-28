@@ -4,7 +4,8 @@ namespace app\modules\admin\models;
 
 use Yii;
 use yii\base\Model;
-use \app\models\UserMaster;
+//use \app\models\UserMaster;
+use app\models\UserMaster;
 
 /**
  * LoginForm is the model behind the login form.
