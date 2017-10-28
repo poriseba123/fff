@@ -19,7 +19,7 @@ class AdminController extends Controller {
     }
 
     public function getProjectLogo() {
-        return Yii::$app->request->baseUrl . '\themes\common-images\logo\logo.png';
+        return Yii::$app->request->baseUrl . '/assets/img/adminlogo.png';
     }
 
     public function getProjectFavicon() {

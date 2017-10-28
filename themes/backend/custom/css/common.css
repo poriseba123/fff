@@ -1,6 +1,6 @@
 .page-header.navbar .page-logo .logo-default {
-    margin-top: 13px !important;
-    height: 25px;
+    margin-top: 1px !important;
+/*    height: 25px;*/
     width: 150px;
 }
 .page-logo a span {

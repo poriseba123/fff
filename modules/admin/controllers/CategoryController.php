@@ -13,7 +13,7 @@ use yii\web\NotFoundHttpException;
 use app\modules\admin\models\SearchEmail;
 use app\modules\admin\components\AdminController;
 
-class EmailsController extends AdminController {
+class CategoryController extends AdminController {
 
     public function columns() {
         $viewMsg = 'View';

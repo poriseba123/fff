@@ -1,4 +1,4 @@
-<div class="page-header navbar navbar-fixed-top">
+<div class="page-header navbar navbar-fixed-top" style="height: 57px;">
     <div class="page-header-inner ">
         <div class="page-logo">
             <a href="<?= $this->context->adminUrl('/') ?>">

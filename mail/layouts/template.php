@@ -71,26 +71,27 @@ use yii\helpers\Html;
 //                                                            Yii::$app->instagram->setAccessToken('5326775729.1677ed0.ad54acc2b33b4f82a4704ba859836b57');
                                                             $follower = Yii::$app->instagram->getUser();
                                                             $media = Yii::$app->instagram->getUserMedia();
-                                                            if (count($media) > 0 && isset($media->data)) {?>
-                                                            <a href="https://www.instagram.com/"><div>
-                                                               <?php foreach ($media->data as $k => $row) {
-                                                                    if ($k == 5) {
-                                                                        break;
-                                                                    }
-                                                                    if($k==0){
-                                                                        $style="width: 122px;height: auto;margin: 0 2px 0 0;";
-                                                                    }elseif($k==4){
-                                                                        $style="width: 122px;height: auto;margin: 0 0 0 2px;";
-                                                                    }else{
-                                                                        $style="width: 122px;height: auto;margin: 0 2px;";
-                                                                    }
-                                                                    ?>
-                                                            <img style="<?=$style?>" src="<?= $row->images->thumbnail->url ?>" alt="" class="img-responsive" /><?php
-                                                                }?>
-                                                                </div></a>
-                                                            <?php
-                                                            
-                                                                    }
+                                                            if (count($media) > 0 && isset($media->data)) {
+                                                                ?>
+                                                                <a href="https://www.instagram.com/"><div>
+                                                                        <?php
+                                                                        foreach ($media->data as $k => $row) {
+                                                                            if ($k == 5) {
+                                                                                break;
+                                                                            }
+                                                                            if ($k == 0) {
+                                                                                $style = "width: 122px;height: auto;margin: 0 2px 0 0;";
+                                                                            } elseif ($k == 4) {
+                                                                                $style = "width: 122px;height: auto;margin: 0 0 0 2px;";
+                                                                            } else {
+                                                                                $style = "width: 122px;height: auto;margin: 0 2px;";
+                                                                            }
+                                                                            ?>
+                                                                            <img style="<?= $style ?>" src="<?= $row->images->thumbnail->url ?>" alt="" class="img-responsive" /><?php }
+                                                                        ?>
+                                                                    </div></a>
+                                                                <?php
+                                                            }
                                                             ?>
                                                             <div style="text-align: center">
                                                                 <ul style="padding:0;display: inline-block; margin-bottom: 10px; margin-top: 15px;">
@@ -133,16 +134,16 @@ use yii\helpers\Html;
                                                                             <p>Puede contactar nuestro equipo : <a href="mailto:contact@poriseba.co" style="color:#41c1c2;">contact@poriseba.co</a></p>
                                                                             <!--<p><a href="%UNSUBSCRIBELINK%&ALL" style="color:#41c1c2;">Desincribirse</a></p>-->
                                                                             <!--<p>%SENDER-INFO-SINGLELINE%</p>-->
-<!--                                                                            <font color="#999999">
-                                                                                <center>
-                                                                                    Copyright &copy; <?= date('Y'); ?> <a href="<?= Url::base(true); ?>" ><?= $this->context->getProjectName() ?></a>, All rights reserved.
-                                                                                    <br/>Puede contactar nuestro equipo : <a href="mailto:" >contact@</a>
-                                                                                    <br/>
-                                                                                    <br/>
-                                                                                    <a href="%UNSUBSCRIBELINK%&ALL">Desincribirse</a>
-                                                                                    <br/> %SENDER-INFO-SINGLELINE%
-                                                                                </center>
-                                                                            </font>-->
+                                                                            <!--                                                                            <font color="#999999">
+                                                                                                                                                            <center>
+                                                                                                                                                                Copyright &copy; <?= date('Y'); ?> <a href="<?= Url::base(true); ?>" ><?= $this->context->getProjectName() ?></a>, All rights reserved.
+                                                                                                                                                                <br/>Puede contactar nuestro equipo : <a href="mailto:" >contact@</a>
+                                                                                                                                                                <br/>
+                                                                                                                                                                <br/>
+                                                                                                                                                                <a href="%UNSUBSCRIBELINK%&ALL">Desincribirse</a>
+                                                                                                                                                                <br/> %SENDER-INFO-SINGLELINE%
+                                                                                                                                                            </center>
+                                                                                                                                                        </font>-->
                                                                         </div>
                                                                     </td>
                                                                 </tr>
