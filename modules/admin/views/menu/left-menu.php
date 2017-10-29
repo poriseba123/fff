@@ -114,7 +114,7 @@
 
                 <!--Doctor management end-->
                 <!--emergency Transport management section start-->
-                <?php $allControllers = ['ambulance', 'sobbahi']; ?>
+                <?php $allControllers = ['ambulancemaster', 'sobbahi']; ?>
 
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
@@ -123,8 +123,8 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item <?= (Yii::$app->controller->id == "ambulance") ? 'active' : '' ?>">
-                        <a href="<?= $this->context->adminUrl('multilingual/') ?>" class="nav-link ">
+                    <li class="nav-item <?= (Yii::$app->controller->id == "ambulancemaster") ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('ambulancemaster') ?>" class="nav-link ">
                             <i class="fa fa-ambulance fa-fw" aria-hidden="true"></i>
                             <span class="title">Ambulance</span>
                         </a>
