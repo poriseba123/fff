@@ -318,7 +318,7 @@ class DoctorController extends AdminController {
         $data['doc_type']=$doc_type;
         return $this->render('update', ["data" => $data]);
     }
-    public function actionDelete() {
+    public function actionChamberdelete() {
         $userId = $_REQUEST['id'];
         $user = $this->findModel($userId);
         $user->status = 3;
