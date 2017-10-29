@@ -251,7 +251,7 @@
                     <span class="title">Blog Management</span>
                 </a>
             </li>
-            <?php $allControllers = ['emails', 'seo','category']; ?>
+            <?php $allControllers = ['emails', 'seo','doctorspecialities']; ?>
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-diamond"></i>
@@ -259,8 +259,8 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item start <?= (Yii::$app->controller->id == 'category') ? 'active' : '' ?>">
-                        <a href="<?= $this->context->adminUrl('emails'); ?>" class="nav-link ">
+                    <li class="nav-item start <?= (Yii::$app->controller->id == 'doctorspecialities') ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('doctorspecialities'); ?>" class="nav-link ">
                             <i class="fa fa-list-ol" aria-hidden="true"></i>
                             <span class="title">Category Management</span>
                             <span class="selected"></span>
