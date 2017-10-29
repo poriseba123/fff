@@ -23,6 +23,7 @@ DashboardAssets::register($this);
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
+        
     </head>
     <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white">
         <?php $this->beginBody() ?>
