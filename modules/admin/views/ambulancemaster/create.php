@@ -18,3 +18,22 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('_form', $data) ?>
 
 </div>
+<script>
+$(document).ready(function () {
+        getLocation();
+        $('.google_map').on('click', function () {
+            $('#myModal').modal('show');
+        });
+        $('#myModal').on('shown.bs.modal', function ()
+        {
+            googlMap('ambulance.png');
+
+            google.maps.event.trigger(map, "resize");
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+        $('.refresh').click(function(){
+            //alert();
+          google.maps.event.trigger(map, "resize");  
+        })
+    });
+</script>
