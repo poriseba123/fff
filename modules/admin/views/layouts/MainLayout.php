@@ -86,7 +86,8 @@ MainAsset::register($this);
         </div>
         <?php $this->endBody() ?>
         <script type="text/javascript">
-            var full_path = '<?php echo Yii::$app->request->baseUrl; ?>/admin/';
+            var admin_full_path = '<?php echo Yii::$app->request->baseUrl; ?>/admin/';
+            var full_path = '<?php echo Yii::$app->request->baseUrl; ?>/';
         </script>
     </body>
     <?php $this->endPage() ?>
@@ -182,7 +183,7 @@ MainAsset::register($this);
         var lat = positionObj.lat,
                 lng = positionObj.long,
                 latlng = new google.maps.LatLng(lat, lng),
-                image = 'http://localhost/poriseba/assets/img/' + imgName;
+                image = full_path+'/assets/img/' + imgName;
         //console.log("lat" + lat);
         var mapOptions = {
             center: new google.maps.LatLng(lat, lng),
