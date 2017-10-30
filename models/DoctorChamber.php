@@ -38,7 +38,7 @@ class DoctorChamber extends \yii\db\ActiveRecord
     {
         return [
             [['doctor_master_id'], 'required'],
-            [['doctor_master_id', 'city_id', 'district_id', 'country_id', 'status'], 'integer'],
+            [['doctor_master_id', 'city_id', 'state_id', 'country_id', 'status'], 'integer'],
             [['address'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['chamber_name'], 'string', 'max' => 255],
@@ -57,7 +57,7 @@ class DoctorChamber extends \yii\db\ActiveRecord
             'chamber_name' => 'Chamber Name',
             'address' => 'Address',
             'city_id' => 'City ID',
-            'district_id' => 'District ID',
+            'state_id' => 'State ID',
             'country_id' => 'Country ID',
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',

@@ -284,13 +284,39 @@ class DoctorController extends AdminController {
         }
         return $html;
     }
+    public function actionGetstates() {
+        $type_id=$_REQUEST['id'];
+        $doc_specialities= \app\models\States::find()->where("country_id=:country_id",[":country_id"=>$type_id])->all();
+        $html="";
+        if(count($doc_specialities)>0){
+        foreach ($doc_specialities as $key => $value) {
+            $html.='<option value="'.$value->id.'">'.$value->name.'</option>';
+        }
+        }else{
+           $html.='<option value="">No Data</option>';  
+        }
+        return $html;
+    }
+    public function actionGetcities() {
+        $type_id=$_REQUEST['id'];
+        $doc_specialities= \app\models\Cities::find()->where("state_id=:state_id",[":state_id"=>$type_id])->all();
+        $html="";
+        if(count($doc_specialities)>0){
+        foreach ($doc_specialities as $key => $value) {
+            $html.='<option value="'.$value->id.'">'.$value->name.'</option>';
+        }
+        }else{
+           $html.='<option value="">No Data</option>';  
+        }
+        return $html;
+    }
     public function actionChambercreate() {
         $data=[];
-        $model = new DoctorMaster;
-        $doc_type= DoctorType::find()->where("status<>:status",[":status"=>'3'])->all();
+        $model = new DoctorChamber;
+        $doctor_chamber_time = new DoctorChamberTime();
         $data['model']=$model;
-        $data['doc_type']=$doc_type;
-        $model->scenario = "create_doctor";
+        $data['doctor_chamber_time']=$doctor_chamber_time;
+        $model->scenario = "create_doctor_chamber";
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
                 $model->created_at=date('Y-m-d H:i:s'); 
@@ -299,7 +325,7 @@ class DoctorController extends AdminController {
                 return $this->redirect(["index"]);
             }
         }
-        return $this->render("create", ["data" => $data]);
+        return $this->render("create_chamber", ["data" => $data]);
     }
      public function actionChamberupdate($id) {
         $data=[];

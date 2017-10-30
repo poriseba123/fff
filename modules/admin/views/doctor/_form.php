@@ -72,7 +72,6 @@ $doc_type=$data['doc_type'];
                     $listData=ArrayHelper::map($doc_type,'id','type');
                     echo $form->field($model, 'doctor_type_id')->dropDownList($listData,['prompt'=>'Select','onchange' => '
                     $.post("getspecialities?id=' . '"+$(this).val(),function(data){
-                        console.log(data);
                       $("select#doctormaster-doctor_specialities_id").html(data);
                     });'])->label(false); ?>
                 </div>
