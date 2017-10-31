@@ -27,8 +27,17 @@ if (!$model->isNewRecord) {
 
 </div>-->
 <style>
+    .btn span.glyphicon {    			
+	opacity: 0;				
+}
+.btn.active span.glyphicon {				
+	opacity: 1;				
+}
     .radio-inline label{
         margin-right:30px;
+    }
+    .time .row{
+        margin-bottom: 2px;
     }
 
 </style>
@@ -202,6 +211,65 @@ if (!$model->isNewRecord) {
                 </div>
             </div>
         </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Time<span class="required">*</span></label>
+                <div class="col-md-9">
+                    <?php
+                    $day_master= \app\models\DayMaster::find()->all();
+                    foreach ($day_master as $key => $val) {
+                    ?>
+                    <div class="daymaster_main_div">
+                        <div class="row" style="margin-bottom:5px;">
+                            <div class="col-md-8 text-center">
+                                <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-success active">
+				<input type="checkbox" autocomplete="off" checked>
+				<span class="glyphicon glyphicon-ok"></span>&nbsp;<?=$val->day?>
+                                </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom:5px;">
+                            <div class="col-md-4">
+                                Start Time
+                            </div>
+                            <div class="col-md-4">
+                                End time
+                            </div>
+                        </div>
+                        <div class="time <?='day_master_time_'.$val->id?>" style="margin-bottom:5px;">
+                            <div class="row <?='each_time_'.$val->id.'_'.$key?>">
+                                <div class="col-md-4">
+                                    <div class='input-group date timepicker'>
+                                        <input type='text' class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class='input-group date timepicker'>
+                                        <input type='text' class="form-control" />
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="btn-group btn-group-solid">
+                                        <button type="button" class="btn btn-success" style="font-size:17px;" onclick="addTime(<?=$val->id?>);">
+                                            + ADD MORE
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
         <?php if (!$model->isNewRecord) { ?>
             <div class="form-group">
                 <label class="control-label col-md-3">Status <span class="required">*</span></label>
@@ -230,6 +298,36 @@ if (!$model->isNewRecord) {
         <!-- END FORM-->
     </div>
 </div>
+<script>
+    $(function () {
+                $('.timepicker').datetimepicker({
+                    format: 'LT'
+                });
+            });
+    var global_val = 1;
+    function addTime(id){
+        var day_master_id=id;
+        $('.day_master_time_'+id).append('<div class="row each_time_'+id+'_'+global_val+'">'+
+                                '<div class="col-md-4">'+
+                                    '<input type="text" class="form-control" value="">'+
+                                '</div>'+
+                                '<div class="col-md-4">'+
+                                    '<input type="text" class="form-control" value="">'+
+                                '</div>'+
+                                '<div class="col-md-4">'+
+                                    '<div class="btn-group btn-group-solid">'+
+                                        '<button type="button" class="btn btn-danger" style="font-size:17px;" onclick="removeRow('+id+','+global_val+')">X</button>'+
+                                    '</div>'+
+                                '</div>'+
+                            '</div>'
+                            );
+        global_val=global_val+1;
+        
+    }
+    function removeRow(id,val){
+        $('.each_time_'+id+'_'+val).remove();
+    }
+    </script>
 <script>
     function initAutocomplete() {
         var myLatlng = new google.maps.LatLng(22, 79);
