@@ -58,18 +58,29 @@ use yii\helpers\Url;
                         </span>
                     </div>
                 </div>
-                <label class="control-label col-md-3">Title</label>
+                <label class="control-label col-md-3">Contact Number</label>
                 <div class="col-md-6">
                     <?= $form->field($model, 'title')->textInput(['class' => 'form-control'])->label(false); ?>
                 </div>
 
             </div>
         </div>
+        <!--        <div class="form-body">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Add map location</label>
+                        <div class="col-md-6">
+                            <a href="javascript:void(0)" class="google_map">Click here</a>
+                        </div>
+                    </div>
+                </div>-->
         <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">Add map location</label>
+                <label class="control-label col-md-3">Location in Map<span class="required">*</span></label>
                 <div class="col-md-6">
-                    <a href="javascript:void(0)" class="google_map">Click here</a>
+                    <input id="pac-input" class="form-control controls1" type="text" placeholder="Search Box"><br>
+                    <div id="map" style="height: 324px;width: 100%;"></div>
+                    <?= $form->field($model, 'lat')->hiddenInput(['class' => 'form-control', 'id' => 'lat'])->label(false); ?>
+                    <?= $form->field($model, 'longi')->hiddenInput(['class' => 'form-control', 'id' => 'long'])->label(false); ?>
                 </div>
             </div>
         </div>
@@ -156,3 +167,61 @@ use yii\helpers\Url;
         <!-- END FORM-->
     </div>
 </div>
+<script>
+
+    function initAutocomplete() {
+        var myLatlng = new google.maps.LatLng(22, 79);
+        var myOptions = {
+            zoom: 5,
+            center: myLatlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+
+        var map = new google.maps.Map(document.getElementById("map"), myOptions),
+                marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    draggable: true,
+                });
+        google.maps.event.addListener(marker, 'dragend', function () {
+            document.getElementById('lat').value = marker.getPosition().lat();
+            document.getElementById('long').value = marker.getPosition().lng();
+        });
+
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var autocomplete = new google.maps.places.Autocomplete(input, {
+            types: ["geocode"]
+        });
+        autocomplete.bindTo('bounds', map);
+        var infowindow = new google.maps.InfoWindow();
+        google.maps.event.addListener(autocomplete, 'place_changed', function () {
+            infowindow.close();
+            var place = autocomplete.getPlace();
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(17);
+            }
+
+            moveMarker(place.name, place.geometry.location, map);
+        });
+    }
+    function moveMarker(placeName, latlng, map) {
+        var marker = new google.maps.Marker({
+            position: latlng,
+            map: map,
+            draggable: true
+        });
+        marker.setPosition(latlng);
+
+        marker.addListener('drag', handleEvent);
+        marker.addListener('dragend', handleEvent);
+    }
+    function handleEvent(event) {
+        document.getElementById('lat').value = event.latLng.lat();
+        document.getElementById('long').value = event.latLng.lng();
+    }
+</script>
