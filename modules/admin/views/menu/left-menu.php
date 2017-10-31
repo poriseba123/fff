@@ -84,7 +84,7 @@
                 </ul>
                 <!--user management section end-->
                 <!--Doctor management section start-->
-                <?php $allControllers = ['homeopathy', 'allopathic']; ?>
+                <?php $allControllers = ['homeopathy', 'doctor']; ?>
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-user-md fa-fw"></i>
@@ -92,8 +92,8 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item <?= (Yii::$app->controller->id == "allopathic") ? 'active' : '' ?>">
-                        <a href="<?= $this->context->adminUrl('multilingual/') ?>" class="nav-link ">
+                    <li class="nav-item <?= (Yii::$app->controller->id == "doctor") ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('doctor') ?>" class="nav-link ">
                             <i class="fa fa-user-md fa-fw" aria-hidden="true"></i>
                             <span class="title">Allopathic Doctor</span>
                         </a>
