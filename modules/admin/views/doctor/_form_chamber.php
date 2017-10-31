@@ -385,4 +385,4 @@ if (!$model->isNewRecord) {
         document.getElementById('doctorchamber-longitude').value = event.latLng.lng();
     }
 </script>
-<script src="http://maps.google.com/maps/api/js?v=3.28&key=AIzaSyCyOuj28fWTVZQT4XBcgWJFLAk4sI54qlM&libraries=places&region=in&language=en&callback=initAutocomplete"></script>
+
