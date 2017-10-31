@@ -299,11 +299,11 @@ if (!$model->isNewRecord) {
     </div>
 </div>
 <script>
-    $(function () {
-                $('.timepicker').datetimepicker({
-                    format: 'LT'
-                });
-            });
+//    $(function () {
+//                $('.timepicker').datetimepicker({
+//                    format: 'LT'
+//                });
+//            });
     var global_val = 1;
     function addTime(id){
         var day_master_id=id;
