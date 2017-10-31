@@ -105,6 +105,8 @@ if (Yii::$app->controller->id == "site" && (Yii::$app->controller->action->id ==
 <!-- Header Section Start -->
     <div class="header">    
       <nav class="navbar navbar-default main-navigation" role="navigation">
+           <!-- End Toggle Nav Link For Mobiles -->
+           <a class="navbar-brand logo" href="index.html"><img src="assets/img/logo.png" alt="" style="padding-left: 0px; padding-top: 0px; height: 65px;"></a>
         <div class="container">
           <div class="navbar-header">
             <!-- Stat Toggle Nav Link For Mobiles -->
@@ -114,8 +116,7 @@ if (Yii::$app->controller->id == "site" && (Yii::$app->controller->action->id ==
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <!-- End Toggle Nav Link For Mobiles -->
-            <a class="navbar-brand logo" href="index.html"><img src="assets/img/logo.png" alt=""></a>
+           
           </div>
           <!-- brand and toggle menu for mobile End -->
 

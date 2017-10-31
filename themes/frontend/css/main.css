@@ -601,6 +601,7 @@ nav#menu span.fa.fa-bars:hover {
   border: none;
   border-radius: 0;
   border-bottom: 1px solid #ddd;
+  min-height: 81px;
 }
 .navbar-header {
   position: relative;
