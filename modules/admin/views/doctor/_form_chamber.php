@@ -239,7 +239,7 @@ if (!$model->isNewRecord) {
                             </div>
                         </div>
                         <div class="time <?='day_master_time_'.$val->id?>" style="margin-bottom:5px;">
-                            <div class="row <?='each_time_'.$val->id.'_'.$key?>">
+                            <div class="row <?='each_time_'.$val->id.'_0'?>">
                                 <div class="col-md-4">
                                     <div class='input-group date timepicker'>
                                         <input type='text' class="form-control" />
