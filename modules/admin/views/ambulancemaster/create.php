@@ -2,7 +2,8 @@
 
 use yii\helpers\Html;
 
-$data['model'] = $model;
+$data['model'] = $data['model'];
+$data['contactmodel'] = $data['contactmodel'];
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 
@@ -15,25 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', $data) ?>
+    <?= $this->render('_form',  ["data" => $data]) ?>
 
 </div>
-<script>
-$(document).ready(function () {
-        getLocation();
-        $('.google_map').on('click', function () {
-            $('#myModal').modal('show');
-        });
-        $('#myModal').on('shown.bs.modal', function ()
-        {
-            googlMap('ambulance.png');
 
-            google.maps.event.trigger(map, "resize");
-        });
-        $('[data-toggle="tooltip"]').tooltip();
-        $('.refresh').click(function(){
-            //alert();
-          google.maps.event.trigger(map, "resize");  
-        })
-    });
-</script>

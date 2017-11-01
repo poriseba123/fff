@@ -11,37 +11,36 @@ use Yii;
  * @property int $ambulance_id
  * @property string $status 0 -inactive 1-active 3-delete
  */
-class AmbulanceContact extends \yii\db\ActiveRecord
-{
+class AmbulanceContact extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'ambulance_contact';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['ambulance_id'], 'required'],
+            [['contact_number'], 'required', 'on' => ['create_ambulance', 'add']],
+            //[['contact_number'], 'required'],
             [['ambulance_id'], 'integer'],
-            [['status'], 'string'],
+            [['status', 'contact_number'], 'string'],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'ambulance_id' => 'Ambulance ID',
             'status' => 'Status',
         ];
     }
+
 }

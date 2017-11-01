@@ -19,33 +19,32 @@ use yii\data\ActiveDataProvider;
  * @property string $title
  * @property string $image
  */
-class AmbulanceMaster extends \yii\db\ActiveRecord
-{
+class AmbulanceMaster extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'ambulance_master';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             //[['lat', 'longi', 'vehiclenumber', 'title', 'image'], 'required'],
+            [['country_id', 'state_id','city_id','title','vehiclenumber','address'], 'required', 'on' => ['create_ambulance', 'add']],
             [['all_time', 'ac', 'oxygen', 'status'], 'string'],
-            [['lat', 'longi', 'vehiclenumber', 'title', 'image'], 'string', 'max' => 211],
+            [['country_id', 'state_id', 'city_id'], 'integer'],
+            [['lat', 'longi', 'vehiclenumber', 'title', 'image','address'], 'string', 'max' => 211],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'lat' => 'Lat',
@@ -59,7 +58,8 @@ class AmbulanceMaster extends \yii\db\ActiveRecord
             'image' => 'Image',
         ];
     }
-      public function search($params) {
+
+    public function search($params) {
         $query = AmbulanceMaster::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -68,7 +68,7 @@ class AmbulanceMaster extends \yii\db\ActiveRecord
             ],
             'sort' => ['defaultOrder' => ['id' => SORT_DESC],
                 'attributes' => [
-                    'id','vehiclenumber','all_time','oxygen','ac','lat','longi',
+                    'id', 'vehiclenumber', 'all_time', 'oxygen', 'ac', 'lat', 'longi',
                     'title' => [
                         'asc' => ['title' => SORT_ASC],
                         'desc' => ['title' => SORT_DESC],
@@ -95,4 +95,5 @@ class AmbulanceMaster extends \yii\db\ActiveRecord
 
         return $dataProvider;
     }
+
 }

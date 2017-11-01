@@ -3,10 +3,13 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 /* @var $form yii\widgets\ActiveForm */
+$contactmodel=$data['contactmodel'];
+$model=$data['model'];
 ?>
 
 <!--<div class="user-form">
@@ -41,28 +44,74 @@ use yii\helpers\Url;
         ?>
         <div class="form-body">
             <div class="form-group">
+                <label class="control-label col-md-3">Country<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?php
+                    $country_list = \app\models\Countries::find()->all();
+                    $listData = ArrayHelper::map($country_list, 'id', 'name');
+                    echo $form->field($model, 'country_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
+                    $.post("getstates?id=' . '"+$(this).val(),function(data){
+                      $("select#ambulancemaster-state_id").html(data);
+                    });'])->label(false);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">State<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?php
+                    $state_list = \app\models\States::find()->where(["id" => 0])->all();
+                    $listData = ArrayHelper::map($state_list, 'id', 'name');
+                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
+                    $.post("getcities?id=' . '"+$(this).val(),function(data){
+                      $("select#ambulancemaster-city_id").html(data);
+                    });'])->label(false);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">City<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?php
+                    $city_list = \app\models\Cities::find()->where(["id" => 0])->all();
+                    $listData = ArrayHelper::map($city_list, 'id', 'name');
+                    echo $form->field($model, 'city_id')->dropDownList($listData, ['prompt' => 'Select'])->label(false);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
                 <label class="control-label col-md-3">Title</label>
                 <div class="col-md-6">
                     <?= $form->field($model, 'title')->textInput(['class' => 'form-control'])->label(false); ?>
                 </div>
             </div>
         </div>
-        <div class="form-body">
+        <div class="form-body" id="contactdiv">
             <div class="form-group">
-                <div class="portlet-title">
-                    <div class="caption" align="center">
-                        <i class="fa fa-plus font-green-haze" aria-hidden="true"></i>
-
-                        <span class="caption-subject font-blue-madison bold uppercase">
-                            Click to add Contact number           
-                        </span>
-                    </div>
-                </div>
                 <label class="control-label col-md-3">Contact Number</label>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'title')->textInput(['class' => 'form-control'])->label(false); ?>
+                      <?= $form->field($contactmodel, 'contact_number[]')->textInput(['class' => 'form-control'])->label(false); ?>
+<!--                    <input type="text" name="ambulancecontact[]" class="form-control" id="contact1" value="">-->
                 </div>
-
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-success addContact" style="font-size:17px;">
+                        + ADD MORE
+                    </button>
+                </div>
+            </div>
+        </div>
+          <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Address</label>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'address')->textArea(['class' => 'form-control', 'rows' => '6'])->label(false); ?>
+                </div>
             </div>
         </div>
         <!--        <div class="form-body">
@@ -174,6 +223,7 @@ use yii\helpers\Url;
         var myOptions = {
             zoom: 5,
             center: myLatlng,
+            scrollwheel :false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
 
@@ -224,4 +274,24 @@ use yii\helpers\Url;
         document.getElementById('lat').value = event.latLng.lat();
         document.getElementById('long').value = event.latLng.lng();
     }
+    global_val = 1;
+    $('.addContact').click(function () {
+        global_val++;
+        if (global_val <= 4) {
+            $("#contactdiv").append('<div class="form-group" id="container' + global_val + '"><label class="control-label col-md-3">Alternate Number</label><div class="col-md-6">' +
+                    '<input type="text" name="AmbulanceContact[contact_number][]" class="form-control" id="contact' + global_val + '" value=""></div>' +
+                    '<div class="col-md-3">' +
+                    '<button type="button" class="btn btn-danger" style="font-size:17px;" id="' + global_val + '"onclick="removeRow(' + global_val + ')">X</button>' +
+                    '</div>' +
+                    '</div></div>');
+        }
+
+
+    });
+
+    function removeRow(id) {
+        $('#container' + id).remove();
+        global_val--;
+    }
+
 </script>

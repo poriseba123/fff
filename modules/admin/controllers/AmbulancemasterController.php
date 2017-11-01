@@ -14,6 +14,7 @@ use yii\console\Application;
 use yii\web\NotFoundHttpException;
 use app\modules\admin\components\AdminController;
 use app\models\AmbulanceMaster;
+use app\models\AmbulanceContact;
 
 class AmbulancemasterController extends AdminController {
 
@@ -176,16 +177,51 @@ class AmbulancemasterController extends AdminController {
         return $this->render('index', ['widget' => $widget]);
     }
 
+    public function actionGetstates() {
+        $type_id = $_REQUEST['id'];
+        $doc_specialities = \app\models\States::find()->where("country_id=:country_id", [":country_id" => $type_id])->all();
+        $html = "";
+        if (count($doc_specialities) > 0) {
+            foreach ($doc_specialities as $key => $value) {
+                $html .= '<option value="' . $value->id . '">' . $value->name . '</option>';
+            }
+        } else {
+            $html .= '<option value="">No Data</option>';
+        }
+        return $html;
+    }
+
+    public function actionGetcities() {
+        $type_id = $_REQUEST['id'];
+        $doc_specialities = \app\models\Cities::find()->where("state_id=:state_id", [":state_id" => $type_id])->all();
+        $html = "";
+        if (count($doc_specialities) > 0) {
+            foreach ($doc_specialities as $key => $value) {
+                $html .= '<option value="' . $value->id . '">' . $value->name . '</option>';
+            }
+        } else {
+            $html .= '<option value="">No Data</option>';
+        }
+        return $html;
+    }
+
     public function actionCreate() {
         $model = new AmbulanceMaster;
+        $contactmodel = new AmbulanceContact;
         $model->scenario = "create_ambulance";
+        $contactmodel->scenario = "create_ambulance";
+        $data['model'] = $model;
+        $data['contactmodel'] = $contactmodel;
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate() && $model->save()) {
+                $contact = new AmbulanceContact;
+                $contact->ambulance_id = $model->id;
+                $contact->save(false);
                 Yii::$app->session->setFlash('success', 'created successfully');
                 return $this->redirect(["index"]);
             }
         }
-        return $this->render("create", ["model" => $model]);
+        return $this->render("create", ["data" => $data]);
     }
 
     public function actionView($id) {
