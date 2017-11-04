@@ -8,8 +8,8 @@ use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 /* @var $form yii\widgets\ActiveForm */
-$contactmodel=$data['contactmodel'];
-$model=$data['model'];
+$contactmodel = $data['contactmodel'];
+$model = $data['model'];
 ?>
 
 <!--<div class="user-form">
@@ -49,7 +49,7 @@ $model=$data['model'];
                     <?php
                     $country_list = \app\models\Countries::find()->all();
                     $listData = ArrayHelper::map($country_list, 'id', 'name');
-                    echo $form->field($model, 'country_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
+                    echo $form->field($model, 'country_id', ['enableAjaxValidation' => true])->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
                     $.post("getstates?id=' . '"+$(this).val(),function(data){
                       $("select#ambulancemaster-state_id").html(data);
                     });'])->label(false);
@@ -64,7 +64,7 @@ $model=$data['model'];
                     <?php
                     $state_list = \app\models\States::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($state_list, 'id', 'name');
-                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
+                    echo $form->field($model, 'state_id', ['enableAjaxValidation' => true])->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
                     $.post("getcities?id=' . '"+$(this).val(),function(data){
                       $("select#ambulancemaster-city_id").html(data);
                     });'])->label(false);
@@ -79,38 +79,72 @@ $model=$data['model'];
                     <?php
                     $city_list = \app\models\Cities::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($city_list, 'id', 'name');
-                    echo $form->field($model, 'city_id')->dropDownList($listData, ['prompt' => 'Select'])->label(false);
+                    echo $form->field($model, 'city_id', ['enableAjaxValidation' => true])->dropDownList($listData, ['prompt' => 'Select'])->label(false);
                     ?>
                 </div>
             </div>
         </div>
         <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">Title</label>
+                <label class="control-label col-md-3">Title<span class="required">*</span></label>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'title')->textInput(['class' => 'form-control'])->label(false); ?>
+                    <?= $form->field($model, 'title', ['enableAjaxValidation' => true])->textInput(['class' => 'form-control'])->label(false); ?>
                 </div>
             </div>
         </div>
-        <div class="form-body" id="contactdiv">
+        <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">Contact Number</label>
+                <label class="control-label col-md-3">Vehicle number <span class="required">*</span></label>
                 <div class="col-md-6">
-                      <?= $form->field($contactmodel, 'contact_number[]')->textInput(['class' => 'form-control'])->label(false); ?>
-<!--                    <input type="text" name="ambulancecontact[]" class="form-control" id="contact1" value="">-->
-                </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-success addContact" style="font-size:17px;">
-                        + ADD MORE
-                    </button>
+                    <?= $form->field($model, 'vehiclenumber', ['enableAjaxValidation' => true])->textInput(['class' => 'form-control'])->label(false); ?>
                 </div>
             </div>
         </div>
-          <div class="form-body">
+        <?php
+        if ($model->isNewRecord) {
+            ?>
+            <div class="form-body" id="contactdiv">
+                <div class="form-group contactdivmain">
+                    <label class="control-label col-md-3">Contact Number<span class="required">*</span></label>
+                    <div class="col-md-6">
+                        <?= $form->field($contactmodel, 'contact_number[]', ['enableAjaxValidation' => true])->textInput(['class' => 'form-control contact', "id" => 'contactid'])->label(false); ?>
+    <!--                    <input type="text" name="ambulancecontact[]" class="form-control" id="contact1" value="">-->
+                        <!--                    <div class="help-block" id="errorcontactid"></div>-->
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-success addContact" style="font-size:17px;">
+                            + ADD MORE
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <?php
+        } else {
+            ?>
+            <div class="form-body" id="contactdiv">
+                <div class="form-group contactdivmain">
+                    <label class="control-label col-md-3">Contact Number<span class="required">*</span></label>
+                    <div class="col-md-6">
+                        <?php 
+                        //$form->field($contactmodel, 'contact_number[]', ['enableAjaxValidation' => true])->textInput(['class' => 'form-control contact', "id" => 'contactid'])->label(false); ?>
+  
+                    </div>
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-success addContact" style="font-size:17px;">
+                            + ADD MORE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        <?php }
+        ?>
+
+
+        <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">Address</label>
+                <label class="control-label col-md-3">Address<span class="required">*</span></label>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'address')->textArea(['class' => 'form-control', 'rows' => '6'])->label(false); ?>
+                    <?= $form->field($model, 'address', ['enableAjaxValidation' => true])->textArea(['class' => 'form-control', 'rows' => '6'])->label(false); ?>
                 </div>
             </div>
         </div>
@@ -126,10 +160,11 @@ $model=$data['model'];
             <div class="form-group">
                 <label class="control-label col-md-3">Location in Map<span class="required">*</span></label>
                 <div class="col-md-6">
+                    <?= $form->field($model, 'lat', ['enableAjaxValidation' => true])->hiddenInput(['class' => 'form-control', 'id' => 'lat'])->label(false); ?>
+                    <?= $form->field($model, 'longi', ['enableAjaxValidation' => true])->hiddenInput(['class' => 'form-control', 'id' => 'long'])->label(false); ?>
                     <input id="pac-input" class="form-control controls1" type="text" placeholder="Search Box"><br>
                     <div id="map" style="height: 324px;width: 100%;"></div>
-                    <?= $form->field($model, 'lat')->hiddenInput(['class' => 'form-control', 'id' => 'lat'])->label(false); ?>
-                    <?= $form->field($model, 'longi')->hiddenInput(['class' => 'form-control', 'id' => 'long'])->label(false); ?>
+
                 </div>
             </div>
         </div>
@@ -137,7 +172,7 @@ $model=$data['model'];
 
         <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">24X7 Available</label>
+                <label class="control-label col-md-3">24X7 Available<span class="required">*</span></label>
                 <div class="col-md-6">
                     <?php
                     if ($model->isNewRecord) {
@@ -154,7 +189,7 @@ $model=$data['model'];
         </div>
         <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">Oxygen</label>
+                <label class="control-label col-md-3">Oxygen<span class="required">*</span></label>
                 <div class="col-md-6">
                     <?php
                     if ($model->isNewRecord) {
@@ -171,7 +206,7 @@ $model=$data['model'];
         </div>
         <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">Ac</label>
+                <label class="control-label col-md-3">AC<span class="required">*</span></label>
                 <div class="col-md-6">
                     <?php
                     if ($model->isNewRecord) {
@@ -188,7 +223,7 @@ $model=$data['model'];
         </div>
         <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">Status</label>
+                <label class="control-label col-md-3">Status<span class="required">*</span></label>
                 <div class="col-md-6">
                     <?php
                     if ($model->isNewRecord) {
@@ -223,7 +258,7 @@ $model=$data['model'];
         var myOptions = {
             zoom: 5,
             center: myLatlng,
-            scrollwheel :false,
+            scrollwheel: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
 
@@ -266,7 +301,8 @@ $model=$data['model'];
             draggable: true
         });
         marker.setPosition(latlng);
-
+        document.getElementById('lat').value = marker.getPosition().lat();
+        document.getElementById('long').value = marker.getPosition().lng();
         marker.addListener('drag', handleEvent);
         marker.addListener('dragend', handleEvent);
     }
@@ -278,8 +314,8 @@ $model=$data['model'];
     $('.addContact').click(function () {
         global_val++;
         if (global_val <= 4) {
-            $("#contactdiv").append('<div class="form-group" id="container' + global_val + '"><label class="control-label col-md-3">Alternate Number</label><div class="col-md-6">' +
-                    '<input type="text" name="AmbulanceContact[contact_number][]" class="form-control" id="contact' + global_val + '" value=""></div>' +
+            $("#contactdiv").append('<div class="form-group content" id="container-' + global_val + '"><label class="control-label col-md-3">Alternate Number</label><div class="col-md-6">' +
+                    '<input type="text" name="AmbulanceContact[contact_number][]" class="form-control contacts" id="contact' + global_val + '" value=""><div class="help-block" id="error' + global_val + '"></div></div>' +
                     '<div class="col-md-3">' +
                     '<button type="button" class="btn btn-danger" style="font-size:17px;" id="' + global_val + '"onclick="removeRow(' + global_val + ')">X</button>' +
                     '</div>' +
@@ -290,8 +326,44 @@ $model=$data['model'];
     });
 
     function removeRow(id) {
-        $('#container' + id).remove();
+        //$('#container-' + id).removeClass("has-error");
+        $('#container-' + id).remove();
         global_val--;
     }
+    $("#w1").submit(function () {
+        lat_error = 0;
+        if ($("#lat").val().replace(/^\s+|\s+$/g, "").length == 0) {
+            lat_error = 1;
+        }
+        if ($("#long").val().replace(/^\s+|\s+$/g, "").length == 0) {
+            lat_error = 1;
+        }
+        if (global_val > 1) {
+            has_error = 0;
+            $("div.content").each(function (e) {
+                //alert(e)
+                obj = $(this);
+                containerId = $(this).attr('id');
+                temp = containerId.split("-");
+                if ($("#contact" + temp[1]).val().replace(/^\s+|\s+$/g, "").length == 0) {
+                    $(obj).addClass("has-error");
+                    $("#error" + temp[1]).html("Alternat contact number required.");
+                    has_error++;
 
+                } else {
+                    $(obj).removeClass("has-error");
+                    $("#error" + temp[1]).html("");
+                    has_error--;
+                }
+
+            });
+            if (lat_error == 1) {
+                $("#pac-input").css('border', 'red');
+                $("#pac-input").focus();
+            }
+            if ((has_error != 0) && (lat_error != 0)) {
+                return false;
+            }
+        }
+    })
 </script>

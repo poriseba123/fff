@@ -34,7 +34,7 @@ class AmbulanceMaster extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             //[['lat', 'longi', 'vehiclenumber', 'title', 'image'], 'required'],
-            [['country_id', 'state_id','city_id','title','vehiclenumber','address'], 'required', 'on' => ['create_ambulance', 'add']],
+            [['country_id', 'state_id','city_id','title','vehiclenumber','address','lat','longi'], 'required', 'on' => ['create_ambulance', 'update_ambulance']],
             [['all_time', 'ac', 'oxygen', 'status'], 'string'],
             [['country_id', 'state_id', 'city_id'], 'integer'],
             [['lat', 'longi', 'vehiclenumber', 'title', 'image','address'], 'string', 'max' => 211],
