@@ -174,7 +174,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item <?= (Yii::$app->controller->id == "allopathicshop") ? 'active' : '' ?>">
-                        <a href="<?= $this->context->adminUrl('multilingual/') ?>" class="nav-link ">
+                        <a href="<?= $this->context->adminUrl('medicineshop/') ?>" class="nav-link ">
                             <i class="fa fa-medkit fa-fw" aria-hidden="true"></i>
                             <span class="title">Allopathic  Shop</span>
                         </a>
