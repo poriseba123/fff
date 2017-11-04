@@ -37,7 +37,8 @@ class DoctorChamber extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['doctor_master_id'], 'required'],
+//            [['doctor_master_id'], 'required'],
+            [['chamber_name','contact_person','address', 'doctor_master_id', 'city_id', 'state_id', 'country_id'], 'required','on'=>'create'],
             [['doctor_master_id', 'city_id', 'state_id', 'country_id', 'status'], 'integer'],
             [['address'], 'string'],
             [['created_at', 'updated_at'], 'safe'],

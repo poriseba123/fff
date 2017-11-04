@@ -199,9 +199,9 @@ class DoctorController extends AdminController {
                     ],
                     'toolbar' => [
                         
-                        ['content' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['chambercreate'], ['class' => 'btn btn-info']),
+                        ['content' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['chambercreate','id'=>$id], ['class' => 'btn btn-info']),
                         ],
-                        ['content' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset', ['chamberindex'], ['class' => 'btn btn-info']),
+                        ['content' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset', ['chamberindex','id'=>$id], ['class' => 'btn btn-info']),
                         ]
                     ],
                     'pjax' => true,
@@ -311,9 +311,11 @@ class DoctorController extends AdminController {
         return $html;
     }
     public function actionChambercreate() {
+        $doctor_id=$_GET['id'];
         $data=[];
         $model = new DoctorChamber;
         $doctor_chamber_time = new DoctorChamberTime();
+        $data['doctor_id']=$doctor_id;
         $data['model']=$model;
         $data['doctor_chamber_time']=$doctor_chamber_time;
         $model->scenario = "create_doctor_chamber";
@@ -327,6 +329,62 @@ class DoctorController extends AdminController {
         }
         return $this->render("create_chamber", ["data" => $data]);
     }
+    public function actionCreatechamberajax() {
+                        if (Yii::$app->request->isAjax) {
+                            $resp = [];
+                            $resp['flag'] = false;
+                            $doctor_id = $_REQUEST['doctor_id'];
+                            $time_error=false;
+                            $resp['checkbox'] = true;
+                            $time_check=$_POST['dayMaster'];
+                            foreach($time_check as $k=>$v){
+                                foreach ($_POST['start_time'][$v] as $key => $value) {
+                                    if($value==''){
+                                        $time_error=true;
+                                    }
+                                }
+                                foreach ($_POST['end_time'][$v] as $key => $value) {
+                                    if($value==''){
+                                        $time_error=true;
+                                    }
+                                }
+                            }
+                            if ($time_error){
+                                $resp['checkbox'] = false;
+                            }
+                            $model= new DoctorChamber();
+                            $model->scenario = "create";
+                            if ($model->load(Yii::$app->request->post())) {
+                                $model->doctor_master_id =$doctor_id;
+                                $model->status =1;
+                                $model->created_at = date("Y-m-d H:i:s");
+                                $model->updated_at = date("Y-m-d H:i:s");
+                                if ($model->validate() && $time_error==false) {
+                                    if($model->save(false)){
+                                       foreach($time_check as $k=>$v){
+                                foreach ($_POST['start_time'][$v] as $key => $value) {
+                                    $chamber_time=new DoctorChamberTime;
+                                    $chamber_time->doctor_chamber_id=$model->id;
+                                    $chamber_time->day_master_id=$v;
+                                    $chamber_time->start_time=$value;
+                                    $chamber_time->end_time=$_POST['end_time'][$v][$key];
+                                    $chamber_time->status=1;
+                                    $chamber_time->created_at=date('Y-m-d H:i:s');
+                                    $chamber_time->save(false);
+                                }
+                            } 
+                                    }
+                                    $resp['flag'] = true;
+                                    $resp['url'] = Url::to(['doctor/chamberindex', 'id' => $doctor_id]);
+                                    $resp['msg'] = "Chamber successfully created";
+                                } else {
+                                    $resp['errors'] = $model->getErrors();
+                                }
+                            }
+                            echo json_encode($resp);
+                            exit;
+                        }
+                        }
      public function actionChamberupdate($id) {
         $data=[];
          $model = DoctorMaster::findOne($id);

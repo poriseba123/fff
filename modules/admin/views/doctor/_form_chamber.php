@@ -1,3 +1,7 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
 <?php
 
 use yii\helpers\Html;
@@ -5,10 +9,11 @@ use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 
-if (!$model->isNewRecord) {
+//if (!$model->isNewRecord) {
+    $doctor_id = $data['doctor_id'];
     $model = $data['model'];
     $doctor_chamber_time = $data['doctor_chamber_time'];
-}
+//}
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 /* @var $form yii\widgets\ActiveForm */
@@ -124,6 +129,26 @@ if (!$model->isNewRecord) {
         width: 345px;
     }
 </style>
+
+<?php 
+//$start = '12:00AM';
+//$end = '11:59PM';
+////$interval = '+1 hour';
+//
+// $interval = '+30 minutes';
+//// $interval = '+15 minutes';
+//
+//$start_str = strtotime($start);
+//$end_str = strtotime($end);
+//$now_str = $start_str;
+//
+//echo '<select id="time_dropdown">';
+//while($now_str <= $end_str){
+//    echo '<option value="' . date('h:i A', $now_str) . '">' . date('h:i A', $now_str) . '</option>';
+//    $now_str = strtotime($interval, $now_str);
+//}
+//echo '</select>';
+?>
 <div class="portlet light bordered form-fit">
     <div class="portlet-title">
         <div class="caption">
@@ -138,6 +163,7 @@ if (!$model->isNewRecord) {
         <!-- BEGIN FORM-->
         <?php
         $form = ActiveForm::begin([
+                    'id'=>'create-chamber-form',
                     'options' => ['class' => 'form-horizontal form-row-seperated'],
                     'enableClientValidation' => false
                 ])
@@ -147,6 +173,15 @@ if (!$model->isNewRecord) {
                 <label class="control-label col-md-3">Chamber Name<span class="required">*</span></label>
                 <div class="col-md-6">
                     <?= $form->field($model, 'chamber_name')->textInput(['class' => 'form-control'])->label(false); ?>
+                    <input type="hidden" name="doctor_id" id="doctor_id" value="<?=(isset($doctor_id) && $doctor_id!='')?$doctor_id:''?>">
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Contact Person<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'contact_person')->textInput(['class' => 'form-control'])->label(false); ?>
                 </div>
             </div>
         </div>
@@ -224,7 +259,7 @@ if (!$model->isNewRecord) {
                             <div class="col-md-8 text-center">
                                 <div class="btn-group" data-toggle="buttons">
                                 <label class="btn btn-success active">
-				<input type="checkbox" autocomplete="off" checked>
+                                    <input type="checkbox" name="dayMaster[]" autocomplete="off" checked value="<?=$val->id?>">
 				<span class="glyphicon glyphicon-ok"></span>&nbsp;<?=$val->day?>
                                 </label>
                                 </div>
@@ -242,19 +277,21 @@ if (!$model->isNewRecord) {
                             <div class="row <?='each_time_'.$val->id.'_0'?>">
                                 <div class="col-md-4">
                                     <div class='input-group date timepicker'>
-                                        <input type='text' class="form-control" />
+                                        <input type='text' class="form-control" name="start_time[<?=$val->id?>][]"/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-time"></span>
                                         </span>
                                     </div>
+                                        <div class="help-block"></div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class='input-group date timepicker'>
-                                        <input type='text' class="form-control" />
+                                        <input type='text' class="form-control" name="end_time[<?=$val->id?>][]"/>
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-time"></span>
                                         </span>
                                     </div>
+                                    <div class="help-block"></div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="btn-group btn-group-solid">
@@ -299,20 +336,32 @@ if (!$model->isNewRecord) {
     </div>
 </div>
 <script>
-//    $(function () {
-//                $('.timepicker').datetimepicker({
-//                    format: 'LT'
-//                });
-//            });
+    $(function () {
+                $('.timepicker').datetimepicker({
+                    format: 'LT'
+                });
+            });
     var global_val = 1;
     function addTime(id){
         var day_master_id=id;
         $('.day_master_time_'+id).append('<div class="row each_time_'+id+'_'+global_val+'">'+
                                 '<div class="col-md-4">'+
-                                    '<input type="text" class="form-control" value="">'+
+                                    '<div class="input-group date timepicker">'+
+                                        '<input type="text" class="form-control" name="start_time['+id+'][]"/>'+
+                                        '<span class="input-group-addon">'+
+                                            '<span class="glyphicon glyphicon-time"></span>'+
+                                        '</span>'+
+                                    '</div>'+
+                                    '<div class="help-block"></div>'+
                                 '</div>'+
                                 '<div class="col-md-4">'+
-                                    '<input type="text" class="form-control" value="">'+
+                                    '<div class="input-group date timepicker">'+
+                                        '<input type="text" class="form-control" name="end_time['+id+'][]"/>'+
+                                        '<span class="input-group-addon">'+
+                                            '<span class="glyphicon glyphicon-time"></span>'+
+                                        '</span>'+
+                                    '</div>'+
+                                    '<div class="help-block"></div>'+
                                 '</div>'+
                                 '<div class="col-md-4">'+
                                     '<div class="btn-group btn-group-solid">'+
@@ -322,6 +371,9 @@ if (!$model->isNewRecord) {
                             '</div>'
                             );
         global_val=global_val+1;
+        $('.timepicker').datetimepicker({
+                    format: 'LT'
+                });
         
     }
     function removeRow(id,val){

@@ -86,8 +86,8 @@ MainAsset::register($this);
         </div>
         <?php $this->endBody() ?>
         <script type="text/javascript">
-            var admin_full_path = '<?php echo Yii::$app->request->baseUrl; ?>/admin/';
-            var full_path = '<?php echo Yii::$app->request->baseUrl; ?>/';
+            var full_path = '<?php echo Yii::$app->request->baseUrl; ?>/admin/';
+            var base_path = '<?php echo Yii::$app->request->baseUrl; ?>/';
         </script>
     </body>
     <?php $this->endPage() ?>
