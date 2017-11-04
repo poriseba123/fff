@@ -8,7 +8,7 @@ $data['data'] = $data;
 
 $this->title = 'Update Doctor';
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['index']];
-$this->title = $data['model']->first_name;
+$this->title = $data['model']->chamber_name;
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', "id" => $model->id]];
 
 $this->params['breadcrumbs'][] = "Update";
@@ -17,6 +17,6 @@ $this->params['breadcrumbs'][] = "Update";
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-<?= $this->render('_form', $data) ?>
+<?= $this->render('_form_chamber_update', $data) ?>
 
 </div>

@@ -385,13 +385,74 @@ class DoctorController extends AdminController {
                             exit;
                         }
                         }
-     public function actionChamberupdate($id) {
+                        public function actionUpdatechamberajax() {
+                        if (Yii::$app->request->isAjax) {
+                            $resp = [];
+                            $resp['flag'] = false;
+                            $chamber_id= $_REQUEST['chamber_id'];
+                            $time_error=false;
+                            $resp['checkbox'] = true;
+                            $time_check=$_POST['dayMaster'];
+                            foreach($time_check as $k=>$v){
+                                foreach ($_POST['start_time'][$v] as $key => $value) {
+                                    if($value==''){
+                                        $time_error=true;
+                                    }
+                                }
+                                foreach ($_POST['end_time'][$v] as $key => $value) {
+                                    if($value==''){
+                                        $time_error=true;
+                                    }
+                                }
+                            }
+                            if ($time_error){
+                                $resp['checkbox'] = false;
+                            }
+                            $model= DoctorChamber::findOne($chamber_id);
+                            $model->scenario = "update";
+                            if ($model->load(Yii::$app->request->post())) {
+                                $model->updated_at = date("Y-m-d H:i:s");
+                                if ($model->validate() && $time_error==false) {
+                                    if($model->save(false)){
+                                        $chamber_time= DoctorChamberTime::find()->where(["doctor_chamber_id"=>$chamber_id])->all();
+                                        if(count($chamber_time)>0){
+                                            foreach ($chamber_time as $key => $value) {
+                                              $times= DoctorChamberTime::findOne($value->id);  
+                                              $times->delete();
+                                            }
+                                        }
+                                        
+                                       foreach($time_check as $k=>$v){
+                                foreach ($_POST['start_time'][$v] as $key => $value) {
+                                    $chamber_time=new DoctorChamberTime;
+                                    $chamber_time->doctor_chamber_id=$model->id;
+                                    $chamber_time->day_master_id=$v;
+                                    $chamber_time->start_time=$value;
+                                    $chamber_time->end_time=$_POST['end_time'][$v][$key];
+                                    $chamber_time->status=1;
+                                    $chamber_time->updated_at=date('Y-m-d H:i:s');
+                                    $chamber_time->save(false);
+                                }
+                            } 
+                                    }
+                                    $resp['flag'] = true;
+                                    $resp['url'] = Url::to(['doctor/chamberindex', 'id' => $model->doctor_master_id]);
+                                    $resp['msg'] = "Chamber successfully updated";
+                                } else {
+                                    $resp['errors'] = $model->getErrors();
+                                }
+                            }
+                            echo json_encode($resp);
+                            exit;
+                        }
+                        }
+        public function actionChamberupdate($id) {
         $data=[];
-         $model = DoctorMaster::findOne($id);
-        $doc_type= DoctorType::find()->where("status<>:status",[":status"=>'3'])->all();
+         $model = DoctorChamber::findOne($id);
+        $doctor_chamber_time= DoctorChamberTime::find()->where("doctor_chamber_id=:doctor_chamber_id AND status<>:status",[":doctor_chamber_id"=>$id,":status"=>'3'])->all();
         $data['model']=$model;
-        $data['doc_type']=$doc_type;
-        $model->scenario = 'update_doctor';
+        $data['doctor_chamber_time']=$doctor_chamber_time;
+        $model->scenario = 'update_doctor_chamber';
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->updated_at=date('Y-m-d H:i:s'); 
                 $model->save(false);
@@ -399,14 +460,15 @@ class DoctorController extends AdminController {
             return $this->refresh();
         }
         $data['model'] = $model;
-        $data['doc_type']=$doc_type;
-        return $this->render('update', ["data" => $data]);
+        $data['doctor_chamber_time']=$doctor_chamber_time;
+        return $this->render('update_chamber', ["data" => $data]);
     }
+    
     public function actionChamberdelete() {
-        $userId = $_REQUEST['id'];
-        $user = $this->findModel($userId);
-        $user->status = 3;
-        $user->save(false);
+        $chamber_id= $_REQUEST['id'];
+        $chamber= DoctorChamber::findOne($chamber_id);
+        $chamber->status = 3;
+        $chamber->save(false);
         Yii::$app->session->setFlash('success', ' deleted.');
 //                        return $this->redirect(['index']);
         return $this->redirect(["index"]);
