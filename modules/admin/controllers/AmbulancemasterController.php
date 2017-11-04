@@ -7,6 +7,8 @@ use app\models\Seo;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\web\Controller;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 use kartik\grid\GridView;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
@@ -14,6 +16,7 @@ use yii\console\Application;
 use yii\web\NotFoundHttpException;
 use app\modules\admin\components\AdminController;
 use app\models\AmbulanceMaster;
+use app\models\AmbulanceContact;
 
 class AmbulancemasterController extends AdminController {
 
@@ -176,21 +179,87 @@ class AmbulancemasterController extends AdminController {
         return $this->render('index', ['widget' => $widget]);
     }
 
+    public function actionGetstates() {
+        $type_id = $_REQUEST['id'];
+        $doc_specialities = \app\models\States::find()->where("country_id=:country_id", [":country_id" => $type_id])->all();
+        $html = "";
+        if (count($doc_specialities) > 0) {
+            foreach ($doc_specialities as $key => $value) {
+                $html .= '<option value="' . $value->id . '">' . $value->name . '</option>';
+            }
+        } else {
+            $html .= '<option value="">No Data</option>';
+        }
+        return $html;
+    }
+
+    public function actionGetcities() {
+        $type_id = $_REQUEST['id'];
+        $doc_specialities = \app\models\Cities::find()->where("state_id=:state_id", [":state_id" => $type_id])->all();
+        $html = "";
+        if (count($doc_specialities) > 0) {
+            foreach ($doc_specialities as $key => $value) {
+                $html .= '<option value="' . $value->id . '">' . $value->name . '</option>';
+            }
+        } else {
+            $html .= '<option value="">No Data</option>';
+        }
+        return $html;
+    }
+
     public function actionCreate() {
         $model = new AmbulanceMaster;
+        $contactmodel = new AmbulanceContact;
         $model->scenario = "create_ambulance";
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate() && $model->save()) {
-                Yii::$app->session->setFlash('success', 'created successfully');
-                return $this->redirect(["index"]);
+        $contactmodel->scenario = "create_ambulance";
+        $data['model'] = $model;
+        $data['contactmodel'] = $contactmodel;
+//        if ( $contactmodel->load(Yii::$app->request->post())) {
+//            
+//        }
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()) && $contactmodel->load(Yii::$app->request->post())) {
+            //print_r($contactmodel);
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $responcemasterModel = ActiveForm::validate($model);
+
+            $array = (array) $contactmodel->contact_number;
+            $array = array_map('trim', $array);
+
+            if ($array[0] == "") {
+                $responcecontactmodel = ActiveForm::validate($contactmodel);
+                $responce = array_merge($responcemasterModel, $responcecontactmodel);
+            } else {
+
+                $responce = $responcemasterModel;
             }
+            if (!empty($responce)) {
+                return $responce;
+            }
+            if ($model->validate() && $model->save(false)) {
+
+                $contactmodel->ambulance_id = $model->id;
+                $contactArr = $contactmodel->contact_number;
+                foreach ($contactArr as $value) {
+                    // print_r($value);
+                    $contactmodel->setIsNewRecord(true);
+                    $contactmodel->id = null;
+
+                    $contactmodel->contact_number = $value;
+                    $contactmodel->save(false);
+                }
+            }
+            Yii::$app->session->setFlash('success', 'created successfully');
+            return $this->redirect(["index"]);
         }
-        return $this->render("create", ["model" => $model]);
+
+        return $this->render("create", ["data" => $data]);
     }
 
     public function actionView($id) {
-        return $this->render('view', ['model' => $this->findModel($id),
-        ]);
+        $model = AmbulanceMaster::findOne($id);
+        $ambulance_contact = AmbulanceContact::find()->where(["ambulance_id" => $id])->all();
+        return $this->render('view', ['model' => $model, 'ambulance_contact' => $ambulance_contact]);
     }
 
     public function actionDelete() {
@@ -204,23 +273,63 @@ class AmbulancemasterController extends AdminController {
     }
 
     public function actionUpdate($id) {
+        $model = new AmbulanceMaster;
+        $contactmodel = new AmbulanceContact;
+        $model->scenario = "update_ambulance";
+        $contactmodel->scenario = "update_ambulance";
         $model = AmbulanceMaster::findOne($id);
-        $model->scenario = 'update';
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->save(false);
-            Yii::$app->session->setFlash('success', 'updated successfully!');
-            return $this->refresh();
-        }
+        $contactmodel = AmbulanceContact::find()->where(["ambulance_id" => $id])->all();
+        
+        
         $data['model'] = $model;
-        return $this->render('update', $data);
+        $data['contactmodel'] = $contactmodel;
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post()) && $contactmodel->load(Yii::$app->request->post())) {
+            //print_r($contactmodel);
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $responcemasterModel = ActiveForm::validate($model);
+
+            $array = (array) $contactmodel->contact_number;
+            $array = array_map('trim', $array);
+
+            if ($array[0] == "") {
+                $responcecontactmodel = ActiveForm::validate($contactmodel);
+                $responce = array_merge($responcemasterModel, $responcecontactmodel);
+            } else {
+
+                $responce = $responcemasterModel;
+            }
+            if (!empty($responce)) {
+                return $responce;
+            }
+            if ($model->validate() && $model->save(false)) {
+
+                $contactmodel->ambulance_id = $model->id;
+                $contactArr = $contactmodel->contact_number;
+                foreach ($contactArr as $value) {
+                    // print_r($value);
+                    $contactmodel->setIsNewRecord(true);
+                    $contactmodel->id = null;
+
+                    $contactmodel->contact_number = $value;
+                    $contactmodel->save(false);
+                }
+            }
+            Yii::$app->session->setFlash('success', 'created successfully');
+            return $this->redirect(["index"]);
+        }
+        //print_r($data);
+        //$data['model'] = $model;
+        return $this->render('update', ["data" => $data]);
     }
 
-    protected function findModel($id) {
-        if (($model = AmbulanceMaster::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
+//    protected function findModel($id) {
+//        if (($model = AmbulanceMaster::findOne($id)) !== null && ($modelcontact = AmbulanceContact::find()->where(["ambulance_id" => $id]))->all() !== null) {
+//            $modelall['model'] = $model;
+//            $modelall['modelcontact'] = $modelcontact;
+//            return $modelall;
+//        } else {
+//            throw new NotFoundHttpException('The requested page does not exist.');
+//        }
+//    }
 
 }
