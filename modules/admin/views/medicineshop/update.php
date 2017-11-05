@@ -1,14 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-$model=$data['model'];
-$data['data'] = $data;
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 
-$this->title = 'Update Doctor';
+$this->title = 'Update Medicine Shop';
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['index']];
-$this->title = $data['model']->first_name;
+$this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['view', "id" => $model->id]];
 
 $this->params['breadcrumbs'][] = "Update";
@@ -17,6 +15,6 @@ $this->params['breadcrumbs'][] = "Update";
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-<?= $this->render('_form', $data) ?>
+<?= $this->render('_form_update', ['model'=>$model]) ?>
 
 </div>

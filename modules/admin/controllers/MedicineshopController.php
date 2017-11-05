@@ -72,13 +72,13 @@ class MedicineshopController extends AdminController {
                 'urlCreator' => function($action, $model, $key, $index) {
                     switch ($action) {
                         case "view":
-                            return Url::to(['doctor/view', 'id' => $model->id]);
+                            return Url::to(['medicineshop/view', 'id' => $model->id]);
                             break;
                         case "update":
-                            return Url::to(['doctor/update', 'id' => $model->id]);
+                            return Url::to(['medicineshop/update', 'id' => $model->id]);
                             break;
                         case "delete":
-                            return Url::to(['doctor/delete', 'id' => $model->id]);
+                            return Url::to(['medicineshop/delete', 'id' => $model->id]);
                             break;
                     }
                 },
@@ -162,50 +162,28 @@ class MedicineshopController extends AdminController {
                         if (Yii::$app->request->isAjax) {
                             $resp = [];
                             $resp['flag'] = false;
-                            $doctor_id = $_REQUEST['doctor_id'];
-                            $time_error=false;
-                            $resp['checkbox'] = true;
-                            $time_check=$_POST['dayMaster'];
-                            foreach($time_check as $k=>$v){
-                                foreach ($_POST['start_time'][$v] as $key => $value) {
-                                    if($value==''){
-                                        $time_error=true;
-                                    }
-                                }
-                                foreach ($_POST['end_time'][$v] as $key => $value) {
-                                    if($value==''){
-                                        $time_error=true;
-                                    }
+                            $phone_error=false;
+                            $resp['phone'] = true;
+                            $phone_check=$_POST['contact_no'];
+                            foreach($phone_check as $k=>$v){
+                                    if($v==''){
+                                        $phone_error=true;
                                 }
                             }
-                            if ($time_error){
-                                $resp['checkbox'] = false;
+                            if ($phone_error){
+                                $resp['phone'] = false;
                             }
-                            $model= new DoctorChamber();
+                            $model= new MedicineShopMaster();
                             $model->scenario = "create";
                             if ($model->load(Yii::$app->request->post())) {
-                                $model->doctor_master_id =$doctor_id;
                                 $model->status =1;
                                 $model->created_at = date("Y-m-d H:i:s");
-                                $model->updated_at = date("Y-m-d H:i:s");
-                                if ($model->validate() && $time_error==false) {
-                                    if($model->save(false)){
-                                       foreach($time_check as $k=>$v){
-                                foreach ($_POST['start_time'][$v] as $key => $value) {
-                                    $chamber_time=new DoctorChamberTime;
-                                    $chamber_time->doctor_chamber_id=$model->id;
-                                    $chamber_time->day_master_id=$v;
-                                    $chamber_time->start_time=$value;
-                                    $chamber_time->end_time=$_POST['end_time'][$v][$key];
-                                    $chamber_time->status=1;
-                                    $chamber_time->created_at=date('Y-m-d H:i:s');
-                                    $chamber_time->save(false);
-                                }
-                            } 
-                                    }
+                                if ($model->validate() && $phone_error==false) {
+                                    $model->contact_no=implode(',',$_POST['contact_no']);
+                                   $model->save(false);
                                     $resp['flag'] = true;
-                                    $resp['url'] = Url::to(['doctor/chamberindex', 'id' => $doctor_id]);
-                                    $resp['msg'] = "Chamber successfully created";
+                                    $resp['url'] = Url::to(['medicineshop/index']);
+                                    $resp['msg'] = "Medicine Shop successfully created";
                                 } else {
                                     $resp['errors'] = $model->getErrors();
                                 }
@@ -216,57 +194,30 @@ class MedicineshopController extends AdminController {
                         }
     public function actionUpdateajax() {
                         if (Yii::$app->request->isAjax) {
+                            $med_shop_id=$_POST['medicine_shop_id'];
                             $resp = [];
                             $resp['flag'] = false;
-                            $chamber_id= $_REQUEST['chamber_id'];
-                            $time_error=false;
-                            $resp['checkbox'] = true;
-                            $time_check=$_POST['dayMaster'];
-                            foreach($time_check as $k=>$v){
-                                foreach ($_POST['start_time'][$v] as $key => $value) {
-                                    if($value==''){
-                                        $time_error=true;
-                                    }
-                                }
-                                foreach ($_POST['end_time'][$v] as $key => $value) {
-                                    if($value==''){
-                                        $time_error=true;
-                                    }
+                            $phone_error=false;
+                            $resp['phone'] = true;
+                            $phone_check=$_POST['contact_no'];
+                            foreach($phone_check as $k=>$v){
+                                    if($v==''){
+                                        $phone_error=true;
                                 }
                             }
-                            if ($time_error){
-                                $resp['checkbox'] = false;
+                            if ($phone_error){
+                                $resp['phone'] = false;
                             }
-                            $model= DoctorChamber::findOne($chamber_id);
+                            $model= MedicineShopMaster::findOne($med_shop_id);
                             $model->scenario = "update";
                             if ($model->load(Yii::$app->request->post())) {
                                 $model->updated_at = date("Y-m-d H:i:s");
-                                if ($model->validate() && $time_error==false) {
-                                    if($model->save(false)){
-                                        $chamber_time= DoctorChamberTime::find()->where(["doctor_chamber_id"=>$chamber_id])->all();
-                                        if(count($chamber_time)>0){
-                                            foreach ($chamber_time as $key => $value) {
-                                              $times= DoctorChamberTime::findOne($value->id);  
-                                              $times->delete();
-                                            }
-                                        }
-                                        
-                                       foreach($time_check as $k=>$v){
-                                foreach ($_POST['start_time'][$v] as $key => $value) {
-                                    $chamber_time=new DoctorChamberTime;
-                                    $chamber_time->doctor_chamber_id=$model->id;
-                                    $chamber_time->day_master_id=$v;
-                                    $chamber_time->start_time=$value;
-                                    $chamber_time->end_time=$_POST['end_time'][$v][$key];
-                                    $chamber_time->status=1;
-                                    $chamber_time->updated_at=date('Y-m-d H:i:s');
-                                    $chamber_time->save(false);
-                                }
-                            } 
-                                    }
+                                if ($model->validate() && $phone_error==false) {
+                                    $model->contact_no=implode(',',$_POST['contact_no']);
+                                   $model->save(false);
                                     $resp['flag'] = true;
-                                    $resp['url'] = Url::to(['doctor/chamberindex', 'id' => $model->doctor_master_id]);
-                                    $resp['msg'] = "Chamber successfully updated";
+                                    $resp['url'] = Url::to(['medicineshop/index']);
+                                    $resp['msg'] = "Medicine Shop successfully updated";
                                 } else {
                                     $resp['errors'] = $model->getErrors();
                                 }
@@ -277,24 +228,18 @@ class MedicineshopController extends AdminController {
                         }
     public function actionUpdate($id) {
         $data=[];
-         $model = DoctorChamber::findOne($id);
-        $doctor_chamber_time= DoctorChamberTime::find()->where("doctor_chamber_id=:doctor_chamber_id AND status<>:status",[":doctor_chamber_id"=>$id,":status"=>'3'])->all();
-        $data['model']=$model;
-        $data['doctor_chamber_time']=$doctor_chamber_time;
-        $model->scenario = 'update_doctor_chamber';
+         $model = MedicineShopMaster::findOne($id);
+        $model->scenario = 'update';
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->updated_at=date('Y-m-d H:i:s'); 
                 $model->save(false);
             Yii::$app->session->setFlash('success', 'updated successfully!');
             return $this->refresh();
         }
-        $data['model'] = $model;
-        $data['doctor_chamber_time']=$doctor_chamber_time;
-        return $this->render('update_chamber', ["data" => $data]);
+        return $this->render('update', ["model" => $model]);
     }
-    public function actionDelete() {
-        $chamber_id= $_REQUEST['id'];
-        $chamber= DoctorChamber::findOne($chamber_id);
+    public function actionDelete($id) {
+        $chamber= MedicineShopMaster::findOne($id);
         $chamber->status = 3;
         $chamber->save(false);
         Yii::$app->session->setFlash('success', ' deleted.');

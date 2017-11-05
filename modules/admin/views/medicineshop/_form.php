@@ -146,7 +146,7 @@ use yii\helpers\ArrayHelper;
         <!-- BEGIN FORM-->
         <?php
         $form = ActiveForm::begin([
-                    'name'=>'create_medicine_shop_form',
+                    'id'=>'create_medicine_shop_form',
                     'options' => ['class' => 'form-horizontal form-row-seperated'],
                     'enableClientValidation' => false
                 ])
@@ -225,8 +225,8 @@ use yii\helpers\ArrayHelper;
             <div class="form-group">
                 <label class="control-label col-md-3">Map<span class="required">*</span></label>
                 <div class="col-md-6">
-                    <input type="hidden" id="medicineshopmaster-latitude" class="form-control" name="DoctorChamber[latitude]">
-                    <input type="hidden" id="medicineshopmaster-longitude" class="form-control" name="DoctorChamber[longitude]">
+                    <input type="hidden" id="medicineshopmaster-latitude" class="form-control" name="MedicineShopMaster[latitude]">
+                    <input type="hidden" id="medicineshopmaster-longitude" class="form-control" name="MedicineShopMaster[longitude]">
                     <input id="pac-input" class="form-control controls1" type="text" placeholder="Search Box"><br>
                     <div id="map" style="height: 324px;width: 100%;"></div>
                 </div>
@@ -289,6 +289,7 @@ use yii\helpers\ArrayHelper;
                 <label class="control-label col-md-3">Contact No<span class="required">*</span></label>
                 <div class="col-md-6">
                     <div class="main_contact_div">
+                        <div>
                         <div class="row row_0">
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="contact_no[]" value="">
@@ -300,6 +301,8 @@ use yii\helpers\ArrayHelper;
                                     </button>
                                 </div>
                             </div>
+                            </div>
+                         <div class="help-block"></div>
                         </div>
 
                     </div>
@@ -344,7 +347,7 @@ use yii\helpers\ArrayHelper;
     });
      var global_val = 1;
     function addPhone(){
-        $('.main_contact_div').append('<div class="row row_'+global_val+'">'+
+        $('.main_contact_div').append('<div><div class="row row_'+global_val+'">'+
                             '<div class="col-md-8">'+
                                 '<input type="text" class="form-control" name="contact_no[]" value="">'+
                             '</div>'+
@@ -353,7 +356,10 @@ use yii\helpers\ArrayHelper;
                                     '<button type="button" class="btn btn-danger" style="font-size:17px;" onclick="removeRow('+global_val+')">X</button>' +
                                 '</div>'+
                             '</div>'+
-                        '</div>');
+                            '</div>'+
+                            '<div class="help-block"></div>'+
+                        '</div>'
+                        );
                 global_val++;
     }
     function removeRow(id) {

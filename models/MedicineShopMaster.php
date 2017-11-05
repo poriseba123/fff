@@ -40,7 +40,7 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id'], 'required'],
+            [['name','category_id', 'country_id', 'state_id', 'city_id','open_time', 'close_time','close_day','address'], 'required','on'=>['create','update']],
             [['category_id', 'country_id', 'state_id', 'city_id', 'status'], 'integer'],
             [['contact_no'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
@@ -75,9 +75,7 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
         ];
     }
     public function search($params) {
-        $id=(isset($_REQUEST['id']) && $_REQUEST['id']!='')?$_REQUEST['id']:'';
-//        $query = DoctorMaster::find();
-        $query = DoctorChamber::find()->where(["doctor_master_id"=>$id]);
+        $query = MedicineShopMaster::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
