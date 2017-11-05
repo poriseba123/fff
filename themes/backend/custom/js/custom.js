@@ -285,6 +285,91 @@ var error=false;
                 }
             }, 'json');
 });
+
+$('body').on('submit', '#create_eye_bank_form', function (e) {
+//$('#user-pro-update').submit(function (e) {
+var error=false;
+    e.preventDefault();
+    loader_start();
+    var _this = $(this);
+
+    _this.find(".has-error").removeClass("has-error");
+    _this.find(".help-block").html("");
+    
+    
+
+    var data = _this.serialize();
+    var url = full_path + "eyebank/createajax";
+
+    $.post(url, data,
+            function (resp) {
+                loader_stop();
+                if (resp.flag == true) {
+                    notifySuccess(true, true, resp.msg, 'bottom center', 5000);
+                    setTimeout(function(){
+                        location.href=resp.url;
+                    },'2000');
+                } else {
+                    $.each(resp.errors, function (item, value) {
+                        $('#eyebankmaster-' + item).parent().addClass("has-error");
+                        $('#eyebankmaster-' + item).parent().find(".help-block").html(value);
+                    });
+                    if(resp.phone==false){
+   $('.main_contact_div').find('input:text')
+        .each(function() {
+            var input_field_val=$(this).val();
+                    if(input_field_val==''){
+                        $(this).parent().parent().parent().addClass("has-error");
+                        $(this).parent().parent().parent().find(".help-block").html('Field cannot be blank');
+                        error=true;
+                    }
+        });
+            }
+                }
+            }, 'json');
+});
+$('body').on('submit', '#update_eye_bank_form', function (e) {
+//$('#user-pro-update').submit(function (e) {
+var error=false;
+    e.preventDefault();
+    loader_start();
+    var _this = $(this);
+
+    _this.find(".has-error").removeClass("has-error");
+    _this.find(".help-block").html("");
+    
+    
+
+    var data = _this.serialize();
+    var url = full_path + "eyebank/updateajax";
+
+    $.post(url, data,
+            function (resp) {
+                loader_stop();
+                if (resp.flag == true) {
+                    notifySuccess(true, true, resp.msg, 'bottom center', 5000);
+                    setTimeout(function(){
+                        location.href=resp.url;
+                    },'2000');
+                } else {
+                    $.each(resp.errors, function (item, value) {
+                        $('#eyebankmaster-' + item).parent().addClass("has-error");
+                        $('#eyebankmaster-' + item).parent().find(".help-block").html(value);
+                    });
+                    if(resp.phone==false){
+   $('.main_contact_div').find('input:text')
+        .each(function() {
+            var input_field_val=$(this).val();
+                    if(input_field_val==''){
+                        $(this).parent().parent().parent().addClass("has-error");
+                        $(this).parent().parent().parent().find(".help-block").html('Field cannot be blank');
+                        error=true;
+                    }
+        });
+            }
+                }
+            }, 'json');
+});
 $('body').on('submit', '#create_ambulance_form', function (e) {
 //$('#user-pro-update').submit(function (e) {
 var error=false;
