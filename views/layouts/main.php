@@ -18,7 +18,7 @@ use yii\helpers\Url;
         <meta charset="<?= Yii::$app->charset ?>">
         <?= Html::csrfMetaTags() ?>
         <?php
-        $this->title=$this->context->getPageMetaTitle(Yii::$app->controller->id,Yii::$app->controller->action->id);
+        $this->title = $this->context->getPageMetaTitle(Yii::$app->controller->id, Yii::$app->controller->action->id);
         ?>
         <title><?= Html::encode($this->title) ?></title>
         <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Quicksand:300,400,500,700&amp;subset=latin-ext,vietnamese" rel="stylesheet">
@@ -26,6 +26,13 @@ use yii\helpers\Url;
         <link href="<?= $this->context->getProjectFavicon() ?>" rel="shortcut icon" type="image/x-icon"/>
 
         <?php $this->head() ?>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-4351265563256692",
+                enable_page_level_ads: true
+            });
+        </script>
     </head>
     <?php $this->beginBody() ?>
     <body>
