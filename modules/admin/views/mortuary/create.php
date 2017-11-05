@@ -2,21 +2,18 @@
 
 use yii\helpers\Html;
 
-$data['model'] = $data['model'];
-$data['contactmodel'] = $data['contactmodel'];
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 
-$this->title = 'Manage Ambulance';
+$this->title = 'Add Mortuary Van';
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['index']];
-$this->title = "Add Ambulance";
+$this->title = "Add Mortuary Van";
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form',  ["data" => $data]) ?>
+    <?= $this->render('_form', ['model'=>$model]) ?>
 
 </div>
-

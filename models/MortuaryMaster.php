@@ -5,9 +5,8 @@ namespace app\models;
 use Yii;
 use yii\data\ActiveDataProvider;
 
-
 /**
- * This is the model class for table "ambulance_master".
+ * This is the model class for table "mortuary_master".
  *
  * @property string $id
  * @property string $name
@@ -20,21 +19,20 @@ use yii\data\ActiveDataProvider;
  * @property string $longitude
  * @property int $all_time 0=>No,1=>Yes
  * @property int $ac 0=No,1=yes
- * @property int $oxygen 0=No,1=yes
  * @property string $description
  * @property string $contact_no
  * @property int $status 0=>inactive,1=>active,3=>delete
  * @property string $created_at
  * @property string $updated_at
  */
-class AmbulanceMaster extends \yii\db\ActiveRecord
+class MortuaryMaster extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'ambulance_master';
+        return 'mortuary_master';
     }
 
     /**
@@ -43,8 +41,8 @@ class AmbulanceMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'country_id', 'state_id', 'city_id','ac', 'oxygen','all_time','address','description','vehicle_no'], 'required','on'=>['create','update']],
-            [['country_id', 'state_id', 'city_id', 'all_time', 'ac', 'oxygen', 'status'], 'integer'],
+            [['name', 'country_id', 'state_id', 'city_id','ac','all_time','address','description','vehicle_no'], 'required','on'=>['create','update']],
+            [['country_id', 'state_id', 'city_id', 'all_time', 'ac', 'status'], 'integer'],
             [['description', 'contact_no'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 100],
@@ -69,9 +67,8 @@ class AmbulanceMaster extends \yii\db\ActiveRecord
             'address' => 'Address',
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',
-            'all_time' => '24 X 7',
+            'all_time' => 'All Time',
             'ac' => 'Ac',
-            'oxygen' => 'Oxygen',
             'description' => 'Description',
             'contact_no' => 'Contact No',
             'status' => 'Status',
@@ -79,9 +76,8 @@ class AmbulanceMaster extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
-    
-     public function search($params) {
-        $query = AmbulanceMaster::find();
+         public function search($params) {
+        $query = MortuaryMaster::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
