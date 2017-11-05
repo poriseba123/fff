@@ -392,9 +392,9 @@ use yii\helpers\ArrayHelper;
                 $('#doctorchamber-country_id').trigger('onchange');
                 var state_id=<?php echo $model->state_id?>;
                 var city_id=<?php echo $model->city_id?>;
-                setTimeout(function(){$('#doctorchamber-state_id').val(state_id);},'1000')
-                setTimeout(function(){$('#doctorchamber-state_id').trigger('onchange');},'2000')
-                setTimeout(function(){$('#doctorchamber-city_id').val(city_id);},'3000')
+                setTimeout(function(){$('#doctorchamber-state_id').val(state_id);},'1000');
+                setTimeout(function(){$('#doctorchamber-state_id').trigger('onchange');},'2000');
+                setTimeout(function(){$('#doctorchamber-city_id').val(city_id);},'3000');
             });
     var global_val = 1;
     function addTime(id,count){

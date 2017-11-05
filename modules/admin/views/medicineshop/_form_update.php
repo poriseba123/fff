@@ -146,7 +146,7 @@ use yii\helpers\ArrayHelper;
         <!-- BEGIN FORM-->
         <?php
         $form = ActiveForm::begin([
-                    'id'=>'create_medicine_shop_form',
+                    'id'=>'update_medicine_shop_form',
                     'options' => ['class' => 'form-horizontal form-row-seperated'],
                     'enableClientValidation' => false
                 ])
@@ -155,6 +155,7 @@ use yii\helpers\ArrayHelper;
             <div class="form-group">
                 <label class="control-label col-md-3">Name<span class="required">*</span></label>
                 <div class="col-md-6">
+                    <input type="hidden" name="medicine_shop_id" value="<?=$model->id?>">
 <?= $form->field($model, 'name')->textInput(['class' => 'form-control'])->label(false); ?>
                 </div>
             </div>
@@ -225,8 +226,8 @@ use yii\helpers\ArrayHelper;
             <div class="form-group">
                 <label class="control-label col-md-3">Map<span class="required">*</span></label>
                 <div class="col-md-6">
-                    <input type="hidden" id="medicineshopmaster-latitude" class="form-control" name="MedicineShopMaster[latitude]">
-                    <input type="hidden" id="medicineshopmaster-longitude" class="form-control" name="MedicineShopMaster[longitude]">
+                    <input type="hidden" id="medicineshopmaster-latitude" class="form-control" name="MedicineShopMaster[latitude]" value="<?=$model->latitude?>">
+                    <input type="hidden" id="medicineshopmaster-longitude" class="form-control" name="MedicineShopMaster[longitude]" value="<?=$model->longitude?>">
                     <input id="pac-input" class="form-control controls1" type="text" placeholder="Search Box"><br>
                     <div id="map" style="height: 324px;width: 100%;"></div>
                 </div>
@@ -250,7 +251,7 @@ use yii\helpers\ArrayHelper;
                         <div class="row">
                             <div class="col-md-6">
                                 <div class='input-group date timepicker'>
-                                    <input type="text" id="medicineshopmaster-open_time" class="form-control" name="MedicineShopMaster[open_time]">
+                                    <input type="text" id="medicineshopmaster-open_time" class="form-control" name="MedicineShopMaster[open_time]" value="<?=$model->open_time?>">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -259,7 +260,7 @@ use yii\helpers\ArrayHelper;
                             </div>
                             <div class="col-md-6">
                                 <div class='input-group date timepicker'>
-                                    <input type="text" id="medicineshopmaster-close_time" class="form-control" name="MedicineShopMaster[close_time]">
+                                    <input type="text" id="medicineshopmaster-close_time" class="form-control" name="MedicineShopMaster[close_time]" value="<?=$model->close_time?>">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -289,21 +290,32 @@ use yii\helpers\ArrayHelper;
                 <label class="control-label col-md-3">Contact No<span class="required">*</span></label>
                 <div class="col-md-6">
                     <div class="main_contact_div">
+                        <?php
+                        $contacts=explode(',',$model->contact_no);
+                        foreach ($contacts as $key => $value) {
+                        ?>
                         <div>
-                        <div class="row row_0">
+                        <div class="row row_<?=$key?>">
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="contact_no[]" value="">
+                                <input type="text" class="form-control" name="contact_no[]" value="<?=$value?>">
                             </div>
                             <div class="col-md-4">
                                 <div class="btn-group btn-group-solid">
-                                    <button type="button" class="btn btn-success" style="font-size:17px;" onclick="addPhone();">
+                                    <?php
+                                    if($key==0){
+                                    ?>
+                                    <button type="button" class="btn btn-success" style="font-size:17px;" onclick="addPhone('<?=count($contacts)?>');">
                                         + ADD MORE
                                     </button>
+                                    <?php }else{ ?>
+                                    <button type="button" class="btn btn-danger" style="font-size:17px;" onclick="removeRow('<?=$key?>')">X</button>
+                                    <?php } ?>
                                 </div>
                             </div>
                             </div>
                          <div class="help-block"></div>
                         </div>
+                        <?php } ?>
 
                     </div>
                 </div>
@@ -344,9 +356,18 @@ use yii\helpers\ArrayHelper;
         $('.timepicker').datetimepicker({
             format: 'LT'
         });
+                $('#medicineshopmaster-country_id').trigger('onchange');
+                var state_id=<?php echo $model->state_id?>;
+                var city_id=<?php echo $model->city_id?>;
+                setTimeout(function(){$('#medicineshopmaster-state_id').val(state_id);},'1000');
+                setTimeout(function(){$('#medicineshopmaster-state_id').trigger('onchange');},'2000');
+                setTimeout(function(){$('#medicineshopmaster-city_id').val(city_id);},'3000');
     });
      var global_val = 1;
-    function addPhone(){
+    function addPhone(count){
+        if(global_val < count){
+            global_val=count;
+        }
         $('.main_contact_div').append('<div><div class="row row_'+global_val+'">'+
                             '<div class="col-md-8">'+
                                 '<input type="text" class="form-control" name="contact_no[]" value="">'+

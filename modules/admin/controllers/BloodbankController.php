@@ -13,14 +13,9 @@ use yii\helpers\ArrayHelper;
 use yii\console\Application;
 use yii\web\NotFoundHttpException;
 use app\modules\admin\components\AdminController;
-use app\models\DoctorSpecialities;
-use app\models\DoctorMaster;
-use app\models\DoctorType;
-use app\models\DoctorChamber;
-use app\models\DoctorChamberTime;
-use app\models\MedicineShopMaster;
+use app\models\BloodBankMaster;
 
-class MedicineshopController extends AdminController {
+class BloodbankController extends AdminController {
 
     public function column() {
         $viewMsg = 'View';
@@ -72,13 +67,13 @@ class MedicineshopController extends AdminController {
                 'urlCreator' => function($action, $model, $key, $index) {
                     switch ($action) {
                         case "view":
-                            return Url::to(['medicineshop/view', 'id' => $model->id]);
+                            return Url::to(['bloodbank/view', 'id' => $model->id]);
                             break;
                         case "update":
-                            return Url::to(['medicineshop/update', 'id' => $model->id]);
+                            return Url::to(['bloodbank/update', 'id' => $model->id]);
                             break;
                         case "delete":
-                            return Url::to(['medicineshop/delete', 'id' => $model->id]);
+                            return Url::to(['bloodbank/delete', 'id' => $model->id]);
                             break;
                     }
                 },
@@ -99,7 +94,7 @@ class MedicineshopController extends AdminController {
     }
 
     public function actionIndex() {
-        $searchModel = new MedicineShopMaster;
+        $searchModel = new BloodBankMaster;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $widget = GridView::widget([
                     'dataProvider' => $dataProvider,
@@ -146,7 +141,7 @@ class MedicineshopController extends AdminController {
    
     public function actionCreate() {
         $data=[];
-        $model = new MedicineShopMaster;
+        $model = new BloodBankMaster;
         $model->scenario = "create";
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
@@ -173,7 +168,7 @@ class MedicineshopController extends AdminController {
                             if ($phone_error){
                                 $resp['phone'] = false;
                             }
-                            $model= new MedicineShopMaster();
+                            $model= new BloodBankMaster();
                             $model->scenario = "create";
                             if ($model->load(Yii::$app->request->post())) {
                                 $model->status =1;
@@ -182,8 +177,8 @@ class MedicineshopController extends AdminController {
                                     $model->contact_no=implode(',',$_POST['contact_no']);
                                    $model->save(false);
                                     $resp['flag'] = true;
-                                    $resp['url'] = Url::to(['medicineshop/index']);
-                                    $resp['msg'] = "Medicine Shop successfully created";
+                                    $resp['url'] = Url::to(['bloodbank/index']);
+                                    $resp['msg'] = "Blood Bank successfully created";
                                 } else {
                                     $resp['errors'] = $model->getErrors();
                                 }
@@ -194,7 +189,7 @@ class MedicineshopController extends AdminController {
                         }
     public function actionUpdateajax() {
                         if (Yii::$app->request->isAjax) {
-                            $med_shop_id=$_POST['medicine_shop_id'];
+                            $med_shop_id=$_POST['blood_bank_id'];
                             $resp = [];
                             $resp['flag'] = false;
                             $phone_error=false;
@@ -208,7 +203,7 @@ class MedicineshopController extends AdminController {
                             if ($phone_error){
                                 $resp['phone'] = false;
                             }
-                            $model= MedicineShopMaster::findOne($med_shop_id);
+                            $model= BloodBankMaster::findOne($med_shop_id);
                             $model->scenario = "update";
                             if ($model->load(Yii::$app->request->post())) {
                                 $model->updated_at = date("Y-m-d H:i:s");
@@ -216,8 +211,8 @@ class MedicineshopController extends AdminController {
                                     $model->contact_no=implode(',',$_POST['contact_no']);
                                    $model->save(false);
                                     $resp['flag'] = true;
-                                    $resp['url'] = Url::to(['medicineshop/index']);
-                                    $resp['msg'] = "Medicine Shop successfully updated";
+                                    $resp['url'] = Url::to(['bloodbank/index']);
+                                    $resp['msg'] = "Blood bank successfully updated";
                                 } else {
                                     $resp['errors'] = $model->getErrors();
                                 }
@@ -228,7 +223,7 @@ class MedicineshopController extends AdminController {
                         }
     public function actionUpdate($id) {
         $data=[];
-         $model = MedicineShopMaster::findOne($id);
+         $model = BloodBankMaster::findOne($id);
         $model->scenario = 'update';
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->updated_at=date('Y-m-d H:i:s'); 
@@ -239,7 +234,7 @@ class MedicineshopController extends AdminController {
         return $this->render('update', ["model" => $model]);
     }
     public function actionDelete($id) {
-        $chamber= MedicineShopMaster::findOne($id);
+        $chamber= BloodBankMaster::findOne($id);
         $chamber->status = 3;
         $chamber->save(false);
         Yii::$app->session->setFlash('success', ' deleted.');

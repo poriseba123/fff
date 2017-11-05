@@ -6,11 +6,10 @@ use Yii;
 use yii\data\ActiveDataProvider;
 
 /**
- * This is the model class for table "medicine_shop_master".
+ * This is the model class for table "blood_bank_master".
  *
  * @property string $id
  * @property string $name
- * @property int $category_id
  * @property int $country_id
  * @property int $state_id
  * @property int $city_id
@@ -19,19 +18,21 @@ use yii\data\ActiveDataProvider;
  * @property string $longitude
  * @property string $open_time
  * @property string $close_time
+ * @property int $close_day
+ * @property string $description
  * @property string $contact_no
  * @property int $status 0=>inactive,1=>active,3=>delete
  * @property string $created_at
  * @property string $updated_at
  */
-class MedicineShopMaster extends \yii\db\ActiveRecord
+class BloodBankMaster extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'medicine_shop_master';
+        return 'blood_bank_master';
     }
 
     /**
@@ -40,9 +41,9 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name','category_id', 'country_id', 'state_id', 'city_id','open_time', 'close_time','close_day','address'], 'required','on'=>['create','update']],
-            [['category_id', 'country_id', 'state_id', 'city_id', 'status'], 'integer'],
-            [['contact_no'], 'string'],
+            [['name', 'country_id', 'state_id', 'city_id','open_time', 'close_time','close_day','address','description'], 'required','on'=>['create','update']],
+            [['country_id', 'state_id', 'city_id', 'close_day', 'status'], 'integer'],
+            [['description', 'contact_no'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 100],
             [['address'], 'string', 'max' => 200],
@@ -59,7 +60,6 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'category_id' => 'Category ID',
             'country_id' => 'Country ID',
             'state_id' => 'State ID',
             'city_id' => 'City ID',
@@ -68,14 +68,16 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
             'longitude' => 'Longitude',
             'open_time' => 'Open Time',
             'close_time' => 'Close Time',
+            'close_day' => 'Close Day',
+            'description' => 'Description',
             'contact_no' => 'Contact No',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
     }
-    public function search($params) {
-        $query = MedicineShopMaster::find();
+     public function search($params) {
+        $query = BloodBankMaster::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [

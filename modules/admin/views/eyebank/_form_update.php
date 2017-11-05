@@ -146,7 +146,7 @@ use yii\helpers\ArrayHelper;
         <!-- BEGIN FORM-->
         <?php
         $form = ActiveForm::begin([
-                    'id'=>'create_medicine_shop_form',
+                    'id'=>'update_eye_bank_form',
                     'options' => ['class' => 'form-horizontal form-row-seperated'],
                     'enableClientValidation' => false
                 ])
@@ -155,19 +155,8 @@ use yii\helpers\ArrayHelper;
             <div class="form-group">
                 <label class="control-label col-md-3">Name<span class="required">*</span></label>
                 <div class="col-md-6">
+                    <input type="hidden" name="eye_bank_id" value="<?=$model->id?>">
 <?= $form->field($model, 'name')->textInput(['class' => 'form-control'])->label(false); ?>
-                </div>
-            </div>
-        </div>
-        <div class="form-body">
-            <div class="form-group">
-                <label class="control-label col-md-3">Medicine shop type<span class="required">*</span></label>
-                <div class="col-md-6">
-                    <?php
-                    $type = app\models\DoctorType::find()->all();
-                    $listData = ArrayHelper::map($type, 'id', 'type');
-                    echo $form->field($model, 'category_id')->dropDownList($listData, ['prompt' => 'Select Medicine Type'])->label(false);
-                    ?>
                 </div>
             </div>
         </div>
@@ -188,7 +177,7 @@ use yii\helpers\ArrayHelper;
                     $listData = ArrayHelper::map($country_list, 'id', 'name');
                     echo $form->field($model, 'country_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
                     $.post("getstates?id=' . '"+$(this).val(),function(data){
-                      $("select#medicineshopmaster-state_id").html(data);
+                      $("select#eyebankmaster-state_id").html(data);
                     });'])->label(false);
                     ?>
                 </div>
@@ -203,7 +192,7 @@ use yii\helpers\ArrayHelper;
                     $listData = ArrayHelper::map($state_list, 'id', 'name');
                     echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
                     $.post("getcities?id=' . '"+$(this).val(),function(data){
-                      $("select#medicineshopmaster-city_id").html(data);
+                      $("select#eyebankmaster-city_id").html(data);
                     });'])->label(false);
                     ?>
                 </div>
@@ -225,8 +214,8 @@ use yii\helpers\ArrayHelper;
             <div class="form-group">
                 <label class="control-label col-md-3">Map<span class="required">*</span></label>
                 <div class="col-md-6">
-                    <input type="hidden" id="medicineshopmaster-latitude" class="form-control" name="MedicineShopMaster[latitude]">
-                    <input type="hidden" id="medicineshopmaster-longitude" class="form-control" name="MedicineShopMaster[longitude]">
+                    <input type="hidden" id="eyebankmaster-latitude" class="form-control" name="EyeBankMaster[latitude]" value="<?=$model->latitude?>">
+                    <input type="hidden" id="eyebankmaster-longitude" class="form-control" name="EyeBankMaster[longitude]" value="<?=$model->longitude?>">
                     <input id="pac-input" class="form-control controls1" type="text" placeholder="Search Box"><br>
                     <div id="map" style="height: 324px;width: 100%;"></div>
                 </div>
@@ -250,7 +239,7 @@ use yii\helpers\ArrayHelper;
                         <div class="row">
                             <div class="col-md-6">
                                 <div class='input-group date timepicker'>
-                                    <input type="text" id="medicineshopmaster-open_time" class="form-control" name="MedicineShopMaster[open_time]">
+                                    <input type="text" id="eyebankmaster-open_time" class="form-control" name="EyeBankMaster[open_time]" value="<?=$model->open_time?>">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -259,7 +248,7 @@ use yii\helpers\ArrayHelper;
                             </div>
                             <div class="col-md-6">
                                 <div class='input-group date timepicker'>
-                                    <input type="text" id="medicineshopmaster-close_time" class="form-control" name="MedicineShopMaster[close_time]">
+                                    <input type="text" id="eyebankmaster-close_time" class="form-control" name="EyeBankMaster[close_time]" value="<?=$model->close_time?>">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -286,24 +275,43 @@ use yii\helpers\ArrayHelper;
         </div>
         <div class="form-body">
             <div class="form-group">
+                <label class="control-label col-md-3">address<span class="required">*</span></label>
+                <div class="col-md-6">
+<?= $form->field($model, 'description')->textArea(['class' => 'form-control', 'rows' => '3'])->label(false); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
                 <label class="control-label col-md-3">Contact No<span class="required">*</span></label>
                 <div class="col-md-6">
                     <div class="main_contact_div">
+                        <?php
+                        $contacts=explode(',',$model->contact_no);
+                        foreach ($contacts as $key => $value) {
+                        ?>
                         <div>
-                        <div class="row row_0">
+                        <div class="row row_<?=$key?>">
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="contact_no[]" value="">
+                                <input type="text" class="form-control" name="contact_no[]" value="<?=$value?>">
                             </div>
                             <div class="col-md-4">
                                 <div class="btn-group btn-group-solid">
-                                    <button type="button" class="btn btn-success" style="font-size:17px;" onclick="addPhone();">
+                                    <?php
+                                    if($key==0){
+                                    ?>
+                                    <button type="button" class="btn btn-success" style="font-size:17px;" onclick="addPhone('<?=count($contacts)?>');">
                                         + ADD MORE
                                     </button>
+                                    <?php }else{ ?>
+                                    <button type="button" class="btn btn-danger" style="font-size:17px;" onclick="removeRow('<?=$key?>')">X</button>
+                                    <?php } ?>
                                 </div>
                             </div>
                             </div>
                          <div class="help-block"></div>
                         </div>
+                        <?php } ?>
 
                     </div>
                 </div>
@@ -344,9 +352,18 @@ use yii\helpers\ArrayHelper;
         $('.timepicker').datetimepicker({
             format: 'LT'
         });
+                $('#eyebankmaster-country_id').trigger('onchange');
+                var state_id=<?php echo $model->state_id?>;
+                var city_id=<?php echo $model->city_id?>;
+                setTimeout(function(){$('#eyebankmaster-state_id').val(state_id);},'1000');
+                setTimeout(function(){$('#eyebankmaster-state_id').trigger('onchange');},'2000');
+                setTimeout(function(){$('#eyebankmaster-city_id').val(city_id);},'3000');
     });
      var global_val = 1;
-    function addPhone(){
+    function addPhone(count){
+        if(global_val < count){
+            global_val=count;
+        }
         $('.main_contact_div').append('<div><div class="row row_'+global_val+'">'+
                             '<div class="col-md-8">'+
                                 '<input type="text" class="form-control" name="contact_no[]" value="">'+
@@ -382,8 +399,8 @@ use yii\helpers\ArrayHelper;
                     draggable: true,
                 });
         google.maps.event.addListener(marker, 'dragend', function () {
-            document.getElementById('medicineshopmaster-latitude').value = marker.getPosition().lat();
-            document.getElementById('medicineshopmaster-longitude').value = marker.getPosition().lng();
+            document.getElementById('eyebankmaster-latitude').value = marker.getPosition().lat();
+            document.getElementById('eyebankmaster-longitude').value = marker.getPosition().lng();
         });
 
 
@@ -419,8 +436,8 @@ use yii\helpers\ArrayHelper;
         marker.addListener('dragend', handleEvent);
     }
     function handleEvent(event) {
-        document.getElementById('medicineshopmaster-latitude').value = event.latLng.lat();
-        document.getElementById('medicineshopmaster-longitude').value = event.latLng.lng();
+        document.getElementById('eyebankmaster-latitude').value = event.latLng.lat();
+        document.getElementById('eyebankmaster-longitude').value = event.latLng.lng();
     }
        
 </script>

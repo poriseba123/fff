@@ -6,32 +6,33 @@ use Yii;
 use yii\data\ActiveDataProvider;
 
 /**
- * This is the model class for table "medicine_shop_master".
+ * This is the model class for table "mortuary_master".
  *
  * @property string $id
  * @property string $name
- * @property int $category_id
+ * @property string $vehicle_no
  * @property int $country_id
  * @property int $state_id
  * @property int $city_id
  * @property string $address
  * @property string $latitude
  * @property string $longitude
- * @property string $open_time
- * @property string $close_time
+ * @property int $all_time 0=>No,1=>Yes
+ * @property int $ac 0=No,1=yes
+ * @property string $description
  * @property string $contact_no
  * @property int $status 0=>inactive,1=>active,3=>delete
  * @property string $created_at
  * @property string $updated_at
  */
-class MedicineShopMaster extends \yii\db\ActiveRecord
+class MortuaryMaster extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'medicine_shop_master';
+        return 'mortuary_master';
     }
 
     /**
@@ -40,14 +41,14 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name','category_id', 'country_id', 'state_id', 'city_id','open_time', 'close_time','close_day','address'], 'required','on'=>['create','update']],
-            [['category_id', 'country_id', 'state_id', 'city_id', 'status'], 'integer'],
-            [['contact_no'], 'string'],
+            [['name', 'country_id', 'state_id', 'city_id','ac','all_time','address','description','vehicle_no'], 'required','on'=>['create','update']],
+            [['country_id', 'state_id', 'city_id', 'all_time', 'ac', 'status'], 'integer'],
+            [['description', 'contact_no'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 100],
+            [['vehicle_no'], 'string', 'max' => 30],
             [['address'], 'string', 'max' => 200],
             [['latitude', 'longitude'], 'string', 'max' => 50],
-            [['open_time', 'close_time'], 'string', 'max' => 20],
         ];
     }
 
@@ -59,23 +60,24 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'category_id' => 'Category ID',
+            'vehicle_no' => 'Vehicle No',
             'country_id' => 'Country ID',
             'state_id' => 'State ID',
             'city_id' => 'City ID',
             'address' => 'Address',
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',
-            'open_time' => 'Open Time',
-            'close_time' => 'Close Time',
+            'all_time' => 'All Time',
+            'ac' => 'Ac',
+            'description' => 'Description',
             'contact_no' => 'Contact No',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
     }
-    public function search($params) {
-        $query = MedicineShopMaster::find();
+         public function search($params) {
+        $query = MortuaryMaster::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -96,18 +98,7 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
                         'label' => 'address',
                         'default' => SORT_DESC
                     ],
-                    'open_time' => [
-                        'asc' => ['open_time' => SORT_ASC],
-                        'desc' => ['open_time' => SORT_DESC],
-                        'label' => 'open_time',
-                        'default' => SORT_DESC
-                    ],
-                    'close_time' => [
-                        'asc' => ['close_time' => SORT_ASC],
-                        'desc' => ['close_time' => SORT_DESC],
-                        'label' => 'close_time',
-                        'default' => SORT_DESC
-                    ],
+                    'all_time',
                     'status'
                 ]]
         ]);
@@ -120,8 +111,7 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
 
         $query->andFilterWhere(['like', 'name', $this->name])
                 ->andFilterWhere(['like', 'address', $this->address])
-                ->andFilterWhere(['like', 'open_time', $this->open_time])
-                ->andFilterWhere(['like', 'close_time', $this->close_time])
+                ->andFilterWhere(['like', 'all_time', $this->all_time])
                 ->andFilterWhere(['like', 'status', $this->status])
                 ->andWhere('status <> \'3\'');
 
