@@ -3,13 +3,13 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "blood_bank_master".
  *
  * @property string $id
  * @property string $name
- * @property int $category_id
  * @property int $country_id
  * @property int $state_id
  * @property int $city_id
@@ -41,8 +41,8 @@ class BloodBankMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['category_id'], 'required'],
-            [['category_id', 'country_id', 'state_id', 'city_id', 'close_day', 'status'], 'integer'],
+            [['name', 'country_id', 'state_id', 'city_id','open_time', 'close_time','close_day','address','description'], 'required','on'=>['create','update']],
+            [['country_id', 'state_id', 'city_id', 'close_day', 'status'], 'integer'],
             [['description', 'contact_no'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 100],
@@ -60,7 +60,6 @@ class BloodBankMaster extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'category_id' => 'Category ID',
             'country_id' => 'Country ID',
             'state_id' => 'State ID',
             'city_id' => 'City ID',
@@ -76,5 +75,58 @@ class BloodBankMaster extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+     public function search($params) {
+        $query = BloodBankMaster::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC],
+                'attributes' => [
+                    'id',
+                    'name' => [
+                        'asc' => ['name' => SORT_ASC],
+                        'desc' => ['name' => SORT_DESC],
+                        'label' => 'name',
+                        'default' => SORT_DESC
+                    ],
+                    'address' => [
+                        'asc' => ['address' => SORT_ASC],
+                        'desc' => ['address' => SORT_DESC],
+                        'label' => 'address',
+                        'default' => SORT_DESC
+                    ],
+                    'open_time' => [
+                        'asc' => ['open_time' => SORT_ASC],
+                        'desc' => ['open_time' => SORT_DESC],
+                        'label' => 'open_time',
+                        'default' => SORT_DESC
+                    ],
+                    'close_time' => [
+                        'asc' => ['close_time' => SORT_ASC],
+                        'desc' => ['close_time' => SORT_DESC],
+                        'label' => 'close_time',
+                        'default' => SORT_DESC
+                    ],
+                    'status'
+                ]]
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere(['like', 'name', $this->name])
+                ->andFilterWhere(['like', 'address', $this->address])
+                ->andFilterWhere(['like', 'open_time', $this->open_time])
+                ->andFilterWhere(['like', 'close_time', $this->close_time])
+                ->andFilterWhere(['like', 'status', $this->status])
+                ->andWhere('status <> \'3\'');
+
+        return $dataProvider;
     }
 }

@@ -149,7 +149,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li class="nav-item <?= (Yii::$app->controller->id == "bloodbank") ? 'active' : '' ?>">
-                        <a href="<?= $this->context->adminUrl('multilingual/') ?>" class="nav-link ">
+                        <a href="<?= $this->context->adminUrl('bloodbank/') ?>" class="nav-link ">
                             <i class="fa fa-flask fa-fw" aria-hidden="true"></i>
                             <span class="title">Blood Bank</span>
                         </a>
