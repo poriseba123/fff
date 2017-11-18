@@ -161,6 +161,14 @@ use yii\helpers\ArrayHelper;
         </div>
         <div class="form-body">
             <div class="form-group">
+                <label class="control-label col-md-3">Establishment Date<span class="required">*</span></label>
+                <div class="col-md-6">
+<?= $form->field($model, 'establishment_date')->textInput(['class' => 'form-control'])->label(false); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
                 <label class="control-label col-md-3">address<span class="required">*</span></label>
                 <div class="col-md-6">
 <?= $form->field($model, 'address')->textArea(['class' => 'form-control', 'rows' => '2'])->label(false); ?>
