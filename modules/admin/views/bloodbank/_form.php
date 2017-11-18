@@ -146,7 +146,7 @@ use yii\helpers\ArrayHelper;
         <!-- BEGIN FORM-->
         <?php
         $form = ActiveForm::begin([
-                    'id'=>'create_medicine_shop_form',
+                    'id'=>'create_blood_bank_form',
                     'options' => ['class' => 'form-horizontal form-row-seperated'],
                     'enableClientValidation' => false
                 ])
@@ -156,18 +156,6 @@ use yii\helpers\ArrayHelper;
                 <label class="control-label col-md-3">Name<span class="required">*</span></label>
                 <div class="col-md-6">
 <?= $form->field($model, 'name')->textInput(['class' => 'form-control'])->label(false); ?>
-                </div>
-            </div>
-        </div>
-        <div class="form-body">
-            <div class="form-group">
-                <label class="control-label col-md-3">Medicine shop type<span class="required">*</span></label>
-                <div class="col-md-6">
-                    <?php
-                    $type = app\models\DoctorType::find()->all();
-                    $listData = ArrayHelper::map($type, 'id', 'type');
-                    echo $form->field($model, 'category_id')->dropDownList($listData, ['prompt' => 'Select Medicine Type'])->label(false);
-                    ?>
                 </div>
             </div>
         </div>
@@ -188,7 +176,7 @@ use yii\helpers\ArrayHelper;
                     $listData = ArrayHelper::map($country_list, 'id', 'name');
                     echo $form->field($model, 'country_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
                     $.post("getstates?id=' . '"+$(this).val(),function(data){
-                      $("select#medicineshopmaster-state_id").html(data);
+                      $("select#bloodbankmaster-state_id").html(data);
                     });'])->label(false);
                     ?>
                 </div>
@@ -203,7 +191,7 @@ use yii\helpers\ArrayHelper;
                     $listData = ArrayHelper::map($state_list, 'id', 'name');
                     echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
                     $.post("getcities?id=' . '"+$(this).val(),function(data){
-                      $("select#medicineshopmaster-city_id").html(data);
+                      $("select#bloodbankmaster-city_id").html(data);
                     });'])->label(false);
                     ?>
                 </div>
@@ -225,8 +213,8 @@ use yii\helpers\ArrayHelper;
             <div class="form-group">
                 <label class="control-label col-md-3">Map<span class="required">*</span></label>
                 <div class="col-md-6">
-                    <input type="hidden" id="medicineshopmaster-latitude" class="form-control" name="MedicineShopMaster[latitude]">
-                    <input type="hidden" id="medicineshopmaster-longitude" class="form-control" name="MedicineShopMaster[longitude]">
+                    <input type="hidden" id="bloodbankmaster-latitude" class="form-control" name="BloodBankMaster[latitude]">
+                    <input type="hidden" id="bloodbankmaster-longitude" class="form-control" name="BloodBankMaster[longitude]">
                     <input id="pac-input" class="form-control controls1" type="text" placeholder="Search Box"><br>
                     <div id="map" style="height: 324px;width: 100%;"></div>
                 </div>
@@ -250,7 +238,7 @@ use yii\helpers\ArrayHelper;
                         <div class="row">
                             <div class="col-md-6">
                                 <div class='input-group date timepicker'>
-                                    <input type="text" id="medicineshopmaster-open_time" class="form-control" name="MedicineShopMaster[open_time]">
+                                    <input type="text" id="bloodbankmaster-open_time" class="form-control" name="BloodBankMaster[open_time]">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -259,7 +247,7 @@ use yii\helpers\ArrayHelper;
                             </div>
                             <div class="col-md-6">
                                 <div class='input-group date timepicker'>
-                                    <input type="text" id="medicineshopmaster-close_time" class="form-control" name="MedicineShopMaster[close_time]">
+                                    <input type="text" id="bloodbankmaster-close_time" class="form-control" name="BloodBankMaster[close_time]">
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-time"></span>
                                     </span>
@@ -281,6 +269,14 @@ use yii\helpers\ArrayHelper;
                     $listData = ArrayHelper::map($day_master, 'id', 'day');
                     echo $form->field($model, 'close_day')->dropDownList($listData, ['prompt' => 'Select day'])->label(false);
                     ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Description<span class="required">*</span></label>
+                <div class="col-md-6">
+<?= $form->field($model, 'description')->textArea(['class' => 'form-control', 'rows' => '3'])->label(false); ?>
                 </div>
             </div>
         </div>
@@ -331,7 +327,7 @@ use yii\helpers\ArrayHelper;
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
 <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
-                    <a href="<?php echo Url::to(['doctor/index']); ?>" class="btn default">Back</a>
+                    <a href="<?php echo Url::to(['bloodbank/index']); ?>" class="btn default">Back</a>
                 </div>
             </div>
         </div>
@@ -382,8 +378,8 @@ use yii\helpers\ArrayHelper;
                     draggable: true,
                 });
         google.maps.event.addListener(marker, 'dragend', function () {
-            document.getElementById('medicineshopmaster-latitude').value = marker.getPosition().lat();
-            document.getElementById('medicineshopmaster-longitude').value = marker.getPosition().lng();
+            document.getElementById('bloodbankmaster-latitude').value = marker.getPosition().lat();
+            document.getElementById('bloodbankmaster-longitude').value = marker.getPosition().lng();
         });
 
 
@@ -419,8 +415,8 @@ use yii\helpers\ArrayHelper;
         marker.addListener('dragend', handleEvent);
     }
     function handleEvent(event) {
-        document.getElementById('medicineshopmaster-latitude').value = event.latLng.lat();
-        document.getElementById('medicineshopmaster-longitude').value = event.latLng.lng();
+        document.getElementById('bloodbankmaster-latitude').value = event.latLng.lat();
+        document.getElementById('bloodbankmaster-longitude').value = event.latLng.lng();
     }
        
 </script>
