@@ -6,10 +6,10 @@ use yii\helpers\Html;
 /* @var $searchModel backend\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = "Manage Blood Bank";
+$this->title = "Manage Ambulance";
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<h3 class="page-title">Manage Blood Bank
+<h3 class="page-title">Manage Ambulance 
 </h3>
 <div class="user-index">
     <?php
