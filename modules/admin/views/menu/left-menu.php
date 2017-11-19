@@ -197,7 +197,7 @@
                 <!--fitness management end-->
 
             <li class="nav-item <?= (Yii::$app->controller->id == "diagnosticcentre") ? 'active' : '' ?>">
-                <a href="<?= $this->context->adminUrl('seo/') ?>" class="nav-link ">
+                <a href="<?= $this->context->adminUrl('diagnosticcentre') ?>" class="nav-link ">
                     <i class="fa fa-h-square fa-fw" aria-hidden="true"></i>
                     <span class="title">Diagnostic Center</span>
                 </a>
