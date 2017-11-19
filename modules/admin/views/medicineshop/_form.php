@@ -106,7 +106,7 @@ use yii\helpers\ArrayHelper;
         margin-left: 12px;
         padding: 0 11px 0 13px;
         text-overflow: ellipsis;
-        width: 300px;
+        width: 100%;
     }
 
     #pac-input:focus {
@@ -225,7 +225,15 @@ use yii\helpers\ArrayHelper;
                     <input type="hidden" id="medicineshopmaster-latitude" class="form-control" name="MedicineShopMaster[latitude]">
                     <input type="hidden" id="medicineshopmaster-longitude" class="form-control" name="MedicineShopMaster[longitude]">
                     <input id="pac-input" class="form-control controls1" type="text" placeholder="Search Box"><br>
+
                     <div id="map" style="height: 324px;width: 100%;"></div>
+                </div>
+                <div class="col-md-3">
+                    <div class="btn-group btn-group-solid">
+                        <button type="button" class="btn btn-success" style="font-size:17px;" onclick="getLocation();">
+                            MY LOCATION
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -341,6 +349,7 @@ use yii\helpers\ArrayHelper;
         $('.timepicker').datetimepicker({
             format: 'LT',
         });
+
     });
     var global_val = 1;
     function addPhone() {
@@ -362,17 +371,80 @@ use yii\helpers\ArrayHelper;
     function removeRow(id) {
         $('.row_' + id).remove();
     }
-</script>
-<script>
+
+
+    /////////////////////////////map script start/////////////////////////// 
+    currentlat = 20.5937;               //// india lat and long
+    currentlong = 78.9629;
+    message = false;
+    function geocodeLatLng(currentlat, currentlong) {
+        var latlng = {lat: parseFloat(currentlat), lng: parseFloat(currentlong)};
+        geocoder.geocode({'location': latlng}, function (results, status) {
+            if (status === 'OK') {
+                if (results[0]) {
+                    document.getElementById('pac-input').value = results[0].formatted_address;
+                    //var mylatlng = new google.maps.LatLng(currentlat, currentlong);
+                    // moveMarker(results[0].formatted_address, mylatlng, map);
+                    marker.setPosition(results[0].geometry.location);
+                    map.setCenter(results[0].geometry.location);
+                    map.setZoom(17);
+
+                } else {
+                    window.alert('No results found');
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
+    }
+    function showPosition(position) {
+        currentlat = position.coords.latitude;
+        currentlong = position.coords.longitude;
+        document.getElementById('medicineshopmaster-latitude').value = currentlat;
+        document.getElementById('medicineshopmaster-longitude').value = currentlong;
+        geocodeLatLng(currentlat, currentlong);
+
+
+    }
+    function showError(error) {
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                message = "User denied the request for Geolocation."
+                break;
+            case error.POSITION_UNAVAILABLE:
+                message = "Location information is unavailable."
+                break;
+            case error.TIMEOUT:
+                message = "The request to get user location timed out."
+                break;
+            case error.UNKNOWN_ERROR:
+                message = "An unknown error occurred."
+                break;
+        }
+    }
+    function getLocation() {
+        if (navigator.geolocation) {
+            //console.log(navigator.geolocation);
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+
+        } else {
+            message = "Geolocation is not supported by this browser.";
+        }
+        if (message) {
+            alert(message);
+        }
+    }
+
     function initAutocomplete() {
-        var myLatlng = new google.maps.LatLng(22, 79);
+        var myLatlng = new google.maps.LatLng(currentlat, currentlong);
         var myOptions = {
             zoom: 5,
             center: myLatlng,
+            scrollwheel: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         }
-
-        var map = new google.maps.Map(document.getElementById("map"), myOptions),
+        geocoder = new google.maps.Geocoder;
+        map = new google.maps.Map(document.getElementById("map"), myOptions),
                 marker = new google.maps.Marker({
                     position: myLatlng,
                     map: map,
@@ -402,10 +474,12 @@ use yii\helpers\ArrayHelper;
             }
 
             moveMarker(place.name, place.geometry.location, map);
+            document.getElementById('medicineshopmaster-latitude').value = place.geometry.location.lat();
+            document.getElementById('medicineshopmaster-longitude').value = place.geometry.location.lng();
         });
     }
     function moveMarker(placeName, latlng, map) {
-        var marker = new google.maps.Marker({
+        marker = new google.maps.Marker({
             position: latlng,
             map: map,
             draggable: true
@@ -419,7 +493,7 @@ use yii\helpers\ArrayHelper;
         document.getElementById('medicineshopmaster-latitude').value = event.latLng.lat();
         document.getElementById('medicineshopmaster-longitude').value = event.latLng.lng();
     }
-
+/////////////////////////////map script end/////////////////////////// 
 </script>
 
 
