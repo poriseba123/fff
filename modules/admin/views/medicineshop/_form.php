@@ -373,9 +373,21 @@ use yii\helpers\ArrayHelper;
     }
 
 
-    /////////////////////////////map script start/////////////////////////// 
-    currentlat = 20.5937;               //// india lat and long
-    currentlong = 78.9629;
+
+/////////////////////////////map script start/////////////////////////// 
+<?php
+if ($model->isNewRecord) {
+    ?>
+        currentlat = 20.5937;               //// india lat and long
+            currentlong = 78.9629;
+<?php } else { ?>
+        currentlat = '<?= $model->latitude; ?>';               //// india lat and long
+        currentlong = '<?= $model->longitude; ?>';
+    <?php
+}
+?>
+
+
     message = false;
     function geocodeLatLng(currentlat, currentlong) {
         var latlng = {lat: parseFloat(currentlat), lng: parseFloat(currentlong)};
