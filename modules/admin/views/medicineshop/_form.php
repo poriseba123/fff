@@ -42,8 +42,6 @@ use yii\helpers\ArrayHelper;
         margin-bottom: 2px;
     }
 
-</style>
-<style>
     /* Always set the map height explicitly to define the size of the div
      * element that contains the map. */
     #map {
@@ -125,8 +123,7 @@ use yii\helpers\ArrayHelper;
     #target {
         width: 345px;
     }
-</style>
-<style>
+
     .radio-inline label{
         margin-right:30px;
     }
@@ -138,7 +135,7 @@ use yii\helpers\ArrayHelper;
             <i class="fa <?= $model->isNewRecord ? 'fa-plus' : 'fa-edit'; ?> font-green-haze" aria-hidden="true"></i>
 
             <span class="caption-subject font-green-haze bold uppercase">
-<?= Html::encode($this->title) ?>
+                <?= Html::encode($this->title) ?>
             </span>
         </div>
     </div>
@@ -146,7 +143,7 @@ use yii\helpers\ArrayHelper;
         <!-- BEGIN FORM-->
         <?php
         $form = ActiveForm::begin([
-                    'id'=>'create_medicine_shop_form',
+                    'id' => 'create_medicine_shop_form',
                     'options' => ['class' => 'form-horizontal form-row-seperated'],
                     'enableClientValidation' => false
                 ])
@@ -155,7 +152,7 @@ use yii\helpers\ArrayHelper;
             <div class="form-group">
                 <label class="control-label col-md-3">Name<span class="required">*</span></label>
                 <div class="col-md-6">
-<?= $form->field($model, 'name')->textInput(['class' => 'form-control'])->label(false); ?>
+                    <?= $form->field($model, 'name')->textInput(['class' => 'form-control'])->label(false); ?>
                 </div>
             </div>
         </div>
@@ -175,7 +172,7 @@ use yii\helpers\ArrayHelper;
             <div class="form-group">
                 <label class="control-label col-md-3">address<span class="required">*</span></label>
                 <div class="col-md-6">
-<?= $form->field($model, 'address')->textArea(['class' => 'form-control', 'rows' => '2'])->label(false); ?>
+                    <?= $form->field($model, 'address')->textArea(['class' => 'form-control', 'rows' => '2'])->label(false); ?>
                 </div>
             </div>
         </div>
@@ -290,19 +287,19 @@ use yii\helpers\ArrayHelper;
                 <div class="col-md-6">
                     <div class="main_contact_div">
                         <div>
-                        <div class="row row_0">
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" name="contact_no[]" value="">
-                            </div>
-                            <div class="col-md-4">
-                                <div class="btn-group btn-group-solid">
-                                    <button type="button" class="btn btn-success" style="font-size:17px;" onclick="addPhone();">
-                                        + ADD MORE
-                                    </button>
+                            <div class="row row_0">
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control" name="contact_no[]" value="">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="btn-group btn-group-solid">
+                                        <button type="button" class="btn btn-success" style="font-size:17px;" onclick="addPhone();">
+                                            + ADD MORE
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            </div>
-                         <div class="help-block"></div>
+                            <div class="help-block"></div>
                         </div>
 
                     </div>
@@ -311,56 +308,56 @@ use yii\helpers\ArrayHelper;
         </div>
 
 
-<?php if (!$model->isNewRecord) { ?>
+        <?php if (!$model->isNewRecord) { ?>
             <div class="form-group">
                 <label class="control-label col-md-3">Status <span class="required">*</span></label>
                 <div class="col-md-6">
                     <div class="radio-list">                        
                         <label class="radio-inline">
-    <?php
-    echo $form->field($model, 'status')->radioList(['1' => 'Active', '0' => 'Inactive'])->label(false);
-    ?>
+                            <?php
+                            echo $form->field($model, 'status')->radioList(['1' => 'Active', '0' => 'Inactive'])->label(false);
+                            ?>
                         </label>
                     </div>
                 </div>
             </div>
-<?php } ?>
+        <?php } ?>
 
 
         <div class="form-actions">
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
-<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
+                    <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
                     <a href="<?php echo Url::to(['doctor/index']); ?>" class="btn default">Back</a>
                 </div>
             </div>
         </div>
-<?php ActiveForm::end() ?>
+        <?php ActiveForm::end() ?>
         <!-- END FORM-->
     </div>
 </div>
 <script>
     $(function () {
         $('.timepicker').datetimepicker({
-            format: 'LT'
+            format: 'LT',
         });
     });
-     var global_val = 1;
-    function addPhone(){
-        $('.main_contact_div').append('<div><div class="row row_'+global_val+'">'+
-                            '<div class="col-md-8">'+
-                                '<input type="text" class="form-control" name="contact_no[]" value="">'+
-                            '</div>'+
-                            '<div class="col-md-4">'+
-                                '<div class="btn-group btn-group-solid">'+
-                                    '<button type="button" class="btn btn-danger" style="font-size:17px;" onclick="removeRow('+global_val+')">X</button>' +
-                                '</div>'+
-                            '</div>'+
-                            '</div>'+
-                            '<div class="help-block"></div>'+
-                        '</div>'
-                        );
-                global_val++;
+    var global_val = 1;
+    function addPhone() {
+        $('.main_contact_div').append('<div><div class="row row_' + global_val + '">' +
+                '<div class="col-md-8">' +
+                '<input type="text" class="form-control" name="contact_no[]" value="">' +
+                '</div>' +
+                '<div class="col-md-4">' +
+                '<div class="btn-group btn-group-solid">' +
+                '<button type="button" class="btn btn-danger" style="font-size:17px;" onclick="removeRow(' + global_val + ')">X</button>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="help-block"></div>' +
+                '</div>'
+                );
+        global_val++;
     }
     function removeRow(id) {
         $('.row_' + id).remove();
@@ -422,7 +419,7 @@ use yii\helpers\ArrayHelper;
         document.getElementById('medicineshopmaster-latitude').value = event.latLng.lat();
         document.getElementById('medicineshopmaster-longitude').value = event.latLng.lng();
     }
-       
+
 </script>
 
 

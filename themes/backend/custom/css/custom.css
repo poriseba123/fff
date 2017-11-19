@@ -31,3 +31,7 @@ img.drivingimage {
     color: #FFF;
 }
 .modal .modal-header{background-color: #e7505a;}
+.btn span.glyphicon {
+    opacity: 100 !important;
+   
+}
