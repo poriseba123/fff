@@ -62,6 +62,7 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
+
         <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Country<span class="required">*</span></label>
@@ -77,15 +78,31 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-        <div class="form-body">
+       
+         <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">State<span class="required">*</span></label>
                 <div class="col-md-6">
                     <?php
                     $state_list = \app\models\States::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($state_list, 'id', 'name');
-                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
-                    $.post("getcities?id=' . '"+$(this).val(),function(data){
+                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => 
+                        '$.post("'.Url::to(['dashboard/getdistricts']).'?id=' . '"+$(this).val(),function(data){
+                      $("select#eyebankmaster-district_id").html(data);
+                    });'])->label(false);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">District<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?php
+                    $district_list = \app\models\Districts::find()->where(["id" => 0])->all();
+                    $listData = ArrayHelper::map($district_list, 'id', 'name');
+                    echo $form->field($model, 'district_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
+                    $.post("'.Url::to(['dashboard/getcities']).'?id=' . '"+$(this).val(),function(data){
                       $("select#eyebankmaster-city_id").html(data);
                     });'])->label(false);
                     ?>
@@ -249,23 +266,20 @@ use yii\helpers\ArrayHelper;
     </div>
 </div>
 <script>
+ state_id="<?php echo $model->state_id?>";
+ district_id="<?php echo $model->district_id?>";
+ city_id="<?php echo $model->city_id?>";
+	function fireagain(){
+		setTimeout(function(){console.log('now'),$('#eyebankmaster-district_id').val(district_id).then($('#eyebankmaster-district_id').trigger('onchange'));},'2000');
+	}
     $(function () {
         $('.timepicker').datetimepicker({
             format: 'LT'
         });
-        $('#eyebankmaster-country_id').trigger('onchange');
-        var state_id =<?php echo $model->state_id ?>;
-        var city_id =<?php echo $model->city_id ?>;
-        setTimeout(function () {
-            $('#eyebankmaster-state_id').val(state_id);
-        }, '1000');
-        setTimeout(function () {
-            $('#eyebankmaster-state_id').trigger('onchange');
-        }, '2000');
-        setTimeout(function () {
-            $('#eyebankmaster-city_id').val(city_id);
-        }, '3000');
-    });
+
+		$('#eyebankmaster-country_id').trigger('onchange');
+		setTimeout(function(){$('#eyebankmaster-state_id').val(state_id).then($('#eyebankmaster-state_id').trigger('onchange'),fireagain())},'1500');
+	});
     var global_val = 1;
     function addPhone(count) {
         if (global_val < count) {

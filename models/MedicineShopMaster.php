@@ -40,7 +40,7 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name','category_id', 'country_id', 'state_id', 'city_id','open_time', 'close_time','close_day','address'], 'required','on'=>['create','update']],
+            [['name','category_id', 'country_id','district_id','state_id', 'city_id','open_time', 'close_time','close_day','address'], 'required','on'=>['create','update']],
             [['category_id', 'country_id', 'state_id', 'city_id', 'status'], 'integer'],
             [['contact_no'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
