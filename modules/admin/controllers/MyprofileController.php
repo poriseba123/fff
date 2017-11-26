@@ -47,7 +47,7 @@ class MyprofileController extends AdminController {
                         $model->image = $imgName;
                     }
                     if ($model->validate()) {
-                        if ($model->save()) {
+                        if ($model->save(false)) {
                             $resp['flag'] = true;
                             Yii::$app->session->setFlash('pro-success-msg', 'Profile Successfully Updated.');
                         } else {

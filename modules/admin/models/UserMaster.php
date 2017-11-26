@@ -29,24 +29,24 @@ class UserMaster extends \yii\db\ActiveRecord implements \yii\web\IdentityInterf
     public function rules() {
         return [
 //            ================ update user profile ==================
-            [['first_name', 'last_name', 'email','phone_code', 'phone', 'update_date', 'status'], 'required', 'on' => ['admin_update_user']],
+            [['first_name', 'last_name', 'email','phone_code', 'mobile', 'update_date', 'status'], 'required', 'on' => ['admin_update_user']],
 //            ================ end update user profile ==================
 //            ================= admin profile update ======================
-            [['first_name', 'last_name', 'email', 'phone'], 'required', 'on' => ['admin-update-profile']],
-            [['first_name', 'last_name', 'email', 'phone', 'image'], 'required', 'on' => ['admin-update-profile-img']],
+            [['first_name', 'last_name', 'email', 'mobile'], 'required', 'on' => ['admin-update-profile']],
+            [['first_name', 'last_name', 'email', 'mobile', 'image'], 'required', 'on' => ['admin-update-profile-img']],
 //            ================= end admin profile update ======================
 //            ================= admin forget password update ======================
             [['new_password', 'retype_password'], 'required', 'on' => ['admin-reset-password']],
             ['retype_password', 'compare', 'compareAttribute' => 'new_password', 'on' => 'admin-reset-password'],
 //            ================= end admin forget password update ======================
 //            ================= validation rules ======================
-            [['phone'], 'match', 'pattern' => '/^[0-9]+$/', 'message' => 'Phone number is invalid'],
-//            [['phone'], 'match', 'pattern' => '/^[0-9]{10}+$/', 'message' => 'Phone number is invalid'],
-//            [['phone'], 'match', 'pattern' => '/^[0-9+.()-]*$/', 'message' => 'Phone number is invalid'],
-            [['phone'], 'string', 'min' => 10, 'max' => 50],
+            [['mobile'], 'match', 'pattern' => '/^[0-9]+$/', 'message' => 'Phone number is invalid'],
+//            [['mobile'], 'match', 'pattern' => '/^[0-9]{10}+$/', 'message' => 'Phone number is invalid'],
+//            [['mobile'], 'match', 'pattern' => '/^[0-9+.()-]*$/', 'message' => 'Phone number is invalid'],
+            [['mobile'], 'string', 'min' => 10, 'max' => 50],
             ['email', 'email', 'on' => ['admin-update-profile, admin-update-profile-img']],
             ['email', 'checkMailIdUpdate', 'on' => ['admin-update-profile, admin-update-profile-img']],
-            [['first_name', 'last_name', 'email', 'phone', 'newImage'], 'safe', 'on' => ['admin-update-profile, admin-update-profile-img']],
+            [['first_name', 'last_name', 'email', 'mobile', 'newImage'], 'safe', 'on' => ['admin-update-profile, admin-update-profile-img']],
             [['newImage'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'message' => 'Please choose png, jpg and jpeg Images.', 'on' => 'admin-update-profile-img']
 //            ================= end validation rule ======================
         ];
@@ -84,7 +84,7 @@ class UserMaster extends \yii\db\ActiveRecord implements \yii\web\IdentityInterf
             'email' => Yii::t('app', 'Email Id'),
             'facebook_email' => Yii::t('app', 'Facebook Email Id'),
             'password' => Yii::t('app', 'Password'),
-            'phone' => Yii::t('app', 'Contact No.'),
+            'mobile' => Yii::t('app', 'Contact No.'),
             'country' => Yii::t('app', 'Country'),
             'state' => Yii::t('app', 'State'),
             'zip' => Yii::t('app', 'Zip'),

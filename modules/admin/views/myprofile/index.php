@@ -99,7 +99,7 @@ use yii\helpers\ArrayHelper;
                                         <div class="col-md-6 col-sm-6 col-xs-12">
                                             <div class="form-group">
                                                 <label class="control-label text-primary">Phone Number<span class="required">*</span></label>
-                                                <?= $form->field($model, 'phone')->textInput(['class' => 'form-control', 'placeholder' => 'Phone Number'])->label(false) ?>
+                                                <?= $form->field($model, 'mobile')->textInput(['class' => 'form-control', 'placeholder' => 'Mobile'])->label(false) ?>
                                             </div>
                                         </div>
                                     </div>

@@ -14,7 +14,7 @@ use yii\web\UploadedFile;
  * @property string $last_name
  * @property string $email
  * @property string $password
- * @property string $phone
+ * @property string $mobile
  * @property string $image
  * @property string $activation_token
  * @property string $reset_password_token
@@ -56,8 +56,8 @@ class UserMaster extends \yii\db\ActiveRecord implements \yii\web\IdentityInterf
             [['user_type', 'email', 'first_name', 'last_name', 'gender', 'password', 'cnf_password', 'activation_token', 'status', 'added_date', 'update_date'], 'required', 'on' => ['site-registration']],
             ['retype_password', 'compare', 'compareAttribute' => 'password', 'on' => 'site-registration'],
 //            =================== user update profile information ================
-            [['first_name', 'last_name', 'email', 'gender', 'phone', 'phone_code', 'birth_year', 'update_date'], 'required', 'on' => ['update_profile_info']],
-            [['first_name', 'last_name', 'email', 'gender', 'phone', 'phone_code', 'email_code', 'email_varified', 'image', 'birth_year', 'bio', 'update_date'], 'safe', 'on' => ['update_profile_info']],
+            [['first_name', 'last_name', 'email', 'gender', 'mobile', 'phone_code', 'birth_year', 'update_date'], 'required', 'on' => ['update_profile_info']],
+            [['first_name', 'last_name', 'email', 'gender', 'mobile', 'phone_code', 'email_code', 'email_varified', 'image', 'birth_year', 'bio', 'update_date'], 'safe', 'on' => ['update_profile_info']],
             [['userimage'], 'file', 'extensions' => 'png, jpg, jpeg, gif', 'on' => ['update_profile_info']],
 //            ========================== user change forgot password ================
             [['retype_password', 'new_password'], 'required', 'on' => ['change-for-pass']],
@@ -69,12 +69,12 @@ class UserMaster extends \yii\db\ActiveRecord implements \yii\web\IdentityInterf
             [['drive_frontimage', 'drive_backimage', 'licence_font_image', 'licence_back_image', 'driving_id', 'drive_image_verification', 'driving_exp'], 'safe', 'on' => ['add_vchicle']],
             [['licence_font_image', 'licence_back_image'], 'file', 'extensions' => 'png, jpg, jpeg, gif', 'maxSize' => 1024 * 1024 * 2, 'on' => ['add_vchicle', 'update_vchicle']],
 //            ===========================
-            [['phone'], 'match', 'pattern' => '/^[0-9]+$/', 'message' => yii::t('app', 'Phone number is invalid')],
-            [['phone'], 'string', 'min' => 10, 'max' => 50, 'on' => ["update_profile_info"]],
+            [['mobile'], 'match', 'pattern' => '/^[0-9]+$/', 'message' => yii::t('app', 'Phone number is invalid')],
+            [['mobile'], 'string', 'min' => 10, 'max' => 50, 'on' => ["update_profile_info"]],
             [['new_password', 'retype_password', 'password'], 'string', 'min' => 8, 'max' => 50, 'on' => ['site-registration']],
             [['driving_exp'], 'integer', 'min' => 0, 'max' => 50],
             [['new_password', 'retype_password'], 'string', 'min' => 8, 'max' => 50],
-//            [['phone'], 'match', 'pattern' => '/^[0-9+.()-]*$/', 'message' => 'Phone number is invalid'],
+//            [['mobile'], 'match', 'pattern' => '/^[0-9+.()-]*$/', 'message' => 'Phone number is invalid'],
             ['retype_password', 'compare', 'compareAttribute' => 'new_password', 'on' => ['change_password']],
             [['retype_password', 'old_password', 'new_password'], 'required', 'on' => ['change_password']],
             ['old_password', 'findPasswords', 'on' => ['change_password']],
@@ -87,7 +87,7 @@ class UserMaster extends \yii\db\ActiveRecord implements \yii\web\IdentityInterf
             [['user_type', 'reg_type', 'google_id', 'first_name', 'last_name', 'google_image', 'email', 'status', 'added_date', 'update_date'], 'required', 'on' => ['google-signup']],
             [['user_type', 'reg_type', 'facebook_id', 'first_name', 'last_name', 'facebook_image', 'email', 'status', 'added_date', 'update_date'], 'required', 'on' => ['facebook-signup']],
 //            ================= end google registration rules =======================
-            [['user_type', 'first_name', 'last_name', 'email', 'password', 'phone', 'image', 'activation_token', 'reset_password_token', 'status', 'added_date', 'update_date'], 'safe'],
+            [['user_type', 'first_name', 'last_name', 'email', 'password', 'mobile', 'image', 'activation_token', 'reset_password_token', 'status', 'added_date', 'update_date'], 'safe'],
             [['user_type', 'status'], 'integer'],
             [['added_date', 'update_date'], 'safe'],
             [['first_name', 'last_name', 'email', 'password', 'activation_token', 'reset_password_token'], 'string', 'max' => 250],
@@ -105,7 +105,7 @@ class UserMaster extends \yii\db\ActiveRecord implements \yii\web\IdentityInterf
             'last_name' => Yii::t('app', 'Last Name'),
             'email' => Yii::t('app', 'Email'),
             'password' => Yii::t('app', 'Password'),
-            'phone' => Yii::t('app', 'Phone'),
+            'mobile' => Yii::t('app', 'Phone'),
             'gender' => Yii::t('app', 'Gender'),
             'image' => Yii::t('app', 'Photo'),
             'bio' => Yii::t('app', 'Short Bio'),
