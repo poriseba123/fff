@@ -237,5 +237,45 @@ class AdminController extends Controller {
         }
         return $total_hours;
     }
+    
+    public function actionGetstates() {
+        $type_id=$_REQUEST['id'];
+        $doc_specialities= \app\models\States::find()->where("country_id=:country_id",[":country_id"=>$type_id])->all();
+        $html='<option value="">Select</option>';
+        if(count($doc_specialities)>0){
+        foreach ($doc_specialities as $key => $value) {
+            $html.='<option value="'.$value->id.'">'.$value->name.'</option>';
+        }
+        }else{
+           $html.='<option value="">No Data</option>';  
+        }
+        return $html;
+    }
+     public function getdistricts() {
+        $type_id=$_REQUEST['id'];
+        $doc_specialities= \app\models\Districts::find()->where("state_id=:state_id",[":state_id"=>$type_id])->all();
+        $html='<option value="">Select</option>';
+        if(count($doc_specialities)>0){
+        foreach ($doc_specialities as $key => $value) {
+            $html.='<option value="'.$value->id.'">'.$value->name.'</option>';
+        }
+        }else{
+           $html.='<option value="">No Data</option>';  
+        }
+        return $html;
+    }
+    public function actionGetcities() {
+        $type_id=$_REQUEST['id'];
+        $doc_specialities= \app\models\Cities::find()->where("district_id=:district_id",[":district_id"=>$type_id])->all();
+        $html="";
+        if(count($doc_specialities)>0){
+        foreach ($doc_specialities as $key => $value) {
+            $html.='<option value="'.$value->id.'">'.$value->name.'</option>';
+        }
+        }else{
+           $html.='<option value="">No Data</option>';  
+        }
+        return $html;
+    }
 
 }

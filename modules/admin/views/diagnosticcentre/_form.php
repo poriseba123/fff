@@ -69,7 +69,7 @@ use yii\helpers\ArrayHelper;
                     $country_list = \app\models\Countries::find()->all();
                     $listData = ArrayHelper::map($country_list, 'id', 'name');
                     echo $form->field($model, 'country_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
-                    $.post("getstates?id=' . '"+$(this).val(),function(data){
+                    $.post("'.Url::to(['dashboard/getstates']).'?id=' . '"+$(this).val(),function(data){
                       $("select#diagnosticcentre-state_id").html(data);
                     });'])->label(false);
                     ?>
@@ -83,8 +83,8 @@ use yii\helpers\ArrayHelper;
                     <?php
                     $state_list = \app\models\States::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($state_list, 'id', 'name');
-                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
-                    $.post("getdistricts?id=' . '"+$(this).val(),function(data){
+                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => 
+                        '$.post("'.Url::to(['dashboard/getdistricts']).'?id=' . '"+$(this).val(),function(data){
                       $("select#diagnosticcentre-district_id").html(data);
                     });'])->label(false);
                     ?>
@@ -99,8 +99,8 @@ use yii\helpers\ArrayHelper;
                     $district_list = \app\models\Districts::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($district_list, 'id', 'name');
                     echo $form->field($model, 'district_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
-                    $.post("getcities?id=' . '"+$(this).val(),function(data){
-                      $("select#diagnosticcentre-district_id").html(data);
+                    $.post("'.Url::to(['dashboard/getcities']).'?id=' . '"+$(this).val(),function(data){
+                      $("select#diagnosticcentre-city_id").html(data);
                     });'])->label(false);
                     ?>
                 </div>

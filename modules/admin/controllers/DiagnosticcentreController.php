@@ -256,7 +256,7 @@ class DiagnosticcentreController extends AdminController {
      public function actionGetstates() {
         $type_id=$_REQUEST['id'];
         $doc_specialities= \app\models\States::find()->where("country_id=:country_id",[":country_id"=>$type_id])->all();
-        $html="";
+        $html='<option value="">Select</option>';
         if(count($doc_specialities)>0){
         foreach ($doc_specialities as $key => $value) {
             $html.='<option value="'.$value->id.'">'.$value->name.'</option>';
@@ -269,7 +269,7 @@ class DiagnosticcentreController extends AdminController {
      public function actionGetdistricts() {
         $type_id=$_REQUEST['id'];
         $doc_specialities= \app\models\Districts::find()->where("state_id=:state_id",[":state_id"=>$type_id])->all();
-        $html="";
+        $html='<option value="">Select</option>';
         if(count($doc_specialities)>0){
         foreach ($doc_specialities as $key => $value) {
             $html.='<option value="'.$value->id.'">'.$value->name.'</option>';
