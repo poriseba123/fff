@@ -240,7 +240,7 @@ class DiagnosticcentreController extends AdminController {
         return $this->render('update', ["model" => $model]);
     }
     public function actionDelete($id) {
-        $chamber= MedicineShopMaster::findOne($id);
+        $chamber= DiagnosticCentre::findOne($id);
         $chamber->status = 3;
         $chamber->save(false);
         Yii::$app->session->setFlash('success', ' deleted.');
