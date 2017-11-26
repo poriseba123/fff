@@ -214,18 +214,30 @@ var error=false;
     
     
 
-    var data = _this.serialize();
+//    var data = _this.serialize();
+var data=new FormData(this);
     var url = full_path + "diagnosticcentre/createajax";
-
-    $.post(url, data,
-            function (resp) {
-                loader_stop();
+$.ajax({
+        url: url, // Url to which the request is send
+        type: "POST", // Type of request to be send, called as method
+        data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+        contentType: false, // The content type used when sending data to the server.
+        cache: false, // To unable request pages to be cached
+        processData: false, // To send DOMDocument or non processed data file it is set to false
+        dataType: 'json',
+        success: function (resp)   // A function to be called if request succeeds
+        {
+            loader_stop();
                 if (resp.flag == true) {
                     notifySuccess(true, true, resp.msg, 'bottom center', 5000);
                     setTimeout(function(){
                         location.href=resp.url;
                     },'2000');
                 } else {
+                    if (resp.imgErr == true) {
+                    $('#diagnosticcentre-image').parent('div').addClass('has-error');
+                    $('#diagnosticcentre-image').parent('div').find('.help-block').html(resp.msg);
+                }
                     $.each(resp.errors, function (item, value) {
                         $('#diagnosticcentre-' + item).parent().addClass("has-error");
                         $('#diagnosticcentre-' + item).parent().find(".help-block").html(value);
@@ -242,7 +254,8 @@ var error=false;
         });
             }
                 }
-            }, 'json');
+        }
+    });
 });
 $('body').on('submit', '#update_diagnostic_centre_form', function (e) {
 //$('#user-pro-update').submit(function (e) {
@@ -258,7 +271,45 @@ var error=false;
 
     var data = _this.serialize();
     var url = full_path + "diagnosticcentre/updateajax";
-
+$.ajax({
+        url: url, // Url to which the request is send
+        type: "POST", // Type of request to be send, called as method
+        data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+        contentType: false, // The content type used when sending data to the server.
+        cache: false, // To unable request pages to be cached
+        processData: false, // To send DOMDocument or non processed data file it is set to false
+        dataType: 'json',
+        success: function (resp)   // A function to be called if request succeeds
+        {
+            loader_stop();
+                if (resp.flag == true) {
+                    notifySuccess(true, true, resp.msg, 'bottom center', 5000);
+                    setTimeout(function(){
+                        location.href=resp.url;
+                    },'2000');
+                } else {
+                     if (resp.imgErr == true) {
+                    $('#err-image').parent('div').addClass('has-error');
+                    $('#err-image').parent('div').find('.help-block').html(resp.msg);
+                }
+                    $.each(resp.errors, function (item, value) {
+                        $('#diagnosticcentre-' + item).parent().addClass("has-error");
+                        $('#diagnosticcentre-' + item).parent().find(".help-block").html(value);
+                    });
+                    if(resp.phone==false){
+   $('.main_contact_div').find('input:text')
+        .each(function() {
+            var input_field_val=$(this).val();
+                    if(input_field_val==''){
+                        $(this).parent().parent().parent().addClass("has-error");
+                        $(this).parent().parent().parent().find(".help-block").html('Field cannot be blank');
+                        error=true;
+                    }
+        });
+            }
+                }
+        }
+    });
     $.post(url, data,
             function (resp) {
                 loader_stop();
@@ -625,6 +676,33 @@ var error=false;
                 }
             }, 'json');
 });
+
+$('.image-input').change(function (e) {
+    if (typeof (FileReader) != "undefined") {
+
+        var image_holder = $("#preview-img-holder");
+        image_holder.empty();
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $("<img />", {
+                "src": e.target.result,
+                "class": "thumb-image",
+                "height": "80px"
+            }).appendTo(image_holder);
+
+        };
+        image_holder.show();
+        reader.readAsDataURL($(this)[0].files[0]);
+    } else {
+        alert("This browser does not support FileReader.");
+    }
+});
+
+
+
+
+//==================================================================================
 
 douserphonevarified = function (event) {
     var selector = $('#' + event.id);

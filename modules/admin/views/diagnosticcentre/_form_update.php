@@ -147,7 +147,7 @@ use yii\helpers\ArrayHelper;
         <?php
         $form = ActiveForm::begin([
                     'id'=>'update_diagnostic_centre_form',
-                    'options' => ['class' => 'form-horizontal form-row-seperated'],
+                    'options' => ['class' => 'form-horizontal form-row-seperated','enctype' => 'multipart/form-data'],
                     'enableClientValidation' => false
                 ])
         ?>
@@ -324,6 +324,20 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Image<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?php echo $form->field($model, 'image')->fileInput(['class' => 'form-control image-input', 'placeholder' => 'Choose Image'])->label(false); ?>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group text-center" id='preview-img-holder'>
+                        <img src="<?=Yii::$app->request->baseUrl . '\uploads\diagnostic_centre\\' . $model->image?>" class="thumb-image" style="height: 80px;">
+                                            </div>
+                </div>
+                <div class="help-block" id="err-image"></div>
+            </div>
+        </div>
 
 
 <?php if (!$model->isNewRecord) { ?>
@@ -355,20 +369,20 @@ use yii\helpers\ArrayHelper;
     </div>
 </div>
 <script>
-    $(function () {
-        $('.timepicker').datetimepicker({
-            format: 'LT'
-        });
-                $('#diagnosticcentre-country_id').trigger('onchange');
-                var state_id=<?php echo $model->state_id?>;
-                var district_id=<?php echo $model->district_id?>;
-                var city_id=<?php echo $model->city_id?>;
-                setTimeout(function(){$('#diagnosticcentre-state_id').val(state_id);},'1000');
-                setTimeout(function(){$('#diagnosticcentre-state_id').trigger('onchange');},'2000');
-                setTimeout(function(){$('#diagnosticcentre-district_id').val(district_id);},'3000');
-                setTimeout(function(){$('#diagnosticcentre-district_id').trigger('onchange');},'4000');
-                setTimeout(function(){$('#diagnosticcentre-city_id').val(city_id);},'5000');
-    });
+state_id="<?php echo $model->state_id?>";
+district_id="<?php echo $model->district_id?>";
+city_id="<?php echo $model->city_id?>";
+function fireagain(){
+setTimeout(function(){console.log('now'),$('#diagnosticcentre-district_id').val(district_id).then($('#diagnosticcentre-district_id').trigger('onchange'));},'2000');
+}
+   $(function () {
+       $('.timepicker').datetimepicker({
+           format: 'LT'
+       });
+
+$('#diagnosticcentre-country_id').trigger('onchange');
+setTimeout(function(){$('#diagnosticcentre-state_id').val(state_id).then($('#diagnosticcentre-state_id').trigger('onchange'),fireagain())},'1500');
+});
      var global_val = 1;
     function addPhone(count){
         if(global_val < count){

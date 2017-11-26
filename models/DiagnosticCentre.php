@@ -55,6 +55,7 @@ class DiagnosticCentre extends \yii\db\ActiveRecord
             [['latitude', 'longitude'], 'string', 'max' => 50],
             [['open_time', 'close_time'], 'string', 'max' => 20],
             [['website'], 'string', 'max' => 100],
+//            [['image'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg', 'message' => 'Please choose png, jpg and jpeg Images.', 'on' => 'create']
         ];
     }
 
