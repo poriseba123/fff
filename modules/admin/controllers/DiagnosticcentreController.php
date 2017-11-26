@@ -183,8 +183,8 @@ class DiagnosticcentreController extends AdminController {
                                     $model->contact_no=implode(',',$_POST['contact_no']);
                                    $model->save(false);
                                     $resp['flag'] = true;
-                                    $resp['url'] = Url::to(['medicineshop/index']);
-                                    $resp['msg'] = "Medicine Shop successfully created";
+                                    $resp['url'] = Url::to(['diagnosticcentre/index']);
+                                    $resp['msg'] = "Diagnostic centre successfully created";
                                 } else {
                                     $resp['errors'] = $model->getErrors();
                                 }
@@ -195,7 +195,7 @@ class DiagnosticcentreController extends AdminController {
                         }
     public function actionUpdateajax() {
                         if (Yii::$app->request->isAjax) {
-                            $med_shop_id=$_POST['medicine_shop_id'];
+                            $med_shop_id=$_POST['id'];
                             $resp = [];
                             $resp['flag'] = false;
                             $phone_error=false;
