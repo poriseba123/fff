@@ -7,9 +7,13 @@ use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use yii\bootstrap\Alert;
+use app\models\Settings;
 use app\assets\backend\MainAsset;
 
 MainAsset::register($this);
+
+$google_map_key= Settings::find()->where(['slug'=>'google_map_key'])->one();
+
 ?>
 
 <?php $this->beginPage() ?>
@@ -23,7 +27,7 @@ MainAsset::register($this);
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
-        <script src="http://maps.google.com/maps/api/js?v=3.28&key=AIzaSyCyOuj28fWTVZQT4XBcgWJFLAk4sI54qlM&libraries=places&region=in&language=en&sensor=false"></script>
+        <!--<script src="http://maps.google.com/maps/api/js?v=3.28&key=AIzaSyCyOuj28fWTVZQT4XBcgWJFLAk4sI54qlM&libraries=places&region=in&language=en&sensor=false"></script>-->
         <style>
             .pac-container {
                 background-color: #FFF;
@@ -331,4 +335,4 @@ MainAsset::register($this);
         jQuery('body').css('cursor', 'default');
     }
 </script>
-<script src="http://maps.google.com/maps/api/js?v=3.28&key=AIzaSyCyOuj28fWTVZQT4XBcgWJFLAk4sI54qlM&libraries=places&region=in&language=en&callback=initAutocomplete"></script>
+<script src="http://maps.google.com/maps/api/js?v=3.28&key=<?php echo $google_map_key->value?>&libraries=places&region=in&language=en&callback=initAutocomplete"></script>
