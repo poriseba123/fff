@@ -162,10 +162,10 @@ class DiagnosticcentreController extends AdminController {
     }
     public function actionCreateajax() {
                         if (Yii::$app->request->isAjax) {
+                            $resp = [];
                             $imgName = '';
                             $imgError = 0;
                             $resp['imgErr'] = false;
-                            $resp = [];
                             $resp['flag'] = false;
                             $phone_error=false;
                             $resp['phone'] = true;

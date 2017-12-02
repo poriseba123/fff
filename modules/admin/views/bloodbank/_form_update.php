@@ -41,7 +41,7 @@ use yii\helpers\ArrayHelper;
         <?php
         $form = ActiveForm::begin([
                     'id' => 'update_blood_bank_form',
-                    'options' => ['class' => 'form-horizontal form-row-seperated'],
+                    'options' => ['class' => 'form-horizontal form-row-seperated','enctype' => 'multipart/form-data'],
                     'enableClientValidation' => false
                 ])
         ?>
@@ -51,6 +51,14 @@ use yii\helpers\ArrayHelper;
                 <div class="col-md-6">
                     <input type="hidden" name="blood_bank_id" value="<?= $model->id ?>">
                     <?= $form->field($model, 'name')->textInput(['class' => 'form-control'])->label(false); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Establishment Date<span class="required">*</span></label>
+                <div class="col-md-6">
+		<?= $form->field($model, 'establishment_date')->textInput(['class' => 'form-control'])->label(false); ?>
                 </div>
             </div>
         </div>
@@ -235,7 +243,20 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-
+<div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Image<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?php echo $form->field($model, 'image')->fileInput(['class' => 'form-control image-input', 'placeholder' => 'Choose Image'])->label(false); ?>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group text-center" id='preview-img-holder'>
+                        <img src="<?=Yii::$app->request->baseUrl . '\uploads\bloodbank\\' . $model->image?>" class="thumb-image" style="height: 80px;">
+                                            </div>
+                </div>
+                <div class="help-block" id="err-image"></div>
+            </div>
+        </div>
 
         <?php if (!$model->isNewRecord) { ?>
             <div class="form-group">
@@ -266,10 +287,6 @@ use yii\helpers\ArrayHelper;
     </div>
 </div>
 <script>
-    $(function () {
-        $('.timepicker').datetimepicker({
-            format: 'LT'
-        });
 	 state_id="<?php echo $model->state_id?>";
 	 district_id="<?php echo $model->district_id?>";
 	 city_id="<?php echo $model->city_id?>";
@@ -285,7 +302,6 @@ use yii\helpers\ArrayHelper;
 		setTimeout(function(){$('#bloodbankmaster-state_id').val(state_id).then($('#bloodbankmaster-state_id').trigger('onchange'),fireagain())},'1500');
 	});
 
-    });
     var global_val = 1;
     function addPhone(count) {
         if (global_val < count) {
