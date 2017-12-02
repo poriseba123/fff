@@ -281,7 +281,7 @@ class MortuaryController extends AdminController {
         return $html;
     }
     protected function findModel($id) {
-        if (($model = DoctorSpecialities::findOne($id)) !== null) {
+        if (($model = MortuaryMaster::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
