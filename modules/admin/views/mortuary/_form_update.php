@@ -301,8 +301,9 @@ if ($model->isNewRecord) {
 <?php } else { ?>
         currentlat = '<?= $model->latitude; ?>';               //// india lat and long
         currentlong = '<?= $model->longitude; ?>';
-        geocoder = new google.maps.Geocoder;
+        
         setTimeout(function () {
+			geocoder = new google.maps.Geocoder;
             geocodeLatLng(currentlat, currentlong);
         }, 100);
 
