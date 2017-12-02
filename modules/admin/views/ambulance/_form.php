@@ -187,6 +187,20 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
+		<div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Life support <span class="required">*</span></label>
+                <div class="col-md-6">
+                    <div class="radio-list">                        
+                        <label class="radio-inline">
+                            <?php
+                            echo $form->field($model, 'lifesupport')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                            ?>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="form-body">
             <div class="form-group">
