@@ -41,7 +41,7 @@ use yii\helpers\ArrayHelper;
         <?php
         $form = ActiveForm::begin([
                     'id' => 'create_blood_bank_form',
-                    'options' => ['class' => 'form-horizontal form-row-seperated'],
+                    'options' => ['class' => 'form-horizontal form-row-seperated','enctype' => 'multipart/form-data'],
                     'enableClientValidation' => false
                 ])
         ?>
@@ -228,6 +228,19 @@ use yii\helpers\ArrayHelper;
 
                     </div>
                 </div>
+            </div>
+        </div>
+         <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Image<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?php echo $form->field($model, 'image')->fileInput(['class' => 'form-control image-input', 'placeholder' => 'Choose Image'])->label(false); ?>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group text-center" id='preview-img-holder'>
+                                            </div>
+                </div>
+                <div class="help-block"></div>
             </div>
         </div>
 
