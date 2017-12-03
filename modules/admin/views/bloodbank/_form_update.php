@@ -280,7 +280,7 @@ use yii\helpers\ArrayHelper;
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
                     <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
-                    <a href="<?php echo Url::to(['doctor/index']); ?>" class="btn default">Back</a>
+                    <a href="<?php echo Url::to(['bloodbank/index']); ?>" class="btn default">Back</a>
                 </div>
             </div>
         </div>

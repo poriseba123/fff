@@ -245,7 +245,7 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-<div class="form-body">
+		<div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Image<span class="required">*</span></label>
                 <div class="col-md-6">
@@ -280,7 +280,7 @@ use yii\helpers\ArrayHelper;
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
                     <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
-                    <a href="<?php echo Url::to(['doctor/index']); ?>" class="btn default">Back</a>
+                    <a href="<?php echo Url::to(['ambulance/index']); ?>" class="btn default">Back</a>
                 </div>
             </div>
         </div>
