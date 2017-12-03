@@ -3,6 +3,7 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
+use yii\web\UploadedFile;
 use app\models\Seo;
 use yii\helpers\Url;
 use yii\helpers\Html;
@@ -164,6 +165,9 @@ class AmbulanceController extends AdminController {
     public function actionCreateajax() {
                         if (Yii::$app->request->isAjax) {
                             $resp = [];
+							$imgName = '';
+                            $imgError = 0;
+                            $resp['imgErr'] = false;
                             $resp['flag'] = false;
                             $phone_error=false;
                             $resp['phone'] = true;
@@ -179,9 +183,24 @@ class AmbulanceController extends AdminController {
                             $model= new AmbulanceMaster();
                             $model->scenario = "create";
                             if ($model->load(Yii::$app->request->post())) {
+								$img = UploadedFile::getInstance($model, 'image');
+                                if (isset($img) && $img->error == 0) {
+                    $allow = ['jpg', 'png','jpeg'];
+                    $ext = explode('.', $img->name);
+                    if (!in_array(end($ext), $allow)) {
+                        $resp['imgErr'] = true;
+                        $resp['msg'] = "Invalid Image. Please upload jpg,jpeg and png image.";
+                        $imgError = 1;
+                    } else {
+                        $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
+                        $path = Yii::$app->basePath . '/uploads/ambulance/' . $imgName;
+                        $img->saveAs($path);
+                        $model->image = $imgName;
+                    }
+                }
                                 $model->status =1;
                                 $model->created_at = date("Y-m-d H:i:s");
-                                if ($model->validate() && $phone_error==false) {
+                                if ($model->validate() && $phone_error==false && $imgError==0) {
                                     $model->contact_no=implode(',',$_POST['contact_no']);
                                    $model->save(false);
                                     $resp['flag'] = true;
@@ -199,6 +218,8 @@ class AmbulanceController extends AdminController {
                         if (Yii::$app->request->isAjax) {
                             $med_shop_id=$_POST['ambulance_id'];
                             $resp = [];
+							$imgError = 0;
+                            $resp['imgErr'] = false;
                             $resp['flag'] = false;
                             $phone_error=false;
                             $resp['phone'] = true;
@@ -214,8 +235,23 @@ class AmbulanceController extends AdminController {
                             $model= AmbulanceMaster::findOne($med_shop_id);
                             $model->scenario = "update";
                             if ($model->load(Yii::$app->request->post())) {
+								$img = UploadedFile::getInstance($model, 'image');
+                                if (isset($img) && $img->error == 0) {
+                    $allow = ['jpg', 'png','jpeg'];
+                    $ext = explode('.', $img->name);
+                    if (!in_array(end($ext), $allow)) {
+                        $resp['imgErr'] = true;
+                        $resp['msg'] = "Invalid Image. Please upload jpg,jpeg and png image.";
+                        $imgError = 1;
+                    } else {
+                        $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
+                        $path = Yii::$app->basePath . '/uploads/ambulance/' . $imgName;
+                        $img->saveAs($path);
+                        $model->image = $imgName;
+                    }
+                }
                                 $model->updated_at = date("Y-m-d H:i:s");
-                                if ($model->validate() && $phone_error==false) {
+                                if ($model->validate() && $phone_error==false && $imgError==0) {
                                     $model->contact_no=implode(',',$_POST['contact_no']);
                                    $model->save(false);
                                     $resp['flag'] = true;
