@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['index']];
 //$this->title = $model->route;
 $this->params['breadcrumbs'][] = $this->title;
 
+
 ?>
 <div class="portlet light bordered">
     <div class="portlet-title">
@@ -43,6 +44,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="col-md-9">
                                 <p class="form-control-static"> <?= (isset($model->vehicle_no) && $model->vehicle_no != '') ? $model->vehicle_no : "Not Set"; ?> </p>
                             </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Image:</label>
+							<div class="form-group col-md-9" id='preview-img-holder'>
+								<img src="<?= (isset($model->image)&& $model->image != '') ? Yii::$app->request->baseUrl . '\uploads\mortuary\\' . $model->image : Yii::$app->request->baseUrl .'\uploads\noimage\noimg.jpg' ?>" class="thumb-image img-thumbnail" style="height: 80px;">
+							</div>
+                            
                         </div>
                     </div>
                 </div>
@@ -151,26 +163,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                 </div>
-				<div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Oxygen:</label>
-                            <div class="col-md-9">
-                                <p class="form-control-static"> <?= (isset($model->oxygen) && $model->oxygen == '1') ? 'Yes' : "No"; ?> </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-				<div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Life support:</label>
-                            <div class="col-md-9">
-                                <p class="form-control-static"> <?= (isset($model->lifesupport) && $model->lifesupport == '1') ? 'Yes' : "No"; ?> </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				
+				
 				<div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -221,8 +215,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-offset-3 col-md-9">
-                                <a href="<?php echo Url::toRoute(['ambulance/update', 'id' => $model->id]); ?>" class="btn green">Edit</a>
-                                <a href="<?php echo Url::to(['ambulance/index']); ?>" class="btn default">Back</a>
+                                <a href="<?php echo Url::toRoute(['mortuary/update', 'id' => $model->id]); ?>" class="btn green">Edit</a>
+                                <a href="<?php echo Url::to(['mortuary/index']); ?>" class="btn default">Back</a>
                             </div>
                         </div>
                     </div>
