@@ -77,9 +77,10 @@ $this->params['breadcrumbs'][] = $this->title;
 							 
 									$country_list = \app\models\Countries::find()->where(["id" => (isset($model->country_id) && $model->country_id != '') ? $model->country_id : 0])->all();
 									$listData = ArrayHelper::map($country_list,'id','name');
+									$listData=implode(" ",$listData);
 									 
 							?>
-                                <p class="form-control-static"> <?= (isset($listData[0]) && $listData[0] != '') ? $listData[0] : "Not Set"; ?> </p>
+                                <p class="form-control-static"> <?= (isset($listData) && $listData != '') ? $listData : "Not Set"; ?> </p>
                             </div>
                         </div>
                     </div>
@@ -93,9 +94,10 @@ $this->params['breadcrumbs'][] = $this->title;
 							 
 									$state_list = \app\models\States::find()->where(["id" => (isset($model->state_id) && $model->state_id != '') ? $model->state_id : 0])->all();
 									$listData = ArrayHelper::map($state_list,'id','name');
+									$listData=implode(" ",$listData);
 									 
 							?>
-                                <p class="form-control-static"> <?= (isset($listData[0]) && $listData[0] != '') ? $listData[0] : "Not Set"; ?> </p>
+                                <p class="form-control-static"> <?= (isset($listData) && $listData != '') ? $listData : "Not Set"; ?> </p>
                             </div>
                         </div>
                     </div>
@@ -109,9 +111,10 @@ $this->params['breadcrumbs'][] = $this->title;
 							 
 									$district_list = \app\models\Districts::find()->where(["id" => (isset($model->district_id) && $model->district_id != '') ? $model->district_id : 0])->all();
 									$listData = ArrayHelper::map($district_list,'id','name');
+									$listData=implode(" ",$listData);
 									 
 							?>
-                                <p class="form-control-static"> <?= (isset($listData[0]) && $listData[0] != '') ? $listData[0] : "Not Set"; ?> </p>
+                                <p class="form-control-static"> <?= (isset($listData) && $listData != '') ? $listData : "Not Set"; ?> </p>
                             </div>
                         </div>
                     </div>
@@ -125,9 +128,10 @@ $this->params['breadcrumbs'][] = $this->title;
 							 
 									$city_list = \app\models\Cities::find()->where(["id" => (isset($model->city_id) && $model->city_id != '') ? $model->city_id : 0])->all();
 									$listData = ArrayHelper::map($city_list,'id','name');
+									$listData=implode(" ",$listData);
 									 
 							?>
-                                <p class="form-control-static"> <?= (isset($listData[0]) && $listData[0] != '') ? $listData[0] : "Not Set"; ?> </p>
+                                <p class="form-control-static"> <?= (isset($listData) && $listData != '') ? $listData : "Not Set"; ?> </p>
                             </div>
                         </div>
                     </div>

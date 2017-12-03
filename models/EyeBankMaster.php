@@ -41,7 +41,7 @@ class EyeBankMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'country_id', 'state_id', 'district_id','city_id','open_time', 'close_time','close_day','address','description'], 'required','on'=>['create','update']],
+            [['name', 'country_id', 'state_id', 'district_id','city_id','open_time', 'close_time','close_day','address','description','establishment_date'], 'required','on'=>['create','update']],
             [['country_id', 'state_id', 'city_id', 'close_day', 'status'], 'integer'],
             [['description', 'contact_no'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
@@ -71,6 +71,7 @@ class EyeBankMaster extends \yii\db\ActiveRecord
             'close_day' => 'Close Day',
             'description' => 'Description',
             'contact_no' => 'Contact No',
+			'establishment_date' =>'Establishment Date',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

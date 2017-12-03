@@ -227,7 +227,7 @@ use yii\helpers\ArrayHelper;
                 <div class="col-md-3">
                     <div class="form-group text-center" id='preview-img-holder'>
                         <img src="<?=Yii::$app->request->baseUrl . '\uploads\mortuary\\' . $model->image?>" class="thumb-image" style="height: 80px;">
-				</div>
+					</div>
                 </div>
                 <div class="help-block" id="err-image"></div>
             </div>

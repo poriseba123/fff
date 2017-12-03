@@ -1,6 +1,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <?php
 
 use yii\helpers\Html;
@@ -51,6 +53,15 @@ use yii\helpers\ArrayHelper;
                 <div class="col-md-6">
                     <?= $form->field($model, 'name')->textInput(['class' => 'form-control'])->label(false); ?>
                 </div>
+            </div>
+        </div>
+		<div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Establishment Date<span class="required">*</span></label>
+                <div class="col-md-6">
+					<?= $form->field($model, 'establishment_date')->textInput(['class' => 'form-control datepicker','id'=>'establishment_date'])->label(false); ?>
+                
+				</div>
             </div>
         </div>
         <div class="form-body">
@@ -221,7 +232,7 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-<div class="form-body">
+		<div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Image<span class="required">*</span></label>
                 <div class="col-md-6">
@@ -268,6 +279,11 @@ use yii\helpers\ArrayHelper;
         $('.timepicker').datetimepicker({
             format: 'LT'
         });
+		$( ".datepicker" ).datepicker({
+			  changeMonth: true,
+			  changeYear: true,
+			  dateFormat: 'yy-mm-dd'
+		});
     });
     var global_val = 1;
     function addPhone() {

@@ -315,7 +315,7 @@ class MedicineshopController extends AdminController {
         return $html;
     }
     protected function findModel($id) {
-        if (($model = DoctorSpecialities::findOne($id)) !== null) {
+        if (($model = MedicineShopMaster::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
