@@ -9,6 +9,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\web\Controller;
 use kartik\grid\GridView;
+use kartik\select2\Select2;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\console\Application;
@@ -168,8 +169,11 @@ class DiagnosticcentreController extends AdminController {
                             $resp['imgErr'] = false;
                             $resp['flag'] = false;
                             $phone_error=false;
+							$test_error =false;
                             $resp['phone'] = true;
                             $phone_check=$_POST['contact_no'];
+							$medical_tests =false;
+							$resp['medicaltest'] = true;
                             foreach($phone_check as $k=>$v){
                                     if($v==''){
                                         $phone_error=true;
@@ -178,28 +182,41 @@ class DiagnosticcentreController extends AdminController {
                             if ($phone_error){
                                 $resp['phone'] = false;
                             }
+							$medical_tests=$_POST['DiagnosticCentre']['medical_tests'];
+							if(!empty($medical_tests)){
+								 foreach($medical_tests as $k=>$v){
+                                    if($v==''){
+                                        $test_error=true;
+                                }
+                            }
+                            if ($medical_tests){
+                                $resp['medicaltest'] = false;
+                            }
+							}
+							
                             $model= new DiagnosticCentre();
                             $model->scenario = "create";
                             if ($model->load(Yii::$app->request->post())) {
                                 $img = UploadedFile::getInstance($model, 'image');
                                 if (isset($img) && $img->error == 0) {
-                    $allow = ['jpg', 'png','jpeg'];
-                    $ext = explode('.', $img->name);
-                    if (!in_array(end($ext), $allow)) {
-                        $resp['imgErr'] = true;
-                        $resp['msg'] = "Invalid Image. Please upload jpg,jpeg and png image.";
-                        $imgError = 1;
-                    } else {
-                        $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/diagnostic_centre/' . $imgName;
-                        $img->saveAs($path);
-                        $model->image = $imgName;
-                    }
-                }
+									$allow = ['jpg', 'png','jpeg'];
+									$ext = explode('.', $img->name);
+									if (!in_array(end($ext), $allow)) {
+										$resp['imgErr'] = true;
+										$resp['msg'] = "Invalid Image. Please upload jpg,jpeg and png image.";
+										$imgError = 1;
+									} else {
+										$imgName = date('Ymd') . '_' . time() . '_' . $img->name;
+										$path = Yii::$app->basePath . '/uploads/diagnostic_centre/' . $imgName;
+										$img->saveAs($path);
+										$model->image = $imgName;
+									}
+							}
                                 $model->status =1;
                                 $model->created_at = date("Y-m-d H:i:s");
-                                if ($model->validate() && $phone_error==false && $imgError==0) {
+                                if ($model->validate() && $phone_error==false && $test_error==false && $imgError==0) {
                                     $model->contact_no=implode(',',$_POST['contact_no']);
+									$model->medical_tests=implode(',',$medical_tests);
                                    $model->save(false);
                                     $resp['flag'] = true;
                                     $resp['url'] = Url::to(['diagnosticcentre/index']);
@@ -212,7 +229,7 @@ class DiagnosticcentreController extends AdminController {
                             exit;
                         }
                         }
-    public function actionUpdateajax() {
+					public function actionUpdateajax() {
                         if (Yii::$app->request->isAjax) {
                             $med_shop_id=$_POST['id'];
                             $resp = [];
@@ -220,7 +237,10 @@ class DiagnosticcentreController extends AdminController {
                             $resp['imgErr'] = false;
                             $resp['flag'] = false;
                             $phone_error=false;
+							$medical_tests =false;
+							$test_error =false;
                             $resp['phone'] = true;
+							$resp['medicaltest'] = true;
                             $phone_check=$_POST['contact_no'];
                             foreach($phone_check as $k=>$v){
                                     if($v==''){
@@ -230,28 +250,43 @@ class DiagnosticcentreController extends AdminController {
                             if ($phone_error){
                                 $resp['phone'] = false;
                             }
+							
+							$medical_tests=$_POST['DiagnosticCentre']['medical_tests'];
+							if(!empty($medical_tests)){
+							 foreach($medical_tests as $k=>$v){
+								if($v==''){
+									$test_error=true;
+							}
+                            }
+                            if ($medical_tests){
+                                $resp['medicaltest'] = false;
+                            }
+							}
+							
                             $model= DiagnosticCentre::findOne($med_shop_id);
                             $model->scenario = "update";
                             if ($model->load(Yii::$app->request->post())) {
                                 $img = UploadedFile::getInstance($model, 'image');
                                 if (isset($img) && $img->error == 0) {
-                    $allow = ['jpg', 'png','jpeg'];
-                    $ext = explode('.', $img->name);
-                    if (!in_array(end($ext), $allow)) {
-                        $resp['imgErr'] = true;
-                        $resp['msg'] = "Invalid Image. Please upload jpg,jpeg and png image.";
-                        $imgError = 1;
-                    } else {
-                        $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/diagnostic_centre/' . $imgName;
-                        $img->saveAs($path);
-                        $model->image = $imgName;
-                    }
+								$allow = ['jpg', 'png','jpeg'];
+								$ext = explode('.', $img->name);
+								if (!in_array(end($ext), $allow)) {
+									$resp['imgErr'] = true;
+									$resp['msg'] = "Invalid Image. Please upload jpg,jpeg and png image.";
+									$imgError = 1;
+								} else {
+									$imgName = date('Ymd') . '_' . time() . '_' . $img->name;
+									$path = Yii::$app->basePath . '/uploads/diagnostic_centre/' . $imgName;
+									$img->saveAs($path);
+									$model->image = $imgName;
+								}
                 }
                                 $model->updated_at = date("Y-m-d H:i:s");
-                                if ($model->validate() && $phone_error==false && $imgError==0) {
+                                if ($model->validate() && $phone_error==false && $test_error==false && $imgError==0) {
                                     $model->contact_no=implode(',',$_POST['contact_no']);
-                                   $model->save(false);
+									$model->medical_tests=implode(',',$medical_tests);
+									
+									$model->save(false);
                                     $resp['flag'] = true;
                                     $resp['url'] = Url::to(['diagnosticcentre/index']);
                                     $resp['msg'] = "Diagnostic Centre successfully updated";
@@ -329,7 +364,7 @@ class DiagnosticcentreController extends AdminController {
         return $html;
     }
     protected function findModel($id) {
-        if (($model = DoctorSpecialities::findOne($id)) !== null) {
+        if (($model = DiagnosticCentre::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
