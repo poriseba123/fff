@@ -48,10 +48,10 @@ class DiagnosticCentre extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name','country_id','district_id', 'state_id', 'city_id','open_time', 'close_time','close_day','address'], 'required','on'=>['create','update']],
+            [['name','country_id','district_id', 'state_id', 'city_id','open_time', 'close_time','close_day','address','medical_tests','establishment_date','e_report','home_collection'], 'required','on'=>['create','update']],
 //            [['country_id', 'state_id', 'district_id', 'city_id', 'others'], 'required'],
             [['country_id', 'state_id', 'district_id', 'city_id', 'close_day', 'e_report', 'home_collection', 'status'], 'integer'],
-            [['contact_no', 'facilities', 'others'], 'string'],
+            [['contact_no','others'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'address'], 'string', 'max' => 200],
             [['latitude', 'longitude'], 'string', 'max' => 50],
@@ -80,7 +80,7 @@ class DiagnosticCentre extends \yii\db\ActiveRecord
             'close_time' => 'Close Time',
             'close_day' => 'Close Day',
             'contact_no' => 'Contact No',
-            'facilities' => 'Facilities',
+            'medical_tests' => 'Medical Test',
             'others' => 'Others',
             'e_report' => 'E Report',
             'website' => 'Website',

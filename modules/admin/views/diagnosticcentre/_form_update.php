@@ -1,12 +1,15 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <?php
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
@@ -50,15 +53,32 @@ use yii\helpers\ArrayHelper;
                 <label class="control-label col-md-3">Name<span class="required">*</span></label>
                 <div class="col-md-6">
                     <input type="hidden" name="id" value="<?=$model->id?>">
-<?= $form->field($model, 'name')->textInput(['class' => 'form-control'])->label(false); ?>
+					<?= $form->field($model, 'name')->textInput(['class' => 'form-control'])->label(false); ?>
+                </div>
+            </div>
+        </div>
+		
+		<div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Establishment Date<span class="required">*</span></label>
+                <div class="col-md-6">
+					<?= $form->field($model, 'establishment_date')->textInput(['class' => 'form-control datepicker'])->label(false); ?>
                 </div>
             </div>
         </div>
         <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">address<span class="required">*</span></label>
+                <label class="control-label col-md-3">Address<span class="required">*</span></label>
                 <div class="col-md-6">
-<?= $form->field($model, 'address')->textArea(['class' => 'form-control', 'rows' => '2'])->label(false); ?>
+					<?= $form->field($model, 'address')->textArea(['class' => 'form-control', 'rows' => '2'])->label(false); ?>
+                </div>
+            </div>
+        </div>
+		<div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Website url</label>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'website')->textInput(['class' => 'form-control'])->label(false); ?>
                 </div>
             </div>
         </div>
@@ -127,6 +147,44 @@ use yii\helpers\ArrayHelper;
                     <input type="hidden" id="diagnosticcentre-longitude" class="form-control" name="DiagnosticCentre[longitude]" value="<?=$model->longitude?>">
                     <input id="pac-input" class="form-control controls1" type="text" placeholder="Search Box"><br>
                     <div id="map" style="height: 324px;width: 100%;"></div>
+                </div>
+				<div class="col-md-3">
+                    <div class="btn-group btn-group-solid">
+                        <button type="button" class="btn btn-success" style="font-size:17px;" onclick="getLocation();">
+                            MY LOCATION
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Medical Test<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?php
+                    $medical_tests_lists = \app\models\MedicalTests::find()->all();
+                    $listData = ArrayHelper::map($medical_tests_lists, 'id', 'name');
+					//print_r($listData);
+					$model->medical_tests =  explode(",",$model->medical_tests); // initial value
+					echo $form->field($model, 'medical_tests')->widget(Select2::classname(), [
+					'data' => $listData,
+					'options' => ['placeholder' => 'Search Medical Tests ...','multiple'=>true],
+					'pluginOptions' => [
+						'allowClear' => true,
+						'tags' => true,
+						'tokenSeparators' => [',', ' ']
+					],
+					])->label(false);
+                    ?>
+                </div>
+            </div>
+        </div>
+		
+		<div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Other Details<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'others')->textArea(['class' => 'form-control', 'rows' => '2'])->label(false); ?>
                 </div>
             </div>
         </div>
@@ -227,34 +285,57 @@ use yii\helpers\ArrayHelper;
                 <div class="col-md-3">
                     <div class="form-group text-center" id='preview-img-holder'>
                         <img src="<?=Yii::$app->request->baseUrl . '\uploads\diagnostic_centre\\' . $model->image?>" class="thumb-image" style="height: 80px;">
-                                            </div>
+					</div>
                 </div>
                 <div class="help-block" id="err-image"></div>
             </div>
         </div>
+		<div class="form-group">
+                <label class="control-label col-md-3">E-report <span class="required">*</span></label>
+                <div class="col-md-6">
+                    <div class="radio-list">                        
+                        <label class="radio-inline">
+                            <?php
+                            echo $form->field($model, 'e_report')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                            ?>
+                        </label>
+                    </div>
+                </div>
+		</div>
+		<div class="form-group">
+                <label class="control-label col-md-3">Home Collection <span class="required">*</span></label>
+                <div class="col-md-6">
+                    <div class="radio-list">                        
+                        <label class="radio-inline">
+                            <?php
+                            echo $form->field($model, 'home_collection')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                            ?>
+                        </label>
+                    </div>
+                </div>
+		</div>
 
-
-<?php if (!$model->isNewRecord) { ?>
+	<?php if (!$model->isNewRecord) { ?>
             <div class="form-group">
                 <label class="control-label col-md-3">Status <span class="required">*</span></label>
                 <div class="col-md-6">
                     <div class="radio-list">                        
                         <label class="radio-inline">
-    <?php
-    echo $form->field($model, 'status')->radioList(['1' => 'Active', '0' => 'Inactive'])->label(false);
-    ?>
+		<?php
+					echo $form->field($model, 'status')->radioList(['1' => 'Active', '0' => 'Inactive'])->label(false);
+		?>
                         </label>
                     </div>
                 </div>
             </div>
-<?php } ?>
+	<?php } ?>
 
 
         <div class="form-actions">
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
 <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
-                    <a href="<?php echo Url::to(['doctor/index']); ?>" class="btn default">Back</a>
+                    <a href="<?php echo Url::to(['diagnosticcentre/index']); ?>" class="btn default">Back</a>
                 </div>
             </div>
         </div>
@@ -273,6 +354,11 @@ setTimeout(function(){console.log('now'),$('#diagnosticcentre-district_id').val(
        $('.timepicker').datetimepicker({
            format: 'LT'
        });
+	   $( ".datepicker" ).datepicker({
+			  changeMonth: true,
+			  changeYear: true,
+			  dateFormat: 'yy-mm-dd'
+		});
 
 $('#diagnosticcentre-country_id').trigger('onchange');
 setTimeout(function(){$('#diagnosticcentre-state_id').val(state_id).then($('#diagnosticcentre-state_id').trigger('onchange'),fireagain())},'1500');
