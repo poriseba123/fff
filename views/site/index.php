@@ -88,51 +88,26 @@ use yii\web\View;
                 <div class="col-md-12">
                     <h3 class="section-title">over view of our listed poriseba you can acess</h3>
                 </div>
+                <?php
+                if(isset($all_services) && count($all_services)>0){
+                    foreach ($all_services as $key => $val) {
+                ?>
                 <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-1 wow fadeInUpQuick" data-wow-delay="0.3s">
+                    <div class="category-box <?=$val->border_color?> wow fadeInUpQuick" data-wow-delay="0.9s">
                         <div class="icon">
-                            <a href="category.html"><i class="fa fa-user-md color-1"></i></a>
+                            <a href="category.html"><i class="<?=$val->fa_icon?>"></i></a>
                         </div>
                         <div class="category-header">
                             <a href="category.html">
-                                <h4>Doctors</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-2 wow fadeInUpQuick" data-wow-delay="0.6s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-hospital-o fa-fw color-2"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Hospital/Nursing-home</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-3 wow fadeInUpQuick" data-wow-delay="0.9s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-medkit fa-fwcolor-3 color-6"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Medical Shops</h4>
+                                <h4><?=$val->name?></h4>
                             </a>
                         </div>
                         <div class="category-content">
                             <ul>
                                 <?php
-                                if(isset($med_shop_result) && count($med_shop_result) >0){
-                                    foreach ($med_shop_result as $key => $val) {
+                                $result=$val->model::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
+                                if(isset($result) && count($result) >0){
+                                    foreach ($result as $key => $val) {
                                 ?>
                                 <li>
                                     <a href="category.html"><?=$val->city->name?></a>
@@ -151,295 +126,9 @@ use yii\web\View;
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-4 wow fadeInUpQuick" data-wow-delay="1.2s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-ambulance fa-fw color-4"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Ambulance</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                            <ul>
-                                <?php
-                                if(isset($ambulance_result) && count($ambulance_result) >0){
-                                    foreach ($ambulance_result as $key => $val) {
-                                ?>
-                                <li>
-                                    <a href="category.html"><?=$val->city->name?></a>
-                                    <span class="category-counter"><?=$val->cityrow_count?></span>
-                                </li>
-                                    <?php if($key==5){break;} } ?>
-                                <li>
-                                    <a href="category.html">View all →</a>
-                                </li>
-                                    <?php }else{ ?>
-                                <li>
-                                    <a href="javascript:;">No Data Found</a>
-                                </li>
-                                    <?php } ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-5 wow fadeInUpQuick" data-wow-delay="1.5s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-car fa-fw color-5"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Mortuary Van service</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                           <ul>
-                                <?php
-                                if(isset($mortuary_result) && count($mortuary_result) >0){
-                                    foreach ($mortuary_result as $key => $val) {
-                                ?>
-                                <li>
-                                    <a href="category.html"><?=$val->city->name?></a>
-                                    <span class="category-counter"><?=$val->cityrow_count?></span>
-                                </li>
-                                    <?php if($key==5){break;} } ?>
-                                <li>
-                                    <a href="category.html">View all →</a>
-                                </li>
-                                    <?php }else{ ?>
-                                <li>
-                                    <a href="javascript:;">No Data Found</a>
-                                </li>
-                                    <?php } ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-6 wow fadeInUpQuick" data-wow-delay="1.8s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-h-square fa-fw color-6"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Diagnostic Center</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                           <ul>
-                                <?php
-                                if(isset($diagnostic_result) && count($diagnostic_result) >0){
-                                    foreach ($diagnostic_result as $key => $val) {
-                                ?>
-                                <li>
-                                    <a href="category.html"><?=$val->city->name?></a>
-                                    <span class="category-counter"><?=$val->cityrow_count?></span>
-                                </li>
-                                    <?php if($key==5){break;} } ?>
-                                <li>
-                                    <a href="category.html">View all →</a>
-                                </li>
-                                    <?php }else{ ?>
-                                <li>
-                                    <a href="javascript:;">No Data Found</a>
-                                </li>
-                                    <?php } ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-7 wow fadeInUpQuick" data-wow-delay="2.1s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-user-plus color-7"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Physiotherapist</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-8 wow fadeInUpQuick" data-wow-delay="2.3s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-female color-8"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Nurse/Aya</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-1 wow fadeInUpQuick" data-wow-delay="0.3s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-spotify fa-fw color-1"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Fitness Center</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-2 wow fadeInUpQuick" data-wow-delay="0.6s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-tint fa-fw color-2"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Blood Bank</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                            <ul>
-                                <?php
-                                if(isset($bloodbank_result) && count($bloodbank_result) >0){
-                                    foreach ($bloodbank_result as $key => $val) {
-                                ?>
-                                <li>
-                                    <a href="category.html"><?=$val->city->name?></a>
-                                    <span class="category-counter"><?=$val->cityrow_count?></span>
-                                </li>
-                                    <?php if($key==5){break;} } ?>
-                                <li>
-                                    <a href="category.html">View all →</a>
-                                </li>
-                                    <?php }else{ ?>
-                                <li>
-                                    <a href="javascript:;">No Data Found</a>
-                                </li>
-                                    <?php } ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-3 wow fadeInUpQuick" data-wow-delay="0.9s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-eye fa-fw color-6"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Eye Bank</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                            <ul>
-                                <?php
-                                if(isset($eyebank_result) && count($eyebank_result) >0){
-                                    foreach ($eyebank_result as $key => $val) {
-                                ?>
-                                <li>
-                                    <a href="category.html"><?=$val->city->name?></a>
-                                    <span class="category-counter"><?=$val->cityrow_count?></span>
-                                </li>
-                                    <?php if($key==5){break;} } ?>
-                                <li>
-                                    <a href="category.html">View all →</a>
-                                </li>
-                                    <?php }else{ ?>
-                                <li>
-                                    <a href="javascript:;">No Data Found</a>
-                                </li>
-                                    <?php } ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-4 wow fadeInUpQuick" data-wow-delay="1.2s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-home color-4"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Old Age Home</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-5 wow fadeInUpQuick" data-wow-delay="1.5s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-flask  color-5"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Pathology Collector</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                           
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-6 wow fadeInUpQuick" data-wow-delay="1.8s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-cogs color-6"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Medical Instrument</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-7 wow fadeInUpQuick" data-wow-delay="2.1s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-h-square fa-fw color-7"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Rehab Centre</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                           
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box border-7 wow fadeInUpQuick" data-wow-delay="2.1s">
-                        <div class="icon">
-                            <a href="category.html"><i class="fa fa-list color-3"></i></a>
-                        </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4>Health Insureces Policys</h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                            
-                        </div>
-                    </div>
-                </div>
+                <?php }}else{ ?>
+                <?php } ?>
+
             </div>
         </div>
     </section>

@@ -22,6 +22,8 @@ use app\models\BloodBankMaster;
 use app\models\MortuaryMaster;
 use app\models\DiagnosticCentre;
 
+use app\models\ServicesList;
+
 class SiteController extends FrontendController {
 
     /**
@@ -72,6 +74,10 @@ class SiteController extends FrontendController {
     public function actionIndex() {
         $this->view->title = "Home";
         $data=[];
+        
+        $all_services=ServicesList::find()->where(['status'=>'1'])->all();
+        $data['all_services']=$all_services;
+        
         $med_shop_result= MedicineShopMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
         $data['med_shop_result']=$med_shop_result;
         
