@@ -99,35 +99,7 @@ use yii\web\View;
                             </a>
                         </div>
                         <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Announcements</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Car Pool - Bike Ride</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Charity - Donate - NGO</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Lost - Found</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Tender Notices</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">General Entertainment</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">View all subcategories →</a>
-                                </li>
-                            </ul>
+                            
                         </div>
                     </div>
                 </div>
@@ -142,36 +114,7 @@ use yii\web\View;
                             </a>
                         </div>
                         <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Home Electronics</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">LCDs</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Charity - Donate - NGO</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Mobile & Tablets</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">TV & DVDs</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Technical Services</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Others</a>
-                                    <span class="category-counter">1</span>
-                                </li>
-                            </ul>
+                            
                         </div>
                     </div>
                 </div>
@@ -187,33 +130,23 @@ use yii\web\View;
                         </div>
                         <div class="category-content">
                             <ul>
+                                <?php
+                                if(isset($med_shop_result) && count($med_shop_result) >0){
+                                    foreach ($med_shop_result as $key => $val) {
+                                ?>
                                 <li>
-                                    <a href="category.html">Cleaning Services</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="category.html"><?=$val->city->name?></a>
+                                    <span class="category-counter"><?=$val->cityrow_count?></span>
                                 </li>
+                                    <?php if($key==5){break;}} ?>
                                 <li>
-                                    <a href="category.html">Educational</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="category.html">View all →</a>
                                 </li>
+                                    <?php }else{ ?>
                                 <li>
-                                    <a href="category.html">Food Services</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="javascript:;">No Data Found</a>
                                 </li>
-                                <li>
-                                    <a href="category.html">Medical</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Office & Home Removals</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">General Entertainment</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">View all subcategories →</a>
-                                </li>
+                                    <?php } ?>
                             </ul>
                         </div>
                     </div>
@@ -230,30 +163,23 @@ use yii\web\View;
                         </div>
                         <div class="category-content">
                             <ul>
+                                <?php
+                                if(isset($ambulance_result) && count($ambulance_result) >0){
+                                    foreach ($ambulance_result as $key => $val) {
+                                ?>
                                 <li>
-                                    <a href="category.html">Bags</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="category.html"><?=$val->city->name?></a>
+                                    <span class="category-counter"><?=$val->cityrow_count?></span>
                                 </li>
+                                    <?php if($key==5){break;} } ?>
                                 <li>
-                                    <a href="category.html">Beauty Products</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="category.html">View all →</a>
                                 </li>
+                                    <?php }else{ ?>
                                 <li>
-                                    <a href="category.html">Jewelry</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="javascript:;">No Data Found</a>
                                 </li>
-                                <li>
-                                    <a href="category.html">Shoes M/F</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Tender Notices</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Others</a>
-                                    <span class="category-counter">3</span>
-                                </li>
+                                    <?php } ?>
                             </ul>
                         </div>
                     </div>
@@ -269,34 +195,24 @@ use yii\web\View;
                             </a>
                         </div>
                         <div class="category-content">
-                            <ul>
+                           <ul>
+                                <?php
+                                if(isset($mortuary_result) && count($mortuary_result) >0){
+                                    foreach ($mortuary_result as $key => $val) {
+                                ?>
                                 <li>
-                                    <a href="category.html">Accounts Jobs</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="category.html"><?=$val->city->name?></a>
+                                    <span class="category-counter"><?=$val->cityrow_count?></span>
                                 </li>
+                                    <?php if($key==5){break;} } ?>
                                 <li>
-                                    <a href="category.html">Cleaning & Washing</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="category.html">View all →</a>
                                 </li>
+                                    <?php }else{ ?>
                                 <li>
-                                    <a href="category.html">Web design</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="javascript:;">No Data Found</a>
                                 </li>
-                                <li>
-                                    <a href="category.html">Design & Code</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Finance Jobs</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Data Entry</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">View all subcategories →</a>
-                                </li>
+                                    <?php } ?>
                             </ul>
                         </div>
                     </div>
@@ -312,34 +228,24 @@ use yii\web\View;
                             </a>
                         </div>
                         <div class="category-content">
-                            <ul>
+                           <ul>
+                                <?php
+                                if(isset($diagnostic_result) && count($diagnostic_result) >0){
+                                    foreach ($diagnostic_result as $key => $val) {
+                                ?>
                                 <li>
-                                    <a href="category.html">Android Development</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="category.html"><?=$val->city->name?></a>
+                                    <span class="category-counter"><?=$val->cityrow_count?></span>
                                 </li>
+                                    <?php if($key==5){break;} } ?>
                                 <li>
-                                    <a href="category.html">20 Days HTML/CSS</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="category.html">View all →</a>
                                 </li>
+                                    <?php }else{ ?>
                                 <li>
-                                    <a href="category.html">iOS Development with Swift</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="javascript:;">No Data Found</a>
                                 </li>
-                                <li>
-                                    <a href="category.html">SEO for rest of us</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Mastering in Java</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Others</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">View all subcategories →</a>
-                                </li>
+                                    <?php } ?>
                             </ul>
                         </div>
                     </div>
@@ -355,32 +261,7 @@ use yii\web\View;
                             </a>
                         </div>
                         <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Farms</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Home for rent</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Hotels</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Land for sale</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Offices for rent</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Others</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                            </ul>
+                            
                         </div>
                     </div>
                 </div>
@@ -395,35 +276,7 @@ use yii\web\View;
                             </a>
                         </div>
                         <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Cars</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Fancy Cars</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Kids Bikes</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Motor Bikes</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Classic & Modern</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Kinds</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">View all subcategories →</a>
-                                </li>
-                            </ul>
+                            
                         </div>
                     </div>
                 </div>
@@ -442,35 +295,7 @@ use yii\web\View;
                             </a>
                         </div>
                         <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Announcements</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Car Pool - Bike Ride</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Charity - Donate - NGO</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Lost - Found</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Tender Notices</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">General Entertainment</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">View all subcategories →</a>
-                                </li>
-                            </ul>
+                            
                         </div>
                     </div>
                 </div>
@@ -486,34 +311,23 @@ use yii\web\View;
                         </div>
                         <div class="category-content">
                             <ul>
+                                <?php
+                                if(isset($bloodbank_result) && count($bloodbank_result) >0){
+                                    foreach ($bloodbank_result as $key => $val) {
+                                ?>
                                 <li>
-                                    <a href="category.html">Home Electronics</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="category.html"><?=$val->city->name?></a>
+                                    <span class="category-counter"><?=$val->cityrow_count?></span>
                                 </li>
+                                    <?php if($key==5){break;} } ?>
                                 <li>
-                                    <a href="category.html">LCDs</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="category.html">View all →</a>
                                 </li>
+                                    <?php }else{ ?>
                                 <li>
-                                    <a href="category.html">Charity - Donate - NGO</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="javascript:;">No Data Found</a>
                                 </li>
-                                <li>
-                                    <a href="category.html">Mobile & Tablets</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">TV & DVDs</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Technical Services</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Others</a>
-                                    <span class="category-counter">1</span>
-                                </li>
+                                    <?php } ?>
                             </ul>
                         </div>
                     </div>
@@ -530,33 +344,23 @@ use yii\web\View;
                         </div>
                         <div class="category-content">
                             <ul>
+                                <?php
+                                if(isset($eyebank_result) && count($eyebank_result) >0){
+                                    foreach ($eyebank_result as $key => $val) {
+                                ?>
                                 <li>
-                                    <a href="category.html">Cleaning Services</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="category.html"><?=$val->city->name?></a>
+                                    <span class="category-counter"><?=$val->cityrow_count?></span>
                                 </li>
+                                    <?php if($key==5){break;} } ?>
                                 <li>
-                                    <a href="category.html">Educational</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="category.html">View all →</a>
                                 </li>
+                                    <?php }else{ ?>
                                 <li>
-                                    <a href="category.html">Food Services</a>
-                                    <span class="category-counter">3</span>
+                                    <a href="javascript:;">No Data Found</a>
                                 </li>
-                                <li>
-                                    <a href="category.html">Medical</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Office & Home Removals</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">General Entertainment</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">View all subcategories →</a>
-                                </li>
+                                    <?php } ?>
                             </ul>
                         </div>
                     </div>
@@ -572,32 +376,7 @@ use yii\web\View;
                             </a>
                         </div>
                         <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Bags</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Beauty Products</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Jewelry</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Shoes M/F</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Tender Notices</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Others</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                            </ul>
+                            
                         </div>
                     </div>
                 </div>
@@ -612,35 +391,7 @@ use yii\web\View;
                             </a>
                         </div>
                         <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Accounts Jobs</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Cleaning & Washing</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Web design</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Design & Code</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Finance Jobs</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Data Entry</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">View all subcategories →</a>
-                                </li>
-                            </ul>
+                           
                         </div>
                     </div>
                 </div>
@@ -655,35 +406,7 @@ use yii\web\View;
                             </a>
                         </div>
                         <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Android Development</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">20 Days HTML/CSS</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">iOS Development with Swift</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">SEO for rest of us</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Mastering in Java</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Others</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">View all subcategories →</a>
-                                </li>
-                            </ul>
+                            
                         </div>
                     </div>
                 </div>
@@ -698,32 +421,7 @@ use yii\web\View;
                             </a>
                         </div>
                         <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Farms</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Home for rent</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Hotels</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Land for sale</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Offices for rent</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Others</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                            </ul>
+                           
                         </div>
                     </div>
                 </div>
@@ -738,32 +436,7 @@ use yii\web\View;
                             </a>
                         </div>
                         <div class="category-content">
-                            <ul>
-                                <li>
-                                    <a href="category.html">Farms</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Home for rent</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Hotels</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Land for sale</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Offices for rent</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                                <li>
-                                    <a href="category.html">Others</a>
-                                    <span class="category-counter">3</span>
-                                </li>
-                            </ul>
+                            
                         </div>
                     </div>
                 </div>

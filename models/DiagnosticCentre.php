@@ -35,6 +35,8 @@ class DiagnosticCentre extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $cityrow_count;
+    
     public static function tableName()
     {
         return 'diagnostic_centre';
@@ -140,5 +142,8 @@ class DiagnosticCentre extends \yii\db\ActiveRecord
                 ->andWhere('status <> \'3\'');
 
         return $dataProvider;
+    }
+    public function getCity() {
+        return $this->hasOne(Cities::className(), ['id' => 'city_id']);
     }
 }

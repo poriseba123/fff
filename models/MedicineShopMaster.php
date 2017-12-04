@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\data\ActiveDataProvider;
+use app\models\Cities;
 
 /**
  * This is the model class for table "medicine_shop_master".
@@ -29,6 +30,8 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $cityrow_count;
+    
     public static function tableName()
     {
         return 'medicine_shop_master';
@@ -126,5 +129,8 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
                 ->andWhere('status <> \'3\'');
 
         return $dataProvider;
+    }
+    public function getCity() {
+        return $this->hasOne(Cities::className(), ['id' => 'city_id']);
     }
 }

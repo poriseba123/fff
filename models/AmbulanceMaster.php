@@ -32,6 +32,8 @@ class AmbulanceMaster extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public $cityrow_count;
+    
     public static function tableName()
     {
         return 'ambulance_master';
@@ -121,5 +123,8 @@ class AmbulanceMaster extends \yii\db\ActiveRecord
                 ->andWhere('status <> \'3\'');
 
         return $dataProvider;
+    }
+    public function getCity() {
+        return $this->hasOne(Cities::className(), ['id' => 'city_id']);
     }
 }

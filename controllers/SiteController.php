@@ -15,6 +15,13 @@ use app\components\FrontendController;
 use app\models\MetaLocation;
 use app\models\Cms;
 
+use app\models\MedicineShopMaster;
+use app\models\AmbulanceMaster;
+use app\models\EyeBankMaster;
+use app\models\BloodBankMaster;
+use app\models\MortuaryMaster;
+use app\models\DiagnosticCentre;
+
 class SiteController extends FrontendController {
 
     /**
@@ -62,6 +69,33 @@ class SiteController extends FrontendController {
             ],
         ];
     }
+    public function actionIndex() {
+        $this->view->title = "Home";
+        $data=[];
+        $med_shop_result= MedicineShopMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
+        $data['med_shop_result']=$med_shop_result;
+        
+        $ambulance_result= AmbulanceMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
+        $data['ambulance_result']=$ambulance_result;
+        
+        $ambulance_result= AmbulanceMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
+        $data['ambulance_result']=$ambulance_result;
+        
+        $eyebank_result= EyeBankMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
+        $data['eyebank_result']=$eyebank_result;
+        
+        $bloodbank_result= BloodBankMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
+        $data['eyebank_result']=$eyebank_result;
+        
+        $mortuary_result= MortuaryMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
+        $data['mortuary_result']=$mortuary_result;
+        
+        $diagnostic_result= DiagnosticCentre::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
+        $data['diagnostic_result']=$diagnostic_result;
+
+
+        return $this->render('index', $data);
+    }
 
 //    ******************* custom Not Found and Url error function ****************
     public function actionUsernotfoundexc() {
@@ -70,19 +104,6 @@ class SiteController extends FrontendController {
 
     public function actionUrlerror() {
         return $this->render("url-error");
-    }
-
-    public function actionIndex() {
-        $this->view->title = "Home";
-//        exit('Coming Soon');
-//        return $this->redirect(Yii::$app->urlManager->createUrl('/admin/'));
-
-        //$trip_sql = "SELECT * from trip_master where status=1 and start_time > NOW() limit 4";
-        //$upcoming_trips = Yii::$app->db->createCommand($trip_sql)->queryAll();
-        $data=[];
-
-
-        return $this->render('index', $data);
     }
 
     public function actionComo_funciona() {
