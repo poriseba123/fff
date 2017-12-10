@@ -48,7 +48,7 @@ class DiagnosticCentre extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name','country_id','district_id', 'state_id', 'city_id','open_time', 'close_time','close_day','address','medical_tests','establishment_date','e_report','home_collection'], 'required','on'=>['create','update']],
+            [['name','country_id','district_id', 'state_id', 'city_id','open_time', 'close_time','close_day','address','medical_tests','establishment_date','e_report','home_collection','status'], 'required','on'=>['create','update']],
 //            [['country_id', 'state_id', 'district_id', 'city_id', 'others'], 'required'],
             [['country_id', 'state_id', 'district_id', 'city_id', 'close_day', 'e_report', 'home_collection', 'status'], 'integer'],
             [['contact_no','others'], 'string'],
