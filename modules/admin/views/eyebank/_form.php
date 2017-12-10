@@ -246,7 +246,7 @@ use yii\helpers\ArrayHelper;
             </div>
         </div>
 
-        <?php if (!$model->isNewRecord) { ?>
+     
             <div class="form-group">
                 <label class="control-label col-md-3">Status <span class="required">*</span></label>
                 <div class="col-md-6">
@@ -259,8 +259,7 @@ use yii\helpers\ArrayHelper;
                     </div>
                 </div>
             </div>
-        <?php } ?>
-
+       
 
         <div class="form-actions">
             <div class="row">

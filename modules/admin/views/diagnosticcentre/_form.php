@@ -301,7 +301,7 @@ use kartik\select2\Select2;
                 </div>
 		</div>
 
-        <?php if (!$model->isNewRecord) { ?>
+       
             <div class="form-group">
                 <label class="control-label col-md-3">Status <span class="required">*</span></label>
                 <div class="col-md-6">
@@ -314,7 +314,7 @@ use kartik\select2\Select2;
                     </div>
                 </div>
             </div>
-        <?php } ?>
+       
 
 
         <div class="form-actions">

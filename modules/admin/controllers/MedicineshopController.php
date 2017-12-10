@@ -195,7 +195,7 @@ class MedicineshopController extends AdminController {
                         $model->image = $imgName;
                     }
                 }
-                                $model->status =1;
+                                //$model->status =;
                                 $model->created_at = date("Y-m-d H:i:s");
                                 if ($model->validate() && $phone_error==false && $imgError==0) {
                                     $model->contact_no=implode(',',$_POST['contact_no']);
