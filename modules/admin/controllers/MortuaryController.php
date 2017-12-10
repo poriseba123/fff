@@ -238,6 +238,7 @@ class MortuaryController extends AdminController {
                                 if (isset($img) && $img->error == 0) {
                     $allow = ['jpg', 'png','jpeg'];
                     $ext = explode('.', $img->name);
+					
                     if (!in_array(end($ext), $allow)) {
                         $resp['imgErr'] = true;
                         $resp['msg'] = "Invalid Image. Please upload jpg,jpeg and png image.";
@@ -247,6 +248,7 @@ class MortuaryController extends AdminController {
                         $path = Yii::$app->basePath . '/uploads/mortuary/' . $imgName;
                         $img->saveAs($path);
                         $model->image = $imgName;
+						//die();
                     }
                 }
                                 $model->updated_at = date("Y-m-d H:i:s");

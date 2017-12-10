@@ -85,6 +85,12 @@
                     </li>
                 <!--user management section end-->
                 <!--Doctor management section start-->
+			<li class="nav-item <?= (Yii::$app->controller->id == "doctorspecialities") ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('doctorspecialities') ?>" class="nav-link ">
+                    <i class="fa fa-user-md" aria-hidden="true"></i>
+                    <span class="title">Doctor Specialities Management</span>
+                </a>
+            </li>
             <li class="nav-item <?= (Yii::$app->controller->id == "doctor") ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('doctor') ?>" class="nav-link ">
                     <i class="fa fa-user-md" aria-hidden="true"></i>

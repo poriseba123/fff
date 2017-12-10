@@ -305,7 +305,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <script>
  map='';
  global_markers = [];    
- markers = [[<?= (isset($model->latitude) && $model->latitude != '') ? $model->latitude : 20.5937; ?>, <?= (isset($model->longitude) && $model->longitude != '') ? $model->longitude : 78.9629; ?>, <?= (isset($model->address) && $model->address != '') ? "'".$model->address."'" : "Not Set"; ?>]];
+ markers = [[<?= (isset($model->latitude) && $model->latitude != '') ? $model->latitude : 20.5937; ?>, <?= (isset($model->longitude) && $model->longitude != '') ? $model->longitude : 78.9629; ?>, <?= (isset($model->address) && $model->address != '') ? "'".preg_replace('/\s+/', '', $model->address)."'" : "Not Set"; ?>]];
 
 
 function initialize() {

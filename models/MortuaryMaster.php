@@ -43,7 +43,7 @@ class MortuaryMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'country_id', 'state_id', 'city_id','district_id','ac','all_time','address','description','vehicle_no'], 'required','on'=>['create','update']],
+            [['name', 'country_id', 'state_id', 'city_id','district_id','ac','all_time','address','description','vehicle_no','status'], 'required','on'=>['create','update']],
             [['country_id', 'state_id', 'city_id', 'all_time', 'ac', 'status'], 'integer'],
             [['description', 'contact_no'], 'string'],
             [['created_at', 'updated_at'], 'safe'],

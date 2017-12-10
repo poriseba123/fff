@@ -29,33 +29,33 @@ use yii\helpers\ArrayHelper;
         <h1 class="page-title"> Dashboard <small>dashboard & statistics</small></h1>
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('users'); ?>">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="javascript:void(0);">
                     <div class="visual">
                         <i class="fa fa-users"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="50">50</span>
+                            <span data-counter="counterup" data-value="0">0</span>
                         </div>
                         <div class="desc bold"> Total Members</div>
                     </div>
                 </a>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('users'); ?>">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="javascript:void(0);">
                     <div class="visual">
                         <i class="fa fa-user-md"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="20">20</span>
+                            <span data-counter="counterup" data-value="0">0</span>
                         </div>
                         <div class="desc bold"> Total Doctor</div>
                     </div>
                 </a>
             </div>
 			 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('users'); ?>">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('diagnosticcentre'); ?>">
                     <div class="visual">
                         <i class="fa fa-h-square fa-fw fa-1x"></i>
                     </div>
@@ -71,7 +71,7 @@ use yii\helpers\ArrayHelper;
                 </a>
             </div>
 			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('users'); ?>">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('ambulance'); ?>">
                     <div class="visual">
                         <i class="fa fa-ambulance fa-fw"></i>
                     </div>
@@ -87,7 +87,7 @@ use yii\helpers\ArrayHelper;
                 </a>
             </div>
 			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('users'); ?>">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('mortuary'); ?>">
                     <div class="visual">
                         <i class="fa fa-car fa-fw"></i>
                     </div>
@@ -103,7 +103,7 @@ use yii\helpers\ArrayHelper;
                 </a>
             </div>
 			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('users'); ?>">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('eyebank'); ?>">
                     <div class="visual">
                         <i class="fa fa-eye fa-fw"></i>
                     </div>
@@ -119,7 +119,7 @@ use yii\helpers\ArrayHelper;
                 </a>
             </div>
 			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('users'); ?>">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('bloodbank'); ?>">
                     <div class="visual">
                         <i class="fa fa-tint"></i>
                     </div>
@@ -135,7 +135,7 @@ use yii\helpers\ArrayHelper;
                 </a>
             </div>
 			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('users'); ?>">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('medicineshop'); ?>">
                     <div class="visual">
                         <i class="fa fa-medkit"></i>
                     </div>
