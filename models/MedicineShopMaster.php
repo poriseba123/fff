@@ -111,7 +111,9 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
                         'label' => 'close_time',
                         'default' => SORT_DESC
                     ],
-                    'status'
+                    'status',
+					'category_id',
+					'city_id'
                 ]]
         ]);
 
@@ -125,6 +127,8 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
                 ->andFilterWhere(['like', 'address', $this->address])
                 ->andFilterWhere(['like', 'open_time', $this->open_time])
                 ->andFilterWhere(['like', 'close_time', $this->close_time])
+				->andFilterWhere(['like', 'category_id', $this->category_id])
+				->andFilterWhere(['like', 'city_id', $this->city_id])
                 ->andFilterWhere(['like', 'status', $this->status])
                 ->andWhere('status <> \'3\'');
 

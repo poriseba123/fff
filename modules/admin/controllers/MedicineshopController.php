@@ -48,6 +48,42 @@ class MedicineshopController extends AdminController {
                 'label' => 'close_time',
                 'attribute' => 'close_time',
             ],
+			[
+                'attribute' => 'category_id',
+                'value' => function($data) {
+                    if ($data->category_id == 1) {
+                        $type = "ALLOPATHIC";
+                    } elseif ($data->category_id == 2) {
+                        $type = "HOMEOPATHIC";
+                    }else{
+						$type = "AYURVEDIC";
+					}
+                    return $type;
+                },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter' => ArrayHelper::map(array('0' => array('id' => '1', 'category_id' => 'ALLOPATHIC'), '1' => array('id' => '2', 'category_id' => 'HOMEOPATHIC'),'2' => array('id' => '3', 'category_id' => 'AYURVEDIC')), 'id', 'category_id'),
+                'filterWidgetOptions' => [
+                    'pluginOptions' => ['allowClear' => true],
+                    'options' => ['multiple' => false],
+                ],
+                'filterInputOptions' => ['placeholder' => 'Select']
+            ],
+			[
+                'attribute' => 'city_id',
+                'value' => function($data) {
+                    if ($data->city_id == 1) {
+                        $city = "Serampore";
+                    } 
+                    return $city;
+                },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter' => ArrayHelper::map(array('0' => array('id' => '1', 'city_id' => 'Serampore')), 'id', 'city_id'),
+                'filterWidgetOptions' => [
+                    'pluginOptions' => ['allowClear' => true],
+                    'options' => ['multiple' => false],
+                ],
+                'filterInputOptions' => ['placeholder' => 'Select']
+            ],
             [
                 'attribute' => 'status',
                 'value' => function($data) {
