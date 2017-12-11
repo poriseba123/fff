@@ -105,6 +105,18 @@ class AmbulanceMaster extends \yii\db\ActiveRecord
                         'label' => 'address',
                         'default' => SORT_DESC
                     ],
+					'vehicle_no' => [
+                        'asc' => ['vehicle_no' => SORT_ASC],
+                        'desc' => ['vehicle_no' => SORT_DESC],
+                        'label' => 'Vehicle no',
+                        'default' => SORT_DESC
+                    ],
+					'contact_no' => [
+                        'asc' => ['contact_no' => SORT_ASC],
+                        'desc' => ['contact_no' => SORT_DESC],
+                        'label' => 'Contact No',
+                        'default' => SORT_DESC
+                    ],
                     'all_time',
                     'status'
                 ]]
@@ -118,6 +130,8 @@ class AmbulanceMaster extends \yii\db\ActiveRecord
 
         $query->andFilterWhere(['like', 'name', $this->name])
                 ->andFilterWhere(['like', 'address', $this->address])
+				->andFilterWhere(['like', 'contact_no', $this->contact_no])
+				->andFilterWhere(['like', 'vehicle_no', $this->vehicle_no])
                 ->andFilterWhere(['like', 'all_time', $this->all_time])
                 ->andFilterWhere(['like', 'status', $this->status])
                 ->andWhere('status <> \'3\'');

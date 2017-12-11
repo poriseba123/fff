@@ -30,8 +30,24 @@ class AmbulanceController extends AdminController {
             ],
             [
                 'class' => '\kartik\grid\DataColumn',
-                'label' => 'address',
+                'label' => 'Address',
                 'attribute' => 'address',
+            ],
+			[
+                'class' => '\kartik\grid\DataColumn',
+                'label' => 'Vehicle no',
+                'attribute' => 'vehicle_no',
+            ],
+			[
+                'class' => '\kartik\grid\DataColumn',
+                'label' => 'Contact No',
+                'attribute' => 'contact_no',
+				'value' => function($data) {
+                    if ($data->contact_no) {
+                        $status = explode(",",$data->contact_no);
+                    } 
+                    return $status[0];
+                }
             ],
             [
                 'attribute' => 'all_time',
