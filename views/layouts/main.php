@@ -26,6 +26,15 @@ use yii\helpers\Url;
         <link href="<?= $this->context->getProjectFavicon() ?>" rel="shortcut icon" type="image/x-icon"/>
 
         <?php $this->head() ?>
+        
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111092827-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-111092827-1');
+        </script>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <script>
             (adsbygoogle = window.adsbygoogle || []).push({
@@ -33,6 +42,9 @@ use yii\helpers\Url;
                 enable_page_level_ads: true
             });
         </script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
     </head>
     <?php $this->beginBody() ?>
     <body>
