@@ -43,7 +43,8 @@ class MainAsset extends AssetBundle {
         'themes/frontend/js/jquery.themepunch.revolution.min.js',
         'themes/frontend/js/jquery.themepunch.tools.min.js',
         'themes/frontend/js/bootstrap-select.min.js',
-        'themes/frontend/js/loginmodal.js'
+        'themes/frontend/js/loginmodal.js',
+        'themes/frontend/custom/js/search.js'
     ];
 //    public $depends = [
 //        'app\assets\common\JqueryAsset',

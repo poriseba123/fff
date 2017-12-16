@@ -2,6 +2,11 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\models\ServicesList;
+use app\models\States;
+use app\models\Cities;
+$controller = Yii::$app->controller->id;
+$action = Yii::$app->controller->action->id;
 ?>
 <!-- Header Section Start -->
 <div class="header">
@@ -73,3 +78,146 @@ use yii\helpers\Url;
 </div>
 
 <!-- Header Section End -->
+<!-- Start intro section -->
+<?php
+$all_services=ServicesList::find()->where(['status'=>'1'])->all();
+$all_states= States::find()->where(['status'=>'1'])->all();
+if(($controller == 'site' && $action == 'index')){
+?>
+<section id="intro" class="section-intro">
+    <div class="overlay">
+        <div class="container">
+            <div class="main-text">
+                <h1 class="intro-title">Welcome To <span style="color: #3498DB">poriseba.com</span></h1>
+                <p class="sub-title">We are here to give you poriseba.One importent information can save a presious life and open up millions of posibility.</p>
+                <!-- Start Search box -->
+                <div class="row search-bar">
+                    <div class="advanced-search">
+                        <form class="search-form" method="get">
+                            <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
+                                <div class="input-group-addon search-category-container">
+                                    <label class="styled-select">
+                                        <select class="dropdown-product selectpicker" name="categories" >
+                                            <option value="">All Categories</option>
+                                            <?php
+                if(isset($all_services) && count($all_services)>0){
+                    foreach ($all_services as $key => $val) {
+                ?>
+                                            <option class="subitem" value="<?=$val->id?>"><?=$val->name?></option>
+                <?php }} ?>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
+                                <div class="input-group-addon search-category-container">
+                                    <label class="styled-select">
+                                        <select class="dropdown-product selectpicker" name="state" id="search_states">
+                                            <option value="">Choose States</option>
+                                            <?php
+                if(isset($all_states) && count($all_states)>0){
+                    foreach ($all_states as $key => $val) {
+                ?>
+                                            <option class="subitem" value="<?=$val->id?>"><?=$val->name?></option>
+                <?php }} ?>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-6 search-col" style="margin-right:33px;">
+                                <div class="input-group-addon search-category-container">
+                                    <label class="styled-select location-select">
+                                        <select class="dropdown-product selectpicker" name="city" id="search_cities">
+                                            <option value="">All Cities</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 search-col">
+                                <input class="form-control keyword" name="keyword" value="" placeholder="Enter Keyword" type="text">
+                                <i class="fa fa-search"></i>
+                            </div>
+                            <div class="col-md-1 col-sm-6 search-col" style="width:150px">
+                                <button class="btn btn-common btn-search btn-block"><strong>Search</strong></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- End Search box -->
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end intro section -->
+<?php }else{ ?>
+<div id="search-row-wrapper">
+      <div class="container">
+        <div class="search-inner">
+            <!-- Start Search box -->
+            <div class="row search-bar">
+              <div class="advanced-search">
+                <form class="search-form" method="get">
+                  <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
+                    <div class="input-group-addon search-category-container">
+                      <label class="styled-select">
+                        <select class="dropdown-product selectpicker" name="product-cat" >
+                          <option value="0">All Categories</option>
+                          <option class="subitem" value="community"> Community</option>
+                          <option value="items-for-sale"> Items For Sale</option>
+                          <option value="jobs"> Jobs</option>
+                          <option value="personals"> Personals</option>
+                          <option value="training"> Training</option>
+                          <option value="real_estate"> Real Estate</option>
+                          <option value="services"> Services</option>
+                          <option value="vehicles"> Vehicles</option>
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+				  <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
+                    <div class="input-group-addon search-category-container">
+                      <label class="styled-select">
+                        <select class="dropdown-product selectpicker" name="product-cat" >
+                          <option value="0">All Categories</option>
+                          <option class="subitem" value="community"> Community</option>
+                          <option value="items-for-sale"> Items For Sale</option>
+                          <option value="jobs"> Jobs</option>
+                          <option value="personals"> Personals</option>
+                          <option value="training"> Training</option>
+                          <option value="real_estate"> Real Estate</option>
+                          <option value="services"> Services</option>
+                          <option value="vehicles"> Vehicles</option>
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-2 col-sm-6 search-col" style="margin-right:33px;">
+                    <div class="input-group-addon search-category-container">
+                      <label class="styled-select location-select">
+                        <select class="dropdown-product selectpicker" name="product-cat" >
+                          <option value="0">All Locations</option>
+                          <option value="New York">New York</option>
+                          <option value="California">California</option>
+                          <option value="Washington">Washington</option>
+                          <option value="churches">Birmingham</option>
+                          <option value="Birmingham">Chicago</option>
+                          <option value="Phoenix">Phoenix</option>
+                        </select>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-3 col-sm-6 search-col">
+                    <input class="form-control keyword" name="keyword" value="" placeholder="Enter Keyword" type="text">
+                    <i class="fa fa-search"></i>
+                  </div>
+                  <div class="col-md-1 col-sm-6 search-col" style="width:150px">
+                    <button class="btn btn-common btn-search btn-block"><strong>Search</strong></button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <!-- End Search box -->
+        </div>
+      </div>
+    </div>
+<?php } ?>

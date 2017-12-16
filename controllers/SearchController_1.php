@@ -6,6 +6,8 @@ use Yii;
 use yii\web\Controller;
 use app\components\FrontendController;
 use yii\db\Query;
+use app\models\TripMaster;
+use app\models\TripLocation;
 
 class SearchController extends FrontendController {
 
@@ -15,10 +17,15 @@ class SearchController extends FrontendController {
     }
 
     public function actionSearchtrip() {
+//        if (Yii::$app->user->isGuest) {
+//            Yii::$app->session->setFlash('error', 'por favor ingresa primero');
+//            return $this->redirect(['site/login']);
+//        }else{
         $page_no = 1;
         $limit = 20;
         $offset = 0;
         return $this->render('searchtrip', ['page_no' => $page_no, 'limit' => $limit, 'offset' => $offset]);
+//        }
     }
 
     public function actionPostdetail($id) {

@@ -453,6 +453,24 @@ class SiteController extends FrontendController {
         exit;
     }
 
+    public function actionGetsearchbarcities() {
+        $resp=[];
+        $html='<option class="subitem" value="">All Cities</option>';
+        if(isset($_POST['state_id']) && $_POST['state_id']!=''){
+        $state_id=$_POST['state_id'];
+        $sql = "select c.* from cities as c LEFT JOIN districts as d ON c.district_id=d.id LEFT JOIN states as s ON d.state_id=s.id where s.id=$state_id and d.status=1 and c.status=1 order by c.name ASC";
+        $result = Yii::$app->db->createCommand($sql)->queryAll();
+        if(count($result) > 0){
+        foreach ($result as $key => $value) {
+            $val=(object)$value;
+            $html.='<option class="subitem" value="'.$val->id.'">'.$val->name.'</option>';
+        }
+        }
+        }
+        $resp['html']=$html;
+        echo json_encode($resp);
+        exit;
+    }
     public function actionCheckmailtemplate() {
         $to = "taslimislam02@gmail.com";
         $body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.";
