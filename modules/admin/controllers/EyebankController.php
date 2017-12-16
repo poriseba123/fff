@@ -17,6 +17,11 @@ use app\modules\admin\components\AdminController;
 //use app\models\EyeBankMaster;
 use app\models\EyeBankMaster;
 
+use yii\imagine\Image;
+use Imagine\Gd;
+use Imagine\Image\Box;
+use Imagine\Image\BoxInterface;
+
 class EyebankController extends AdminController {
 
     public function column() {
@@ -165,9 +170,29 @@ class EyebankController extends AdminController {
                             $phone_error=false;
                             $resp['phone'] = true;
                             $phone_check=$_POST['contact_no'];
+							
 							$day_all=$_POST['dayMaster'];
 							$start_time=$_POST['start_time'];
 							$end_time=$_POST['end_time'];
+							$time_error=false;
+                            $resp['checkbox'] = true;
+                            
+                            foreach($day_all as $k=>$v){
+                                foreach ($_POST['start_time'][$v] as $key => $value) {
+                                    if($value==''){
+                                         $time_error=true;
+                                    }
+                                }
+                                foreach ($_POST['end_time'][$v] as $key => $value) {
+                                    if($value==''){
+                                         $time_error=true;
+                                    }
+                                }
+                            }
+                            if ($time_error){
+                                $resp['checkbox'] = false;
+                            }
+							
 							if(!empty($day_all)){
 								foreach($day_all as $index=>$days){
 									$final_arr[$days] = $days.'-'.$start_time[$days][0].'-'.$end_time[$days][0];
@@ -195,8 +220,9 @@ class EyebankController extends AdminController {
 										$imgError = 1;
 									} else {
 										$imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-										$path = Yii::$app->basePath . '/uploads/eyebank/' . $imgName;
+										$path = Yii::$app->basePath . '/uploads/eyebank/original/' . $imgName;
 										$img->saveAs($path);
+										$this->resizeImage('eyebank',$imgName);
 										$model->image = $imgName;
 									}
 								}
@@ -204,6 +230,7 @@ class EyebankController extends AdminController {
                                 $model->created_at = date("Y-m-d H:i:s");
                                 if ($model->validate() && $phone_error==false && $imgError==0) {
                                     $model->contact_no=implode(',',$_POST['contact_no']);
+									$model->free_eyetest = json_encode($final_arr);
                                    $model->save(false);
                                     $resp['flag'] = true;
                                     $resp['url'] = Url::to(['eyebank/index']);
@@ -226,6 +253,32 @@ class EyebankController extends AdminController {
                             $phone_error=false;
                             $resp['phone'] = true;
                             $phone_check=$_POST['contact_no'];
+							$day_all=$_POST['dayMaster'];
+							$start_time=$_POST['start_time'];
+							$end_time=$_POST['end_time'];
+							$time_error=false;
+                            $resp['checkbox'] = true;
+                            foreach($day_all as $k=>$v){
+                                foreach ($_POST['start_time'][$v] as $key => $value) {
+                                    if($value==''){
+                                         $time_error=true;
+                                    }
+                                }
+                                foreach ($_POST['end_time'][$v] as $key => $value) {
+                                    if($value==''){
+                                         $time_error=true;
+                                    }
+                                }
+                            }
+                            if ($time_error){
+                                $resp['checkbox'] = false;
+                            }
+							
+							if(!empty($day_all)){
+								foreach($day_all as $index=>$days){
+									$final_arr[$days] = $days.'-'.$start_time[$days][0].'-'.$end_time[$days][0];
+								}
+							}
                             foreach($phone_check as $k=>$v){
                                     if($v==''){
                                         $phone_error=true;
@@ -247,15 +300,17 @@ class EyebankController extends AdminController {
                         $imgError = 1;
                     } else {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/eyebank/' . $imgName;
+                        $path = Yii::$app->basePath . '/uploads/eyebank/original/' . $imgName;
                         $img->saveAs($path);
+						$this->resizeImage('eyebank',$imgName);
                         $model->image = $imgName;
                     }
                 }
                                 $model->updated_at = date("Y-m-d H:i:s");
                                 if ($model->validate() && $phone_error==false && $imgError==0) {
                                     $model->contact_no=implode(',',$_POST['contact_no']);
-                                   $model->save(false);
+									$model->free_eyetest = json_encode($final_arr);
+									$model->save(false);
                                     $resp['flag'] = true;
                                     $resp['url'] = Url::to(['eyebank/index']);
                                     $resp['msg'] = "Eye Bank successfully updated";

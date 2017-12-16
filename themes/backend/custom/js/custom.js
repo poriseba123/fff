@@ -614,6 +614,20 @@ var error=false;
                         location.href=resp.url;
                     },'2000');
                 } else {
+			if(resp.checkbox==false){
+                $("input:checkbox[type=checkbox]:checked").each(function(){
+				   var day_master_val=$(this).val();
+				   $('.day_master_time_'+day_master_val).find('input:text')
+						.each(function() {
+							var input_field_val=$(this).val();
+									if(input_field_val==''){
+										$(this).parent().parent().addClass("has-error");
+										$(this).parent().parent().find(".help-block").html('Field cannot be blank');
+										error=true;
+									}
+						});
+				});
+            }
                     if (resp.imgErr == true) {
                     $('#eyebankmaster-image').parent('div').addClass('has-error');
                     $('#eyebankmaster-image').parent('div').find('.help-block').html(resp.msg);
