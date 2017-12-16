@@ -74,6 +74,7 @@ class EyeBankMaster extends \yii\db\ActiveRecord
             'description' => 'Description',
             'contact_no' => 'Contact No',
 			'establishment_date' =>'Establishment Date',
+			'free_eyetest' => 'Free Check-up Time',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',

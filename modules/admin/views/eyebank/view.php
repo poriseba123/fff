@@ -177,6 +177,37 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                 </div>
+				<div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Free Check-up Time:</label>
+							<div class="col-md-9">
+							<?php
+							$day_master= \app\models\DayMaster::find()->all();
+							 $listData= ArrayHelper::map($day_master, 'id', 'day');
+							 //print_r($day_master);
+							if($model->free_eyetest){
+									$eyetest_arr=json_decode($model->free_eyetest);
+									if(!empty($eyetest_arr)){
+										foreach($eyetest_arr as $index=>$content){
+											$temp_arr=explode("-",$content);
+											$start_time[$temp_arr[0]] = $temp_arr[1];
+											$end_time[$temp_arr[0]] = $temp_arr[2];
+											?>
+												<p class="form-control-static"> <?=  $listData[$temp_arr[0]].'  Open-'.$start_time[$temp_arr[0]].' - '.'Close-'.$end_time[$temp_arr[0]]; ?> </p><br>
+										<?php
+										}
+									}
+									//die();
+									
+								}
+							?>
+                            
+                               
+    </div>
+                        </div>
+                    </div>
+                </div>
 				
 				
 				<div class="row">

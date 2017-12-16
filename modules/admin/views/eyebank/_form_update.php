@@ -149,9 +149,7 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-
-
-        <div class="form-body">
+	<div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Time<span class="required">*</span></label>
                 <div class="col-md-7">
@@ -187,7 +185,88 @@ use yii\helpers\ArrayHelper;
                     </div>
                 </div>
             </div>
-        </div>
+	</div>
+	
+	<div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Free Check-up Time<span class="required">*</span></label>
+                <div class="col-md-9">
+                    <?php
+					$checked='';
+                    $day_master= \app\models\DayMaster::find()->all();
+					if($model->free_eyetest){
+						$eyetest_arr=json_decode($model->free_eyetest);
+						
+						if(!empty($eyetest_arr)){
+							foreach($eyetest_arr as $index=>$content){
+								$temp_arr=explode("-",$content);
+								$start_time[$temp_arr[0]] = $temp_arr[1];
+								$end_time[$temp_arr[0]] = $temp_arr[2];
+					
+							}
+						}
+						//die();
+						
+					}
+                    foreach ($day_master as $key => $val) {
+
+						if(isset($start_time[$val->id])){
+							  $checked ="checked";
+							  $active="active";
+							
+						}else{
+							 $checked ="";
+							 $active="";
+						}
+                    ?>
+                    <div class="daymaster_main_div">
+                        <div class="row" style="margin-bottom:5px;">
+                            <div class="col-md-8 text-center">
+                                <div class="btn-group" data-toggle="buttons">
+                                <label class="btn btn-success <?= $active;?>">
+                                    <input type="checkbox" name="dayMaster[]" autocomplete="off" <?= $checked;?> value="<?=$val->id?>">
+										<span class="glyphicon glyphicon-ok"></span>&nbsp;<?=$val->day?>
+                                </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom:5px;">
+                            <div class="col-md-4">
+                                Start Time
+                            </div>
+                            <div class="col-md-4">
+                                End time
+                            </div>
+                        </div>
+                        <div class="time <?='day_master_time_'.$val->id?>" style="margin-bottom:5px;">
+                            <div class="row <?='each_time_'.$val->id.'_0'?>">
+                                <div class="col-md-4">
+                                    <div class='input-group date timepicker'>
+                                        <input type='text' class="form-control" name="start_time[<?=$val->id?>][]" value="<?= isset($start_time[$val->id])? $start_time[$val->id]:''; ?>"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>
+                                        <div class="help-block"></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class='input-group date timepicker'>
+                                        <input type='text' class="form-control" name="end_time[<?=$val->id?>][]" value="<?= isset($end_time[$val->id])? $end_time[$val->id]:''; ?>"/>
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>
+                                    <div class="help-block"></div>
+                                </div>
+                             </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+	</div>
+	
+	
         <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Close day<span class="required">*</span></label>
