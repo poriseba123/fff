@@ -134,3 +134,10 @@ img.drivingimage {
     #target {
         width: 345px;
     }
+    
+    .btn-group .active .glyphicon-ok{
+        opacity: 1 !important;
+    }
+    .btn span.glyphicon-ok {
+    opacity: 0 !important;
+}
