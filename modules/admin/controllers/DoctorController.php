@@ -169,10 +169,10 @@ class DoctorController extends AdminController {
                 'template' => '{view} {update} {delete} {chamber}',
                         'buttons' => [
                                     'chamber' => function ($url, $model) {
-                                return $model->status == 1 ? Html::a('<i class="fa fa-university" aria-hidden="true"></i>', Url::to(['doctor/chamberindex', 'id' => $model->id]), [
+                                return Html::a('<i class="fa fa-university" aria-hidden="true"></i>', Url::to(['doctor/chamberindex', 'id' => $model->id]), [
                                             'title' => Yii::t('yii', 'Chambers'),
                                             'data-toggle' => 'tooltip'
-                                        ]) : '';
+                                        ]);
                             },
                                 ],
                 'viewOptions' => ['title' => $viewMsg, 'data-toggle' => 'tooltip'],
