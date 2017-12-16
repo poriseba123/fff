@@ -16,6 +16,11 @@ use yii\web\NotFoundHttpException;
 use app\modules\admin\components\AdminController;
 use app\models\AmbulanceMaster;
 
+use yii\imagine\Image;
+use Imagine\Gd;
+use Imagine\Image\Box;
+use Imagine\Image\BoxInterface;
+
 class AmbulanceController extends AdminController {
 
     public function column() {
@@ -209,8 +214,10 @@ class AmbulanceController extends AdminController {
                         $imgError = 1;
                     } else {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/ambulance/' . $imgName;
+                        $path = Yii::$app->basePath . '/uploads/ambulance/original/' . $imgName;
                         $img->saveAs($path);
+                        Image::getImagine()->open(Yii::$app->basePath . '/uploads/ambulance/original/' . $imgName)->thumbnail(new Box(120, 120))->save(Yii::$app->basePath . '/uploads/ambulance/thumbnail/' . $imgName, ['quality' => 90]);
+                        Image::getImagine()->open(Yii::$app->basePath . '/uploads/ambulance/original/' . $imgName)->thumbnail(new Box(180, 250))->save(Yii::$app->basePath . '/uploads/ambulance/preview/' . $imgName, ['quality' => 90]);
                         $model->image = $imgName;
                     }
                 }
@@ -261,8 +268,10 @@ class AmbulanceController extends AdminController {
                         $imgError = 1;
                     } else {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/ambulance/' . $imgName;
+                        $path = Yii::$app->basePath . '/uploads/ambulance/original/' . $imgName;
                         $img->saveAs($path);
+                        Image::getImagine()->open(Yii::$app->basePath . '/uploads/ambulance/original/' . $imgName)->thumbnail(new Box(120, 120))->save(Yii::$app->basePath . '/uploads/ambulance/thumbnail/' . $imgName, ['quality' => 90]);
+                        Image::getImagine()->open(Yii::$app->basePath . '/uploads/ambulance/original/' . $imgName)->thumbnail(new Box(180, 250))->save(Yii::$app->basePath . '/uploads/ambulance/preview/' . $imgName, ['quality' => 90]);
                         $model->image = $imgName;
                     }
                 }

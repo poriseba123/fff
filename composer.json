@@ -23,7 +23,8 @@
         "openpayu/openpayu": "2.2.*",
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-widget-select2": "@dev",
-        "kartik-v/yii2-social": "@dev"
+        "kartik-v/yii2-social": "@dev",
+        "yiisoft/yii2-imagine": "~2.1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
@@ -36,7 +37,7 @@
     "config": {
         "process-timeout": 1800,
         "github-oauth": {
-            "github.com": "e185f86ff7433389bb97c486f6568b1fa4be5222"
+
         }
     },
     "scripts": {

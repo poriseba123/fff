@@ -253,7 +253,7 @@ use yii\helpers\ArrayHelper;
                 </div>
                 <div class="col-md-3">
                     <div class="form-group text-center" id='preview-img-holder'>
-                        <img src="<?=Yii::$app->request->baseUrl . '\uploads\ambulance\\' . $model->image?>" class="thumb-image" style="height: 80px;">
+                        <img src="<?=Yii::$app->request->baseUrl . '\uploads\ambulance\thumbnail\\' . $model->image?>" class="thumb-image" style="height: 80px;">
                                             </div>
                 </div>
                 <div class="help-block" id="err-image"></div>
