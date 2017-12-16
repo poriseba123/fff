@@ -15,6 +15,11 @@ use yii\console\Application;
 use yii\web\NotFoundHttpException;
 use app\modules\admin\components\AdminController;
 use app\models\MortuaryMaster;
+
+use yii\imagine\Image;
+use Imagine\Gd;
+use Imagine\Image\Box;
+use Imagine\Image\BoxInterface;
 class MortuaryController extends AdminController {
 
     public function column() {
@@ -208,8 +213,9 @@ class MortuaryController extends AdminController {
                         $imgError = 1;
                     } else {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/mortuary/' . $imgName;
+                        $path = Yii::$app->basePath . '/uploads/mortuary/original/' . $imgName;
                         $img->saveAs($path);
+                        $this->resizeImage('mortuary',$imgName);
                         $model->image = $imgName;
                     }
                 }
@@ -261,8 +267,9 @@ class MortuaryController extends AdminController {
                         $imgError = 1;
                     } else {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/mortuary/' . $imgName;
+                        $path = Yii::$app->basePath . '/uploads/mortuary/original/' . $imgName;
                         $img->saveAs($path);
+                        $this->resizeImage('mortuary',$imgName);
                         $model->image = $imgName;
 						//die();
                     }

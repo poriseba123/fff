@@ -7,6 +7,11 @@ use yii\web\Controller;
 use app\modules\admin\models\UserMaster;
 use app\models\EmailNotify;
 
+use yii\imagine\Image;
+use Imagine\Gd;
+use Imagine\Image\Box;
+use Imagine\Image\BoxInterface;
+
 class AdminController extends Controller {
 
     public function beforeAction($action) {
@@ -20,6 +25,11 @@ class AdminController extends Controller {
 
     public function getProjectLogo() {
         return Yii::$app->request->baseUrl . '/assets/img/adminlogo.png';
+    }
+    public function resizeImage($foldername,$imgName) {
+       Image::getImagine()->open(Yii::$app->basePath . '/uploads/'.$foldername.'/original/' . $imgName)->thumbnail(new Box(120, 120))->save(Yii::$app->basePath . '/uploads/'.$foldername.'/thumbnail/' . $imgName, ['quality' => 90]);
+       Image::getImagine()->open(Yii::$app->basePath . '/uploads/'.$foldername.'/original/' . $imgName)->thumbnail(new Box(180, 250))->save(Yii::$app->basePath . '/uploads/'.$foldername.'/preview/' . $imgName, ['quality' => 90]);
+                        
     }
 
     public function getProjectFavicon() {

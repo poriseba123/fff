@@ -216,8 +216,7 @@ class AmbulanceController extends AdminController {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
                         $path = Yii::$app->basePath . '/uploads/ambulance/original/' . $imgName;
                         $img->saveAs($path);
-                        Image::getImagine()->open(Yii::$app->basePath . '/uploads/ambulance/original/' . $imgName)->thumbnail(new Box(120, 120))->save(Yii::$app->basePath . '/uploads/ambulance/thumbnail/' . $imgName, ['quality' => 90]);
-                        Image::getImagine()->open(Yii::$app->basePath . '/uploads/ambulance/original/' . $imgName)->thumbnail(new Box(180, 250))->save(Yii::$app->basePath . '/uploads/ambulance/preview/' . $imgName, ['quality' => 90]);
+                        $this->resizeImage('ambulance',$imgName);
                         $model->image = $imgName;
                     }
                 }
@@ -270,8 +269,7 @@ class AmbulanceController extends AdminController {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
                         $path = Yii::$app->basePath . '/uploads/ambulance/original/' . $imgName;
                         $img->saveAs($path);
-                        Image::getImagine()->open(Yii::$app->basePath . '/uploads/ambulance/original/' . $imgName)->thumbnail(new Box(120, 120))->save(Yii::$app->basePath . '/uploads/ambulance/thumbnail/' . $imgName, ['quality' => 90]);
-                        Image::getImagine()->open(Yii::$app->basePath . '/uploads/ambulance/original/' . $imgName)->thumbnail(new Box(180, 250))->save(Yii::$app->basePath . '/uploads/ambulance/preview/' . $imgName, ['quality' => 90]);
+                        $this->resizeImage('ambulance',$imgName);
                         $model->image = $imgName;
                     }
                 }

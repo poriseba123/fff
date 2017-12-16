@@ -23,6 +23,11 @@ use app\models\DoctorChamberTime;
 use app\models\MedicineShopMaster;
 use app\models\DiagnosticCentre;
 
+use yii\imagine\Image;
+use Imagine\Gd;
+use Imagine\Image\Box;
+use Imagine\Image\BoxInterface;
+
 class DiagnosticcentreController extends AdminController {
 
     public function column() {
@@ -207,8 +212,9 @@ class DiagnosticcentreController extends AdminController {
 										$imgError = 1;
 									} else {
 										$imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-										$path = Yii::$app->basePath . '/uploads/diagnostic_centre/' . $imgName;
+										$path = Yii::$app->basePath . '/uploads/diagnostic_centre/original/' . $imgName;
 										$img->saveAs($path);
+                                                                                $this->resizeImage('diagnostic_centre',$imgName);
 										$model->image = $imgName;
 									}
 							}
@@ -276,8 +282,9 @@ class DiagnosticcentreController extends AdminController {
 									$imgError = 1;
 								} else {
 									$imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-									$path = Yii::$app->basePath . '/uploads/diagnostic_centre/' . $imgName;
+									$path = Yii::$app->basePath . '/uploads/diagnostic_centre/original/' . $imgName;
 									$img->saveAs($path);
+                                                                        $this->resizeImage('diagnostic_centre',$imgName);
 									$model->image = $imgName;
 								}
                 }

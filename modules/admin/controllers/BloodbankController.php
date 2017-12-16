@@ -16,6 +16,11 @@ use yii\web\NotFoundHttpException;
 use app\modules\admin\components\AdminController;
 use app\models\BloodBankMaster;
 
+use yii\imagine\Image;
+use Imagine\Gd;
+use Imagine\Image\Box;
+use Imagine\Image\BoxInterface;
+
 class BloodbankController extends AdminController {
 
     public function column() {
@@ -185,8 +190,9 @@ class BloodbankController extends AdminController {
                         $imgError = 1;
                     } else {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/bloodbank/' . $imgName;
+                        $path = Yii::$app->basePath . '/uploads/bloodbank/original/' . $imgName;
                         $img->saveAs($path);
+                        $this->resizeImage('bloodbank',$imgName);
                         $model->image = $imgName;
                     }
                 }
@@ -237,8 +243,9 @@ class BloodbankController extends AdminController {
                         $imgError = 1;
                     } else {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/bloodbank/' . $imgName;
+                        $path = Yii::$app->basePath . '/uploads/bloodbank/original/' . $imgName;
                         $img->saveAs($path);
+                        $this->resizeImage('bloodbank',$imgName);
                         $model->image = $imgName;
                     }
                 }

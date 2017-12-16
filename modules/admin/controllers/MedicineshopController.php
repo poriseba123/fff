@@ -21,6 +21,11 @@ use app\models\DoctorChamber;
 use app\models\DoctorChamberTime;
 use app\models\MedicineShopMaster;
 
+use yii\imagine\Image;
+use Imagine\Gd;
+use Imagine\Image\Box;
+use Imagine\Image\BoxInterface;
+
 class MedicineshopController extends AdminController {
 
     public function column() {
@@ -226,8 +231,9 @@ class MedicineshopController extends AdminController {
                         $imgError = 1;
                     } else {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/medicineshop/' . $imgName;
+                        $path = Yii::$app->basePath . '/uploads/medicineshop/original/' . $imgName;
                         $img->saveAs($path);
+                        $this->resizeImage('medicineshop',$imgName);
                         $model->image = $imgName;
                     }
                 }
@@ -278,8 +284,9 @@ class MedicineshopController extends AdminController {
                         $imgError = 1;
                     } else {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/medicineshop/' . $imgName;
+                        $path = Yii::$app->basePath . '/uploads/medicineshop/original/' . $imgName;
                         $img->saveAs($path);
+                        $this->resizeImage('medicineshop',$imgName);
                         $model->image = $imgName;
                     }
                 }
