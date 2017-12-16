@@ -147,7 +147,7 @@ class EyebankController extends AdminController {
         $model->scenario = "create";
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                $model->created_at=date('Y-m-d H:i:s'); 
+				$model->created_at=date('Y-m-d H:i:s'); 
                 $model->save(false);
                 Yii::$app->session->setFlash('success', 'created successfully');
                 return $this->redirect(["index"]);
@@ -165,6 +165,15 @@ class EyebankController extends AdminController {
                             $phone_error=false;
                             $resp['phone'] = true;
                             $phone_check=$_POST['contact_no'];
+							$day_all=$_POST['dayMaster'];
+							$start_time=$_POST['start_time'];
+							$end_time=$_POST['end_time'];
+							if(!empty($day_all)){
+								foreach($day_all as $index=>$days){
+									$final_arr[$days] = $days.'-'.$start_time[$days][0].'-'.$end_time[$days][0];
+								}
+							}
+				
                             foreach($phone_check as $k=>$v){
                                     if($v==''){
                                         $phone_error=true;
@@ -178,19 +187,19 @@ class EyebankController extends AdminController {
                             if ($model->load(Yii::$app->request->post())) {
                                 $img = UploadedFile::getInstance($model, 'image');
                                 if (isset($img) && $img->error == 0) {
-                    $allow = ['jpg', 'png','jpeg'];
-                    $ext = explode('.', $img->name);
-                    if (!in_array(end($ext), $allow)) {
-                        $resp['imgErr'] = true;
-                        $resp['msg'] = "Invalid Image. Please upload jpg,jpeg and png image.";
-                        $imgError = 1;
-                    } else {
-                        $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/eyebank/' . $imgName;
-                        $img->saveAs($path);
-                        $model->image = $imgName;
-                    }
-                }
+									$allow = ['jpg', 'png','jpeg'];
+									$ext = explode('.', $img->name);
+									if (!in_array(end($ext), $allow)) {
+										$resp['imgErr'] = true;
+										$resp['msg'] = "Invalid Image. Please upload jpg,jpeg and png image.";
+										$imgError = 1;
+									} else {
+										$imgName = date('Ymd') . '_' . time() . '_' . $img->name;
+										$path = Yii::$app->basePath . '/uploads/eyebank/' . $imgName;
+										$img->saveAs($path);
+										$model->image = $imgName;
+									}
+								}
                                 //$model->status =1;
                                 $model->created_at = date("Y-m-d H:i:s");
                                 if ($model->validate() && $phone_error==false && $imgError==0) {
