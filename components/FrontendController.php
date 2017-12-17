@@ -144,7 +144,7 @@ class FrontendController extends Controller {
     }
 
     public function getProjectLogo() {
-        return Yii::$app->request->baseUrl . '/themes/common-images/logo/logo.png';
+        return Yii::$app->request->baseUrl . '/assets/img/logo.png';
     }
 
     public function getCommonImage($img) {
@@ -220,6 +220,13 @@ class FrontendController extends Controller {
         return Yii::$app->request->baseUrl . '/themes/common-images/undefind_pro_pic/user-no-img-pro-1.png/';
     }
 
+    public function getCategoryImage($foldername='',$image='') {
+        if (file_exists(Yii::$app->basePath . '/uploads/'.$foldername.'/thumbnail/' . $image)) {
+                    return Yii::$app->request->baseUrl . '/uploads/'.$foldername.'/thumbnail/' . $image;
+                } else {
+                    return Yii::$app->request->baseUrl . '/uploads/noimage/noimg.jpg';
+                }
+    }
     public function getUserProfileImage($id = '') {
         if (!Yii::$app->user->isGuest) {
             if ($id == '') {

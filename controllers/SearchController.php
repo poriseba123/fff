@@ -7,6 +7,8 @@ use yii\web\Controller;
 use app\components\FrontendController;
 use yii\db\Query;
 
+use app\models\ServicesList;
+
 class SearchController extends FrontendController {
 
     public function actionViewall() {
@@ -14,11 +16,11 @@ class SearchController extends FrontendController {
         return $this->redirect(['search/searchtrip']);
     }
 
-    public function actionSearchtrip() {
+    public function actionIndex() {
         $page_no = 1;
         $limit = 20;
         $offset = 0;
-        return $this->render('searchtrip', ['page_no' => $page_no, 'limit' => $limit, 'offset' => $offset]);
+        return $this->render('searchlist', ['page_no' => $page_no, 'limit' => $limit, 'offset' => $offset]);
     }
 
     public function actionPostdetail($id) {
@@ -37,112 +39,31 @@ class SearchController extends FrontendController {
         return $this->render('post_details', $data, TRUE);
     }
 
-    public function actionGettrip() {
+    public function actionGetsearch() {
         if (Yii::$app->request->isAjax) {
             $data = [];
             $data_msg = [];
-            $all_trip = [];
-            $total_trips_count = 0;
-            $page_no = $_POST['TripLocation']['page_no'];
-            $limit = $_POST['TripLocation']['limit'];
-            $offset = $_POST['TripLocation']['offset'];
-            $post_location_a = $location_a_name = $_POST['TripLocation']['location_a_name'];
-            $location_b_name = $_POST['TripLocation']['location_b_name'];
-            $location_a_lat = $_POST['TripLocation']['location_a_lat'];
-            $location_b_lat = $_POST['TripLocation']['location_b_lat'];
-            $location_a_long = $_POST['TripLocation']['location_a_long'];
-            $location_b_long = $_POST['TripLocation']['location_b_long'];
-            $location_b_city = $_POST['TripLocation']['location_b_city'];
-            $departure_datetime = $_POST['TripLocation']['departure_datetime'];
-//                                SELECT COUNT(*) FROM trip_location AS tl WHERE 
-//                                tl.id BETWEEN 
-//                                (
-//                                    SELECT tl.id FROM trip_location AS tl WHERE tl.location_a_name LIKE '%$location_a_name%' AND tm.id = tl.trip_id AND 
-//                                    (
-//                                        (
-//                                            (DATE(tl.departure_datetime) = DATE('$departure_datetime')) AND (tl.total_booked =  0)
-//                                        ) OR 
-//                                        (
-//                                            (DATE(tl.departure_datetime) = DATE('$departure_datetime')) AND (tl.departure_datetime >= NOW()) AND (tl.total_booked > 0)
-//                                        )
-//                                    ) LIMIT 1
-//                                ) AND 
-//                                (
-//                                    SELECT tl.id FROM trip_location AS tl WHERE tl.location_b_name LIKE '%$location_b_name%' AND tm.id = tl.trip_id LIMIT 1
-//                                ) AND tl.total_booked < tm.seat_available
-            $trip_sql = "SELECT tm.id AS trip_id,tm.user_id,tm.seat_available,tm.start_time,tm.interval_time,um.first_name,um.last_name,um.birth_year,um.identity_document_verified,tl.location_a_name,tl.location_b_name, 
-                        (                                             
-                            (                                                
-                                (                                                   
-                                    (                                                        
-                                        acos(                                                            
-                                            sin(                                                                
-                                                (" . floatval($location_a_lat) . " * pi()/180)                                                            
-                                            ) * sin(                                                               
-                                                (tl.location_a_lat * pi()/180)
-                                            ) + cos(                                                               
-                                                (" . floatval($location_a_lat) . " * pi()/180)                                                            
-                                            ) * cos(                                                               
-                                                (tl.location_a_lat * pi()/180)
-                                            ) * cos(                                                               
-                                                ((" . floatval($location_a_long) . " - tl.location_a_long) * pi()/180)
-                                            )                                                        
-                                        )                                                    
-                                    ) * 180/pi()                                                
-                                ) * 60 * 1.1515 * 1.609344                                           
-                            )                                        
-                        ) as distance FROM trip_master AS tm
-                        LEFT JOIN trip_location AS tl ON tl.trip_id = tm.id
-                        LEFT JOIN user_master AS um ON um.id = tm.user_id WHERE
-                        tl.location_b_name LIKE '%$location_b_city%' AND
-                        (
-                            (DATE(tl.departure_datetime) = DATE('$departure_datetime')) AND (tl.total_booked =  0) OR
-                            (DATE(tl.departure_datetime) = DATE('$departure_datetime')) AND (tl.departure_datetime >= NOW()) AND (tl.total_booked > 0)
-                        ) AND
-                        tl.total_booked < tm.seat_available AND
-                        tm.status = '1'
-                        GROUP BY tl.location_a_name having distance <= 100 ORDER BY distance ASC LIMIT $limit OFFSET $offset";
-            $trips = Yii::$app->db->createCommand($trip_sql)->queryAll();
-            $total_trip_sql = "SELECT COUNT(*), 
-                        (                                             
-                            (                                                
-                                (                                                   
-                                    (                                                        
-                                        acos(                                                            
-                                            sin(                                                                
-                                                (" . floatval($location_a_lat) . " * pi()/180)                                                            
-                                            ) * sin(                                                               
-                                                (tl.location_a_lat * pi()/180)
-                                            ) + cos(                                                               
-                                                (" . floatval($location_a_lat) . " * pi()/180)                                                            
-                                            ) * cos(                                                               
-                                                (tl.location_a_lat * pi()/180)
-                                            ) * cos(                                                               
-                                                ((" . floatval($location_a_long) . " - tl.location_a_long) * pi()/180)
-                                            )                                                        
-                                        )                                                    
-                                    ) * 180/pi()                                                
-                                ) * 60 * 1.1515 * 1.609344                                           
-                            )                                        
-                        ) as distance FROM trip_master AS tm
-                        LEFT JOIN trip_location AS tl ON tl.trip_id = tm.id
-                        LEFT JOIN user_master AS um ON um.id = tm.user_id WHERE
-                        tl.location_b_name LIKE '%$location_b_city%' AND
-                        (
-                            (DATE(tl.departure_datetime) = DATE('$departure_datetime')) AND (tl.total_booked =  0) OR
-                            (DATE(tl.departure_datetime) = DATE('$departure_datetime')) AND (tl.departure_datetime >= NOW()) AND (tl.total_booked > 0)
-                        ) AND
-                        tl.total_booked < tm.seat_available AND
-                        tm.status = '1'
-                        GROUP BY tl.location_a_name having distance <= 100";
-            $total_trips = Yii::$app->db->createCommand($total_trip_sql)->queryOne();
-            $data['trips'] = $trips;
-            $data['page_no'] = $page_no;
-            $data['limit'] = $_POST['TripLocation']['limit'];
+            $all_result = [];
+            $total_results_count = 0;
+            $limit = $_POST['limit'];
+            $offset = $_POST['offset'];
+            $city = $_POST['city'];
+            $categories = $_POST['categories'];
+            $state = $_POST['state'];
+            $keyword = $_POST['keyword'];
+            $services=ServicesList::findOne($categories);
+            $category_table=$services->table_name;
+            $search_sql = "select * from $category_table where city_id=$city AND status=1 LIMIT $limit OFFSET $offset";
+            $results = Yii::$app->db->createCommand($search_sql)->queryAll();
+            $total_result_sql = "select count(*) from $category_table where city_id=$city AND status=1";
+            $total_results_count = Yii::$app->db->createCommand($total_result_sql)->queryOne();
+            $data['results'] = $results;
+            $data['image_folder_name'] = $services->image_folder_name;
+            $data['limit'] = $limit;
             $data['offset'] = $offset;
-            $data['total_trips_count'] = $total_trips_count;
-            $data_msg['html'] = $this->renderPartial('_get_trip', $data, true);
-            $data_msg['url'] = Yii::$app->request->baseUrl . '/search/searchtrip?TripLocation%5Blocation_a_name%5D=' . $post_location_a . '&TripLocation%5Blocation_b_name%5D=' . $location_b_name . '&TripLocation%5Bdeparture_datetime%5D=' . $departure_datetime;
+            $data['total_results_count'] = $total_results_count;
+            $data_msg['html'] = $this->renderPartial('_get_search', $data, true);
+//            $data_msg['url'] = Yii::$app->request->baseUrl . '/search/';
             $data_msg['res'] = 1;
             echo json_encode($data_msg);
             exit;

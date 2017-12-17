@@ -158,7 +158,7 @@ use yii\helpers\Url;
                         <div class="form-group">
                             <div class="input-icon">
                                 <i class="icon fa fa-user"></i>
-                                <input type="text" id="sender-email" class="form-control" name="email" placeholder="Username">
+                                <input type="text" id="sender-emailrrrr" class="form-control" name="email" placeholder="Username">
                             </div>
                         </div>
                         <div class="form-group">
@@ -186,7 +186,7 @@ use yii\helpers\Url;
                         <div class="form-group">
                             <div class="input-icon">
                                 <i class="icon fa fa-user"></i>
-                                <input type="text" id="sender-email" class="form-control" name="email" placeholder="Email">
+                                <input type="text" id="sender-emailss" class="form-control" name="email" placeholder="Email">
                             </div>
                         </div>
                         <button class="btn btn-common log-btn">Send me my Password</button>
@@ -220,7 +220,7 @@ use yii\helpers\Url;
                         <div class="form-group">
                             <div class="input-icon">
                                 <i class="icon fa fa-envelope"></i>
-                                <input type="text" id="sender-email" class="form-control" name="email" placeholder="Email Address">
+                                <input type="text" id="sender-emailssssss" class="form-control" name="email" placeholder="Email Address">
                             </div>
                         </div>
                         <div class="checkbox">

@@ -21,7 +21,7 @@ $action = Yii::$app->controller->action->id;
                     <span class="icon-bar"></span>
                 </button>
                 <!-- End Toggle Nav Link For Mobiles -->
-                <a class="navbar-brand logo" href="index.html"><img src="assets/img/logo.png" alt=""></a>
+                <a class="navbar-brand logo" href="index.html"><img src="<?= $this->context->getProjectLogo() ?>" alt=""></a>
             </div>
             <!-- brand and toggle menu for mobile End -->
             <!-- Navbar Start -->
@@ -93,7 +93,8 @@ if(($controller == 'site' && $action == 'index')){
                 <!-- Start Search box -->
                 <div class="row search-bar">
                     <div class="advanced-search">
-                        <form class="search-form" method="get">
+                        <form action="<?= Yii::$app->request->baseUrl . '/search/index' ?>">
+                            <input type="hidden" name="city" id="hidden_city" value="<?=(isset($_GET['city']) && $_GET['city']!='')?$_GET['city']:''?>">
                             <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
                                 <div class="input-group-addon search-category-container">
                                     <label class="styled-select">
@@ -138,7 +139,7 @@ if(($controller == 'site' && $action == 'index')){
                                 <i class="fa fa-search"></i>
                             </div>
                             <div class="col-md-1 col-sm-6 search-col" style="width:150px">
-                                <button class="btn btn-common btn-search btn-block"><strong>Search</strong></button>
+                                <button type="submit" class="btn btn-common btn-search btn-block"><strong>Search</strong></button>
                             </div>
                         </form>
                     </div>
@@ -156,65 +157,58 @@ if(($controller == 'site' && $action == 'index')){
             <!-- Start Search box -->
             <div class="row search-bar">
               <div class="advanced-search">
-                <form class="search-form" method="get">
-                  <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
-                    <div class="input-group-addon search-category-container">
-                      <label class="styled-select">
-                        <select class="dropdown-product selectpicker" name="product-cat" >
-                          <option value="0">All Categories</option>
-                          <option class="subitem" value="community"> Community</option>
-                          <option value="items-for-sale"> Items For Sale</option>
-                          <option value="jobs"> Jobs</option>
-                          <option value="personals"> Personals</option>
-                          <option value="training"> Training</option>
-                          <option value="real_estate"> Real Estate</option>
-                          <option value="services"> Services</option>
-                          <option value="vehicles"> Vehicles</option>
-                        </select>
-                      </label>
+                  <form id="searchForm" action="<?= Yii::$app->request->baseUrl . '/search/index' ?>">
+                      <input type="hidden" name="city" id="hidden_city" value="<?=(isset($_GET['city']) && $_GET['city']!='')?$_GET['city']:''?>">
+                      <input type="hidden" name="limit" id="limit" value="20">
+                      <input type="hidden" name="offset" id="offset" value="0">
+                            <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
+                                <div class="input-group-addon search-category-container">
+                                    <label class="styled-select">
+                                        <select class="dropdown-product selectpicker" name="categories" >
+                                            <option value="">All Categories</option>
+                                            <?php
+                if(isset($all_services) && count($all_services)>0){
+                    foreach ($all_services as $key => $val) {
+                ?>
+                                            <option class="subitem" value="<?=$val->id?>" <?=(isset($_GET['categories']) && $_GET['categories']==$val->id)?'selected="selected"':''?>><?=$val->name?></option>
+                <?php }} ?>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
+                                <div class="input-group-addon search-category-container">
+                                    <label class="styled-select">
+                                        <select class="dropdown-product selectpicker" name="state" id="search_states">
+                                            <option value="">Choose States</option>
+                                            <?php
+                if(isset($all_states) && count($all_states)>0){
+                    foreach ($all_states as $key => $val) {
+                ?>
+                                            <option class="subitem" value="<?=$val->id?>" <?=(isset($_GET['state']) && $_GET['state']==$val->id)?'selected="selected"':''?>><?=$val->name?></option>
+                <?php }} ?>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-6 search-col" style="margin-right:33px;">
+                                <div class="input-group-addon search-category-container">
+                                    <label class="styled-select location-select">
+                                        <select class="dropdown-product selectpicker" name="city" id="search_cities">
+                                            <option value="">All Cities</option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 search-col">
+                                <input class="form-control keyword" name="keyword" value="" placeholder="Enter Keyword" type="text">
+                                <i class="fa fa-search"></i>
+                            </div>
+                            <div class="col-md-1 col-sm-6 search-col" style="width:150px">
+                                <button type="submit" class="btn btn-common btn-search btn-block"><strong>Search</strong></button>
+                            </div>
+                        </form>
                     </div>
-                  </div>
-				  <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
-                    <div class="input-group-addon search-category-container">
-                      <label class="styled-select">
-                        <select class="dropdown-product selectpicker" name="product-cat" >
-                          <option value="0">All Categories</option>
-                          <option class="subitem" value="community"> Community</option>
-                          <option value="items-for-sale"> Items For Sale</option>
-                          <option value="jobs"> Jobs</option>
-                          <option value="personals"> Personals</option>
-                          <option value="training"> Training</option>
-                          <option value="real_estate"> Real Estate</option>
-                          <option value="services"> Services</option>
-                          <option value="vehicles"> Vehicles</option>
-                        </select>
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-md-2 col-sm-6 search-col" style="margin-right:33px;">
-                    <div class="input-group-addon search-category-container">
-                      <label class="styled-select location-select">
-                        <select class="dropdown-product selectpicker" name="product-cat" >
-                          <option value="0">All Locations</option>
-                          <option value="New York">New York</option>
-                          <option value="California">California</option>
-                          <option value="Washington">Washington</option>
-                          <option value="churches">Birmingham</option>
-                          <option value="Birmingham">Chicago</option>
-                          <option value="Phoenix">Phoenix</option>
-                        </select>
-                      </label>
-                    </div>
-                  </div>
-                  <div class="col-md-3 col-sm-6 search-col">
-                    <input class="form-control keyword" name="keyword" value="" placeholder="Enter Keyword" type="text">
-                    <i class="fa fa-search"></i>
-                  </div>
-                  <div class="col-md-1 col-sm-6 search-col" style="width:150px">
-                    <button class="btn btn-common btn-search btn-block"><strong>Search</strong></button>
-                  </div>
-                </form>
-              </div>
             </div>
             <!-- End Search box -->
         </div>

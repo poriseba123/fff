@@ -458,12 +458,17 @@ class SiteController extends FrontendController {
         $html='<option class="subitem" value="">All Cities</option>';
         if(isset($_POST['state_id']) && $_POST['state_id']!=''){
         $state_id=$_POST['state_id'];
+        $city_id=$_POST['city_id'];
         $sql = "select c.* from cities as c LEFT JOIN districts as d ON c.district_id=d.id LEFT JOIN states as s ON d.state_id=s.id where s.id=$state_id and d.status=1 and c.status=1 order by c.name ASC";
         $result = Yii::$app->db->createCommand($sql)->queryAll();
         if(count($result) > 0){
         foreach ($result as $key => $value) {
             $val=(object)$value;
-            $html.='<option class="subitem" value="'.$val->id.'">'.$val->name.'</option>';
+            $select='';
+            if($city_id==$val->id){
+                $select='selected="selected"';
+            }
+            $html.='<option class="subitem" value="'.$val->id.'" '.$select.'>'.$val->name.'</option>';
         }
         }
         }
