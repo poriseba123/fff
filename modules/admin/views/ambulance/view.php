@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="form-group">
                             <label class="control-label col-md-3">Image:</label>
 							<div class="form-group col-md-9" id='preview-img-holder'>
-								<img src="<?= (isset($model->image)&& $model->image != '') ? Yii::$app->request->baseUrl . '\uploads\ambulance\\' . $model->image : Yii::$app->request->baseUrl .'\uploads\noimage\noimg.jpg' ?>" class="thumb-image img-thumbnail" style="height: 80px;">
+								<img src="<?= (isset($model->image)&& $model->image != '') ? Yii::$app->request->baseUrl . '\uploads\ambulance\thumbnail\\' . $model->image : Yii::$app->request->baseUrl .'\uploads\noimage\noimg.jpg' ?>" class="thumb-image img-thumbnail" style="height: 80px;">
 							</div>
                             
                         </div>
