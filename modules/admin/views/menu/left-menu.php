@@ -26,6 +26,30 @@
                     <span class="selected"></span>
                 </a>
             </li>
+			 <li class="heading">
+                <h3 class="uppercase">location</h3>
+            </li>
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'state') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('state'); ?>" class="nav-link ">
+                    <i class="fa fa-globe fa-spin fa-3x fa-fw"></i>
+                    <span class="title">State</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+			<li class="nav-item start <?= (Yii::$app->controller->id == 'district') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('district'); ?>" class="nav-link ">
+                    <i class="fa fa-globe fa-spin fa-3x fa-fw"></i>
+                    <span class="title">District</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+			<li class="nav-item start <?= (Yii::$app->controller->id == 'city') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('city'); ?>" class="nav-link ">
+                    <i class="fa fa-globe fa-spin fa-3x fa-fw"></i>
+                    <span class="title">City</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
             <li class="heading">
                 <h3 class="uppercase">Emergency Settings</h3>
             </li>

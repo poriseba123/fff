@@ -29,7 +29,7 @@ class Districts extends \yii\db\ActiveRecord
     {
         return [
             [['name','state_id','status'], 'required','on'=>['create','update']],
-            [['state_id'], 'integer'],
+            [['state_id','status'], 'integer'],
 			[['name'], 'unique'],
             [['name'], 'string', 'max' => 100],
         ];
@@ -47,7 +47,7 @@ class Districts extends \yii\db\ActiveRecord
         ];
     }
 	
-		 public function search($params) {
+	 public function search($params) {
         $query = Districts::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
