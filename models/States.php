@@ -29,7 +29,7 @@ class States extends \yii\db\ActiveRecord
     {
         return [
             [['name','country_id','status'], 'required','on'=>['create','update']],
-            [['country_id'], 'integer'],
+            [['country_id','status'], 'integer'],
 			[['name'], 'unique'],
             [['name'], 'string', 'max' => 30],
         ];

@@ -859,6 +859,89 @@ $('body').on('submit', '#update_district_form', function(e) {
 });
 
 //////////////////////////////////////////////////end//////////////////////////////////////////////
+
+//////////////////////////////////////////create city form start////////////////////////////////////////
+$('body').on('submit', '#create_city_form', function(e) {
+    var error = false;
+    e.preventDefault();
+    loader_start();
+    var _this = $(this);
+
+    _this.find(".has-error").removeClass("has-error");
+    _this.find(".help-block").html("");
+    var data = _this.serialize();
+    var url = full_path + "city/createajax";
+
+    $.ajax({
+        url: url, // Url to which the request is send
+        type: "POST", // Type of request to be send, called as method
+        data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+        contentType: false, // The content type used when sending data to the server.
+        cache: false, // To unable request pages to be cached
+        processData: false, // To send DOMDocument or non processed data file it is set to false
+        dataType: 'json',
+        success: function(resp) // A function to be called if request succeeds
+        {
+            loader_stop();
+            if (resp.flag == true) {
+                notifySuccess(true, true, resp.msg, 'bottom center', 5000);
+                setTimeout(function() {
+                    location.href = resp.url;
+                }, '2000');
+            } else {
+
+                $.each(resp.errors, function(item, value) {
+                    $('#ambulancemaster-' + item).parent().addClass("has-error");
+                    $('#ambulancemaster-' + item).parent().find(".help-block").html(value);
+                });
+
+            }
+        }
+    });
+
+});
+///////////////////////////////////////////////////end/////////////////////////////////////////////
+
+////////////////////////////////////////////update city form/////////////////////////////////////
+$('body').on('submit', '#update_city_form', function(e) {
+    var error = false;
+    e.preventDefault();
+    loader_start();
+    var _this = $(this);
+    _this.find(".has-error").removeClass("has-error");
+    _this.find(".help-block").html("");
+    var data = _this.serialize();
+    var url = full_path + "city/updateajax";
+    $.ajax({
+        url: url, // Url to which the request is send
+        type: "POST", // Type of request to be send, called as method
+        data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+        contentType: false, // The content type used when sending data to the server.
+        cache: false, // To unable request pages to be cached
+        processData: false, // To send DOMDocument or non processed data file it is set to false
+        dataType: 'json',
+        success: function(resp) // A function to be called if request succeeds
+        {
+            loader_stop();
+            if (resp.flag == true) {
+                notifySuccess(true, true, resp.msg, 'bottom center', 5000);
+                setTimeout(function() {
+                    location.href = resp.url;
+                }, '2000');
+            } else {
+
+                $.each(resp.errors, function(item, value) {
+                    $('#mortuarymaster-' + item).parent().addClass("has-error");
+                    $('#mortuarymaster-' + item).parent().find(".help-block").html(value);
+                });
+
+            }
+        }
+    });
+
+});
+
+//////////////////////////////////////////////////end//////////////////////////////////////////////
 $('body').on('submit', '#create_ambulance_form', function(e) {
     //$('#user-pro-update').submit(function (e) {
     var error = false;
