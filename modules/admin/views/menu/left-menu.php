@@ -239,6 +239,12 @@
                     <span class="title">Hospital/Nursing-home</span>
                 </a>
             </li>
+			 <li class="nav-item <?= (Yii::$app->controller->id == "ayacenter") ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('ayacenter/') ?>" class="nav-link ">
+                    <i class="fa fa-users fa-fw" aria-hidden="true"></i>
+                    <span class="title">Aya Center</span>
+                </a>
+            </li>
             <li class="nav-item <?= (Yii::$app->controller->id == "blog") ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('seo/') ?>" class="nav-link ">
                     <i class="fa fa-rss fa-fw" aria-hidden="true"></i>

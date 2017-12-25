@@ -108,6 +108,139 @@ $('body').on('submit', '#update-chamber-form', function(e) {
             }
         }, 'json');
 });
+
+////////////////////////////////////////////////////aya center create form start////////////////////////////////////////
+
+$('body').on('submit', '#create_ayacenter_form', function(e) {
+    e.preventDefault();
+	var error = false;
+    loader_start();
+    var _this = $(this);
+    _this.find(".has-error").removeClass("has-error");
+    _this.find(".help-block").html("");
+    var data = _this.serialize();
+    var url = full_path + "ayacenter/createajax";
+    $.ajax({
+        url: url, // Url to which the request is send
+        type: "POST", // Type of request to be send, called as method
+        data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+        contentType: false, // The content type used when sending data to the server.
+        cache: false, // To unable request pages to be cached
+        processData: false, // To send DOMDocument or non processed data file it is set to false
+        dataType: 'json',
+        success: function(resp) // A function to be called if request succeeds
+        {
+            loader_stop();
+            if (resp.flag == true) {
+                notifySuccess(true, true, resp.msg, 'bottom center', 5000);
+                setTimeout(function() {
+                    location.href = resp.url;
+                }, '2000');
+            } else {
+                if (resp.imgErr == true) {
+                    $('#ayamaster-image').parent('div').addClass('has-error');
+                    $('#ayamaster-image').parent('div').find('.help-block').html(resp.msg);
+                }
+                $.each(resp.errors, function(item, value) {
+                    $('#ayamaster-' + item).parent().addClass("has-error");
+                    $('#ayamaster-' + item).parent().find(".help-block").html(value);
+                });
+                if (resp.phone == false) {
+                    $('.main_contact_div').find('input:text')
+                        .each(function() {
+                            var input_field_val = $(this).val();
+                            if (input_field_val == '') {
+                                $(this).parent().parent().parent().addClass("has-error");
+                                $(this).parent().parent().parent().find(".help-block").html('Field cannot be blank');
+                                error = true;
+                            }
+                        });
+                }
+            }
+        }
+    });
+
+});
+///////////////////////////////////////////////////////////////////end/////////////////////////////////////////
+///////////////////////////////////////////////////////update aya center///////////////////////////////////////
+$('body').on('submit', '#update_ayacenter_form', function(e) {
+    var error = false;
+    e.preventDefault();
+    loader_start();
+    var _this = $(this);
+
+    _this.find(".has-error").removeClass("has-error");
+    _this.find(".help-block").html("");
+    var data = _this.serialize();
+    var url = full_path + "ayacenter/updateajax";
+    $.ajax({
+        url: url, // Url to which the request is send
+        type: "POST", // Type of request to be send, called as method
+        data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+        contentType: false, // The content type used when sending data to the server.
+        cache: false, // To unable request pages to be cached
+        processData: false, // To send DOMDocument or non processed data file it is set to false
+        dataType: 'json',
+        success: function(resp) // A function to be called if request succeeds
+        {
+            loader_stop();
+            if (resp.flag == true) {
+                notifySuccess(true, true, resp.msg, 'bottom center', 5000);
+                setTimeout(function() {
+                    location.href = resp.url;
+                }, '2000');
+            } else {
+                if (resp.imgErr == true) {
+                    $('#ayamaster-image').parent('div').addClass('has-error');
+                    $('#ayamaster-image').parent('div').find('.help-block').html(resp.msg);
+                }
+                $.each(resp.errors, function(item, value) {
+                    $('#ayamaster-' + item).parent().addClass("has-error");
+                    $('#ayamaster-' + item).parent().find(".help-block").html(value);
+                });
+                if (resp.phone == false) {
+                    $('.main_contact_div').find('input:text')
+                        .each(function() {
+                            var input_field_val = $(this).val();
+                            if (input_field_val == '') {
+                                $(this).parent().parent().parent().addClass("has-error");
+                                $(this).parent().parent().parent().find(".help-block").html('Field cannot be blank');
+                                error = true;
+                            }
+                        });
+                }
+            }
+        }
+    });
+
+    $.post(url, data,
+        function(resp) {
+            loader_stop();
+            if (resp.flag == true) {
+                notifySuccess(true, true, resp.msg, 'bottom center', 5000);
+                setTimeout(function() {
+                    location.href = resp.url;
+                }, '2000');
+            } else {
+                $.each(resp.errors, function(item, value) {
+                    $('#ayamaster-' + item).parent().addClass("has-error");
+                    $('#ayamaster-' + item).parent().find(".help-block").html(value);
+                });
+                if (resp.phone == false) {
+                    $('.main_contact_div').find('input:text')
+                        .each(function() {
+                            var input_field_val = $(this).val();
+                            if (input_field_val == '') {
+                                $(this).parent().parent().parent().addClass("has-error");
+                                $(this).parent().parent().parent().find(".help-block").html('Field cannot be blank');
+                                error = true;
+                            }
+                        });
+                }
+            }
+        }, 'json');
+});
+///////////////////////////////////////////////////////////////end////////////////////////////////////////////////////////
 $('body').on('submit', '#create_medicine_shop_form', function(e) {
     var error = false;
     e.preventDefault();

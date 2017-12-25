@@ -19,14 +19,14 @@ use app\models\DoctorMaster;
 use app\models\DoctorType;
 use app\models\DoctorChamber;
 use app\models\DoctorChamberTime;
-use app\models\MedicineShopMaster;
+use app\models\AyaMaster;
 
 use yii\imagine\Image;
 use Imagine\Gd;
 use Imagine\Image\Box;
 use Imagine\Image\BoxInterface;
 
-class MedicineshopController extends AdminController {
+class AyacenterController extends AdminController {
 
     public function column() {
         $viewMsg = 'View';
@@ -48,26 +48,6 @@ class MedicineshopController extends AdminController {
                 'attribute' => 'address',
             ],
             [
-                'attribute' => 'category_id',
-                'value' => function($data) {
-                    if ($data->category_id == 1) {
-                        $type = "ALLOPATHIC";
-                    } elseif ($data->category_id == 2) {
-                        $type = "HOMEOPATHIC";
-                    }else{
-						$type = "AYURVEDIC";
-					}
-                    return $type;
-                },
-                'filterType' => GridView::FILTER_SELECT2,
-                'filter' => ArrayHelper::map(array('0' => array('id' => '1', 'category_id' => 'ALLOPATHIC'), '1' => array('id' => '2', 'category_id' => 'HOMEOPATHIC'),'2' => array('id' => '3', 'category_id' => 'AYURVEDIC')), 'id', 'category_id'),
-                'filterWidgetOptions' => [
-                    'pluginOptions' => ['allowClear' => true],
-                    'options' => ['multiple' => false],
-                ],
-                'filterInputOptions' => ['placeholder' => 'Select']
-            ],
-			[
                 'class' => '\kartik\grid\DataColumn',
                 'label' => 'City',
                 'attribute' => 'city_id',
@@ -113,13 +93,13 @@ class MedicineshopController extends AdminController {
                 'urlCreator' => function($action, $model, $key, $index) {
                     switch ($action) {
                         case "view":
-                            return Url::to(['medicineshop/view', 'id' => $model->id]);
+                            return Url::to(['ayacenter/view', 'id' => $model->id]);
                             break;
                         case "update":
-                            return Url::to(['medicineshop/update', 'id' => $model->id]);
+                            return Url::to(['ayacenter/update', 'id' => $model->id]);
                             break;
                         case "delete":
-                            return Url::to(['medicineshop/delete', 'id' => $model->id]);
+                            return Url::to(['ayacenter/delete', 'id' => $model->id]);
                             break;
                     }
                 },
@@ -140,7 +120,7 @@ class MedicineshopController extends AdminController {
     }
 
     public function actionIndex() {
-        $searchModel = new MedicineShopMaster;
+        $searchModel = new AyaMaster;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $widget = GridView::widget([
                     'dataProvider' => $dataProvider,
@@ -187,16 +167,8 @@ class MedicineshopController extends AdminController {
    
     public function actionCreate() {
         $data=[];
-        $model = new MedicineShopMaster;
+        $model = new AyaMaster;
         $model->scenario = "create";
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate()) {
-                $model->created_at=date('Y-m-d H:i:s'); 
-                $model->save(false);
-                Yii::$app->session->setFlash('success', 'created successfully');
-                return $this->redirect(["index"]);
-            }
-        }
         return $this->render("create", ["model" => $model]);
     }
     public function actionCreateajax() {
@@ -217,7 +189,7 @@ class MedicineshopController extends AdminController {
                             if ($phone_error){
                                 $resp['phone'] = false;
                             }
-                            $model= new MedicineShopMaster();
+                            $model= new AyaMaster();
                             $model->scenario = "create";
                             if ($model->load(Yii::$app->request->post())) {
                                 $img = UploadedFile::getInstance($model, 'image');
@@ -230,9 +202,9 @@ class MedicineshopController extends AdminController {
                         $imgError = 1;
                     } else {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/medicineshop/original/' . $imgName;
+                       $path = Yii::$app->basePath . '/uploads/ayacenter/original/' . $imgName;
                         $img->saveAs($path);
-                        $this->resizeImage('medicineshop',$imgName);
+                        $this->resizeImage('ayacenter',$imgName);
                         $model->image = $imgName;
                     }
                 }
@@ -242,8 +214,8 @@ class MedicineshopController extends AdminController {
                                     $model->contact_no=implode(',',$_POST['contact_no']);
                                    $model->save(false);
                                     $resp['flag'] = true;
-                                    $resp['url'] = Url::to(['medicineshop/index']);
-                                    $resp['msg'] = "Medicine Shop successfully created";
+                                    $resp['url'] = Url::to(['ayacenter/index']);
+                                    $resp['msg'] = "Ayacenter  successfully created";
                                 } else {
                                     $resp['errors'] = $model->getErrors();
                                 }
@@ -254,7 +226,7 @@ class MedicineshopController extends AdminController {
                         }
     public function actionUpdateajax() {
                         if (Yii::$app->request->isAjax) {
-                            $med_shop_id=$_POST['medicine_shop_id'];
+                            $ayacenter_id=$_POST['ayacenter_id'];
                             $resp = [];
                             $imgError = 0;
                             $resp['imgErr'] = false;
@@ -270,7 +242,7 @@ class MedicineshopController extends AdminController {
                             if ($phone_error){
                                 $resp['phone'] = false;
                             }
-                            $model= MedicineShopMaster::findOne($med_shop_id);
+                            $model= AyaMaster::findOne($ayacenter_id);
                             $model->scenario = "update";
                             if ($model->load(Yii::$app->request->post())) {
                                 $img = UploadedFile::getInstance($model, 'image');
@@ -283,9 +255,9 @@ class MedicineshopController extends AdminController {
                         $imgError = 1;
                     } else {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/medicineshop/original/' . $imgName;
+                        $path = Yii::$app->basePath . '/uploads/ayacenter/original/' . $imgName;
                         $img->saveAs($path);
-                        $this->resizeImage('medicineshop',$imgName);
+                        $this->resizeImage('ayacenter',$imgName);
                         $model->image = $imgName;
                     }
                 }
@@ -294,8 +266,8 @@ class MedicineshopController extends AdminController {
                                     $model->contact_no=implode(',',$_POST['contact_no']);
                                    $model->save(false);
                                     $resp['flag'] = true;
-                                    $resp['url'] = Url::to(['medicineshop/index']);
-                                    $resp['msg'] = "Medicine Shop successfully updated";
+                                    $resp['url'] = Url::to(['ayacenter/index']);
+                                    $resp['msg'] = "Ayacenter  successfully updated";
                                 } else {
                                     $resp['errors'] = $model->getErrors();
                                 }
@@ -306,7 +278,7 @@ class MedicineshopController extends AdminController {
                         }
     public function actionUpdate($id) {
         $data=[];
-         $model = MedicineShopMaster::findOne($id);
+         $model = AyaMaster::findOne($id);
         $model->scenario = 'update';
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->updated_at=date('Y-m-d H:i:s'); 
@@ -317,7 +289,7 @@ class MedicineshopController extends AdminController {
         return $this->render('update', ["model" => $model]);
     }
     public function actionDelete($id) {
-        $chamber= MedicineShopMaster::findOne($id);
+        $chamber= AyaMaster::findOne($id);
         $chamber->status = 3;
         $chamber->save(false);
         Yii::$app->session->setFlash('success', ' deleted.');
@@ -357,7 +329,7 @@ class MedicineshopController extends AdminController {
         return $html;
     }
     protected function findModel($id) {
-        if (($model = MedicineShopMaster::findOne($id)) !== null) {
+        if (($model = AyaMaster::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

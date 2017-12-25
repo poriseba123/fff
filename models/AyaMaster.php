@@ -7,7 +7,7 @@ use yii\data\ActiveDataProvider;
 use app\models\Cities;
 
 /**
- * This is the model class for table "medicine_shop_master".
+ * This is the model class for table "aya_master".
  *
  * @property string $id
  * @property string $name
@@ -25,7 +25,7 @@ use app\models\Cities;
  * @property string $created_at
  * @property string $updated_at
  */
-class MedicineShopMaster extends \yii\db\ActiveRecord
+class AyaMaster extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -34,7 +34,7 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
     
     public static function tableName()
     {
-        return 'medicine_shop_master';
+        return 'aya_master';
     }
 
     /**
@@ -43,8 +43,8 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name','category_id', 'country_id','district_id','state_id', 'city_id','close_day','address','status'], 'required','on'=>['create','update']],
-            [['category_id', 'country_id', 'state_id', 'city_id', 'status'], 'integer'],
+            [['name','country_id','district_id','state_id', 'city_id','close_day','address','status','baby_siter','male_aya'], 'required','on'=>['create','update']],
+            [['country_id', 'state_id', 'city_id', 'status','baby_siter','male_aya'], 'integer'],
             [['contact_no','pin'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 100],
@@ -63,8 +63,7 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'category_id' => 'Category ID',
-            'country_id' => 'Country ID',
+			'country_id' => 'Country ID',
             'state_id' => 'State ID',
             'city_id' => 'City ID',
             'address' => 'Address',
@@ -77,10 +76,12 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
 			'pin' => 'Pin',
+			'baby_siter' => 'Babysiter(available)',
+			'male_aya' => 'Maleaya(available)',
         ];
     }
     public function search($params) {
-        $query = MedicineShopMaster::find();
+        $query = AyaMaster::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -99,12 +100,6 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
                         'asc' => ['address' => SORT_ASC],
                         'desc' => ['address' => SORT_DESC],
                         'label' => 'address',
-                        'default' => SORT_DESC
-                    ],
-                    'category_id' => [
-                        'asc' => ['category_id' => SORT_ASC],
-                        'desc' => ['category_id' => SORT_DESC],
-                        'label' => 'Category',
                         'default' => SORT_DESC
                     ],
                     'city_id' => [
@@ -126,8 +121,7 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
 
         $query->andFilterWhere(['like', 'name', $this->name])
                 ->andFilterWhere(['like', 'address', $this->address])
-                ->andFilterWhere(['like', 'category_id', $this->category_id])
-				->andFilterWhere(['like', 'city_id', $this->city_id])
+                ->andFilterWhere(['like', 'city_id', $this->city_id])
                 ->andFilterWhere(['like', 'status', $this->status])
                 ->andWhere('status <> \'3\'');
 

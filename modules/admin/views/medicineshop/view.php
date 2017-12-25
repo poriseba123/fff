@@ -76,6 +76,16 @@ $this->params['breadcrumbs'][] = $this->title;
 				<div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
+                            <label class="control-label col-md-3">Pin:</label>
+                            <div class="col-md-9">
+                                <p class="form-control-static"> <?= (isset($model->pin) && $model->pin != '') ? $model->pin : "Not Set"; ?> </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				<div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <label class="control-label col-md-3">Country:</label>
                             <div class="col-md-9">
 							<?php

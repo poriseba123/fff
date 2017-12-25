@@ -73,6 +73,14 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
+		 <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Pin<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'pin')->textInput(['class' => 'form-control'])->label(false); ?>
+                </div>
+            </div>
+        </div>
 
           <div class="form-body">
             <div class="form-group">
