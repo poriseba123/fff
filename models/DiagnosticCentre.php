@@ -48,7 +48,7 @@ class DiagnosticCentre extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name','country_id','district_id', 'state_id', 'city_id','open_time', 'close_time','close_day','address','medical_tests','establishment_date','e_report','home_collection','status'], 'required','on'=>['create','update']],
+            [['name','country_id','district_id', 'state_id', 'city_id','close_day','address','e_report','home_collection'], 'required','on'=>['create','update']],
 //            [['country_id', 'state_id', 'district_id', 'city_id', 'others'], 'required'],
             [['country_id', 'state_id', 'district_id', 'city_id', 'close_day', 'e_report', 'home_collection', 'status'], 'integer'],
             [['contact_no','others'], 'string'],
@@ -112,16 +112,10 @@ class DiagnosticCentre extends \yii\db\ActiveRecord
                         'label' => 'address',
                         'default' => SORT_DESC
                     ],
-                    'open_time' => [
-                        'asc' => ['open_time' => SORT_ASC],
-                        'desc' => ['open_time' => SORT_DESC],
-                        'label' => 'open_time',
-                        'default' => SORT_DESC
-                    ],
-                    'close_time' => [
-                        'asc' => ['close_time' => SORT_ASC],
-                        'desc' => ['close_time' => SORT_DESC],
-                        'label' => 'close_time',
+                    'city_id' => [
+                        'asc' => ['city_id' => SORT_ASC],
+                        'desc' => ['city_id' => SORT_DESC],
+                        'label' => 'City',
                         'default' => SORT_DESC
                     ],
                     'status'
@@ -136,9 +130,8 @@ class DiagnosticCentre extends \yii\db\ActiveRecord
 
         $query->andFilterWhere(['like', 'name', $this->name])
                 ->andFilterWhere(['like', 'address', $this->address])
-                ->andFilterWhere(['like', 'open_time', $this->open_time])
-                ->andFilterWhere(['like', 'close_time', $this->close_time])
-                ->andFilterWhere(['like', 'status', $this->status])
+                ->andFilterWhere(['like', 'city_id', $this->city_id])
+				->andFilterWhere(['like', 'status', $this->status])
                 ->andWhere('status <> \'3\'');
 
         return $dataProvider;

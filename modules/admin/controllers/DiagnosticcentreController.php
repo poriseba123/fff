@@ -33,6 +33,11 @@ class DiagnosticcentreController extends AdminController {
     public function column() {
         $viewMsg = 'View';
         $updateMsg = 'Update';
+		$rowsall=[];
+		$city_list = \app\models\Cities::find()->select('name, id')->where('status <> \'3\'')->all();
+					 foreach($city_list as $model){
+					  $rowsall[] = array_filter($model->attributes);
+				   }
         $gridColumns = [
             ['class' => 'kartik\grid\SerialColumn'],
             [
@@ -45,15 +50,26 @@ class DiagnosticcentreController extends AdminController {
                 'label' => 'address',
                 'attribute' => 'address',
             ],
-            [
+             [
                 'class' => '\kartik\grid\DataColumn',
-                'label' => 'open_time',
-                'attribute' => 'open_time',
-            ],
-            [
-                'class' => '\kartik\grid\DataColumn',
-                'label' => 'close_time',
-                'attribute' => 'close_time',
+                'label' => 'City',
+                'attribute' => 'city_id',
+				'value' => function($data){
+					 $country_list = \app\models\Cities::find()->select('name, id')->where(["id" => $data->city_id])->all();
+					 foreach($country_list as $model){
+					  $rows[] = array_filter($model->attributes);
+				   }
+					 $listData = ArrayHelper::map($rows, 'id', 'name');
+					
+					 return $listData[$data->city_id];
+				},
+				'filterType' => GridView::FILTER_SELECT2,
+                'filter' => ArrayHelper::map($rowsall, 'id', 'name'),
+                'filterWidgetOptions' => [
+                    'pluginOptions' => ['allowClear' => true],
+                    'options' => ['multiple' => false],
+                ],
+                'filterInputOptions' => ['placeholder' => 'Select']
             ],
             [
                 'attribute' => 'status',
