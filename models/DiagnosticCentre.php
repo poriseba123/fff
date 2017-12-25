@@ -54,6 +54,7 @@ class DiagnosticCentre extends \yii\db\ActiveRecord
             [['contact_no','others'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['name', 'address'], 'string', 'max' => 200],
+			[['name', 'address'], 'unique'],
             [['latitude', 'longitude'], 'string', 'max' => 50],
             [['open_time', 'close_time'], 'string', 'max' => 20],
             [['website'], 'string', 'max' => 100],
