@@ -35,6 +35,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                 </div>
+				
+				<div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Establishment Date:</label>
+                            <div class="col-md-9">
+                                <p class="form-control-static"> <?= (isset($model->establishment_date)) ? $model->establishment_date : "Not Set"; ?> </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -208,16 +219,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                 </div> 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Baby sitter(available):</label>
-                            <div class="col-md-9">
-                                <p class="form-control-static"> <?= (isset($model->baby_siter) && $model->baby_siter == '1') ? 'Yes' : "No"; ?> </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">

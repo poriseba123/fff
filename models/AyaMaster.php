@@ -45,7 +45,7 @@ class AyaMaster extends \yii\db\ActiveRecord
         return [
             [['name','country_id','district_id','state_id', 'city_id','close_day','address','status','baby_siter','male_aya'], 'required','on'=>['create','update']],
             [['country_id', 'state_id', 'city_id', 'status','baby_siter','male_aya'], 'integer'],
-            [['contact_no','pin'], 'string'],
+            [['contact_no','pin','establishment_date'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 100],
 			[['name', 'address'], 'unique'],
@@ -78,6 +78,7 @@ class AyaMaster extends \yii\db\ActiveRecord
 			'pin' => 'Pin',
 			'baby_siter' => 'Babysiter(available)',
 			'male_aya' => 'Maleaya(available)',
+			'establishment_date' =>'Establishment date',
         ];
     }
     public function search($params) {

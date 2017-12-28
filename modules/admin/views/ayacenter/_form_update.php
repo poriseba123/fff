@@ -1,6 +1,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <?php
 
 use yii\helpers\Html;
@@ -54,7 +56,14 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-
+		<div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Establishment Date<span class="required">*</span></label>
+                <div class="col-md-6">
+					<?= $form->field($model, 'establishment_date')->textInput(['class' => 'form-control datepicker'])->label(false); ?>
+                </div>
+            </div>
+        </div>
         <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Address<span class="required">*</span></label>
@@ -322,7 +331,11 @@ use yii\helpers\ArrayHelper;
         $('.timepicker').datetimepicker({
             format: 'LT'
         });
-
+		$( ".datepicker" ).datepicker({
+			  changeMonth: true,
+			  changeYear: true,
+			  dateFormat: 'yy-mm-dd'
+		});
         state_id = "<?php echo $model->state_id ?>";
         district_id = "<?php echo $model->district_id ?>";
         city_id = "<?php echo $model->city_id ?>";
@@ -373,8 +386,8 @@ if ($model->isNewRecord) {
         currentlat = 20.5937;               //// india lat and long
         currentlong = 78.9629;
 <?php } else { ?>
-        currentlat = '<?= $model->latitude; ?>';               //// india lat and long
-        currentlong = '<?= $model->longitude; ?>';
+        currentlat = '<?= ($model->latitude!='')?$model->latitude:20.5937; ?>';               //// india lat and long
+        currentlong = '<?= ($model->longitude!='')?$model->longitude:78.9629; ?>';
 
         setTimeout(function () {
             geocoder = new google.maps.Geocoder;
