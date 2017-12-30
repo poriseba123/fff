@@ -69,7 +69,7 @@ use yii\helpers\Url;
                         <?= $form->field($model, 'status')->radioList(['0' => 'Inactive', '1' => 'Active'])->label(false) ?>
                     <?php else : ?>
                         <?= $form->field($model, 'status')->radioList(['1' => 'Active', '0' => 'Inactive'])->label(false) ?>
-                <?php endif; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -77,12 +77,12 @@ use yii\helpers\Url;
         <div class="form-actions">
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
-<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
+                    <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
                     <a href="<?php echo Url::to(['doctorspecialities/index']); ?>" class="btn default">Back</a>
                 </div>
             </div>
         </div>
-<?php ActiveForm::end() ?>
+        <?php ActiveForm::end() ?>
         <!-- END FORM-->
     </div>
 </div>

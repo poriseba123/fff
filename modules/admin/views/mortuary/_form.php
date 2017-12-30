@@ -1,6 +1,3 @@
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <?php
 
 use yii\helpers\Html;
@@ -41,7 +38,7 @@ use yii\helpers\ArrayHelper;
         <?php
         $form = ActiveForm::begin([
                     'id' => 'create_mortuary_form',
-                    'options' => ['class' => 'form-horizontal form-row-seperated','enctype' => 'multipart/form-data'],
+                    'options' => ['class' => 'form-horizontal form-row-seperated', 'enctype' => 'multipart/form-data'],
                     'enableClientValidation' => false
                 ])
         ?>
@@ -70,7 +67,7 @@ use yii\helpers\ArrayHelper;
             </div>
         </div>
 
- 		<div class="form-body">
+        <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Country<span class="required">*</span></label>
                 <div class="col-md-6">
@@ -78,7 +75,7 @@ use yii\helpers\ArrayHelper;
                     $country_list = \app\models\Countries::find()->all();
                     $listData = ArrayHelper::map($country_list, 'id', 'name');
                     echo $form->field($model, 'country_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
-                    $.post("'.Url::to(['dashboard/getstates']).'?id=' . '"+$(this).val(),function(data){
+                    $.post("' . Url::to(['dashboard/getstates']) . '?id=' . '"+$(this).val(),function(data){
                       $("select#mortuarymaster-state_id").html(data);
                     });'])->label(false);
                     ?>
@@ -92,8 +89,8 @@ use yii\helpers\ArrayHelper;
                     <?php
                     $state_list = \app\models\States::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($state_list, 'id', 'name');
-                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => 
-                        '$.post("'.Url::to(['dashboard/getdistricts']).'?id=' . '"+$(this).val(),function(data){
+                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' =>
+                        '$.post("' . Url::to(['dashboard/getdistricts']) . '?id=' . '"+$(this).val(),function(data){
                       $("select#mortuarymaster-district_id").html(data);
                     });'])->label(false);
                     ?>
@@ -108,7 +105,7 @@ use yii\helpers\ArrayHelper;
                     $district_list = \app\models\Districts::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($district_list, 'id', 'name');
                     echo $form->field($model, 'district_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
-                    $.post("'.Url::to(['dashboard/getcities']).'?id=' . '"+$(this).val(),function(data){
+                    $.post("' . Url::to(['dashboard/getcities']) . '?id=' . '"+$(this).val(),function(data){
                       $("select#mortuarymaster-city_id").html(data);
                     });'])->label(false);
                     ?>
@@ -207,7 +204,7 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-<div class="form-body">
+        <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Image<span class="required">*</span></label>
                 <div class="col-md-6">
@@ -215,26 +212,26 @@ use yii\helpers\ArrayHelper;
                 </div>
                 <div class="col-md-3">
                     <div class="form-group text-center" id='preview-img-holder'>
-                                            </div>
+                    </div>
                 </div>
                 <div class="help-block"></div>
             </div>
         </div>
 
-       
-            <div class="form-group">
-                <label class="control-label col-md-3">Status <span class="required">*</span></label>
-                <div class="col-md-6">
-                    <div class="radio-list">                        
-                        <label class="radio-inline">
-                            <?php
-                            echo $form->field($model, 'status')->radioList(['1' => 'Active', '0' => 'Inactive'])->label(false);
-                            ?>
-                        </label>
-                    </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Status <span class="required">*</span></label>
+            <div class="col-md-6">
+                <div class="radio-list">                        
+                    <label class="radio-inline">
+                        <?php
+                        echo $form->field($model, 'status')->radioList(['1' => 'Active', '0' => 'Inactive'])->label(false);
+                        ?>
+                    </label>
                 </div>
             </div>
-       
+        </div>
+
 
 
         <div class="form-actions">

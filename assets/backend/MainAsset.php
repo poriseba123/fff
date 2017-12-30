@@ -7,8 +7,8 @@ use yii\web\AssetBundle;
 /**
  * Main backend application asset bundle.
  */
-class MainAsset extends AssetBundle
-{
+class MainAsset extends AssetBundle {
+
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
@@ -27,15 +27,17 @@ class MainAsset extends AssetBundle
         'themes/global/plugins/morris/morris.css',
         'themes/global/plugins/jqvmap/jqvmap/jqvmap.css',
         'themes/global/css/custom-global.css',
+        'themes/global/css/bootstrap-datetimepicker.min.css',
 //        ========= custom css files =============
         'themes/backend/custom/css/common.css',
         'themes/global/css/lobibox.min.css',
         'themes/global/css/loader.css',
+        'themes/global/css/jquery-ui.css',
         'themes/backend/custom/css/profile.css',
         'themes/backend/custom/css/custom.css',
     ];
     public $js = [
-        ['themes/global/plugins/jquery.min.js','position' => \yii\web\View::POS_HEAD],
+        ['themes/global/plugins/jquery.min.js', 'position' => \yii\web\View::POS_HEAD],
         'themes/backend/assets/js/app.min.js',
         'themes/global/plugins/bootstrap/js/bootstrap.min.js',
         'themes/backend/assets/js/layout.min.js',
@@ -48,12 +50,15 @@ class MainAsset extends AssetBundle
         'themes/global/js/customAjaxNotifyFunctions.js',
         'themes/backend/custom/js/dashboard.js',
         'themes/global/js/custom-global.js',
-        
         'themes/backend/custom/js/profile.js',
         'themes/backend/custom/js/custom.js',
+        'themes/global/js/moment.js',
+        'themes/global/js/bootstrap-datetimepicker.min.js',
+        'themes/global/js/jquery-ui.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
     ];
+
 }

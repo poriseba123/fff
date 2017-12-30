@@ -1,8 +1,3 @@
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <?php
 
 use yii\helpers\Html;
@@ -43,7 +38,7 @@ use yii\helpers\ArrayHelper;
         <?php
         $form = ActiveForm::begin([
                     'id' => 'update_eye_bank_form',
-                    'options' => ['class' => 'form-horizontal form-row-seperated','enctype' => 'multipart/form-data'],
+                    'options' => ['class' => 'form-horizontal form-row-seperated', 'enctype' => 'multipart/form-data'],
                     'enableClientValidation' => false
                 ])
         ?>
@@ -56,11 +51,11 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-		<div class="form-body">
+        <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Establishment Date<span class="required">*</span></label>
                 <div class="col-md-6">
-					<?= $form->field($model, 'establishment_date')->textInput(['class' => 'form-control datepicker'])->label(false); ?>
+                    <?= $form->field($model, 'establishment_date')->textInput(['class' => 'form-control datepicker'])->label(false); ?>
                 </div>
             </div>
         </div>
@@ -88,16 +83,16 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-       
-         <div class="form-body">
+
+        <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">State<span class="required">*</span></label>
                 <div class="col-md-6">
                     <?php
                     $state_list = \app\models\States::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($state_list, 'id', 'name');
-                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => 
-                        '$.post("'.Url::to(['dashboard/getdistricts']).'?id=' . '"+$(this).val(),function(data){
+                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' =>
+                        '$.post("' . Url::to(['dashboard/getdistricts']) . '?id=' . '"+$(this).val(),function(data){
                       $("select#eyebankmaster-district_id").html(data);
                     });'])->label(false);
                     ?>
@@ -112,7 +107,7 @@ use yii\helpers\ArrayHelper;
                     $district_list = \app\models\Districts::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($district_list, 'id', 'name');
                     echo $form->field($model, 'district_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
-                    $.post("'.Url::to(['dashboard/getcities']).'?id=' . '"+$(this).val(),function(data){
+                    $.post("' . Url::to(['dashboard/getcities']) . '?id=' . '"+$(this).val(),function(data){
                       $("select#eyebankmaster-city_id").html(data);
                     });'])->label(false);
                     ?>
@@ -149,7 +144,7 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-	<div class="form-body">
+        <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Time<span class="required">*</span></label>
                 <div class="col-md-7">
@@ -185,88 +180,85 @@ use yii\helpers\ArrayHelper;
                     </div>
                 </div>
             </div>
-	</div>
-	
-	<div class="form-body">
+        </div>
+
+        <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Free Check-up Time<span class="required">*</span></label>
                 <div class="col-md-9">
                     <?php
-					$checked='';
-                    $day_master= \app\models\DayMaster::find()->all();
-					if($model->free_eyetest){
-						$eyetest_arr=json_decode($model->free_eyetest);
-						
-						if(!empty($eyetest_arr)){
-							foreach($eyetest_arr as $index=>$content){
-								$temp_arr=explode("-",$content);
-								$start_time[$temp_arr[0]] = $temp_arr[1];
-								$end_time[$temp_arr[0]] = $temp_arr[2];
-					
-							}
-						}
-						//die();
-						
-					}
+                    $checked = '';
+                    $day_master = \app\models\DayMaster::find()->all();
+                    if ($model->free_eyetest) {
+                        $eyetest_arr = json_decode($model->free_eyetest);
+
+                        if (!empty($eyetest_arr)) {
+                            foreach ($eyetest_arr as $index => $content) {
+                                $temp_arr = explode("-", $content);
+                                $start_time[$temp_arr[0]] = $temp_arr[1];
+                                $end_time[$temp_arr[0]] = $temp_arr[2];
+                            }
+                        }
+                        //die();
+                    }
                     foreach ($day_master as $key => $val) {
 
-						if(isset($start_time[$val->id])){
-							  $checked ="checked";
-							  $active="active";
-							
-						}else{
-							 $checked ="";
-							 $active="";
-						}
-                    ?>
-                    <div class="daymaster_main_div">
-                        <div class="row" style="margin-bottom:5px;">
-                            <div class="col-md-8 text-center">
-                                <div class="btn-group" data-toggle="buttons">
-                                <label class="btn btn-success <?= $active;?>">
-                                    <input type="checkbox" name="dayMaster[]" autocomplete="off" <?= $checked;?> value="<?=$val->id?>">
-										<span class="glyphicon glyphicon-ok"></span>&nbsp;<?=$val->day?>
-                                </label>
+                        if (isset($start_time[$val->id])) {
+                            $checked = "checked";
+                            $active = "active";
+                        } else {
+                            $checked = "";
+                            $active = "";
+                        }
+                        ?>
+                        <div class="daymaster_main_div">
+                            <div class="row" style="margin-bottom:5px;">
+                                <div class="col-md-8 text-center">
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-success <?= $active; ?>">
+                                            <input type="checkbox" name="dayMaster[]" autocomplete="off" <?= $checked; ?> value="<?= $val->id ?>">
+                                            <span class="glyphicon glyphicon-ok"></span>&nbsp;<?= $val->day ?>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row" style="margin-bottom:5px;">
-                            <div class="col-md-4">
-                                Start Time
-                            </div>
-                            <div class="col-md-4">
-                                End time
-                            </div>
-                        </div>
-                        <div class="time <?='day_master_time_'.$val->id?>" style="margin-bottom:5px;">
-                            <div class="row <?='each_time_'.$val->id.'_0'?>">
+                            <div class="row" style="margin-bottom:5px;">
                                 <div class="col-md-4">
-                                    <div class='input-group date timepicker'>
-                                        <input type='text' class="form-control" name="start_time[<?=$val->id?>][]" value="<?= isset($start_time[$val->id])? $start_time[$val->id]:''; ?>"/>
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-time"></span>
-                                        </span>
-                                    </div>
+                                    Start Time
+                                </div>
+                                <div class="col-md-4">
+                                    End time
+                                </div>
+                            </div>
+                            <div class="time <?= 'day_master_time_' . $val->id ?>" style="margin-bottom:5px;">
+                                <div class="row <?= 'each_time_' . $val->id . '_0' ?>">
+                                    <div class="col-md-4">
+                                        <div class='input-group date timepicker'>
+                                            <input type='text' class="form-control" name="start_time[<?= $val->id ?>][]" value="<?= isset($start_time[$val->id]) ? $start_time[$val->id] : ''; ?>"/>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                        </div>
                                         <div class="help-block"></div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class='input-group date timepicker'>
-                                        <input type='text' class="form-control" name="end_time[<?=$val->id?>][]" value="<?= isset($end_time[$val->id])? $end_time[$val->id]:''; ?>"/>
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-time"></span>
-                                        </span>
                                     </div>
-                                    <div class="help-block"></div>
+                                    <div class="col-md-4">
+                                        <div class='input-group date timepicker'>
+                                            <input type='text' class="form-control" name="end_time[<?= $val->id ?>][]" value="<?= isset($end_time[$val->id]) ? $end_time[$val->id] : ''; ?>"/>
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-time"></span>
+                                            </span>
+                                        </div>
+                                        <div class="help-block"></div>
+                                    </div>
                                 </div>
-                             </div>
+                            </div>
                         </div>
-                    </div>
                     <?php } ?>
                 </div>
             </div>
-	</div>
-	
-	
+        </div>
+
+
         <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Close day<span class="required">*</span></label>
@@ -324,7 +316,7 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-	 <div class="form-body">
+        <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Image<span class="required">*</span></label>
                 <div class="col-md-6">
@@ -332,8 +324,8 @@ use yii\helpers\ArrayHelper;
                 </div>
                 <div class="col-md-3">
                     <div class="form-group text-center" id='preview-img-holder'>
-                        <img src="<?=Yii::$app->request->baseUrl . '\uploads\eyebank\thumbnail\\' . $model->image?>" class="thumb-image" style="height: 80px;">
-                                            </div>
+                        <img src="<?= Yii::$app->request->baseUrl . '\uploads\eyebank\thumbnail\\' . $model->image ?>" class="thumb-image" style="height: 80px;">
+                    </div>
                 </div>
                 <div class="help-block" id="err-image"></div>
             </div>
@@ -368,25 +360,29 @@ use yii\helpers\ArrayHelper;
     </div>
 </div>
 <script>
- state_id="<?php echo $model->state_id?>";
- district_id="<?php echo $model->district_id?>";
- city_id="<?php echo $model->city_id?>";
-	function fireagain(){
-		setTimeout(function(){console.log('now'),$('#eyebankmaster-district_id').val(district_id).then($('#eyebankmaster-district_id').trigger('onchange'));},'2000');
-	}
+    state_id = "<?php echo $model->state_id ?>";
+    district_id = "<?php echo $model->district_id ?>";
+    city_id = "<?php echo $model->city_id ?>";
+    function fireagain() {
+        setTimeout(function () {
+            console.log('now'), $('#eyebankmaster-district_id').val(district_id).then($('#eyebankmaster-district_id').trigger('onchange'));
+        }, '2000');
+    }
     $(function () {
         $('.timepicker').datetimepicker({
             format: 'LT'
         });
-		$( ".datepicker" ).datepicker({
-			  changeMonth: true,
-			  changeYear: true,
-			  dateFormat: 'yy-mm-dd'
-		});
+        $(".datepicker").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'yy-mm-dd'
+        });
 
-		$('#eyebankmaster-country_id').trigger('onchange');
-		setTimeout(function(){$('#eyebankmaster-state_id').val(state_id).then($('#eyebankmaster-state_id').trigger('onchange'),fireagain())},'1500');
-	});
+        $('#eyebankmaster-country_id').trigger('onchange');
+        setTimeout(function () {
+            $('#eyebankmaster-state_id').val(state_id).then($('#eyebankmaster-state_id').trigger('onchange'), fireagain())
+        }, '1500');
+    });
     var global_val = 1;
     function addPhone(count) {
         if (global_val < count) {
@@ -420,9 +416,9 @@ if ($model->isNewRecord) {
 <?php } else { ?>
         currentlat = '<?= $model->latitude; ?>';               //// india lat and long
         currentlong = '<?= $model->longitude; ?>';
-      
+
         setTimeout(function () {
-			  geocoder = new google.maps.Geocoder;
+            geocoder = new google.maps.Geocoder;
             geocodeLatLng(currentlat, currentlong);
         }, 100);
 

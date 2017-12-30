@@ -1,6 +1,3 @@
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <?php
 
 use yii\helpers\Html;
@@ -41,7 +38,7 @@ use yii\helpers\ArrayHelper;
         <?php
         $form = ActiveForm::begin([
                     'id' => 'update_mortuary_form',
-                    'options' => ['class' => 'form-horizontal form-row-seperated','enctype' => 'multipart/form-data'],
+                    'options' => ['class' => 'form-horizontal form-row-seperated', 'enctype' => 'multipart/form-data'],
                     'enableClientValidation' => false
                 ])
         ?>
@@ -85,16 +82,16 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-       
-         <div class="form-body">
+
+        <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">State<span class="required">*</span></label>
                 <div class="col-md-6">
                     <?php
                     $state_list = \app\models\States::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($state_list, 'id', 'name');
-                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => 
-                        '$.post("'.Url::to(['dashboard/getdistricts']).'?id=' . '"+$(this).val(),function(data){
+                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' =>
+                        '$.post("' . Url::to(['dashboard/getdistricts']) . '?id=' . '"+$(this).val(),function(data){
                       $("select#mortuarymaster-district_id").html(data);
                     });'])->label(false);
                     ?>
@@ -109,7 +106,7 @@ use yii\helpers\ArrayHelper;
                     $district_list = \app\models\Districts::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($district_list, 'id', 'name');
                     echo $form->field($model, 'district_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
-                    $.post("'.Url::to(['dashboard/getcities']).'?id=' . '"+$(this).val(),function(data){
+                    $.post("' . Url::to(['dashboard/getcities']) . '?id=' . '"+$(this).val(),function(data){
                       $("select#mortuarymaster-city_id").html(data);
                     });'])->label(false);
                     ?>
@@ -218,7 +215,7 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-<div class="form-body">
+        <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Image<span class="required">*</span></label>
                 <div class="col-md-6">
@@ -226,8 +223,8 @@ use yii\helpers\ArrayHelper;
                 </div>
                 <div class="col-md-3">
                     <div class="form-group text-center" id='preview-img-holder'>
-                        <img src="<?=Yii::$app->request->baseUrl . '\uploads\mortuary\\' . $model->image?>" class="thumb-image" style="height: 80px;">
-					</div>
+                        <img src="<?= Yii::$app->request->baseUrl . '\uploads\mortuary\\' . $model->image ?>" class="thumb-image" style="height: 80px;">
+                    </div>
                 </div>
                 <div class="help-block" id="err-image"></div>
             </div>
@@ -266,21 +263,25 @@ use yii\helpers\ArrayHelper;
         $('.timepicker').datetimepicker({
             format: 'LT'
         });
-		       
-     state_id="<?php echo $model->state_id?>";
-	 district_id="<?php echo $model->district_id?>";
-	 city_id="<?php echo $model->city_id?>";
-		function fireagain(){
-			setTimeout(function(){console.log('now'),$('#mortuarymaster-district_id').val(district_id).then($('#mortuarymaster-district_id').trigger('onchange'));},'2000');
-		}
-		$(function () {
-			$('.timepicker').datetimepicker({
-				format: 'LT'
-			});
 
-			$('#mortuarymaster-country_id').trigger('onchange');
-			setTimeout(function(){$('#mortuarymaster-state_id').val(state_id).then($('#mortuarymaster-state_id').trigger('onchange'),fireagain())},'1500');
-		});
+        state_id = "<?php echo $model->state_id ?>";
+        district_id = "<?php echo $model->district_id ?>";
+        city_id = "<?php echo $model->city_id ?>";
+        function fireagain() {
+            setTimeout(function () {
+                console.log('now'), $('#mortuarymaster-district_id').val(district_id).then($('#mortuarymaster-district_id').trigger('onchange'));
+            }, '2000');
+        }
+        $(function () {
+            $('.timepicker').datetimepicker({
+                format: 'LT'
+            });
+
+            $('#mortuarymaster-country_id').trigger('onchange');
+            setTimeout(function () {
+                $('#mortuarymaster-state_id').val(state_id).then($('#mortuarymaster-state_id').trigger('onchange'), fireagain())
+            }, '1500');
+        });
     });
     var global_val = 1;
     function addPhone(count) {
@@ -314,9 +315,9 @@ if ($model->isNewRecord) {
 <?php } else { ?>
         currentlat = '<?= $model->latitude; ?>';               //// india lat and long
         currentlong = '<?= $model->longitude; ?>';
-        
+
         setTimeout(function () {
-			geocoder = new google.maps.Geocoder;
+            geocoder = new google.maps.Geocoder;
             geocodeLatLng(currentlat, currentlong);
         }, 100);
 
