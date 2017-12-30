@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
@@ -84,10 +85,16 @@ use yii\helpers\ArrayHelper;
                     <?php
                     $country_list = \app\models\Countries::find()->all();
                     $listData = ArrayHelper::map($country_list, 'id', 'name');
-                    echo $form->field($model, 'country_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
+                    echo $form->field($model, 'country_id')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search Country', 'multiple' => false, 'onchange' => '
                     $.post("' . Url::to(['dashboard/getstates']) . '?id=' . '"+$(this).val(),function(data){
                       $("select#ayamaster-state_id").html(data);
-                    });'])->label(false);
+                    });'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(false);
                     ?>
                 </div>
             </div>
@@ -99,10 +106,16 @@ use yii\helpers\ArrayHelper;
                     <?php
                     $state_list = \app\models\States::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($state_list, 'id', 'name');
-                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' =>
-                        '$.post("' . Url::to(['dashboard/getdistricts']) . '?id=' . '"+$(this).val(),function(data){
-                      $("select#ayamaster-district_id").html(data);
-                    });'])->label(false);
+                    echo $form->field($model, 'state_id')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search State', 'multiple' => false, 'onchange' =>
+                            '$.post("' . Url::to(['dashboard/getdistricts']) . '?id=' . '"+$(this).val(),function(data){
+                         $("select#ayamaster-district_id").html(data);
+                        });'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(false);
                     ?>
                 </div>
             </div>
@@ -114,10 +127,16 @@ use yii\helpers\ArrayHelper;
                     <?php
                     $district_list = \app\models\Districts::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($district_list, 'id', 'name');
-                    echo $form->field($model, 'district_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
-                    $.post("' . Url::to(['dashboard/getcities']) . '?id=' . '"+$(this).val(),function(data){
-                      $("select#ayamaster-city_id").html(data);
-                    });'])->label(false);
+                    echo $form->field($model, 'district_id')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search District', 'multiple' => false, 'onchange' =>
+                            '$.post("' . Url::to(['dashboard/getcities']) . '?id=' . '"+$(this).val(),function(data){
+                         $("select#ayamaster-city_id").html(data);
+                        });'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(false);
                     ?>
                 </div>
             </div>
@@ -129,7 +148,13 @@ use yii\helpers\ArrayHelper;
                     <?php
                     $city_list = \app\models\Cities::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($city_list, 'id', 'name');
-                    echo $form->field($model, 'city_id')->dropDownList($listData, ['prompt' => 'Select'])->label(false);
+                    echo $form->field($model, 'city_id')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search City', 'multiple' => false],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(false);
                     ?>
                 </div>
             </div>
@@ -138,11 +163,8 @@ use yii\helpers\ArrayHelper;
             <div class="form-group">
                 <label class="control-label col-md-3">Map<span class="required">*</span></label>
                 <div class="col-md-6">
-
-
-                    <input id="pac-input" class="form-control controls1" type="text" placeholder="Search Box"><br>
-
-                    <div id="map" style="height: 324px;width: 100%;"></div>
+                    <input id="pac-input" class="pac-input form-control controls1" type="text" placeholder="Search Box"><br>
+                    <div id="map" class="map" style="height: 324px;width: 100%;"></div>
                 </div>
                 <div class="col-md-3">
                     <div class="btn-group btn-group-solid">
@@ -156,11 +178,11 @@ use yii\helpers\ArrayHelper;
                         <div class="col-md-12">
                             <div class="col-md-6">
                                 <label class="control-label col-md-3">Lat(First one)</label>
-                                <input type="text" id="AyaMaster-latitude" class="form-control" name="AyaMaster[latitude]">
+                                <input type="text" id="AyaMaster-latitude" class="latitude form-control" name="AyaMaster[latitude]">
                             </div>
                             <div class="col-md-6">
                                 <label class="control-label col-md-3">Long(Second one)</label>
-                                <input type="text" id="AyaMaster-longitude" class="form-control" name="AyaMaster[longitude]">
+                                <input type="text" id="AyaMaster-longitude" class="longitude form-control" name="AyaMaster[longitude]">
                             </div>
                         </div>
 
@@ -312,40 +334,6 @@ use yii\helpers\ArrayHelper;
     </div>
 </div>
 <script>
-    $(function () {
-        $('.timepicker').datetimepicker({
-            format: 'LT',
-        });
-        $(".datepicker").datepicker({
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: 'yy-mm-dd'
-        })
-    });
-    var global_val = 1;
-    function addPhone() {
-        $('.main_contact_div').append('<div><div class="row row_' + global_val + '">' +
-                '<div class="col-md-8">' +
-                '<input type="text" class="form-control" name="contact_no[]" value="">' +
-                '</div>' +
-                '<div class="col-md-4">' +
-                '<div class="btn-group btn-group-solid">' +
-                '<button type="button" class="btn btn-danger" style="font-size:17px;" onclick="removeRow(' + global_val + ')">X</button>' +
-                '</div>' +
-                '</div>' +
-                '</div>' +
-                '<div class="help-block"></div>' +
-                '</div>'
-                );
-        global_val++;
-    }
-    function removeRow(id) {
-        $('.row_' + id).remove();
-    }
-
-
-
-/////////////////////////////map script start/////////////////////////// 
 <?php
 if ($model->isNewRecord) {
     ?>
@@ -357,126 +345,6 @@ if ($model->isNewRecord) {
     <?php
 }
 ?>
-
-
-    message = false;
-    function geocodeLatLng(currentlat, currentlong) {
-        var latlng = {lat: parseFloat(currentlat), lng: parseFloat(currentlong)};
-        geocoder.geocode({'location': latlng}, function (results, status) {
-            if (status === 'OK') {
-                if (results[0]) {
-                    document.getElementById('pac-input').value = results[0].formatted_address;
-                    //var mylatlng = new google.maps.LatLng(currentlat, currentlong);
-                    // moveMarker(results[0].formatted_address, mylatlng, map);
-                    marker.setPosition(results[0].geometry.location);
-                    map.setCenter(results[0].geometry.location);
-                    map.setZoom(17);
-
-                } else {
-                    window.alert('No results found');
-                }
-            } else {
-                window.alert('Geocoder failed due to: ' + status);
-            }
-        });
-    }
-    function showPosition(position) {
-        currentlat = position.coords.latitude;
-        currentlong = position.coords.longitude;
-        document.getElementById('AyaMaster-latitude').value = currentlat;
-        document.getElementById('AyaMaster-longitude').value = currentlong;
-        geocodeLatLng(currentlat, currentlong);
-
-
-    }
-    function showError(error) {
-        switch (error.code) {
-            case error.PERMISSION_DENIED:
-                message = "User denied the request for Geolocation."
-                break;
-            case error.POSITION_UNAVAILABLE:
-                message = "Location information is unavailable."
-                break;
-            case error.TIMEOUT:
-                message = "The request to get user location timed out."
-                break;
-            case error.UNKNOWN_ERROR:
-                message = "An unknown error occurred."
-                break;
-        }
-    }
-    function getLocation() {
-        if (navigator.geolocation) {
-            //console.log(navigator.geolocation);
-            navigator.geolocation.getCurrentPosition(showPosition, showError);
-
-        } else {
-            message = "Geolocation is not supported by this browser.";
-        }
-        if (message) {
-            alert(message);
-        }
-    }
-
-    function initAutocomplete() {
-        var myLatlng = new google.maps.LatLng(currentlat, currentlong);
-        var myOptions = {
-            zoom: 5,
-            center: myLatlng,
-            scrollwheel: false,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        geocoder = new google.maps.Geocoder;
-        map = new google.maps.Map(document.getElementById("map"), myOptions),
-                marker = new google.maps.Marker({
-                    position: myLatlng,
-                    map: map,
-                    draggable: true,
-                });
-        google.maps.event.addListener(marker, 'dragend', function () {
-            document.getElementById('AyaMaster-latitude').value = marker.getPosition().lat();
-            document.getElementById('AyaMaster-longitude').value = marker.getPosition().lng();
-        });
-
-
-        // Create the search box and link it to the UI element.
-        var input = document.getElementById('pac-input');
-        var autocomplete = new google.maps.places.Autocomplete(input, {
-            types: ["geocode"]
-        });
-        autocomplete.bindTo('bounds', map);
-        var infowindow = new google.maps.InfoWindow();
-        google.maps.event.addListener(autocomplete, 'place_changed', function () {
-            infowindow.close();
-            var place = autocomplete.getPlace();
-            if (place.geometry.viewport) {
-                map.fitBounds(place.geometry.viewport);
-            } else {
-                map.setCenter(place.geometry.location);
-                map.setZoom(17);
-            }
-
-            moveMarker(place.name, place.geometry.location, map);
-            document.getElementById('AyaMaster-latitude').value = place.geometry.location.lat();
-            document.getElementById('AyaMaster-longitude').value = place.geometry.location.lng();
-        });
-    }
-    function moveMarker(placeName, latlng, map) {
-        marker = new google.maps.Marker({
-            position: latlng,
-            map: map,
-            draggable: true
-        });
-        marker.setPosition(latlng);
-
-        marker.addListener('drag', handleEvent);
-        marker.addListener('dragend', handleEvent);
-    }
-    function handleEvent(event) {
-        document.getElementById('AyaMaster-latitude').value = event.latLng.lat();
-        document.getElementById('AyaMaster-longitude').value = event.latLng.lng();
-    }
-/////////////////////////////map script end/////////////////////////// 
 </script>
 
 

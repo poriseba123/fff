@@ -45,7 +45,7 @@ class MainAsset extends AssetBundle {
         'themes/global/plugins/js.cookie.min.js',
         'themes/global/plugins/ckeditor/ckeditor.js',
 //        ============ custom js files ============
-        'themes/backend/custom/js/common.js',
+        ['themes/backend/custom/js/common.js', 'position' => \yii\web\View::POS_HEAD],
         'themes/global/js/lobibox.js',
         'themes/global/js/customAjaxNotifyFunctions.js',
         'themes/backend/custom/js/dashboard.js',
