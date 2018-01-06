@@ -25,7 +25,7 @@ use yii\data\ActiveDataProvider;
  * @property string $created_at
  * @property string $updated_at
  */
-class EyeBankMaster extends \yii\db\ActiveRecord {
+class HospitalNursingMaster extends \yii\db\ActiveRecord {
 
     /**
      * @inheritdoc
@@ -33,7 +33,7 @@ class EyeBankMaster extends \yii\db\ActiveRecord {
     public $cityrow_count;
 
     public static function tableName() {
-        return 'eye_bank_master';
+        return 'nursinghome_master';
     }
 
     /**
@@ -41,14 +41,13 @@ class EyeBankMaster extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['name', 'country_id', 'state_id', 'district_id', 'city_id', 'open_time', 'close_time', 'close_day', 'address', 'description', 'establishment_date', 'status'], 'required', 'on' => ['create', 'update']],
-            [['country_id', 'state_id', 'city_id', 'close_day', 'status'], 'integer'],
-            [['description', 'contact_no'], 'string'],
-            [['created_at', 'updated_at'], 'safe'],
+            [['name', 'country_id', 'state_id', 'district_id', 'city_id', 'address', 'status', 'type'], 'required', 'on' => ['create', 'update']],
+            [['country_id', 'state_id', 'city_id', 'emergency', 'status', 'ot', 'life_support', 'ambulance', 'medicine_shop', 'payment_otherthancash', 'outdore', 'type'], 'integer'],
+            [['description', 'contact_no', 'outdore_time', 'facility', 'name', 'pin', 'image', 'typeof_ward'], 'string'],
+            [['created_at', 'updated_at', 'establishment_date'], 'safe'],
             [['name'], 'string', 'max' => 100],
             [['address'], 'string', 'max' => 200],
             [['latitude', 'longitude'], 'string', 'max' => 50],
-            [['open_time', 'close_time'], 'string', 'max' => 20],
         ];
     }
 
@@ -59,20 +58,30 @@ class EyeBankMaster extends \yii\db\ActiveRecord {
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'type' => 'Hospital Type',
             'country_id' => 'Country ID',
             'state_id' => 'State ID',
             'district_id' => 'District ID',
             'city_id' => 'City ID',
             'address' => 'Address',
+            'pin' => 'Pin',
             'latitude' => 'Latitude',
             'longitude' => 'Longitude',
             'open_time' => 'Open Time',
-            'close_time' => 'Close Time',
-            'close_day' => 'Close Day',
+            'emergency' => 'Emergency',
+            'ot' => 'Operation theater',
+            'life_support' => 'Life supportsystem',
+            'ambulance' => 'Own ambulance',
             'description' => 'Description',
             'contact_no' => 'Contact No',
+            'image' => 'Image',
+            'medicine_shop' => 'Medicine shop',
+            'payment_otherthancash' => 'Payment accepted other than cash',
+            'facility' => 'Facility',
             'establishment_date' => 'Establishment Date',
-            'free_eyetest' => 'Free Check-up Time',
+            'outdore' => 'Outdore',
+            'outdore_time' => 'Outdore time',
+            'typeof_ward' => 'Type of ward',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -80,7 +89,7 @@ class EyeBankMaster extends \yii\db\ActiveRecord {
     }
 
     public function search($params) {
-        $query = EyeBankMaster::find();
+        $query = HospitalNursingMaster::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -101,18 +110,7 @@ class EyeBankMaster extends \yii\db\ActiveRecord {
                         'label' => 'address',
                         'default' => SORT_DESC
                     ],
-                    'open_time' => [
-                        'asc' => ['open_time' => SORT_ASC],
-                        'desc' => ['open_time' => SORT_DESC],
-                        'label' => 'open_time',
-                        'default' => SORT_DESC
-                    ],
-                    'close_time' => [
-                        'asc' => ['close_time' => SORT_ASC],
-                        'desc' => ['close_time' => SORT_DESC],
-                        'label' => 'close_time',
-                        'default' => SORT_DESC
-                    ],
+                    'type',
                     'status'
                 ]]
         ]);
@@ -125,8 +123,7 @@ class EyeBankMaster extends \yii\db\ActiveRecord {
 
         $query->andFilterWhere(['like', 'name', $this->name])
                 ->andFilterWhere(['like', 'address', $this->address])
-                ->andFilterWhere(['like', 'open_time', $this->open_time])
-                ->andFilterWhere(['like', 'close_time', $this->close_time])
+                ->andFilterWhere(['like', 'type', $this->type])
                 ->andFilterWhere(['like', 'status', $this->status])
                 ->andWhere('status <> \'3\'');
 
@@ -138,3 +135,5 @@ class EyeBankMaster extends \yii\db\ActiveRecord {
     }
 
 }
+
+?>
