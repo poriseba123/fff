@@ -25,30 +25,28 @@ use app\models\Cities;
  * @property string $created_at
  * @property string $updated_at
  */
-class AyaMaster extends \yii\db\ActiveRecord
-{
+class AyaMaster extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
     public $cityrow_count;
-    
-    public static function tableName()
-    {
+
+    public static function tableName() {
         return 'aya_master';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['name','country_id','district_id','state_id', 'city_id','close_day','address','status','baby_siter','male_aya'], 'required','on'=>['create','update']],
-            [['country_id', 'state_id', 'city_id', 'status','baby_siter','male_aya'], 'integer'],
-            [['contact_no','pin','establishment_date'], 'string'],
+            [['name', 'country_id', 'district_id', 'state_id', 'city_id', 'close_day', 'address', 'status', 'baby_siter', 'male_aya'], 'required', 'on' => ['create', 'update']],
+            [['country_id', 'state_id', 'city_id', 'status', 'baby_siter', 'male_aya'], 'integer'],
+            [['contact_no', 'pin', 'establishment_date'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 100],
-			[['name', 'address'], 'unique'],
+            [['name', 'address'], 'unique'],
             [['address'], 'string', 'max' => 200],
             [['latitude', 'longitude'], 'string', 'max' => 50],
             [['open_time', 'close_time'], 'string', 'max' => 20],
@@ -58,12 +56,11 @@ class AyaMaster extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'name' => 'Name',
-			'country_id' => 'Country ID',
+            'country_id' => 'Country ID',
             'state_id' => 'State ID',
             'city_id' => 'City ID',
             'address' => 'Address',
@@ -75,12 +72,13 @@ class AyaMaster extends \yii\db\ActiveRecord
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-			'pin' => 'Pin',
-			'baby_siter' => 'Babysiter(available)',
-			'male_aya' => 'Maleaya(available)',
-			'establishment_date' =>'Establishment date',
+            'pin' => 'Pin',
+            'baby_siter' => 'Babysiter(available)',
+            'male_aya' => 'Maleaya(available)',
+            'establishment_date' => 'Establishment date',
         ];
     }
+
     public function search($params) {
         $query = AyaMaster::find();
         $dataProvider = new ActiveDataProvider([
@@ -110,7 +108,6 @@ class AyaMaster extends \yii\db\ActiveRecord
                         'default' => SORT_DESC
                     ],
                     'status',
-					
                 ]]
         ]);
 
@@ -128,7 +125,9 @@ class AyaMaster extends \yii\db\ActiveRecord
 
         return $dataProvider;
     }
+
     public function getCity() {
         return $this->hasOne(Cities::className(), ['id' => 'city_id']);
     }
+
 }
