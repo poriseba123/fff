@@ -25,30 +25,28 @@ use app\models\Cities;
  * @property string $created_at
  * @property string $updated_at
  */
-class MedicineShopMaster extends \yii\db\ActiveRecord
-{
+class MedicineShopMaster extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
     public $cityrow_count;
-    
-    public static function tableName()
-    {
+
+    public static function tableName() {
         return 'medicine_shop_master';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['name','category_id', 'country_id','district_id','state_id', 'city_id','close_day','address','status'], 'required','on'=>['create','update']],
+            [['name', 'category_id', 'country_id', 'district_id', 'state_id', 'city_id', 'close_day', 'address', 'status'], 'required', 'on' => ['create', 'update']],
             [['category_id', 'country_id', 'state_id', 'city_id', 'status'], 'integer'],
-            [['contact_no','pin'], 'string'],
+            [['contact_no', 'pin'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 100],
-			[['name', 'address'], 'unique'],
+            [['name', 'address'], 'unique'],
             [['address'], 'string', 'max' => 200],
             [['latitude', 'longitude'], 'string', 'max' => 50],
             [['open_time', 'close_time'], 'string', 'max' => 20],
@@ -58,8 +56,7 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'name' => 'Name',
@@ -76,9 +73,10 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-			'pin' => 'Pin',
+            'pin' => 'Pin',
         ];
     }
+
     public function search($params) {
         $query = MedicineShopMaster::find();
         $dataProvider = new ActiveDataProvider([
@@ -114,7 +112,6 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
                         'default' => SORT_DESC
                     ],
                     'status',
-					
                 ]]
         ]);
 
@@ -127,13 +124,15 @@ class MedicineShopMaster extends \yii\db\ActiveRecord
         $query->andFilterWhere(['like', 'name', $this->name])
                 ->andFilterWhere(['like', 'address', $this->address])
                 ->andFilterWhere(['like', 'category_id', $this->category_id])
-				->andFilterWhere(['like', 'city_id', $this->city_id])
+                ->andFilterWhere(['like', 'city_id', $this->city_id])
                 ->andFilterWhere(['like', 'status', $this->status])
                 ->andWhere('status <> \'3\'');
 
         return $dataProvider;
     }
+
     public function getCity() {
         return $this->hasOne(Cities::className(), ['id' => 'city_id']);
     }
+
 }
