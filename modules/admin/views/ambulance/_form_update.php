@@ -336,7 +336,9 @@ use kartik\select2\Select2;
     </div>
 </div>
 <script>
- 
+    state_id = "<?php echo $model->state_id ?>";
+    district_id = "<?php echo $model->district_id ?>";
+    city_id = "<?php echo $model->city_id ?>";
 <?php
 if ($model->isNewRecord) {
     ?>
