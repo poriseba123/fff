@@ -20,6 +20,14 @@ $(function () {
             }
 
         })
+        if (typeof state_id == "undefined") {
+            console.log(state);
+            $('#' + country).val('1').trigger("change");
+             setTimeout(function () {
+                    $('#' + state).val('1').trigger("change")
+                }, '1000');
+            //$('#' + state).val('1').trigger("change");
+        }
     }, '2500');
     $('.timepicker').datetimepicker({
         format: 'LT'
