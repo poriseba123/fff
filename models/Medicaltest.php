@@ -12,13 +12,13 @@ use yii\data\ActiveDataProvider;
  * @property string $name
  * @property int $state_id
  */
-class Cities extends \yii\db\ActiveRecord {
+class Medicaltest extends \yii\db\ActiveRecord {
 
     /**
      * @inheritdoc
      */
     public static function tableName() {
-        return 'cities';
+        return 'medical_tests';
     }
 
     /**
@@ -26,8 +26,8 @@ class Cities extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['name', 'district_id', 'status'], 'required', 'on' => ['create', 'update']],
-            [['district_id', 'status'], 'integer'],
+            [['name', 'status'], 'required', 'on' => ['create', 'update']],
+            [['status'], 'integer'],
             [['name'], 'unique'],
             [['name'], 'string', 'max' => 30],
         ];
@@ -41,13 +41,12 @@ class Cities extends \yii\db\ActiveRecord {
         return [
             'id' => 'ID',
             'name' => 'Name',
-            'district_id' => 'District',
             'status' => 'Status'
         ];
     }
 
     public function search($params) {
-        $query = Cities::find();
+        $query = Medicaltest::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -62,12 +61,6 @@ class Cities extends \yii\db\ActiveRecord {
                         'label' => 'name',
                         'default' => SORT_DESC
                     ],
-                    'district_id' => [
-                        'asc' => ['district_id' => SORT_ASC],
-                        'desc' => ['district_id' => SORT_DESC],
-                        'label' => 'District',
-                        'default' => SORT_DESC
-                    ],
                     'status'
                 ]]
         ]);
@@ -79,7 +72,6 @@ class Cities extends \yii\db\ActiveRecord {
         }
 
         $query->andFilterWhere(['like', 'name', $this->name])
-                ->andFilterWhere(['like', 'district_id', $this->district_id])
                 ->andFilterWhere(['like', 'status', $this->status])
                 ->andWhere('status <> \'3\'');
 
@@ -87,3 +79,5 @@ class Cities extends \yii\db\ActiveRecord {
     }
 
 }
+
+?>

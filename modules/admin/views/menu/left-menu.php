@@ -16,7 +16,7 @@
                     <span class="selected"></span>
                 </a>
             </li>
-            <li class="heading">
+           <li class="heading">
                 <h3 class="uppercase">Site Settings</h3>
             </li>
             <li class="nav-item start <?= (Yii::$app->controller->id == 'settings') ? 'active' : '' ?>">
@@ -26,7 +26,7 @@
                     <span class="selected"></span>
                 </a>
             </li>
-			 <li class="heading">
+            <li class="heading">
                 <h3 class="uppercase">location</h3>
             </li>
             <li class="nav-item start <?= (Yii::$app->controller->id == 'state') ? 'active' : '' ?>">
@@ -36,14 +36,14 @@
                     <span class="selected"></span>
                 </a>
             </li>
-			<li class="nav-item start <?= (Yii::$app->controller->id == 'district') ? 'active' : '' ?>">
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'district') ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('district'); ?>" class="nav-link ">
                     <i class="fa fa-globe fa-spin fa-3x fa-fw"></i>
                     <span class="title">District</span>
                     <span class="selected"></span>
                 </a>
             </li>
-			<li class="nav-item start <?= (Yii::$app->controller->id == 'city') ? 'active' : '' ?>">
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'city') ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('city'); ?>" class="nav-link ">
                     <i class="fa fa-globe fa-spin fa-3x fa-fw"></i>
                     <span class="title">City</span>
@@ -77,6 +77,13 @@
             <li class="heading">
                 <h3 class="uppercase">Generals</h3>
             </li>
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'medicaltest') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('medicaltest'); ?>" class="nav-link ">
+                    <i class="fa fa-flask  fa-3x fa-fw"></i>
+                    <span class="title">Medical Test</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
             <!--user management section start-->
             <?php $allControllers = ['admin', 'subadmin', 'users']; ?>
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
@@ -106,10 +113,10 @@
                         </a>
                     </li>
                 </ul>
-                    </li>
-                <!--user management section end-->
-                <!--Doctor management section start-->
-			<li class="nav-item <?= (Yii::$app->controller->id == "doctorspecialities") ? 'active' : '' ?>">
+            </li>
+            <!--user management section end-->
+            <!--Doctor management section start-->
+            <li class="nav-item <?= (Yii::$app->controller->id == "doctorspecialities") ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('doctorspecialities') ?>" class="nav-link ">
                     <i class="fa fa-user-md" aria-hidden="true"></i>
                     <span class="title">Doctor Specialities Management</span>
@@ -155,9 +162,9 @@
                 </ul>
             </li>
 
-                <!--emergency transport management end-->
-                <!--health care bank  management section start-->
-                <?php $allControllers = ['bloodbank', 'eyebank']; ?>
+            <!--emergency transport management end-->
+            <!--health care bank  management section start-->
+            <?php $allControllers = ['bloodbank', 'eyebank']; ?>
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-university fa-fw"></i>
@@ -181,15 +188,15 @@
                 </ul>
             </li>
 
-                <!--health care management end-->
-                <!--shop management section start-->
+            <!--health care management end-->
+            <!--shop management section start-->
 
-                <?php $allControllers = ['allopathicshop', 'homeopathyshop', 'ayurvedicshop']; ?>
+            <?php $allControllers = ['allopathicshop', 'homeopathyshop', 'ayurvedicshop']; ?>
 
-                <!--bank management end-->
+            <!--bank management end-->
 
-                <!--fitness section start-->
-                <?php $allControllers = ['gym', 'yogacenter', 'physiotherapy', 'swimmingclub', 'karateclub']; ?>
+            <!--fitness section start-->
+            <?php $allControllers = ['gym', 'yogacenter', 'physiotherapy', 'swimmingclub', 'karateclub']; ?>
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-spotify fa-fw"></i>
@@ -224,7 +231,7 @@
 
                 </ul>
             </li>
-                <!--fitness management end-->
+            <!--fitness management end-->
 
             <li class="nav-item <?= (Yii::$app->controller->id == "diagnosticcentre") ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('diagnosticcentre') ?>" class="nav-link ">
@@ -239,7 +246,7 @@
                     <span class="title">Hospital/Nursing-home</span>
                 </a>
             </li>
-			 <li class="nav-item <?= (Yii::$app->controller->id == "ayacenter") ? 'active' : '' ?>">
+            <li class="nav-item <?= (Yii::$app->controller->id == "ayacenter") ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('ayacenter/') ?>" class="nav-link ">
                     <i class="fa fa-users fa-fw" aria-hidden="true"></i>
                     <span class="title">Aya Center</span>

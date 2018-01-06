@@ -109,6 +109,96 @@ $('body').on('submit', '#update-chamber-form', function (e) {
             }, 'json');
 });
 
+//////////////////////////////////////////////////////medical test create form start////////////////////////////////////////
+
+$('body').on('submit', '#create_medicaltest_form', function (e) {
+    e.preventDefault();
+    var error = false;
+    loader_start();
+    var _this = $(this);
+    _this.find(".has-error").removeClass("has-error");
+    _this.find(".help-block").html("");
+    var data = _this.serialize();
+    var url = full_path + "medicaltest/createajax";
+    $.ajax({
+        url: url, // Url to which the request is send
+        type: "POST", // Type of request to be send, called as method
+        data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+        contentType: false, // The content type used when sending data to the server.
+        cache: false, // To unable request pages to be cached
+        processData: false, // To send DOMDocument or non processed data file it is set to false
+        dataType: 'json',
+        success: function (resp) // A function to be called if request succeeds
+        {
+            loader_stop();
+            if (resp.flag == true) {
+                notifySuccess(true, true, resp.msg, 'bottom center', 5000);
+                setTimeout(function () {
+                    location.href = resp.url;
+                }, '2000');
+            } else {
+
+                $.each(resp.errors, function (item, value) {
+                    $('#medicaltest-' + item).parent().addClass("has-error");
+                    $('#medicaltest-' + item).parent().find(".help-block").html(value);
+                });
+                if (resp.phone == false) {
+                    $('.main_contact_div').find('input:text')
+                            .each(function () {
+                                var input_field_val = $(this).val();
+                                if (input_field_val == '') {
+                                    $(this).parent().parent().parent().addClass("has-error");
+                                    $(this).parent().parent().parent().find(".help-block").html('Field cannot be blank');
+                                    error = true;
+                                }
+                            });
+                }
+            }
+        }
+    });
+
+});
+/////////////////////////////////////////////////end///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////medical test update form///////////////////////////////////////////////
+$('body').on('submit', '#update_medicaltest_form', function (e) {
+    var error = false;
+    e.preventDefault();
+    loader_start();
+    var _this = $(this);
+    _this.find(".has-error").removeClass("has-error");
+    _this.find(".help-block").html("");
+    var data = _this.serialize();
+    var url = full_path + "medicaltest/updateajax";
+    $.ajax({
+        url: url, // Url to which the request is send
+        type: "POST", // Type of request to be send, called as method
+        data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+        contentType: false, // The content type used when sending data to the server.
+        cache: false, // To unable request pages to be cached
+        processData: false, // To send DOMDocument or non processed data file it is set to false
+        dataType: 'json',
+        success: function (resp) // A function to be called if request succeeds
+        {
+            loader_stop();
+            if (resp.flag == true) {
+                notifySuccess(true, true, resp.msg, 'bottom center', 5000);
+                setTimeout(function () {
+                    location.href = resp.url;
+                }, '2000');
+            } else {
+
+                $.each(resp.errors, function (item, value) {
+                    $('#medicaltest-' + item).parent().addClass("has-error");
+                    $('#medicaltest-' + item).parent().find(".help-block").html(value);
+                });
+
+            }
+        }
+    });
+
+});
+//////////////////////////////////////////////////////////////end/////////////////////////////////////////////////////
+
 //////////////////////////////////////////////////////aya center create form start////////////////////////////////////////
 
 $('body').on('submit', '#create_ayacenter_form', function (e) {
@@ -858,8 +948,8 @@ $('body').on('submit', '#create_state_form', function (e) {
             } else {
 
                 $.each(resp.errors, function (item, value) {
-                    $('#ambulancemaster-' + item).parent().addClass("has-error");
-                    $('#ambulancemaster-' + item).parent().find(".help-block").html(value);
+                    $('#states-' + item).parent().addClass("has-error");
+                    $('#states-' + item).parent().find(".help-block").html(value);
                 });
 
             }
@@ -898,8 +988,8 @@ $('body').on('submit', '#update_state_form', function (e) {
             } else {
 
                 $.each(resp.errors, function (item, value) {
-                    $('#mortuarymaster-' + item).parent().addClass("has-error");
-                    $('#mortuarymaster-' + item).parent().find(".help-block").html(value);
+                    $('#states-' + item).parent().addClass("has-error");
+                    $('#states-' + item).parent().find(".help-block").html(value);
                 });
 
             }
@@ -941,8 +1031,8 @@ $('body').on('submit', '#create_district_form', function (e) {
             } else {
 
                 $.each(resp.errors, function (item, value) {
-                    $('#ambulancemaster-' + item).parent().addClass("has-error");
-                    $('#ambulancemaster-' + item).parent().find(".help-block").html(value);
+                    $('#districts-' + item).parent().addClass("has-error");
+                    $('#districts-' + item).parent().find(".help-block").html(value);
                 });
 
             }
@@ -981,8 +1071,8 @@ $('body').on('submit', '#update_district_form', function (e) {
             } else {
 
                 $.each(resp.errors, function (item, value) {
-                    $('#mortuarymaster-' + item).parent().addClass("has-error");
-                    $('#mortuarymaster-' + item).parent().find(".help-block").html(value);
+                    $('#districts-' + item).parent().addClass("has-error");
+                    $('#districts-' + item).parent().find(".help-block").html(value);
                 });
 
             }
@@ -1024,8 +1114,8 @@ $('body').on('submit', '#create_city_form', function (e) {
             } else {
 
                 $.each(resp.errors, function (item, value) {
-                    $('#ambulancemaster-' + item).parent().addClass("has-error");
-                    $('#ambulancemaster-' + item).parent().find(".help-block").html(value);
+                    $('#cities-' + item).parent().addClass("has-error");
+                    $('#cities-' + item).parent().find(".help-block").html(value);
                 });
 
             }
@@ -1064,8 +1154,8 @@ $('body').on('submit', '#update_city_form', function (e) {
             } else {
 
                 $.each(resp.errors, function (item, value) {
-                    $('#mortuarymaster-' + item).parent().addClass("has-error");
-                    $('#mortuarymaster-' + item).parent().find(".help-block").html(value);
+                    $('#cities-' + item).parent().addClass("has-error");
+                    $('#cities-' + item).parent().find(".help-block").html(value);
                 });
 
             }
