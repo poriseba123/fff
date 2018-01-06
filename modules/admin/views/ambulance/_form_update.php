@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
@@ -69,15 +70,30 @@ use yii\helpers\ArrayHelper;
         </div>
         <div class="form-body">
             <div class="form-group">
+                <label class="control-label col-md-3">Pin<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'pin')->textInput(['class' => 'form-control', 'maxlength' => '6'])->label(false); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
                 <label class="control-label col-md-3">Country<span class="required">*</span></label>
                 <div class="col-md-6">
                     <?php
                     $country_list = \app\models\Countries::find()->all();
                     $listData = ArrayHelper::map($country_list, 'id', 'name');
-                    echo $form->field($model, 'country_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
-                    $.post("' . Url::to(['dashboard/getstates']) . '?id=' . '"+$(this).val(),function(data){
-                      $("select#ambulancemaster-state_id").html(data);
-                    });'])->label(false);
+                    echo $form->field($model, 'country_id')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search Country', 'multiple' => false, 'onchange' => '
+                        $.post("' . Url::to(['dashboard/getstates']) . '?id=' . '"+$(this).val(),function(data){
+                          $("select#ambulancemaster-state_id").html(data);
+                        });'],
+                        'pluginOptions' => [
+                            'allowClear' => true,
+                            'tags' => true,
+                        ],
+                    ])->label(false);
                     ?>
                 </div>
             </div>
@@ -89,10 +105,17 @@ use yii\helpers\ArrayHelper;
                     <?php
                     $state_list = \app\models\States::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($state_list, 'id', 'name');
-                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' =>
-                        '$.post("' . Url::to(['dashboard/getdistricts']) . '?id=' . '"+$(this).val(),function(data){
-                      $("select#ambulancemaster-district_id").html(data);
-                    });'])->label(false);
+                    echo $form->field($model, 'state_id')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search State', 'multiple' => false, 'onchange' =>
+                            '$.post("' . Url::to(['dashboard/getdistricts']) . '?id=' . '"+$(this).val(),function(data){
+                         $("select#ambulancemaster-district_id").html(data);
+                        });'],
+                        'pluginOptions' => [
+                            'allowClear' => true,
+                            'tags' => true,
+                        ],
+                    ])->label(false);
                     ?>
                 </div>
             </div>
@@ -104,10 +127,17 @@ use yii\helpers\ArrayHelper;
                     <?php
                     $district_list = \app\models\Districts::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($district_list, 'id', 'name');
-                    echo $form->field($model, 'district_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
-                    $.post("' . Url::to(['dashboard/getcities']) . '?id=' . '"+$(this).val(),function(data){
-                      $("select#ambulancemaster-city_id").html(data);
-                    });'])->label(false);
+                    echo $form->field($model, 'district_id')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search District', 'multiple' => false, 'onchange' =>
+                            '$.post("' . Url::to(['dashboard/getcities']) . '?id=' . '"+$(this).val(),function(data){
+                         $("select#ambulancemaster-city_id").html(data);
+                        });'],
+                        'pluginOptions' => [
+                            'allowClear' => true,
+                            'tags' => true,
+                        ],
+                    ])->label(false);
                     ?>
                 </div>
             </div>
@@ -119,7 +149,13 @@ use yii\helpers\ArrayHelper;
                     <?php
                     $city_list = \app\models\Cities::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($city_list, 'id', 'name');
-                    echo $form->field($model, 'city_id')->dropDownList($listData, ['prompt' => 'Select'])->label(false);
+                    echo $form->field($model, 'city_id')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search City', 'multiple' => false],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(false);
                     ?>
                 </div>
             </div>
@@ -128,10 +164,8 @@ use yii\helpers\ArrayHelper;
             <div class="form-group">
                 <label class="control-label col-md-3">Map<span class="required">*</span></label>
                 <div class="col-md-6">
-                    <input type="hidden" id="ambulancemaster-latitude" class="form-control" name="AmbulanceMaster[latitude]" value="<?= $model->latitude ?>">
-                    <input type="hidden" id="ambulancemaster-longitude" class="form-control" name="AmbulanceMaster[longitude]" value="<?= $model->longitude ?>">
-                    <input id="pac-input" class="form-control controls1" type="text" placeholder="Search Box"><br>
-                    <div id="map" style="height: 324px;width: 100%;"></div>
+                    <input id="pac-input" class="pac-input form-control controls1" value="" type="text" placeholder="Search Box"><br>
+                    <div id="map" class="map" style="height: 324px;width: 100%;"></div>
                 </div>
                 <div class="col-md-3">
                     <div class="btn-group btn-group-solid">
@@ -140,6 +174,22 @@ use yii\helpers\ArrayHelper;
                         </button>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <label class="control-label col-md-3">Lat(First one)</label>
+                                <input type="text" id="ambulancemaster-latitude" class="latitude form-control" name="AmbulanceMaster[latitude]" value="<?= $model->latitude ?>">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label col-md-3">Long(Second one)</label>
+                                <input type="text" id="ambulancemaster-longitude" class="longitude form-control" name="AmbulanceMaster[longitude]" value="<?= $model->longitude ?>">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="form-body">
