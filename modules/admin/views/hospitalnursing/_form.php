@@ -236,7 +236,7 @@ use kartik\select2\Select2;
                 </div>
             </div>
         </div>
-        <div class="form-body">
+        <div class="form-body showme" style="display: none;">
             <div class="form-group">
                 <label class="control-label col-md-3">Out doer Time<span class="required">*</span></label>
                 <div class="col-md-9">

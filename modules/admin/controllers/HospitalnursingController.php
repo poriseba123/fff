@@ -171,6 +171,7 @@ class HospitalnursingController extends AdminController {
     public function actionCreateajax() {
         if (Yii::$app->request->isAjax) {
             $resp = [];
+            $final_arr = [];
             $imgName = '';
             $imgError = 0;
             $resp['imgErr'] = false;
@@ -180,32 +181,36 @@ class HospitalnursingController extends AdminController {
             $phone_check = $_POST['contact_no'];
 
             $day_all = $_POST['dayMaster'];
+
             $start_time = $_POST['start_time'];
             $end_time = $_POST['end_time'];
             $time_error = false;
             $resp['checkbox'] = true;
-
-            foreach ($day_all as $k => $v) {
-                foreach ($_POST['start_time'][$v] as $key => $value) {
-                    if ($value == '') {
-                        $time_error = true;
+            $all_postdata_arr = $_POST['HospitalNursingMaster'];
+            $facility = $all_postdata_arr['facility'];
+            if ($all_postdata_arr['outdore'] == "1") {
+                foreach ($day_all as $k => $v) {
+                    foreach ($_POST['start_time'][$v] as $key => $value) {
+                        if ($value == '') {
+                            $time_error = true;
+                        }
+                    }
+                    foreach ($_POST['end_time'][$v] as $key => $value) {
+                        if ($value == '') {
+                            $time_error = true;
+                        }
                     }
                 }
-                foreach ($_POST['end_time'][$v] as $key => $value) {
-                    if ($value == '') {
-                        $time_error = true;
+                if ($time_error) {
+                    $resp['checkbox'] = false;
+                }
+                if (!empty($day_all)) {
+                    foreach ($day_all as $index => $days) {
+                        $final_arr[$days] = $days . '-' . $start_time[$days][0] . '-' . $end_time[$days][0];
                     }
                 }
             }
-            if ($time_error) {
-                $resp['checkbox'] = false;
-            }
 
-            if (!empty($day_all)) {
-                foreach ($day_all as $index => $days) {
-                    $final_arr[$days] = $days . '-' . $start_time[$days][0] . '-' . $end_time[$days][0];
-                }
-            }
 
             foreach ($phone_check as $k => $v) {
                 if ($v == '') {
@@ -238,7 +243,13 @@ class HospitalnursingController extends AdminController {
                 $model->created_at = date("Y-m-d H:i:s");
                 if ($model->validate() && $phone_error == false && $imgError == 0) {
                     $model->contact_no = implode(',', $_POST['contact_no']);
-                    $model->outdore_time = json_encode($final_arr);
+                    if (!empty($facility)) {
+                        $model->facility = implode(',', $facility);
+                    }
+                    //$model->facility = implode(',', $facility);
+                    if (!empty($final_arr)) {
+                        $model->outdore_time = json_encode($final_arr);
+                    }
                     $model->save(false);
                     $resp['flag'] = true;
                     $resp['url'] = Url::to(['hospitalnursing/index']);
@@ -254,7 +265,8 @@ class HospitalnursingController extends AdminController {
 
     public function actionUpdateajax() {
         if (Yii::$app->request->isAjax) {
-            $med_shop_id = $_POST['eye_bank_id'];
+            $final_arr = [];
+            $med_shop_id = $_POST['hospital_id'];
             $resp = [];
             $imgError = 0;
             $resp['imgErr'] = false;
@@ -267,27 +279,32 @@ class HospitalnursingController extends AdminController {
             $end_time = $_POST['end_time'];
             $time_error = false;
             $resp['checkbox'] = true;
-            foreach ($day_all as $k => $v) {
-                foreach ($_POST['start_time'][$v] as $key => $value) {
-                    if ($value == '') {
-                        $time_error = true;
+            $all_postdata_arr = $_POST['HospitalNursingMaster'];
+            $facility = $all_postdata_arr['facility'];
+            if ($all_postdata_arr['outdore'] == "1") {
+                foreach ($day_all as $k => $v) {
+                    foreach ($_POST['start_time'][$v] as $key => $value) {
+                        if ($value == '') {
+                            $time_error = true;
+                        }
+                    }
+                    foreach ($_POST['end_time'][$v] as $key => $value) {
+                        if ($value == '') {
+                            $time_error = true;
+                        }
                     }
                 }
-                foreach ($_POST['end_time'][$v] as $key => $value) {
-                    if ($value == '') {
-                        $time_error = true;
+                if ($time_error) {
+                    $resp['checkbox'] = false;
+                }
+
+                if (!empty($day_all)) {
+                    foreach ($day_all as $index => $days) {
+                        $final_arr[$days] = $days . '-' . $start_time[$days][0] . '-' . $end_time[$days][0];
                     }
                 }
-            }
-            if ($time_error) {
-                $resp['checkbox'] = false;
             }
 
-            if (!empty($day_all)) {
-                foreach ($day_all as $index => $days) {
-                    $final_arr[$days] = $days . '-' . $start_time[$days][0] . '-' . $end_time[$days][0];
-                }
-            }
             foreach ($phone_check as $k => $v) {
                 if ($v == '') {
                     $phone_error = true;
@@ -318,7 +335,12 @@ class HospitalnursingController extends AdminController {
                 $model->updated_at = date("Y-m-d H:i:s");
                 if ($model->validate() && $phone_error == false && $imgError == 0) {
                     $model->contact_no = implode(',', $_POST['contact_no']);
-                    $model->free_eyetest = json_encode($final_arr);
+                    if (!empty($final_arr)) {
+                        $model->outdore_time = json_encode($final_arr);
+                        if (!empty($facility)) {
+                            $model->facility = implode(',', $facility);
+                        }
+                    }
                     $model->save(false);
                     $resp['flag'] = true;
                     $resp['url'] = Url::to(['hospitalnursing/index']);

@@ -14,13 +14,13 @@ use yii\helpers\ArrayHelper;
 use yii\console\Application;
 use yii\web\NotFoundHttpException;
 use app\modules\admin\components\AdminController;
-use app\models\Medicaltest;
+use app\models\Hospitalfacility;
 use yii\imagine\Image;
 use Imagine\Gd;
 use Imagine\Image\Box;
 use Imagine\Image\BoxInterface;
 
-class MedicaltestController extends AdminController {
+class HospitalunitsController extends AdminController {
 
     public function column() {
 
@@ -58,13 +58,13 @@ class MedicaltestController extends AdminController {
                 'urlCreator' => function($action, $model, $key, $index) {
                     switch ($action) {
                         case "view":
-                            return Url::to(['medicaltest/view', 'id' => $model->id]);
+                            return Url::to(['hospitalunits/view', 'id' => $model->id]);
                             break;
                         case "update":
-                            return Url::to(['medicaltest/update', 'id' => $model->id]);
+                            return Url::to(['hospitalunits/update', 'id' => $model->id]);
                             break;
                         case "delete":
-                            return Url::to(['medicaltest/delete', 'id' => $model->id]);
+                            return Url::to(['hospitalunits/delete', 'id' => $model->id]);
                             break;
                     }
                 },
@@ -85,7 +85,7 @@ class MedicaltestController extends AdminController {
     }
 
     public function actionIndex() {
-        $searchModel = new Medicaltest;
+        $searchModel = new Hospitalfacility;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $widget = GridView::widget([
                     'dataProvider' => $dataProvider,
@@ -130,7 +130,7 @@ class MedicaltestController extends AdminController {
 
     public function actionCreate() {
         $data = [];
-        $model = new Medicaltest;
+        $model = new Hospitalfacility;
         $model->scenario = "create";
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
@@ -147,14 +147,14 @@ class MedicaltestController extends AdminController {
         if (Yii::$app->request->isAjax) {
             $resp = [];
             $resp['flag'] = false;
-            $model = new Medicaltest();
+            $model = new Hospitalfacility();
             $model->scenario = "create";
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->validate()) {
                     $model->save(false);
                     $resp['flag'] = true;
-                    $resp['url'] = Url::to(['medicaltest/index']);
-                    $resp['msg'] = "City successfully created";
+                    $resp['url'] = Url::to(['hospitalunits/index']);
+                    $resp['msg'] = "Hospital unit successfully created";
                 } else {
                     $resp['errors'] = $model->getErrors();
                 }
@@ -166,17 +166,17 @@ class MedicaltestController extends AdminController {
 
     public function actionUpdateajax() {
         if (Yii::$app->request->isAjax) {
-            $medicaltest_id = $_POST['unit_id'];
+            $hospitalunits_id = $_POST['hospitalunits_id'];
             $resp = [];
             $resp['flag'] = false;
-            $model = Medicaltest::findOne($medicaltest_id);
+            $model = Hospitalfacility::findOne($hospitalunits_id);
             $model->scenario = "update";
             if ($model->load(Yii::$app->request->post())) {
                 if ($model->validate()) {
                     $model->save(false);
                     $resp['flag'] = true;
-                    $resp['url'] = Url::to(['medicaltest/index']);
-                    $resp['msg'] = "City successfully updated";
+                    $resp['url'] = Url::to(['hospitalunits/index']);
+                    $resp['msg'] = "Hospital unit successfully updated";
                 } else {
                     $resp['errors'] = $model->getErrors();
                 }
@@ -188,7 +188,7 @@ class MedicaltestController extends AdminController {
 
     public function actionUpdate($id) {
         $data = [];
-        $model = Medicaltest::findOne($id);
+        $model = Hospitalfacility::findOne($id);
         $model->scenario = 'update';
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->save(false);
@@ -199,7 +199,7 @@ class MedicaltestController extends AdminController {
     }
 
     public function actionDelete($id) {
-        $chamber = Medicaltest::findOne($id);
+        $chamber = Hospitalfacility::findOne($id);
         $chamber->status = 3;
         $chamber->save(false);
         Yii::$app->session->setFlash('success', ' deleted.');
@@ -213,7 +213,7 @@ class MedicaltestController extends AdminController {
     }
 
     protected function findModel($id) {
-        if (($model = Medicaltest::findOne($id)) !== null) {
+        if (($model = Hospitalfacility::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

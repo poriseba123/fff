@@ -43,8 +43,8 @@ class HospitalNursingMaster extends \yii\db\ActiveRecord {
         return [
             [['name', 'country_id', 'state_id', 'district_id', 'city_id', 'address', 'status', 'type'], 'required', 'on' => ['create', 'update']],
             [['country_id', 'state_id', 'city_id', 'emergency', 'status', 'ot', 'life_support', 'ambulance', 'medicine_shop', 'payment_otherthancash', 'outdore', 'type'], 'integer'],
-            [['description', 'contact_no', 'outdore_time', 'facility', 'name', 'pin', 'image', 'typeof_ward'], 'string'],
-            [['created_at', 'updated_at', 'establishment_date'], 'safe'],
+            [['description', 'contact_no', 'outdore_time','name', 'pin', 'image', 'typeof_ward'], 'string'],
+            [['created_at', 'updated_at', 'establishment_date','facility'], 'safe'],
             [['name'], 'string', 'max' => 100],
             [['address'], 'string', 'max' => 200],
             [['latitude', 'longitude'], 'string', 'max' => 50],

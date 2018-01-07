@@ -16,7 +16,7 @@
                     <span class="selected"></span>
                 </a>
             </li>
-           <li class="heading">
+            <li class="heading">
                 <h3 class="uppercase">Site Settings</h3>
             </li>
             <li class="nav-item start <?= (Yii::$app->controller->id == 'settings') ? 'active' : '' ?>">
@@ -84,6 +84,14 @@
                     <span class="selected"></span>
                 </a>
             </li>
+              <li class="nav-item start <?= (Yii::$app->controller->id == 'hospitalunits') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('hospitalunits'); ?>" class="nav-link ">
+                    <i class="fa fa-cogs  fa-3x fa-fw"></i>
+                    <span class="title">Hospital/Nursing-home Unit</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            
             <!--user management section start-->
             <?php $allControllers = ['admin', 'subadmin', 'users']; ?>
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
@@ -128,6 +136,7 @@
                     <span class="title">Doctor Management</span>
                 </a>
             </li>
+            
             <li class="nav-item <?= (Yii::$app->controller->id == "medicineshop") ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('medicineshop') ?>" class="nav-link ">
                     <i class="fa fa-medkit" aria-hidden="true"></i>
@@ -240,8 +249,8 @@
                 </a>
             </li>
 
-            <li class="nav-item <?= (Yii::$app->controller->id == "hospital") ? 'active' : '' ?>">
-                <a href="<?= $this->context->adminUrl('seo/') ?>" class="nav-link ">
+            <li class="nav-item <?= (Yii::$app->controller->id == "hospitalnursing") ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('hospitalnursing') ?>" class="nav-link ">
                     <i class="fa fa-hospital-o fa-fw" aria-hidden="true"></i>
                     <span class="title">Hospital/Nursing-home</span>
                 </a>

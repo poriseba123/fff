@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
@@ -37,7 +38,7 @@ use yii\helpers\ArrayHelper;
         <!-- BEGIN FORM-->
         <?php
         $form = ActiveForm::begin([
-                    'id' => 'update_eye_bank_form',
+                    'id' => 'update_hospitalnursinghome_form',
                     'options' => ['class' => 'form-horizontal form-row-seperated', 'enctype' => 'multipart/form-data'],
                     'enableClientValidation' => false
                 ])
@@ -46,8 +47,47 @@ use yii\helpers\ArrayHelper;
             <div class="form-group">
                 <label class="control-label col-md-3">Name<span class="required">*</span></label>
                 <div class="col-md-6">
-                    <input type="hidden" name="eye_bank_id" value="<?= $model->id ?>">
+                    <input type="hidden" name="hospital_id" value="<?= $model->id ?>">
                     <?= $form->field($model, 'name')->textInput(['class' => 'form-control'])->label(false); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Type<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?php
+                    $type_list = \app\models\Typeofhospital::find()->all();
+                    $listData = ArrayHelper::map($type_list, 'id', 'name');
+                    echo $form->field($model, 'type')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search type', 'multiple' => false],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(false);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Units<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?php
+                    $facility_list = \app\models\Hospitalfacility::find()->all();
+                    $listData = ArrayHelper::map($facility_list, 'id', 'name');
+                    $model->facility = explode(",", $model->facility); // initial value
+                    echo $form->field($model, 'facility')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search Units', 'multiple' => true],
+                        'pluginOptions' => [
+                            'allowClear' => true,
+                            'tags' => true,
+                            'tokenSeparators' => [',', ' ']
+                        ],
+                    ])->label(false);
+                    ?>
                 </div>
             </div>
         </div>
@@ -67,7 +107,14 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Pin<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'pin')->textInput(['class' => 'form-control', 'maxlength' => '6'])->label(false); ?>
+                </div>
+            </div>
+        </div>
         <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Country<span class="required">*</span></label>
@@ -75,15 +122,20 @@ use yii\helpers\ArrayHelper;
                     <?php
                     $country_list = \app\models\Countries::find()->all();
                     $listData = ArrayHelper::map($country_list, 'id', 'name');
-                    echo $form->field($model, 'country_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
-                    $.post("getstates?id=' . '"+$(this).val(),function(data){
-                      $("select#eyebankmaster-state_id").html(data);
-                    });'])->label(false);
+                    echo $form->field($model, 'country_id')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search Country', 'multiple' => false, 'onchange' => '
+                    $.post("' . Url::to(['dashboard/getstates']) . '?id=' . '"+$(this).val(),function(data){
+                      $("select#hospitalnursingmaster-state_id").html(data);
+                    });'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(false);
                     ?>
                 </div>
             </div>
         </div>
-
         <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">State<span class="required">*</span></label>
@@ -91,10 +143,16 @@ use yii\helpers\ArrayHelper;
                     <?php
                     $state_list = \app\models\States::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($state_list, 'id', 'name');
-                    echo $form->field($model, 'state_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' =>
-                        '$.post("' . Url::to(['dashboard/getdistricts']) . '?id=' . '"+$(this).val(),function(data){
-                      $("select#eyebankmaster-district_id").html(data);
-                    });'])->label(false);
+                    echo $form->field($model, 'state_id')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search State', 'multiple' => false, 'onchange' =>
+                            '$.post("' . Url::to(['dashboard/getdistricts']) . '?id=' . '"+$(this).val(),function(data){
+                         $("select#hospitalnursingmaster-district_id").html(data);
+                        });'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(false);
                     ?>
                 </div>
             </div>
@@ -106,10 +164,16 @@ use yii\helpers\ArrayHelper;
                     <?php
                     $district_list = \app\models\Districts::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($district_list, 'id', 'name');
-                    echo $form->field($model, 'district_id')->dropDownList($listData, ['prompt' => 'Select', 'onchange' => '
-                    $.post("' . Url::to(['dashboard/getcities']) . '?id=' . '"+$(this).val(),function(data){
-                      $("select#eyebankmaster-city_id").html(data);
-                    });'])->label(false);
+                    echo $form->field($model, 'district_id')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search District', 'multiple' => false, 'onchange' =>
+                            '$.post("' . Url::to(['dashboard/getcities']) . '?id=' . '"+$(this).val(),function(data){
+                         $("select#hospitalnursingmaster-city_id").html(data);
+                        });'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(false);
                     ?>
                 </div>
             </div>
@@ -121,7 +185,13 @@ use yii\helpers\ArrayHelper;
                     <?php
                     $city_list = \app\models\Cities::find()->where(["id" => 0])->all();
                     $listData = ArrayHelper::map($city_list, 'id', 'name');
-                    echo $form->field($model, 'city_id')->dropDownList($listData, ['prompt' => 'Select'])->label(false);
+                    echo $form->field($model, 'city_id')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search City', 'multiple' => false],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(false);
                     ?>
                 </div>
             </div>
@@ -130,10 +200,8 @@ use yii\helpers\ArrayHelper;
             <div class="form-group">
                 <label class="control-label col-md-3">Map<span class="required">*</span></label>
                 <div class="col-md-6">
-                    <input type="hidden" id="eyebankmaster-latitude" class="form-control" name="EyeBankMaster[latitude]" value="<?= $model->latitude ?>">
-                    <input type="hidden" id="eyebankmaster-longitude" class="form-control" name="EyeBankMaster[longitude]" value="<?= $model->longitude ?>">
-                    <input id="pac-input" class="form-control controls1" type="text" placeholder="Search Box"><br>
-                    <div id="map" style="height: 324px;width: 100%;"></div>
+                    <input id="pac-input" class="pac-input form-control controls1" type="text" placeholder="Search Box"><br>
+                    <div id="map" class="map" style="height: 324px;width: 100%;"></div>
                 </div>
                 <div class="col-md-3">
                     <div class="btn-group btn-group-solid">
@@ -142,55 +210,44 @@ use yii\helpers\ArrayHelper;
                         </button>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="form-body">
-            <div class="form-group">
-                <label class="control-label col-md-3">Time<span class="required">*</span></label>
-                <div class="col-md-7">
-                    <div class="daymaster_main_div">
-                        <div class="row">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="col-md-12">
                             <div class="col-md-6">
-                                Open Time
+                                <label class="control-label col-md-3">Lat(First one)</label>
+                                <input type="text" id="hospitalnursingmaster-latitude" class="latitude form-control" name="HospitalNursingMaster[latitude]" value="<?= $model->latitude ?>">
                             </div>
                             <div class="col-md-6">
-                                Close time
+                                <label class="control-label col-md-3">Long(Second one)</label>
+                                <input type="text" id="hospitalnursingmaster-longitude" class="longitude form-control" name="HospitalNursingMaster[longitude]" value="<?= $model->longitude ?>">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class='input-group date timepicker'>
-                                    <input type="text" id="eyebankmaster-open_time" class="form-control" name="EyeBankMaster[open_time]" value="<?= $model->open_time ?>">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-time"></span>
-                                    </span>
-                                </div>
-                                <div class="help-block"></div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class='input-group date timepicker'>
-                                    <input type="text" id="eyebankmaster-close_time" class="form-control" name="EyeBankMaster[close_time]" value="<?= $model->close_time ?>">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-time"></span>
-                                    </span>
-                                </div>
-                                <div class="help-block"></div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="form-body">
+        <div class="form-group">
+            <label class="control-label col-md-3">Out door <span class="required">*</span></label>
+            <div class="col-md-6">
+                <div class="radio-list">                        
+                    <label class="radio-inline">
+                        <?php
+                        echo $form->field($model, 'outdore')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                        ?>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-body showme" style="<?= ($model->outdore == '0') ? 'display: none' : '' ?>;">
             <div class="form-group">
-                <label class="control-label col-md-3">Free Check-up Time<span class="required">*</span></label>
+                <label class="control-label col-md-3">Out door Time<span class="required">*</span></label>
                 <div class="col-md-9">
                     <?php
                     $checked = '';
                     $day_master = \app\models\DayMaster::find()->all();
-                    if ($model->free_eyetest) {
-                        $eyetest_arr = json_decode($model->free_eyetest);
+                    if ($model->outdore_time) {
+                        $eyetest_arr = json_decode($model->outdore_time);
 
                         if (!empty($eyetest_arr)) {
                             foreach ($eyetest_arr as $index => $content) {
@@ -257,29 +314,15 @@ use yii\helpers\ArrayHelper;
                 </div>
             </div>
         </div>
-
-
         <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">Close day<span class="required">*</span></label>
-                <div class="col-md-6">
-                    <?php
-                    $day_master = \app\models\DayMaster::find()->all();
-//                    $city_list = \app\models\Cities::find()->where(["id" => 0])->all();
-                    $listData = ArrayHelper::map($day_master, 'id', 'day');
-                    echo $form->field($model, 'close_day')->dropDownList($listData, ['prompt' => 'Select day'])->label(false);
-                    ?>
-                </div>
-            </div>
-        </div>
-        <div class="form-body">
-            <div class="form-group">
-                <label class="control-label col-md-3">address<span class="required">*</span></label>
+                <label class="control-label col-md-3">Description<span class="required">*</span></label>
                 <div class="col-md-6">
                     <?= $form->field($model, 'description')->textArea(['class' => 'form-control', 'rows' => '3'])->label(false); ?>
                 </div>
             </div>
         </div>
+
         <div class="form-body">
             <div class="form-group">
                 <label class="control-label col-md-3">Contact No<span class="required">*</span></label>
@@ -324,10 +367,84 @@ use yii\helpers\ArrayHelper;
                 </div>
                 <div class="col-md-3">
                     <div class="form-group text-center" id='preview-img-holder'>
-                        <img src="<?= Yii::$app->request->baseUrl . '\uploads\eyebank\thumbnail\\' . $model->image ?>" class="thumb-image" style="height: 80px;">
+                        <img src="<?= Yii::$app->request->baseUrl . '\uploads\hospitalnursing\thumbnail\\' . $model->image ?>" class="thumb-image" style="height: 80px;">
                     </div>
                 </div>
                 <div class="help-block" id="err-image"></div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Emergency Word<span class="required">*</span></label>
+            <div class="col-md-6">
+                <div class="radio-list">                        
+                    <label class="radio-inline">
+                        <?php
+                        echo $form->field($model, 'emergency')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                        ?>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">OT <span class="required">*</span></label>
+            <div class="col-md-6">
+                <div class="radio-list">                        
+                    <label class="radio-inline">
+                        <?php
+                        echo $form->field($model, 'ot')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                        ?>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Life support <span class="required">*</span></label>
+            <div class="col-md-6">
+                <div class="radio-list">                        
+                    <label class="radio-inline">
+                        <?php
+                        echo $form->field($model, 'life_support')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                        ?>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Ambulance Service<span class="required">*</span></label>
+            <div class="col-md-6">
+                <div class="radio-list">                        
+                    <label class="radio-inline">
+                        <?php
+                        echo $form->field($model, 'ambulance')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                        ?>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Own medicine shop <span class="required">*</span></label>
+            <div class="col-md-6">
+                <div class="radio-list">                        
+                    <label class="radio-inline">
+                        <?php
+                        echo $form->field($model, 'medicine_shop')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                        ?>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Payment accepted other than cash <span class="required">*</span></label>
+            <div class="col-md-6">
+                <div class="radio-list">                        
+                    <label class="radio-inline">
+                        <?php
+                        echo $form->field($model, 'payment_otherthancash')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                        ?>
+                    </label>
+                </div>
             </div>
         </div>
 
@@ -351,7 +468,7 @@ use yii\helpers\ArrayHelper;
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
                     <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
-                    <a href="<?php echo Url::to(['eyebank/index']); ?>" class="btn default">Back</a>
+                    <a href="<?php echo Url::to(['hospitalnursing/index']); ?>" class="btn default">Back</a>
                 </div>
             </div>
         </div>
@@ -363,51 +480,7 @@ use yii\helpers\ArrayHelper;
     state_id = "<?php echo $model->state_id ?>";
     district_id = "<?php echo $model->district_id ?>";
     city_id = "<?php echo $model->city_id ?>";
-    function fireagain() {
-        setTimeout(function () {
-            console.log('now'), $('#eyebankmaster-district_id').val(district_id).then($('#eyebankmaster-district_id').trigger('onchange'));
-        }, '2000');
-    }
-    $(function () {
-        $('.timepicker').datetimepicker({
-            format: 'LT'
-        });
-        $(".datepicker").datepicker({
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: 'yy-mm-dd'
-        });
 
-        $('#eyebankmaster-country_id').trigger('onchange');
-        setTimeout(function () {
-            $('#eyebankmaster-state_id').val(state_id).then($('#eyebankmaster-state_id').trigger('onchange'), fireagain())
-        }, '1500');
-    });
-    var global_val = 1;
-    function addPhone(count) {
-        if (global_val < count) {
-            global_val = count;
-        }
-        $('.main_contact_div').append('<div><div class="row row_' + global_val + '">' +
-                '<div class="col-md-8">' +
-                '<input type="text" class="form-control" name="contact_no[]" value="">' +
-                '</div>' +
-                '<div class="col-md-4">' +
-                '<div class="btn-group btn-group-solid">' +
-                '<button type="button" class="btn btn-danger" style="font-size:17px;" onclick="removeRow(' + global_val + ')">X</button>' +
-                '</div>' +
-                '</div>' +
-                '</div>' +
-                '<div class="help-block"></div>' +
-                '</div>'
-                );
-        global_val++;
-    }
-    function removeRow(id) {
-        $('.row_' + id).remove();
-    }
-
-    /////////////////////////////map script start/////////////////////////// 
 <?php
 if ($model->isNewRecord) {
     ?>
@@ -426,130 +499,6 @@ if ($model->isNewRecord) {
     <?php
 }
 ?>
-
-
-    message = false;
-    function geocodeLatLng(currentlat, currentlong) {
-
-        var latlng = {lat: parseFloat(currentlat), lng: parseFloat(currentlong)};
-        //alert(geocoder);
-        geocoder.geocode({'location': latlng}, function (results, status) {
-            //alert(status);
-            if (status === 'OK') {
-                if (results[0]) {
-                    //alert(results[0].formatted_address);
-                    document.getElementById('pac-input').value = results[0].formatted_address;
-                    //var mylatlng = new google.maps.LatLng(currentlat, currentlong);
-                    // moveMarker(results[0].formatted_address, mylatlng, map);
-                    marker.setPosition(results[0].geometry.location);
-                    map.setCenter(results[0].geometry.location);
-                    map.setZoom(17);
-
-                } else {
-                    window.alert('No results found');
-                }
-            } else {
-                window.alert('Geocoder failed due to: ' + status);
-            }
-        });
-    }
-    function showPosition(position) {
-        currentlat = position.coords.latitude;
-        currentlong = position.coords.longitude;
-        document.getElementById('eyebankmaster-latitude').value = currentlat;
-        document.getElementById('eyebankmaster-longitude').value = currentlong;
-        geocodeLatLng(currentlat, currentlong);
-
-
-    }
-    function showError(error) {
-        switch (error.code) {
-            case error.PERMISSION_DENIED:
-                message = "User denied the request for Geolocation."
-                break;
-            case error.POSITION_UNAVAILABLE:
-                message = "Location information is unavailable."
-                break;
-            case error.TIMEOUT:
-                message = "The request to get user location timed out."
-                break;
-            case error.UNKNOWN_ERROR:
-                message = "An unknown error occurred."
-                break;
-        }
-    }
-    function getLocation() {
-        if (navigator.geolocation) {
-            //console.log(navigator.geolocation);
-            navigator.geolocation.getCurrentPosition(showPosition, showError);
-
-        } else {
-            message = "Geolocation is not supported by this browser.";
-        }
-        if (message) {
-            alert(message);
-        }
-    }
-
-    function initAutocomplete() {
-        var myLatlng = new google.maps.LatLng(currentlat, currentlong);
-        var myOptions = {
-            zoom: 5,
-            center: myLatlng,
-            scrollwheel: false,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        geocoder = new google.maps.Geocoder;
-        map = new google.maps.Map(document.getElementById("map"), myOptions),
-                marker = new google.maps.Marker({
-                    position: myLatlng,
-                    map: map,
-                    draggable: true,
-                });
-        google.maps.event.addListener(marker, 'dragend', function () {
-            document.getElementById('eyebankmaster-latitude').value = marker.getPosition().lat();
-            document.getElementById('eyebankmaster-longitude').value = marker.getPosition().lng();
-        });
-
-
-        // Create the search box and link it to the UI element.
-        var input = document.getElementById('pac-input');
-        var autocomplete = new google.maps.places.Autocomplete(input, {
-            types: ["geocode"]
-        });
-        autocomplete.bindTo('bounds', map);
-        var infowindow = new google.maps.InfoWindow();
-        google.maps.event.addListener(autocomplete, 'place_changed', function () {
-            infowindow.close();
-            var place = autocomplete.getPlace();
-            if (place.geometry.viewport) {
-                map.fitBounds(place.geometry.viewport);
-            } else {
-                map.setCenter(place.geometry.location);
-                map.setZoom(17);
-            }
-
-            moveMarker(place.name, place.geometry.location, map);
-            document.getElementById('eyebankmaster-latitude').value = place.geometry.location.lat();
-            document.getElementById('eyebankmaster-longitude').value = place.geometry.location.lng();
-        });
-    }
-    function moveMarker(placeName, latlng, map) {
-        marker = new google.maps.Marker({
-            position: latlng,
-            map: map,
-            draggable: true
-        });
-        marker.setPosition(latlng);
-
-        marker.addListener('drag', handleEvent);
-        marker.addListener('dragend', handleEvent);
-    }
-    function handleEvent(event) {
-        document.getElementById('eyebankmaster-latitude').value = event.latLng.lat();
-        document.getElementById('eyebankmaster-longitude').value = event.latLng.lng();
-    }
-/////////////////////////////map script end///////////////////////////  
 </script>
 
 
