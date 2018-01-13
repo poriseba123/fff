@@ -243,50 +243,53 @@ use kartik\select2\Select2;
                     <?php
                     $day_master = \app\models\DayMaster::find()->all();
                     foreach ($day_master as $key => $val) {
-                        ?>
-                        <div class="daymaster_main_div">
-                            <div class="row" style="margin-bottom:5px;">
-                                <div class="col-md-8 text-center">
-                                    <div class="btn-group" data-toggle="buttons">
-                                        <label class="btn btn-success active">
-                                            <input type="checkbox" name="dayMaster[]" autocomplete="off" checked value="<?= $val->id ?>">
-                                            <span class="glyphicon glyphicon-ok"></span>&nbsp;<?= $val->day ?>
-                                        </label>
+                        if ($val->id != '8') {
+                            //echo $val;
+                            ?>
+                            <div class="daymaster_main_div">
+                                <div class="row" style="margin-bottom:5px;">
+                                    <div class="col-md-8 text-center">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-success active">
+                                                <input type="checkbox" name="dayMaster[]" autocomplete="off" checked value="<?= $val->id ?>">
+                                                <span class="glyphicon glyphicon-ok"></span>&nbsp;<?= $val->day ?>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row" style="margin-bottom:5px;">
-                                <div class="col-md-4">
-                                    Start Time
-                                </div>
-                                <div class="col-md-4">
-                                    End time
-                                </div>
-                            </div>
-                            <div class="time <?= 'day_master_time_' . $val->id ?>" style="margin-bottom:5px;">
-                                <div class="row <?= 'each_time_' . $val->id . '_0' ?>">
+                                <div class="row" style="margin-bottom:5px;">
                                     <div class="col-md-4">
-                                        <div class='input-group date timepicker'>
-                                            <input type='text' class="form-control" name="start_time[<?= $val->id ?>][]"/>
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-time"></span>
-                                            </span>
-                                        </div>
-                                        <div class="help-block"></div>
+                                        Start Time
                                     </div>
                                     <div class="col-md-4">
-                                        <div class='input-group date timepicker'>
-                                            <input type='text' class="form-control" name="end_time[<?= $val->id ?>][]"/>
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-time"></span>
-                                            </span>
+                                        End time
+                                    </div>
+                                </div>
+                                <div class="time <?= 'day_master_time_' . $val->id ?>" style="margin-bottom:5px;">
+                                    <div class="row <?= 'each_time_' . $val->id . '_0' ?>">
+                                        <div class="col-md-4">
+                                            <div class='input-group date timepicker'>
+                                                <input type='text' class="form-control" name="start_time[<?= $val->id ?>][]"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            </div>
+                                            <div class="help-block"></div>
                                         </div>
-                                        <div class="help-block"></div>
+                                        <div class="col-md-4">
+                                            <div class='input-group date timepicker'>
+                                                <input type='text' class="form-control" name="end_time[<?= $val->id ?>][]"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            </div>
+                                            <div class="help-block"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php } ?>
+    <?php }
+} ?>
                 </div>
             </div>
         </div>

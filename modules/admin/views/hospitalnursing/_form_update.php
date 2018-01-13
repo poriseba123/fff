@@ -259,58 +259,59 @@ use kartik\select2\Select2;
                         //die();
                     }
                     foreach ($day_master as $key => $val) {
-
-                        if (isset($start_time[$val->id])) {
-                            $checked = "checked";
-                            $active = "active";
-                        } else {
-                            $checked = "";
-                            $active = "";
-                        }
-                        ?>
-                        <div class="daymaster_main_div">
-                            <div class="row" style="margin-bottom:5px;">
-                                <div class="col-md-8 text-center">
-                                    <div class="btn-group" data-toggle="buttons">
-                                        <label class="btn btn-success <?= $active; ?>">
-                                            <input type="checkbox" name="dayMaster[]" autocomplete="off" <?= $checked; ?> value="<?= $val->id ?>">
-                                            <span class="glyphicon glyphicon-ok"></span>&nbsp;<?= $val->day ?>
-                                        </label>
+                        if ($val->id != '8') {
+                            if (isset($start_time[$val->id])) {
+                                $checked = "checked";
+                                $active = "active";
+                            } else {
+                                $checked = "";
+                                $active = "";
+                            }
+                            ?>
+                            <div class="daymaster_main_div">
+                                <div class="row" style="margin-bottom:5px;">
+                                    <div class="col-md-8 text-center">
+                                        <div class="btn-group" data-toggle="buttons">
+                                            <label class="btn btn-success <?= $active; ?>">
+                                                <input type="checkbox" name="dayMaster[]" autocomplete="off" <?= $checked; ?> value="<?= $val->id ?>">
+                                                <span class="glyphicon glyphicon-ok"></span>&nbsp;<?= $val->day ?>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row" style="margin-bottom:5px;">
-                                <div class="col-md-4">
-                                    Start Time
-                                </div>
-                                <div class="col-md-4">
-                                    End time
-                                </div>
-                            </div>
-                            <div class="time <?= 'day_master_time_' . $val->id ?>" style="margin-bottom:5px;">
-                                <div class="row <?= 'each_time_' . $val->id . '_0' ?>">
+                                <div class="row" style="margin-bottom:5px;">
                                     <div class="col-md-4">
-                                        <div class='input-group date timepicker'>
-                                            <input type='text' class="form-control" name="start_time[<?= $val->id ?>][]" value="<?= isset($start_time[$val->id]) ? $start_time[$val->id] : ''; ?>"/>
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-time"></span>
-                                            </span>
-                                        </div>
-                                        <div class="help-block"></div>
+                                        Start Time
                                     </div>
                                     <div class="col-md-4">
-                                        <div class='input-group date timepicker'>
-                                            <input type='text' class="form-control" name="end_time[<?= $val->id ?>][]" value="<?= isset($end_time[$val->id]) ? $end_time[$val->id] : ''; ?>"/>
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-time"></span>
-                                            </span>
+                                        End time
+                                    </div>
+                                </div>
+                                <div class="time <?= 'day_master_time_' . $val->id ?>" style="margin-bottom:5px;">
+                                    <div class="row <?= 'each_time_' . $val->id . '_0' ?>">
+                                        <div class="col-md-4">
+                                            <div class='input-group date timepicker'>
+                                                <input type='text' class="form-control" name="start_time[<?= $val->id ?>][]" value="<?= isset($start_time[$val->id]) ? $start_time[$val->id] : ''; ?>"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            </div>
+                                            <div class="help-block"></div>
                                         </div>
-                                        <div class="help-block"></div>
+                                        <div class="col-md-4">
+                                            <div class='input-group date timepicker'>
+                                                <input type='text' class="form-control" name="end_time[<?= $val->id ?>][]" value="<?= isset($end_time[$val->id]) ? $end_time[$val->id] : ''; ?>"/>
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            </div>
+                                            <div class="help-block"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php } ?>
+                        <?php }
+                    } ?>
                 </div>
             </div>
         </div>
@@ -318,7 +319,7 @@ use kartik\select2\Select2;
             <div class="form-group">
                 <label class="control-label col-md-3">Description<span class="required">*</span></label>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'description')->textArea(['class' => 'form-control', 'rows' => '3'])->label(false); ?>
+<?= $form->field($model, 'description')->textArea(['class' => 'form-control', 'rows' => '3'])->label(false); ?>
                 </div>
             </div>
         </div>
@@ -347,13 +348,13 @@ use kartik\select2\Select2;
                                                 </button>
                                             <?php } else { ?>
                                                 <button type="button" class="btn btn-danger" style="font-size:17px;" onclick="removeRow('<?= $key ?>')">X</button>
-                                            <?php } ?>
+    <?php } ?>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="help-block"></div>
                             </div>
-                        <?php } ?>
+<?php } ?>
 
                     </div>
                 </div>
@@ -363,7 +364,7 @@ use kartik\select2\Select2;
             <div class="form-group">
                 <label class="control-label col-md-3">Image<span class="required">*</span></label>
                 <div class="col-md-6">
-                    <?php echo $form->field($model, 'image')->fileInput(['class' => 'form-control image-input', 'placeholder' => 'Choose Image'])->label(false); ?>
+<?php echo $form->field($model, 'image')->fileInput(['class' => 'form-control image-input', 'placeholder' => 'Choose Image'])->label(false); ?>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group text-center" id='preview-img-holder'>
@@ -448,7 +449,7 @@ use kartik\select2\Select2;
             </div>
         </div>
 
-        <?php if (!$model->isNewRecord) { ?>
+<?php if (!$model->isNewRecord) { ?>
             <div class="form-group">
                 <label class="control-label col-md-3">Status <span class="required">*</span></label>
                 <div class="col-md-6">
@@ -461,18 +462,18 @@ use kartik\select2\Select2;
                     </div>
                 </div>
             </div>
-        <?php } ?>
+<?php } ?>
 
 
         <div class="form-actions">
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
-                    <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
+<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
                     <a href="<?php echo Url::to(['hospitalnursing/index']); ?>" class="btn default">Back</a>
                 </div>
             </div>
         </div>
-        <?php ActiveForm::end() ?>
+<?php ActiveForm::end() ?>
         <!-- END FORM-->
     </div>
 </div>
