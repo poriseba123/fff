@@ -26,6 +26,13 @@
                     <span class="selected"></span>
                 </a>
             </li>
+             <li class="nav-item start <?= (Yii::$app->controller->id == 'homepagelogoslider') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('homepagelogoslider'); ?>" class="nav-link ">
+                    <i class="fa fa-picture-o fa-3x fa-fw"></i>
+                    <span class="title">Upload Logo/Slider</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
             <li class="heading">
                 <h3 class="uppercase">location</h3>
             </li>

@@ -25,7 +25,7 @@ class Homepagesliderlogo extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['slider_image1', 'slider_image2', 'slider_image3', 'slider_image4', 'logo_image'], 'on' => ['create', 'update']],
+            [['slider_image1', 'slider_image2', 'slider_image3', 'slider_image4', 'logo_image'], 'required','on' => ['create', 'update']],
             [['slider_image1', 'slider_image2', 'slider_image3', 'slider_image4', 'logo_image'], 'safe'],
         ];
     }
