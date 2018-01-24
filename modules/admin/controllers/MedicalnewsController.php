@@ -14,14 +14,14 @@ use yii\helpers\ArrayHelper;
 use yii\console\Application;
 use yii\web\NotFoundHttpException;
 use app\modules\admin\components\AdminController;
-//use app\models\EyeBankMaster;
-use app\models\EyeBankMaster;
+//use app\models\MedicalnewsMaster;
+use app\models\MedicalnewsMaster;
 use yii\imagine\Image;
 use Imagine\Gd;
 use Imagine\Image\Box;
 use Imagine\Image\BoxInterface;
 
-class EyebankController extends AdminController {
+class MedicalnewsController extends AdminController {
 
     public function column() {
         $viewMsg = 'View';
@@ -30,23 +30,17 @@ class EyebankController extends AdminController {
             ['class' => 'kartik\grid\SerialColumn'],
             [
                 'class' => '\kartik\grid\DataColumn',
-                'label' => 'Name',
-                'attribute' => 'name',
+                'label' => 'Link',
+                'attribute' => 'link',
             ],
             [
                 'class' => '\kartik\grid\DataColumn',
-                'label' => 'address',
-                'attribute' => 'address',
-            ],
-            [
-                'class' => '\kartik\grid\DataColumn',
-                'label' => 'open_time',
-                'attribute' => 'open_time',
-            ],
-            [
-                'class' => '\kartik\grid\DataColumn',
-                'label' => 'close_time',
-                'attribute' => 'close_time',
+                'label' => 'description',
+                'attribute' => 'description',
+                  'value' => function($data) {
+                    
+                    return strip_tags($data->description);
+                }
             ],
             [
                 'attribute' => 'status',
@@ -73,13 +67,13 @@ class EyebankController extends AdminController {
                 'urlCreator' => function($action, $model, $key, $index) {
                     switch ($action) {
                         case "view":
-                            return Url::to(['eyebank/view', 'id' => $model->id]);
+                            return Url::to(['medicalnews/view', 'id' => $model->id]);
                             break;
                         case "update":
-                            return Url::to(['eyebank/update', 'id' => $model->id]);
+                            return Url::to(['medicalnews/update', 'id' => $model->id]);
                             break;
                         case "delete":
-                            return Url::to(['eyebank/delete', 'id' => $model->id]);
+                            return Url::to(['medicalnews/delete', 'id' => $model->id]);
                             break;
                     }
                 },
@@ -100,7 +94,7 @@ class EyebankController extends AdminController {
     }
 
     public function actionIndex() {
-        $searchModel = new EyeBankMaster;
+        $searchModel = new MedicalnewsMaster;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $widget = GridView::widget([
                     'dataProvider' => $dataProvider,
@@ -145,11 +139,10 @@ class EyebankController extends AdminController {
 
     public function actionCreate() {
         $data = [];
-        $model = new EyeBankMaster;
+        $model = new MedicalnewsMaster;
         $model->scenario = "create";
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
-                $model->created_at = date('Y-m-d H:i:s');
                 $model->save(false);
                 Yii::$app->session->setFlash('success', 'created successfully');
                 return $this->redirect(["index"]);
@@ -165,47 +158,9 @@ class EyebankController extends AdminController {
             $imgError = 0;
             $resp['imgErr'] = false;
             $resp['flag'] = false;
-            $phone_error = false;
-            $resp['phone'] = true;
-            $phone_check = $_POST['contact_no'];
-
-            $day_all = $_POST['dayMaster'];
-            $start_time = $_POST['start_time'];
-            $end_time = $_POST['end_time'];
-            $time_error = false;
             $resp['checkbox'] = true;
 
-            foreach ($day_all as $k => $v) {
-                foreach ($_POST['start_time'][$v] as $key => $value) {
-                    if ($value == '') {
-                        $time_error = true;
-                    }
-                }
-                foreach ($_POST['end_time'][$v] as $key => $value) {
-                    if ($value == '') {
-                        $time_error = true;
-                    }
-                }
-            }
-            if ($time_error) {
-                $resp['checkbox'] = false;
-            }
-
-            if (!empty($day_all)) {
-                foreach ($day_all as $index => $days) {
-                    $final_arr[$days] = $days . '-' . $start_time[$days][0] . '-' . $end_time[$days][0];
-                }
-            }
-
-            foreach ($phone_check as $k => $v) {
-                if ($v == '') {
-                    $phone_error = true;
-                }
-            }
-            if ($phone_error) {
-                $resp['phone'] = false;
-            }
-            $model = new EyeBankMaster();
+            $model = new MedicalnewsMaster();
             $model->scenario = "create";
             if ($model->load(Yii::$app->request->post())) {
                 $img = UploadedFile::getInstance($model, 'image');
@@ -218,20 +173,18 @@ class EyebankController extends AdminController {
                         $imgError = 1;
                     } else {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/eyebank/original/' . $imgName;
+                        $path = Yii::$app->basePath . '/uploads/medicalnews/original/' . $imgName;
                         $img->saveAs($path);
-                        $this->resizeImage('eyebank', $imgName);
+                        $this->resizeImage('medicalnews', $imgName);
                         $model->image = $imgName;
                     }
                 }
                 //$model->status =1;
-                $model->created_at = date("Y-m-d H:i:s");
-                if ($model->validate() && $phone_error == false && $imgError == 0) {
-                    $model->contact_no = implode(',', $_POST['contact_no']);
-                    $model->free_eyetest = json_encode($final_arr);
+
+                if ($model->validate() && $imgError == 0) {
                     $model->save(false);
                     $resp['flag'] = true;
-                    $resp['url'] = Url::to(['eyebank/index']);
+                    $resp['url'] = Url::to(['medicalnews/index']);
                     $resp['msg'] = "Blood Bank successfully created";
                 } else {
                     $resp['errors'] = $model->getErrors();
@@ -244,49 +197,15 @@ class EyebankController extends AdminController {
 
     public function actionUpdateajax() {
         if (Yii::$app->request->isAjax) {
-            $med_shop_id = $_POST['eye_bank_id'];
+            $med_shop_id = $_POST['news_id'];
             $resp = [];
             $imgError = 0;
             $resp['imgErr'] = false;
             $resp['flag'] = false;
-            $phone_error = false;
-            $resp['phone'] = true;
-            $phone_check = $_POST['contact_no'];
-            $day_all = $_POST['dayMaster'];
-            $start_time = $_POST['start_time'];
-            $end_time = $_POST['end_time'];
-            $time_error = false;
-            $resp['checkbox'] = true;
-            foreach ($day_all as $k => $v) {
-                foreach ($_POST['start_time'][$v] as $key => $value) {
-                    if ($value == '') {
-                        $time_error = true;
-                    }
-                }
-                foreach ($_POST['end_time'][$v] as $key => $value) {
-                    if ($value == '') {
-                        $time_error = true;
-                    }
-                }
-            }
-            if ($time_error) {
-                $resp['checkbox'] = false;
-            }
 
-            if (!empty($day_all)) {
-                foreach ($day_all as $index => $days) {
-                    $final_arr[$days] = $days . '-' . $start_time[$days][0] . '-' . $end_time[$days][0];
-                }
-            }
-            foreach ($phone_check as $k => $v) {
-                if ($v == '') {
-                    $phone_error = true;
-                }
-            }
-            if ($phone_error) {
-                $resp['phone'] = false;
-            }
-            $model = EyeBankMaster::findOne($med_shop_id);
+            $resp['checkbox'] = true;
+
+            $model = MedicalnewsMaster::findOne($med_shop_id);
             $model->scenario = "update";
             if ($model->load(Yii::$app->request->post())) {
                 $img = UploadedFile::getInstance($model, 'image');
@@ -299,20 +218,17 @@ class EyebankController extends AdminController {
                         $imgError = 1;
                     } else {
                         $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/eyebank/original/' . $imgName;
+                        $path = Yii::$app->basePath . '/uploads/medicalnews/original/' . $imgName;
                         $img->saveAs($path);
-                        $this->resizeImage('eyebank', $imgName);
+                        $this->resizeImage('medicalnews', $imgName);
                         $model->image = $imgName;
                     }
                 }
-                $model->updated_at = date("Y-m-d H:i:s");
-                if ($model->validate() && $phone_error == false && $imgError == 0) {
-                    $model->contact_no = implode(',', $_POST['contact_no']);
-                    $model->free_eyetest = json_encode($final_arr);
+                if ($model->validate() && $imgError == 0) {
                     $model->save(false);
                     $resp['flag'] = true;
-                    $resp['url'] = Url::to(['eyebank/index']);
-                    $resp['msg'] = "Eye Bank successfully updated";
+                    $resp['url'] = Url::to(['medicalnews/index']);
+                    $resp['msg'] = "medicalnews successfully updated";
                 } else {
                     $resp['errors'] = $model->getErrors();
                 }
@@ -324,10 +240,9 @@ class EyebankController extends AdminController {
 
     public function actionUpdate($id) {
         $data = [];
-        $model = EyeBankMaster::findOne($id);
+        $model = MedicalnewsMaster::findOne($id);
         $model->scenario = 'update';
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->updated_at = date('Y-m-d H:i:s');
             $model->save(false);
             Yii::$app->session->setFlash('success', 'updated successfully!');
             return $this->refresh();
@@ -336,7 +251,7 @@ class EyebankController extends AdminController {
     }
 
     public function actionDelete($id) {
-        $chamber = EyeBankMaster::findOne($id);
+        $chamber = MedicalnewsMaster::findOne($id);
         $chamber->status = 3;
         $chamber->save(false);
         Yii::$app->session->setFlash('success', ' deleted.');
@@ -349,36 +264,8 @@ class EyebankController extends AdminController {
         ]);
     }
 
-    public function actionGetstates() {
-        $type_id = $_REQUEST['id'];
-        $doc_specialities = \app\models\States::find()->where("country_id=:country_id", [":country_id" => $type_id])->all();
-        $html = "";
-        if (count($doc_specialities) > 0) {
-            foreach ($doc_specialities as $key => $value) {
-                $html .= '<option value="' . $value->id . '">' . $value->name . '</option>';
-            }
-        } else {
-            $html .= '<option value="">No Data</option>';
-        }
-        return $html;
-    }
-
-    public function actionGetcities() {
-        $type_id = $_REQUEST['id'];
-        $doc_specialities = \app\models\Cities::find()->where("state_id=:state_id", [":state_id" => $type_id])->all();
-        $html = "";
-        if (count($doc_specialities) > 0) {
-            foreach ($doc_specialities as $key => $value) {
-                $html .= '<option value="' . $value->id . '">' . $value->name . '</option>';
-            }
-        } else {
-            $html .= '<option value="">No Data</option>';
-        }
-        return $html;
-    }
-
     protected function findModel($id) {
-        if (($model = EyeBankMaster::findOne($id)) !== null) {
+        if (($model = MedicalnewsMaster::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
@@ -386,4 +273,5 @@ class EyebankController extends AdminController {
     }
 
 }
+
 ?>

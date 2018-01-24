@@ -26,10 +26,17 @@
                     <span class="selected"></span>
                 </a>
             </li>
-             <li class="nav-item start <?= (Yii::$app->controller->id == 'homepagelogoslider') ? 'active' : '' ?>">
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'homepagelogoslider') ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('homepagelogoslider'); ?>" class="nav-link ">
                     <i class="fa fa-picture-o fa-3x fa-fw"></i>
                     <span class="title">Upload Logo/Slider</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'medicalnews') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('medicalnews'); ?>" class="nav-link ">
+                    <i class="fa fa-newspaper-o fa-3x fa-fw"></i>
+                    <span class="title">Medical News</span>
                     <span class="selected"></span>
                 </a>
             </li>
@@ -91,14 +98,14 @@
                     <span class="selected"></span>
                 </a>
             </li>
-              <li class="nav-item start <?= (Yii::$app->controller->id == 'hospitalunits') ? 'active' : '' ?>">
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'hospitalunits') ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('hospitalunits'); ?>" class="nav-link ">
                     <i class="fa fa-cogs  fa-3x fa-fw"></i>
                     <span class="title">Hospital/Nursing-home Unit</span>
                     <span class="selected"></span>
                 </a>
             </li>
-            
+
             <!--user management section start-->
             <?php $allControllers = ['admin', 'subadmin', 'users']; ?>
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
@@ -143,7 +150,7 @@
                     <span class="title">Doctor Management</span>
                 </a>
             </li>
-            
+
             <li class="nav-item <?= (Yii::$app->controller->id == "medicineshop") ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('medicineshop') ?>" class="nav-link ">
                     <i class="fa fa-medkit" aria-hidden="true"></i>
