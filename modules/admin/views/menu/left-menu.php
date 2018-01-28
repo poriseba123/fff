@@ -26,6 +26,13 @@
                     <span class="selected"></span>
                 </a>
             </li>
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'leftmenu') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('leftmenu'); ?>" class="nav-link ">
+                    <i class="fa fa-bars"></i>
+                    <span class="title">Left Menu</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
             <li class="nav-item start <?= (Yii::$app->controller->id == 'homepagelogoslider') ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('homepagelogoslider'); ?>" class="nav-link ">
                     <i class="fa fa-picture-o fa-3x fa-fw"></i>

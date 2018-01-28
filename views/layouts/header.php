@@ -73,37 +73,7 @@ $logoname = \app\models\Homepagesliderlogo::find()->select('logo_image')->one();
         </div>
     </nav>
     <!-- Off Canvas Navigation -->
-    <div class="navmenu navmenu-default navmenu-fixed-left offcanvas">
-        <!--- Off Canvas Side Menu -->
-        <div class="close" data-toggle="offcanvas" data-target=".navmenu">
-            <i class="fa fa-close"></i>
-        </div>
-        <h3 class="title-menu">All Pages</h3>
-        <ul class="nav navmenu-nav">
-            <!--- Menu -->
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About us</a></li>
-            <li><a href="category.html">Category</a></li>
-            <li><a href="ads-details.html">Ads details</a></li>
-            <li><a href="pricing.html">Pricing Tables</a></li>
-            <li><a href="account-archived-ads.html">Account - Archived</a></li>
-            <li><a href="account-close.html">Account - Close</a></li>
-            <li><a href="account-favourite-ads.html">Account - Favourite ads</a></li>
-            <li><a href="account-home.html">Account - Home</a></li>
-            <li><a href="account-myads.html">Account - My ads</a></li>
-            <li><a href="account-pending-approval-ads.html">Ads pending/approval</a></li>
-            <li><a href="account-saved-search.html">Saved search</a></li>
-            <li><a href="post-ads.html">Post ads</a></li>
-            <li><a href="posting-success.html">Posting success</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="blog-details.html">Blog Details</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="forgot-password.html">Forgot password</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-            <li><a href="signup.html">Signup</a></li>
-        </ul>
-        <!--- End Menu -->
-    </div>
+  <?= \Yii::$app->view->render('left_menue'); ?>
     <!--- End Off Canvas Side Menu -->
 </div>
 <!--- End Off Canvas Side Menu -->
