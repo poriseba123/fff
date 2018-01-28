@@ -24,7 +24,7 @@ $_list = \app\models\Leftmenu::find()->where(['status' => '1'])->all();
             <?php
             foreach ($_list as $key => $value) {
                 ?>
-                <li><a href="<?= $value->link ?>"><?= $value->page_name; ?></a></li>
+            <li><a href="<?= $value->link ?>" target="_blank"><?= $value->page_name; ?></a></li>
             <?php }
             ?>
         </ul>

@@ -30,6 +30,10 @@ $imgname = \app\models\Homepagesliderlogo::find()->select('slider_image1,slider_
         background:url(../../uploads/logoslider/original/<?= $imgname->slider_image4; ?>) center center no-repeat;
         background-size:cover
     }
+    
+  .dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
+    background-color: #337ab7 !important;
+}
 </style>
 <?php
 $controller = Yii::$app->controller->id;
@@ -103,7 +107,7 @@ if (($controller == 'site' && $action == 'index')) {
                                 <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
                                     <div class="input-group-addon search-category-container">
                                         <label class="styled-select">
-                                            <select class="dropdown-product selectpicker" name="categories" >
+                                            <select class="dropdown-product selectpicker" name="categories" data-live-search="true"  >
                                                 <option value="">All Categories</option>
                                                 <?php
                                                 if (isset($all_services) && count($all_services) > 0) {
@@ -121,7 +125,7 @@ if (($controller == 'site' && $action == 'index')) {
                                 <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
                                     <div class="input-group-addon search-category-container">
                                         <label class="styled-select">
-                                            <select class="dropdown-product selectpicker" name="state" id="search_states">
+                                            <select class="dropdown-product selectpicker" name="state" id="search_states" data-live-search="true" >
                                                 <option value="">Choose States</option>
                                                 <?php
                                                 if (isset($all_states) && count($all_states) > 0) {
@@ -139,7 +143,7 @@ if (($controller == 'site' && $action == 'index')) {
                                 <div class="col-md-2 col-sm-6 search-col" style="margin-right:33px;">
                                     <div class="input-group-addon search-category-container">
                                         <label class="styled-select location-select">
-                                            <select class="dropdown-product selectpicker" name="city" id="search_cities">
+                                            <select class="dropdown-product selectpicker" name="city" id="search_cities" data-live-search="true">
                                                 <option value="">All Cities</option>
                                             </select>
                                         </label>
