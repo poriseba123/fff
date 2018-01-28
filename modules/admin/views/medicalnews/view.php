@@ -8,7 +8,7 @@ use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 
-$this->title = 'Eye bank Details';
+$this->title = 'Medical News Details';
 $this->params['breadcrumbs'][] = ['label' => $this->title, 'url' => ['index']];
 //$this->title = $model->route;
 $this->params['breadcrumbs'][] = $this->title;
@@ -55,6 +55,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <img src="<?= (isset($model->image) && $model->image != '') ? Yii::$app->request->baseUrl . '\uploads\medicalnews\thumbnail\\' . $model->image : Yii::$app->request->baseUrl . '\uploads\noimage\noimg.jpg' ?>" class="thumb-image img-thumbnail" style="height: 80px;">
                             </div>
 
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Source:</label>
+                            <div class="col-md-9">
+                                <p class="form-control-static"> <?= (isset($model->sourse) && $model->sourse != '') ? $model->sourse : "Not Set"; ?> </p>
+                            </div>
                         </div>
                     </div>
                 </div>

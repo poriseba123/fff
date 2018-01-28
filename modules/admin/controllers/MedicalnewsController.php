@@ -35,10 +35,15 @@ class MedicalnewsController extends AdminController {
             ],
             [
                 'class' => '\kartik\grid\DataColumn',
+                'label' => 'sourse',
+                'attribute' => 'sourse',
+            ],
+            [
+                'class' => '\kartik\grid\DataColumn',
                 'label' => 'description',
                 'attribute' => 'description',
-                  'value' => function($data) {
-                    
+                'value' => function($data) {
+
                     return strip_tags($data->description);
                 }
             ],

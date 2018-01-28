@@ -57,12 +57,8 @@ use dosamigos\ckeditor\CKEditor;
             <div class="form-group">
                 <label class="control-label col-md-3">Description<span class="required">*</span></label>
                 <div class="col-md-6">
-                    <?=
-                    $form->field($model, 'description')->widget(CKEditor::className(), [
-                        'options' => ['rows' => 2],
-                        'preset' => 'basic'
-                    ])->label(false);
-                    ?>
+                    <?= $form->field($model, 'description')->textArea(['class' => 'form-control ', 'rows' => '2'])->label(false); ?>
+
 
                 </div>
             </div>
@@ -82,7 +78,14 @@ use dosamigos\ckeditor\CKEditor;
             </div>
         </div>
 
-
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Source<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'sourse')->textInput(['class' => 'form-control'])->label(false); ?>
+                </div>
+            </div>
+        </div>
         <div class="form-group">
             <label class="control-label col-md-3">Status <span class="required">*</span></label>
             <div class="col-md-6">
@@ -109,7 +112,18 @@ use dosamigos\ckeditor\CKEditor;
         <!-- END FORM-->
     </div>
 </div>
+<script src="https://cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.editorConfig = function (config) {
+        config.language = 'es';
+        config.uiColor = '#F7B42C';
+        config.height = 300;
+        config.toolbarCanCollapse = true;
 
+    };
+    CKEDITOR.replace('medicalnewsmaster-description');
+
+</script>
 
 
 

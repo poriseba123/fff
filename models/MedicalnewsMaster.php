@@ -41,9 +41,9 @@ class MedicalnewsMaster extends \yii\db\ActiveRecord {
      */
     public function rules() {
         return [
-            [['link', 'description', 'status'], 'required', 'on' => ['create', 'update']],
+            [['link', 'description', 'status','sourse'], 'required', 'on' => ['create', 'update']],
             [['status'], 'integer'],
-            [['link', 'description'], 'string'],
+            [['link', 'description','sourse'], 'string'],
             [['description'], 'string', 'max' => 100],
         ];
     }
@@ -57,6 +57,7 @@ class MedicalnewsMaster extends \yii\db\ActiveRecord {
             'image' => 'Image',
             'link' => 'Link',
             'description' => 'description',
+            'sourse'=>'sourse',
             'status' => 'Status',
         ];
     }
@@ -88,6 +89,7 @@ class MedicalnewsMaster extends \yii\db\ActiveRecord {
         }
 
         $query->andFilterWhere(['like', 'description', $this->description])
+                ->andFilterWhere(['like', 'sourse', $this->sourse])
                 ->andFilterWhere(['like', 'status', $this->status])
                 ->andWhere('status <> \'3\'');
 

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
+use yii\helpers\ArrayHelper;
 ?>
 
 <div class="wrapper">
@@ -14,44 +15,52 @@ use yii\web\View;
                     <h3 class="section-title">over view of our listed poriseba you can acess</h3>
                 </div>
                 <?php
-                if(isset($all_services) && count($all_services)>0){
+                if (isset($all_services) && count($all_services) > 0) {
                     foreach ($all_services as $key => $val) {
-                ?>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box <?=$val->border_color?> wow fadeInUpQuick" data-wow-delay="0.9s">
-                        <div class="icon">
-                            <a href="category.html"><i class="<?=$val->fa_icon?>"></i></a>
+                        ?>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="category-box <?= $val->border_color ?> wow fadeInUpQuick" data-wow-delay="0.9s">
+                                <div class="icon">
+                                    <a href="category.html"><i class="<?= $val->fa_icon ?>"></i></a>
+                                </div>
+                                <div class="category-header">
+                                    <a href="category.html">
+                                        <h4><?= $val->name ?></h4>
+                                    </a>
+                                </div>
+                                <div class="category-content">
+                                    <ul>
+                                        <?php
+                                        $result = $val->model::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+                                        if (isset($result) && count($result) > 0) {
+                                            foreach ($result as $key => $val) {
+                                                ?>
+                                                <li>
+                                                    <a href="category.html"><?= $val->city->name ?></a>
+                                                    <span class="category-counter"><?= $val->cityrow_count ?></span>
+                                                </li>
+                                                <?php
+                                                if ($key == 5) {
+                                                    break;
+                                                }
+                                            }
+                                            ?>
+                                            <li>
+                                                <a href="category.html">View all →</a>
+                                            </li>
+                                        <?php } else { ?>
+                                            <li>
+                                                <a href="javascript:;">No Data Found</a>
+                                            </li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4><?=$val->name?></h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                            <ul>
-                                <?php
-                                $result=$val->model::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-                                if(isset($result) && count($result) >0){
-                                    foreach ($result as $key => $val) {
-                                ?>
-                                <li>
-                                    <a href="category.html"><?=$val->city->name?></a>
-                                    <span class="category-counter"><?=$val->cityrow_count?></span>
-                                </li>
-                                    <?php if($key==5){break;}} ?>
-                                <li>
-                                    <a href="category.html">View all →</a>
-                                </li>
-                                    <?php }else{ ?>
-                                <li>
-                                    <a href="javascript:;">No Data Found</a>
-                                </li>
-                                    <?php } ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <?php }}else{ ?>
+                        <?php
+                    }
+                } else {
+                    ?>
                 <?php } ?>
 
             </div>
@@ -59,101 +68,42 @@ use yii\web\View;
     </section>
     <!-- Categories Homepage Section End -->
     <!-- Featured Listings Start -->
-    <section class="featured-lis" >
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
-                    <h3 class="section-title">Medical News</h3>
-                    <div id="new-products" class="owl-carousel">
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="https://pbs.twimg.com/media/DOSktI3WsAARky9.jpg" alt=""> 
-                                    <div class="overlay">
-                                        <a href="https://twitter.com/mnt"><i class="fa fa-link"></i></a>
+    <?php
+    $medicalnews_list = \app\models\MedicalnewsMaster::find()->where(['status' => '1'])->all();
+    if (!empty($medicalnews_list)) {
+        ?>
+        <section class="featured-lis" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
+                        <h3 class="section-title">Medical News</h3>
+                        <div id="new-products" class="owl-carousel">
+                            <?php
+                            foreach ($medicalnews_list as $key => $value) {
+                                ?>
+                                <div class="item">
+                                    <div class="product-item">
+                                        <div class="carousel-thumb">
+                                            <img src="<?= (isset($value->image) && $value->image != '') ? Yii::$app->request->baseUrl . '\uploads\medicalnews\thumbnail\\' . $value->image : Yii::$app->request->baseUrl . '\uploads\noimage\noimg.jpg' ?>" alt=""> 
+                                            <div class="overlay">
+                                                <a href="<?= $value->link; ?>"><i class="fa fa-link"></i></a>
+                                            </div>
+                                        </div>
+                                        <a href="<?= $value->link; ?>" class="item-name" target="_blank"><?= substr($value->description, 0, 50) . ".."; ?></a>  
+                                        <br>
+                                        <span class="info">Sourse:<?= $value->sourse;?></span>
                                     </div>
                                 </div>
-                                <a href="https://twitter.com/mntl" class="item-name">Psychedelic plant brew could improve mental health </a>  
-                                <span class="info">Sourse:Twitter/mnt</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="https://pbs.twimg.com/media/DOSW_0QW0AEo_Kr.jpg" alt=""> 
-                                    <div class="overlay">
-                                        <a href="https://twitter.com/mntl"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="https://twitter.com/mntl" class="item-name">Mushrooms may help you fight off aging </a>  
-                                <span class="info">Sourse:Twitter/mnt</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="https://pbs.twimg.com/media/DOSW-V5W4AAMELM.jpg" alt=""> 
-                                    <div class="overlay">
-                                        <a href="https://twitter.com/mntl"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="https://twitter.com/mntl" class="item-name">Best essential oils for treating cold sores </a>  
-                                <span class="info">Sourse:Twitter/mnt</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="https://pbs.twimg.com/media/DOSJPQKW0AEYzO0.jpg" alt=""> 
-                                    <div class="overlay">
-                                        <a href="https://twitter.com/mnt"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="https://twitter.com/mnt" class="item-name">The legacy of grief: Coping with loss </a>  
-                                <span class="info">Sourse:Twitter/mnt</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="https://pbs.twimg.com/media/DOR7gcyWsAY7SrA.jpg" alt=""> 
-                                    <div class="overlay">
-                                        <a href="https://twitter.com/mnt"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="https://twitter.com/mnt" class="item-name">Bugs in the basement? Here's why </a>  
-                                <span class="info">Sourse:Twitter/mnt</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="https://www.menshealth.com/sites/menshealth.com/files/styles/listicle_slide_custom_user_phone_1x/public/images/slideshow2/fecal-transplant.jpg?itok=4HLba1GI" alt=""> 
-                                    <div class="overlay">
-                                        <a href="https://www.menshealth.com/health/medical-breakthroughs/slide/4"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="https://www.menshealth.com/health/medical-breakthroughs/slide/4" class="item-name">The Fecal Transplant</a>  
-                                <span class="info">Sourse:menshealth.com</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="https://www.menshealth.com/sites/menshealth.com/files/styles/listicle_slide_custom_user_phone_1x/public/images/slideshow2/Hepatitis%20Cure.jpg?itok=6Q6XCQMv" alt=""> 
-                                    <div class="overlay">
-                                        <a href="https://www.menshealth.com/health/medical-breakthroughs/slide/7"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="https://www.menshealth.com/health/medical-breakthroughs/slide/7" class="item-name">The Hepatitis Cure</a>  
-                                <span class="info">Sourse:menshealth.com</span>
-                            </div>
+                            <?php }
+                            ?>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    <?php }
+    ?>
+
     <!-- Featured Listings End -->
     <!-- Start Services Section -->
     <div class="features">

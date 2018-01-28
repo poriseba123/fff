@@ -21,12 +21,12 @@ $config = [
     ],
     'components' => [
         'assetManager' => [
-           'bundles' => [
-               'yii\web\JqueryAsset' => [
-                   'js' => []
-               ],
-           ],
-       ],
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'js' => []
+                ],
+            ],
+        ],
         'i18n' => [
             'translations' => [
                 'app*' => [
@@ -39,15 +39,12 @@ $config = [
                 ],
             ],
         ],
-         'nexmo' => [
- 
+        'nexmo' => [
             'class' => 'app\components\Nexmo',
- 
-            ],
+        ],
         'instagram' => [
             'class' => 'app\components\Instagram',
         ],
-
         'request' => [
 // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'enter your secret key here',
@@ -105,21 +102,35 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        /*'urlManager' => [
-            'enablePrettyUrl' => true,
+        /* 'urlManager' => [
+          'enablePrettyUrl' => true,
+          'showScriptName' => false,
+          'rules' => include_once 'routes.php',
+          ], */
+        'urlManager' => [
+            'class' => 'yii\web\UrlManager',
+            // Disable index.php
             'showScriptName' => false,
-            'rules' => include_once 'routes.php',
-        ],*/
-		'urlManager' => [		
-		'class' => 'yii\web\UrlManager',
-			// Disable index.php
-		'showScriptName' => false,
-			// Disable r= routes
-		'enablePrettyUrl' => true,
-		/*'rules' => array(
-					
-				),*/
-		],
+            // Disable r= routes
+            'enablePrettyUrl' => true,
+        /* 'rules' => array(
+
+          ), */
+        ],
+        'cdn' => [
+            'class' => '\yii2cdn\Cdn',
+            'baseUrl' => '/cdn',
+            'basePath' => dirname(dirname(__DIR__)) . '/cdn',
+            'components' => [
+                'script' => [
+                    'js' => [
+                        [
+                            '@cdn' => 'https://cdn.ckeditor.com/4.5.1/standard/ckeditor.js', // online version
+                        ]
+                    ]
+                ]
+            ],
+        ],
     ],
     'params' => $params,
 ];
