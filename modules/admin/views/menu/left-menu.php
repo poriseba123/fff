@@ -26,27 +26,47 @@
                     <span class="selected"></span>
                 </a>
             </li>
-            <li class="nav-item start <?= (Yii::$app->controller->id == 'leftmenu') ? 'active' : '' ?>">
-                <a href="<?= $this->context->adminUrl('leftmenu'); ?>" class="nav-link ">
-                    <i class="fa fa-bars"></i>
-                    <span class="title">Left Menu</span>
-                    <span class="selected"></span>
+
+            <?php $allControllers = ['leftmenu', 'homepagelogoslider', 'medicalnews','homepagefeatures']; ?>
+            <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-diamond"></i>
+                    <span class="title">Home-Page content Management</span>
+                    <span class="arrow"></span>
                 </a>
+                <ul class="sub-menu">
+                    <li class="nav-item start <?= (Yii::$app->controller->id == 'leftmenu') ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('leftmenu'); ?>" class="nav-link ">
+                            <i class="fa fa-bars"></i>
+                            <span class="title">Left Menu</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item start <?= (Yii::$app->controller->id == 'homepagefeatures') ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('homepagefeatures'); ?>" class="nav-link ">
+                            <i class="fa fa-star"></i>
+                            <span class="title">Features</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item start <?= (Yii::$app->controller->id == 'homepagelogoslider') ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('homepagelogoslider'); ?>" class="nav-link ">
+                            <i class="fa fa-picture-o fa-3x fa-fw"></i>
+                            <span class="title">Upload Logo/Slider</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item start <?= (Yii::$app->controller->id == 'medicalnews') ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('medicalnews'); ?>" class="nav-link ">
+                            <i class="fa fa-newspaper-o fa-3x fa-fw"></i>
+                            <span class="title">Medical News</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li class="nav-item start <?= (Yii::$app->controller->id == 'homepagelogoslider') ? 'active' : '' ?>">
-                <a href="<?= $this->context->adminUrl('homepagelogoslider'); ?>" class="nav-link ">
-                    <i class="fa fa-picture-o fa-3x fa-fw"></i>
-                    <span class="title">Upload Logo/Slider</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
-            <li class="nav-item start <?= (Yii::$app->controller->id == 'medicalnews') ? 'active' : '' ?>">
-                <a href="<?= $this->context->adminUrl('medicalnews'); ?>" class="nav-link ">
-                    <i class="fa fa-newspaper-o fa-3x fa-fw"></i>
-                    <span class="title">Medical News</span>
-                    <span class="selected"></span>
-                </a>
-            </li>
+
             <li class="heading">
                 <h3 class="uppercase">location</h3>
             </li>

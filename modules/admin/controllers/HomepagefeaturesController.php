@@ -14,56 +14,32 @@ use yii\helpers\ArrayHelper;
 use yii\console\Application;
 use yii\web\NotFoundHttpException;
 use app\modules\admin\components\AdminController;
-//use app\models\MedicalnewsMaster;
-use app\models\MedicalnewsMaster;
+use app\models\Homepagefeatures;
 use yii\imagine\Image;
 use Imagine\Gd;
 use Imagine\Image\Box;
 use Imagine\Image\BoxInterface;
 
-class MedicalnewsController extends AdminController {
+class HomepagefeaturesController extends AdminController {
 
     public function column() {
+
         $viewMsg = 'View';
         $updateMsg = 'Update';
         $gridColumns = [
             ['class' => 'kartik\grid\SerialColumn'],
             [
                 'class' => '\kartik\grid\DataColumn',
-                'label' => 'Link',
-                'attribute' => 'link',
+                'label' => 'Heading',
+                'attribute' => 'heading',
             ],
             [
                 'class' => '\kartik\grid\DataColumn',
-                'label' => 'sourse',
-                'attribute' => 'sourse',
-            ],
-            [
-                'class' => '\kartik\grid\DataColumn',
-                'label' => 'description',
+                'label' => 'Description',
                 'attribute' => 'description',
                 'value' => function($data) {
                     return substr(strip_tags($data->description), 1, 100) . '...';
-                    //return strip_tags($data->description);
                 }
-            ],
-            [
-                'attribute' => 'status',
-                'value' => function($data) {
-                    if ($data->status == 0) {
-                        $status = "Inactive";
-                    } elseif ($data->status == 1) {
-                        $status = "Active";
-                    }
-                    return $status;
-                },
-                'filterType' => GridView::FILTER_SELECT2,
-                'filter' => ArrayHelper::map(array('0' => array('id' => '0', 'status' => 'Inactive'), '1' => array('id' => '1', 'status' => 'Active')), 'id', 'status'),
-                'filterWidgetOptions' => [
-                    'pluginOptions' => ['allowClear' => true],
-                    'options' => ['multiple' => false],
-                ],
-                'filterInputOptions' => ['placeholder' => 'Select']
             ],
             [
                 'class' => 'kartik\grid\ActionColumn',
@@ -71,18 +47,12 @@ class MedicalnewsController extends AdminController {
                 'vAlign' => 'middle',
                 'urlCreator' => function($action, $model, $key, $index) {
                     switch ($action) {
-                        case "view":
-                            return Url::to(['medicalnews/view', 'id' => $model->id]);
-                            break;
                         case "update":
-                            return Url::to(['medicalnews/update', 'id' => $model->id]);
-                            break;
-                        case "delete":
-                            return Url::to(['medicalnews/delete', 'id' => $model->id]);
+                            return Url::to(['homepagefeatures/update', 'id' => $model->id]);
                             break;
                     }
                 },
-                'template' => '{view} {update} {delete}',
+                'template' => '{update}',
                 'buttons' => [
                     'chamber' => function ($url, $model) {
                         return $model->status == 1 ? Html::a('<i class="fa fa-university" aria-hidden="true"></i>', Url::to(['doctor/chamberindex', 'id' => $model->id]), [
@@ -99,7 +69,7 @@ class MedicalnewsController extends AdminController {
     }
 
     public function actionIndex() {
-        $searchModel = new MedicalnewsMaster;
+        $searchModel = new Homepagefeatures;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $widget = GridView::widget([
                     'dataProvider' => $dataProvider,
@@ -114,8 +84,8 @@ class MedicalnewsController extends AdminController {
                         ]
                     ],
                     'toolbar' => [
-                        ['content' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-info']),
-                        ],
+//                        ['content' => Html::a('<i class="glyphicon glyphicon-plus"></i> Add', ['create'], ['class' => 'btn btn-info']),
+//                        ],
                         ['content' => Html::a('<i class="glyphicon glyphicon-repeat"></i> Reset', ['index'], ['class' => 'btn btn-info']),
                         ]
                     ],
@@ -144,10 +114,11 @@ class MedicalnewsController extends AdminController {
 
     public function actionCreate() {
         $data = [];
-        $model = new MedicalnewsMaster;
+        $model = new Homepagefeatures;
         $model->scenario = "create";
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate()) {
+
                 $model->save(false);
                 Yii::$app->session->setFlash('success', 'created successfully');
                 return $this->redirect(["index"]);
@@ -159,38 +130,15 @@ class MedicalnewsController extends AdminController {
     public function actionCreateajax() {
         if (Yii::$app->request->isAjax) {
             $resp = [];
-            $imgName = '';
-            $imgError = 0;
-            $resp['imgErr'] = false;
             $resp['flag'] = false;
-            $resp['checkbox'] = true;
-
-            $model = new MedicalnewsMaster();
+            $model = new Homepagefeatures();
             $model->scenario = "create";
             if ($model->load(Yii::$app->request->post())) {
-                $img = UploadedFile::getInstance($model, 'image');
-                if (isset($img) && $img->error == 0) {
-                    $allow = ['jpg', 'png', 'jpeg'];
-                    $ext = explode('.', $img->name);
-                    if (!in_array(end($ext), $allow)) {
-                        $resp['imgErr'] = true;
-                        $resp['msg'] = "Invalid Image. Please upload jpg,jpeg and png image.";
-                        $imgError = 1;
-                    } else {
-                        $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/medicalnews/original/' . $imgName;
-                        $img->saveAs($path);
-                        $this->resizeImage('medicalnews', $imgName);
-                        $model->image = $imgName;
-                    }
-                }
-                //$model->status =1;
-
-                if ($model->validate() && $imgError == 0) {
+                if ($model->validate()) {
                     $model->save(false);
                     $resp['flag'] = true;
-                    $resp['url'] = Url::to(['medicalnews/index']);
-                    $resp['msg'] = "Blood Bank successfully created";
+                    $resp['url'] = Url::to(['homepagefeatures/index']);
+                    $resp['msg'] = "successfully created";
                 } else {
                     $resp['errors'] = $model->getErrors();
                 }
@@ -202,38 +150,17 @@ class MedicalnewsController extends AdminController {
 
     public function actionUpdateajax() {
         if (Yii::$app->request->isAjax) {
-            $med_shop_id = $_POST['news_id'];
+            $otion_id = $_POST['option_id'];
             $resp = [];
-            $imgError = 0;
-            $resp['imgErr'] = false;
             $resp['flag'] = false;
-
-            $resp['checkbox'] = true;
-
-            $model = MedicalnewsMaster::findOne($med_shop_id);
+            $model = Homepagefeatures::findOne($otion_id);
             $model->scenario = "update";
             if ($model->load(Yii::$app->request->post())) {
-                $img = UploadedFile::getInstance($model, 'image');
-                if (isset($img) && $img->error == 0) {
-                    $allow = ['jpg', 'png', 'jpeg'];
-                    $ext = explode('.', $img->name);
-                    if (!in_array(end($ext), $allow)) {
-                        $resp['imgErr'] = true;
-                        $resp['msg'] = "Invalid Image. Please upload jpg,jpeg and png image.";
-                        $imgError = 1;
-                    } else {
-                        $imgName = date('Ymd') . '_' . time() . '_' . $img->name;
-                        $path = Yii::$app->basePath . '/uploads/medicalnews/original/' . $imgName;
-                        $img->saveAs($path);
-                        $this->resizeImage('medicalnews', $imgName);
-                        $model->image = $imgName;
-                    }
-                }
-                if ($model->validate() && $imgError == 0) {
+                if ($model->validate()) {
                     $model->save(false);
                     $resp['flag'] = true;
-                    $resp['url'] = Url::to(['medicalnews/index']);
-                    $resp['msg'] = "medicalnews successfully updated";
+                    $resp['url'] = Url::to(['homepagefeatures/index']);
+                    $resp['msg'] = "successfully updated";
                 } else {
                     $resp['errors'] = $model->getErrors();
                 }
@@ -245,7 +172,7 @@ class MedicalnewsController extends AdminController {
 
     public function actionUpdate($id) {
         $data = [];
-        $model = MedicalnewsMaster::findOne($id);
+        $model = Homepagefeatures::findOne($id);
         $model->scenario = 'update';
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             $model->save(false);
@@ -255,22 +182,8 @@ class MedicalnewsController extends AdminController {
         return $this->render('update', ["model" => $model]);
     }
 
-    public function actionDelete($id) {
-        $chamber = MedicalnewsMaster::findOne($id);
-        $chamber->status = 3;
-        $chamber->save(false);
-        Yii::$app->session->setFlash('success', ' deleted.');
-//                        return $this->redirect(['index']);
-        return $this->redirect(["index"]);
-    }
-
-    public function actionView($id) {
-        return $this->render('view', ['model' => $this->findModel($id),
-        ]);
-    }
-
     protected function findModel($id) {
-        if (($model = MedicalnewsMaster::findOne($id)) !== null) {
+        if (($model = Homepagefeatures::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

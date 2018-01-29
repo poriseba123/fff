@@ -91,7 +91,7 @@ use yii\helpers\ArrayHelper;
                                         </div>
                                         <a href="<?= $value->link; ?>" class="item-name" target="_blank"><?= substr($value->description, 0, 50) . ".."; ?></a>  
                                         <br>
-                                        <span class="info">Sourse:<?= $value->sourse;?></span>
+                                        <span class="info">Sourse:<?= $value->sourse; ?></span>
                                     </div>
                                 </div>
                             <?php }
@@ -106,145 +106,33 @@ use yii\helpers\ArrayHelper;
 
     <!-- Featured Listings End -->
     <!-- Start Services Section -->
+    <?php
+    $feature_list = \app\models\Homepagefeatures::find()->all();
+    ?>
     <div class="features">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="0.3s">
-                        <div class="features-icon">
-                            <i class="fa fa-book">
-                            </i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                Full Documented
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="0.6s">
-                        <div class="features-icon">
-                            <i class="fa fa-paper-plane"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                Clean & Modern Design
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
+                <?php
+                foreach ($feature_list as $key => $value) {
+                    ?>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="features-box wow fadeInDownQuick" data-wow-delay="0.3s">
+                            <div class="features-icon">
+                                <i class="fa <?= $value->fav_icon; ?>">
+                                </i>
+                            </div>
+                            <div class="features-content">
+                                <h4>
+                                    <?= $value->heading; ?>
+                                </h4>
+                                <p>
+                                    <?= $value->description; ?> 
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="0.9s">
-                        <div class="features-icon">
-                            <i class="fa fa-map"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                Great Features
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="1.2s">
-                        <div class="features-icon">
-                            <i class="fa fa-cogs"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                Completely Customizable
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="1.5s">
-                        <div class="features-icon">
-                            <i class="fa fa-hourglass"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                100% Responsive Layout
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="1.8s">
-                        <div class="features-icon">
-                            <i class="fa fa-hashtag"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                User Friendly
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="2.1s">
-                        <div class="features-icon">
-                            <i class="fa fa-newspaper-o"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                Awesome Layout
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="2.4s">
-                        <div class="features-icon">
-                            <i class="fa fa-leaf"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                High Quality
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="2.7s">
-                        <div class="features-icon">
-                            <i class="fa fa-google"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                Free Google Fonts Use
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <?php }
+                ?>
             </div>
         </div>
     </div>
