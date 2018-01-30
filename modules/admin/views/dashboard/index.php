@@ -194,7 +194,23 @@ use yii\helpers\ArrayHelper;
                             ?>
                             <span data-counter="counterup" data-value="<?= (count($oldagehomeTotal) > 0) ? count($oldagehomeTotal) : 0 ?>"><?= (count($oldagehomeTotal) > 0) ? count($oldagehomeTotal) : 0 ?></span>
                         </div>
-                        <div class="desc bold"> Old age home</div>
+                        <div class="desc bold"> Old age home Total</div>
+                    </div>
+                </a>
+            </div>
+             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('orphanehome'); ?>">
+                    <div class="visual">
+                        <i class="fa fa-home"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <?php
+                            $orphanhomeTotal = \app\models\Orphanehome::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($orphanhomeTotal) > 0) ? count($orphanhomeTotal) : 0 ?>"><?= (count($orphanhomeTotal) > 0) ? count($orphanhomeTotal) : 0 ?></span>
+                        </div>
+                        <div class="desc bold"> Orphan home Total</div>
                     </div>
                 </a>
             </div>
