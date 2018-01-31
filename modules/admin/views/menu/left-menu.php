@@ -211,6 +211,32 @@
 
                 </ul>
             </li>
+            
+              <?php $allControllers = ['oldagehome', 'orphanehome']; ?>
+
+
+            <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="fa fa-home fa-fw"></i>
+                    <span class="title">Shelter Home</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item <?= (Yii::$app->controller->id == "oldagehome") ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('oldagehome') ?>" class="nav-link ">
+                            <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                            <span class="title">Old-age Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?= (Yii::$app->controller->id == "orphanehome") ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('orphanehome') ?>" class="nav-link ">
+                            <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                            <span class="title">Orphan Home</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
 
             <!--emergency transport management end-->
             <!--health care bank  management section start-->

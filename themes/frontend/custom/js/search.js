@@ -1,33 +1,48 @@
 $(document).ready(function () {
-    setTimeout(function(){
+    //$('#loader').css("display", "block");
+    setTimeout(function () {
+        $('#loader').css("display", "block");
         $('#search_states').trigger('change');
-    },'5000');
+    }, '10');
     $('#search_states').change(function () {
-        var city_id=$('#hidden_city').val();
-//        loader_start();
+        var city_id = $('#hidden_city').val();
         var state_id = $(this).val();
         var url = full_path + 'site/getsearchbarcities';
-        console.log(url);
-        $.post(url, {state_id: state_id,city_id:city_id}, function (data) {
+        $.post(url, {state_id: state_id, city_id: city_id}, function (data) {
             $('#search_cities').html(data.html);
             $("#search_cities").selectpicker('refresh');
             search();
-//            loader_stop();
         }, 'json');
     });
 
 });
+(function ($) {
+    // create a reference to the old `.html()` function
+    var htmlOriginal = $.fn.html;
 
+    // redefine the `.html()` function to accept a callback
+    $.fn.html = function (html, callback) {
+        // run the old `.html()` function with the first parameter
+        var ret = htmlOriginal.apply(this, arguments);
+        // run the callback (if it is defined)
+        if (typeof callback == "function") {
+            callback();
+        }
+        // make sure chaining is not broken
+        return ret;
+    }
+})(jQuery);
+$.fn.bar = function () {
+    $('#loader').css("display", "none");
+    return this; //The magic statement
+}
 function search() {
-//    alert('sss');
-    loader_start();
     var formData = $('#searchForm').serialize();
     var url = full_path + 'search/getsearch';
     $.post(url, formData, function (data) {
         if (data.res == 1) {
-//            window.history.pushState('obj', 'newtitle', data.url);
-            $('#search-result').html(data.html);
+            $("#search-result").html(data.html, function () {
+            }).bar();
         }
-        loader_stop();
     }, 'json');
 }
