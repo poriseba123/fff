@@ -21,14 +21,10 @@ use yii\helpers\Url;
                     <div class="widget">
                         <h3 class="block-title">Useful Links</h3>
                         <ul class="menu">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Categories</a></li>
-                            <li><a href="#">FAQ</a></li>
-                            <li><a href="#">Left Sidebar</a></li>
-                            <li><a href="#">Pricing Plans</a></li>
+                            <li><a href="<?= Yii::$app->request->baseUrl; ?>">Home</a></li>
+                            <li><a href="<?= Yii::$app->request->baseUrl; ?>/site/faq">FAQ</a></li>
                             <li><a href="#">About</a></li>
                             <li><a href="#">Contact</a></li>
-                            <li><a href="#">Full Width Page</a></li>
                             <li><a href="#">Terms of Use</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                         </ul>
@@ -108,7 +104,7 @@ use yii\helpers\Url;
             <div class="row">
                 <div class="col-md-12">
                     <div class="site-info pull-left">
-                        <p>All copyrights reserved &copy; <?=date('Y')?></p>
+                        <p>All copyrights reserved &copy; <?= date('Y') ?></p>
                     </div>
                     <div class="bottom-social-icons social-icon pull-right">  
                         <a class="facebook" target="_blank" href="javascript:;"><i class="fa fa-facebook"></i></a> 

@@ -14,14 +14,12 @@ use app\models\ContactForm;
 use app\components\FrontendController;
 use app\models\MetaLocation;
 use app\models\Cms;
-
 use app\models\MedicineShopMaster;
 use app\models\AmbulanceMaster;
 use app\models\EyeBankMaster;
 use app\models\BloodBankMaster;
 use app\models\MortuaryMaster;
 use app\models\DiagnosticCentre;
-
 use app\models\ServicesList;
 
 class SiteController extends FrontendController {
@@ -71,33 +69,34 @@ class SiteController extends FrontendController {
             ],
         ];
     }
+
     public function actionIndex() {
         $this->view->title = "Home";
-        $data=[];
-        
-        $all_services=ServicesList::find()->where(['status'=>'1'])->all();
-        $data['all_services']=$all_services;
-        
-        $med_shop_result= MedicineShopMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-        $data['med_shop_result']=$med_shop_result;
-        
-        $ambulance_result= AmbulanceMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-        $data['ambulance_result']=$ambulance_result;
-        
-        $ambulance_result= AmbulanceMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-        $data['ambulance_result']=$ambulance_result;
-        
-        $eyebank_result= EyeBankMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-        $data['eyebank_result']=$eyebank_result;
-        
-        $bloodbank_result= BloodBankMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-        $data['eyebank_result']=$eyebank_result;
-        
-        $mortuary_result= MortuaryMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-        $data['mortuary_result']=$mortuary_result;
-        
-        $diagnostic_result= DiagnosticCentre::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-        $data['diagnostic_result']=$diagnostic_result;
+        $data = [];
+
+        $all_services = ServicesList::find()->where(['status' => '1'])->all();
+        $data['all_services'] = $all_services;
+
+        $med_shop_result = MedicineShopMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+        $data['med_shop_result'] = $med_shop_result;
+
+        $ambulance_result = AmbulanceMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+        $data['ambulance_result'] = $ambulance_result;
+
+        $ambulance_result = AmbulanceMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+        $data['ambulance_result'] = $ambulance_result;
+
+        $eyebank_result = EyeBankMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+        $data['eyebank_result'] = $eyebank_result;
+
+        $bloodbank_result = BloodBankMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+        $data['eyebank_result'] = $eyebank_result;
+
+        $mortuary_result = MortuaryMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+        $data['mortuary_result'] = $mortuary_result;
+
+        $diagnostic_result = DiagnosticCentre::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+        $data['diagnostic_result'] = $diagnostic_result;
 
 
         return $this->render('index', $data);
@@ -110,42 +109,6 @@ class SiteController extends FrontendController {
 
     public function actionUrlerror() {
         return $this->render("url-error");
-    }
-
-    public function actionComo_funciona() {
-        $this->view->title = "como-funciona";
-//        return $this->redirect(Yii::$app->urlManager->createUrl('/admin/'));
-        return $this->render('como_funciona');
-    }
-
-    public function actionQuien_somos() {
-        $this->view->title = "Quien somos";
-//        return $this->redirect(Yii::$app->urlManager->createUrl('/admin/'));
-        return $this->render('quien_somos');
-    }
-
-    public function actionReglamento_interno() {
-        $this->view->title = "reglamento-interno";
-//        return $this->redirect(Yii::$app->urlManager->createUrl('/admin/'));
-        return $this->render('reglamento_interno');
-    }
-
-    public function actionPreguntas_y_respuestas() {
-        $this->view->title = "Preguntas_y_respuestas";
-//        return $this->redirect(Yii::$app->urlManager->createUrl('/admin/'));
-        return $this->render('preguntas_y_respuestas');
-    }
-
-    public function actionTerminos_y_condiciones() {
-        $this->view->title = "Terminos_y_condiciones";
-//        return $this->redirect(Yii::$app->urlManager->createUrl('/admin/'));
-        return $this->render('terminos_y_condiciones');
-    }
-
-    public function actionPreceptos_de_confidencialidad() {
-        $this->view->title = "Preceptos_de_confidencialidad";
-//        return $this->redirect(Yii::$app->urlManager->createUrl('/admin/'));
-        return $this->render('preceptos_de_confidencialidad');
     }
 
     public function actionActivateaccount() {
@@ -232,7 +195,6 @@ class SiteController extends FrontendController {
         }
         echo json_encode($resp);
     }
-    
 
     public function actionForgotpassword() {
         return $this->render("forgot-password");
@@ -319,7 +281,7 @@ class SiteController extends FrontendController {
             return $this->render('url-error');
         }
     }
-    
+
     public function actionNewsletter() {
         $resp = [];
         $resp['flag'] = false;
@@ -328,26 +290,26 @@ class SiteController extends FrontendController {
             $model->scenario = 'subscribe';
             $model->attributes = $_POST['Newsletter'];
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-                $model->full_name=$_POST['Newsletter']['full_name'];
-                $model->email_id=$_POST['Newsletter']['email_id'];
-                $email_check= \app\models\Newsletter::find()->where(['email_id'=>$model->email_id])->one();
-                if(count($email_check)>0){
-                    if($email_check->status==1){
+                $model->full_name = $_POST['Newsletter']['full_name'];
+                $model->email_id = $_POST['Newsletter']['email_id'];
+                $email_check = \app\models\Newsletter::find()->where(['email_id' => $model->email_id])->one();
+                if (count($email_check) > 0) {
+                    if ($email_check->status == 1) {
                         $model->addError('email_id', Yii::t('app', 'Already subscribed'));
                         $resp['error'] = $model->getErrors();
-                    }else{
-                        $model->status=1;
-                        $model->updated_at=date("Y-m-d H:i:s");
-                        $model->save(false); 
+                    } else {
+                        $model->status = 1;
+                        $model->updated_at = date("Y-m-d H:i:s");
+                        $model->save(false);
                         $resp['flag'] = true;
                         $resp['msg'] = Yii::t('app', 'newsletter subscribed');
                     }
-                }else{
-                $model->created_at=date("Y-m-d H:i:s");
-                $model->updated_at=date("Y-m-d H:i:s");
-                $model->save(false);
-                $resp['flag'] = true;
-                $resp['msg'] = Yii::t('app', 'newsletter subscribed');
+                } else {
+                    $model->created_at = date("Y-m-d H:i:s");
+                    $model->updated_at = date("Y-m-d H:i:s");
+                    $model->save(false);
+                    $resp['flag'] = true;
+                    $resp['msg'] = Yii::t('app', 'newsletter subscribed');
                 }
             } else {
                 $error = $model->getErrors();
@@ -384,8 +346,10 @@ class SiteController extends FrontendController {
     }
 
     public function actionFaq() {
-        $model = Cms::find()->where(['slug' => "faq"])->one();
-        return $this->render('cms', ['model' => $model]);
+//        $model = Cms::find()->where(['slug' => "faq"])->one();
+        $model=[];
+       // die();
+        return $this->render('faq', ['model' => $model]);
     }
 
     public function actionAboutus() {
@@ -454,28 +418,29 @@ class SiteController extends FrontendController {
     }
 
     public function actionGetsearchbarcities() {
-        $resp=[];
-        $html='<option class="subitem" value="">All Cities</option>';
-        if(isset($_POST['state_id']) && $_POST['state_id']!=''){
-        $state_id=$_POST['state_id'];
-        $city_id=$_POST['city_id'];
-        $sql = "select c.* from cities as c LEFT JOIN districts as d ON c.district_id=d.id LEFT JOIN states as s ON d.state_id=s.id where s.id=$state_id and d.status=1 and c.status=1 order by c.name ASC";
-        $result = Yii::$app->db->createCommand($sql)->queryAll();
-        if(count($result) > 0){
-        foreach ($result as $key => $value) {
-            $val=(object)$value;
-            $select='';
-            if($city_id==$val->id){
-                $select='selected="selected"';
+        $resp = [];
+        $html = '<option class="subitem" value="">All Cities</option>';
+        if (isset($_POST['state_id']) && $_POST['state_id'] != '') {
+            $state_id = $_POST['state_id'];
+            $city_id = $_POST['city_id'];
+            $sql = "select c.* from cities as c LEFT JOIN districts as d ON c.district_id=d.id LEFT JOIN states as s ON d.state_id=s.id where s.id=$state_id and d.status=1 and c.status=1 order by c.name ASC";
+            $result = Yii::$app->db->createCommand($sql)->queryAll();
+            if (count($result) > 0) {
+                foreach ($result as $key => $value) {
+                    $val = (object) $value;
+                    $select = '';
+                    if ($city_id == $val->id) {
+                        $select = 'selected="selected"';
+                    }
+                    $html .= '<option class="subitem" value="' . $val->id . '" ' . $select . '>' . $val->name . '</option>';
+                }
             }
-            $html.='<option class="subitem" value="'.$val->id.'" '.$select.'>'.$val->name.'</option>';
         }
-        }
-        }
-        $resp['html']=$html;
+        $resp['html'] = $html;
         echo json_encode($resp);
         exit;
     }
+
     public function actionCheckmailtemplate() {
         $to = "taslimislam02@gmail.com";
         $body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.";
