@@ -328,32 +328,8 @@ class SiteController extends FrontendController {
         return $this->goHome();
     }
 
-    public function actionContact() {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-                    'model' => $model,
-        ]);
-    }
-
     public function actionHowitworks() {
         $model = Cms::find()->where(['slug' => "how_it_works"])->one();
-        return $this->render('cms', ['model' => $model]);
-    }
-
-    public function actionFaq() {
-//        $model = Cms::find()->where(['slug' => "faq"])->one();
-        $model=[];
-       // die();
-        return $this->render('faq', ['model' => $model]);
-    }
-
-    public function actionAboutus() {
-        $model = Cms::find()->where(['slug' => "about_us"])->one();
         return $this->render('cms', ['model' => $model]);
     }
 

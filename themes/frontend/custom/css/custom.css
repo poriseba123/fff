@@ -3,5 +3,11 @@
 }
 .main{
 
-    background-color:"#FFF";
+    background-color:#FFF !important;
+}
+#google-map,
+body,
+html {
+    padding: 0;
+    height: 460px;
 }
