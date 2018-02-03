@@ -2,10 +2,14 @@
 
 namespace app\controllers;
 
+//namespace yashop\ses;
+//use ofat\yii2-yashop-ses\libs\SimpleEmailService;
+///var/www/html/vendor/ofat/yii2-yashop-ses/libs
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+//use yii\mail\BaseMailer;
 use app\models\UserMaster;
 use app\models\SuccessNotify;
 use app\models\Fellowship;
@@ -418,17 +422,16 @@ class SiteController extends FrontendController {
     }
 
     public function actionCheckmailtemplate() {
-        $to = "taslimislam02@gmail.com";
+        $to = "satyajitghosh02@gmail.com";
         $body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.";
-
         $content = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php', array('message' => $body), true);
         echo "<pre>";
         print_r($content);
 //        exit;
         $result = Yii::$app->mailer->compose()
                 ->setTo($to)
-                ->setFrom([])
-                ->setFrom(['noreply@123Vmos.com' => '123Vmos'])
+//                ->setFrom([])
+                ->setFrom('poriseba.com@gmail.com')
                 ->setSubject("testing Email Template")
                 ->setHtmlBody($content)
                 ->send();

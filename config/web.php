@@ -77,20 +77,30 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.gmail.com', // e.g. smtp.mandrillapp.com or smtp.gmail.com
-                'username' => 'taslimislam02@gmail.com',
-                'password' => 'fe383a96e1cc07acc194286ceda0dd32',
-                'port' => '587', // Port 25 is a very common port too
-                'encryption' => 'tls', // It is often used, check your provider or mail server specs
-            ],
-            // send all mails to a file by default. You have to set
+//        'mailer' => [
+//            'class' => 'yii\swiftmailer\Mailer',
+//            'transport' => [
+//                'class' => 'Swift_SmtpTransport',
+//                'host' => 'email-smtp.us-east-1.amazonaws.com', // e.g. smtp.mandrillapp.com or smtp.gmail.com
+//                'username' => 'poriseba.com@gmail.com',
+//                'password' => 'Password!@3',
+//                'port' => '25', // Port 25 is a very common port too
+//                'encryption' => 'tls', // It is often used, check your provider or mail server specs
+//            ],
+//            // send all mails to a file by default. You have to set
+//// 'useFileTransport' to false and configure a transport
+//// for the mailer to send real emails.
+//            'useFileTransport' => false,
+//        ],
+        'mail' => [
+            'class' => 'yashop\ses\Mailer',
+            'access_key' => 'AKIAJSNACDPWRHTNISTA',
+            'secret_key' => 'Alih89gKNRT2zExyA8amVe7OLlLmBmqKQldQ/CcTEpbq',
+            'host' => 'email-smtp.us-east-1.amazonaws.com' // not required
+        // send all mails to a file by default. You have to set
 // 'useFileTransport' to false and configure a transport
 // for the mailer to send real emails.
-            'useFileTransport' => false,
+        //'useFileTransport' => false,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

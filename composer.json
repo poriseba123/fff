@@ -71,7 +71,7 @@
         "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0.10",
         "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
+        "yiisoft/yii2-swiftmailer": "~2.1.0",
         "yiisoft/yii2-authclient": "*",
         "paypal/rest-api-sdk-php": "^1.8",
         "kartik-v/yii2-grid": "@dev",
@@ -79,7 +79,8 @@
         "kartik-v/yii2-social": "@dev",
 	"yiisoft/yii2-imagine": "~2.1.0",
         "2amigos/yii2-ckeditor-widget" : "~2.1",
-        "blacksmoke26/yii2cdn": "*"
+        "blacksmoke26/yii2cdn": "*",
+        "ofat/yii2-yashop-ses": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
