@@ -214,6 +214,22 @@ use yii\helpers\ArrayHelper;
                     </div>
                 </a>
             </div>
+             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('orphanehome'); ?>">
+                    <div class="visual">
+                        <i class="fa fa-spotify fa-fw"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <?php
+                            $gymTotal = \app\models\GymCenter::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($gymTotal) > 0) ? count($gymTotal) : 0 ?>"><?= (count($gymTotal) > 0) ? count($gymTotal) : 0 ?></span>
+                        </div>
+                        <div class="desc bold"> Gym Center Total</div>
+                    </div>
+                </a>
+            </div>
         </div>
         <div class="clearfix"></div>
     </div>

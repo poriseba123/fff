@@ -272,7 +272,7 @@
             <!--bank management end-->
 
             <!--fitness section start-->
-            <?php $allControllers = ['gym', 'yogacenter', 'physiotherapy', 'swimmingclub', 'karateclub']; ?>
+            <?php $allControllers = ['gymcenter', 'yogacenter', 'physiotherapy', 'swimmingclub', 'karateclub']; ?>
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-spotify fa-fw"></i>
@@ -280,8 +280,8 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item <?= (Yii::$app->controller->id == "gym") ? 'active' : '' ?>">
-                        <a href="<?= $this->context->adminUrl('multilingual/') ?>" class="nav-link ">
+                    <li class="nav-item <?= (Yii::$app->controller->id == "gymcenter") ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('gymcenter') ?>" class="nav-link ">
                             <i class="fa fa-spotify fa-fw" aria-hidden="true"></i>
                             <span class="title">Gym Center</span>
                         </a>
