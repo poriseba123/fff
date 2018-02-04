@@ -422,22 +422,22 @@ class SiteController extends FrontendController {
     }
 
     public function actionCheckmailtemplate() {
-        $to = "satyajitghosh02@gmail.com";
+        $to = "satyajitghosh089@gmail.com";
         $body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.";
         $content = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php', array('message' => $body), true);
         echo "<pre>";
         print_r($content);
 //        exit;
-        $result = Yii::$app->mailer->compose()
-                ->setTo($to)
-//                ->setFrom([])
-                ->setFrom('poriseba.com@gmail.com')
-                ->setSubject("testing Email Template")
-                ->setHtmlBody($content)
-                ->send();
+//        $result = Yii::$app->mailer->compose()
+//                ->setTo($to)
+////                ->setFrom([])
+//                ->setFrom('poriseba.com@gmail.com')
+//                ->setSubject("testing Email Template")
+//                ->setHtmlBody($content)
+//                ->send();
         echo "<pre>";
         echo "here</br/>";
-        print_r($result);
+        //print_r($result);
         echo "</pre>";
         exit;
     }

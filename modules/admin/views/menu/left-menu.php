@@ -287,9 +287,9 @@
                         </a>
                     </li>
                     <li class="nav-item <?= (Yii::$app->controller->id == "yogacenter") ? 'active' : '' ?>">
-                        <a href="<?= $this->context->adminUrl('seo/') ?>" class="nav-link ">
+                        <a href="<?= $this->context->adminUrl('yogacenter/') ?>" class="nav-link ">
                             <i class="fa fa-spotify fa-fw" aria-hidden="true"></i>
-                            <span class="title">Physiotherapy Center</span>
+                            <span class="title">Yoga Center</span>
                         </a>
                     </li>
                     <li class="nav-item <?= (Yii::$app->controller->id == "swimmingclub") ? 'active' : '' ?>">

@@ -30,7 +30,7 @@ use yii\data\ActiveDataProvider;
  * @property string $created_at
  * @property string $updated_at
  */
-class GymCenter extends \yii\db\ActiveRecord {
+class YogaCenter extends \yii\db\ActiveRecord {
 
     /**
      * @inheritdoc
@@ -38,7 +38,7 @@ class GymCenter extends \yii\db\ActiveRecord {
     public $cityrow_count;
 
     public static function tableName() {
-        return 'gym_master';
+        return 'yoga_master';
     }
 
     /**
@@ -90,7 +90,7 @@ class GymCenter extends \yii\db\ActiveRecord {
     }
 
     public function search($params) {
-        $query = GymCenter::find();
+        $query = YogaCenter::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [

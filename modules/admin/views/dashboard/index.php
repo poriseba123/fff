@@ -215,7 +215,7 @@ use yii\helpers\ArrayHelper;
                 </a>
             </div>
              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('orphanehome'); ?>">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('gymcenter'); ?>">
                     <div class="visual">
                         <i class="fa fa-spotify fa-fw"></i>
                     </div>
@@ -227,6 +227,22 @@ use yii\helpers\ArrayHelper;
                             <span data-counter="counterup" data-value="<?= (count($gymTotal) > 0) ? count($gymTotal) : 0 ?>"><?= (count($gymTotal) > 0) ? count($gymTotal) : 0 ?></span>
                         </div>
                         <div class="desc bold"> Gym Center Total</div>
+                    </div>
+                </a>
+            </div>
+              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('yogacenter'); ?>">
+                    <div class="visual">
+                        <i class="fa fa-spotify fa-fw"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <?php
+                            $yogaTotal = \app\models\YogaCenter::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($yogaTotal) > 0) ? count($yogaTotal) : 0 ?>"><?= (count($yogaTotal) > 0) ? count($yogaTotal) : 0 ?></span>
+                        </div>
+                        <div class="desc bold"> Yoga Center Total</div>
                     </div>
                 </a>
             </div>
