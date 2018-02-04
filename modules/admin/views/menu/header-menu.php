@@ -2,7 +2,10 @@
     <div class="page-header-inner ">
         <div class="page-logo">
             <a href="<?= $this->context->adminUrl('/') ?>">
-                <img src="<?= $this->context->getProjectLogo() ?>" alt="logo" class="logo-default" /> </a>
+                <?php
+                 $logoname = \app\models\Homepagesliderlogo::find()->select('logo_image')->one();
+                ?>
+                <img src="<?= Yii::$app->request->baseUrl ?>../uploads\logoslider\thumbnail\<?= $logoname->logo_image; ?>" alt="logo" class="logo-default" style="height: 61px !important;background-color: #FFF;" /> </a>
                 <!--<span><?php // $this->context->getProjectName() ?></span>-->
             </a>
             <div class="menu-toggler sidebar-toggler">

@@ -26,10 +26,12 @@ LoginAsset::register($this);
     </head>
     <body class="login">
         <?php $this->beginBody() ?>
-        <?= $this->context->renderPartial('../menu/loader'); ?>
+        <?= $this->context->renderPartial('../menu/loader');
+        $logoname = \app\models\Homepagesliderlogo::find()->select('logo_image')->one();
+        ?>
         <div class="logo">
             <a href="<?= $this->context->adminUrl('/') ?>">
-                <img src="<?= Yii::$app->request->baseUrl ?>/themes/backend/assets/img/bg/no-logo.png" style="height: 100px;"/>
+                <img src="<?= Yii::$app->request->baseUrl ?>uploads\logoslider\thumbnail\<?= $logoname->logo_image; ?>" style="height: 100%; background-color: #fff;"/>
                 <!--<img src="<?= $this->context->getProjectLogo() ?>" alt="" />--> 
                 <!--<span><?= $this->context->getProjectName() ?></span>-->
             </a>
