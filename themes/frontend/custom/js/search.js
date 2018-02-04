@@ -40,8 +40,9 @@ function search() {
     var formData = $('#searchForm').serialize();
     var url = full_path + 'search/getsearch';
     $.post(url, formData, function (data) {
+        //alert(data);
         if (data.res == 1) {
-            $("#search-result").html(data.html, function () {
+            $("#output").html(data.html, function () {
             }).bar();
         }
     }, 'json');

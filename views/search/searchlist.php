@@ -47,12 +47,15 @@ use yii\widgets\LinkPager;
                 <!-- Product filter End -->
 
                 <!-- Adds wrapper Start -->
-                <div class="adds-wrapper" id="search-result">
+                <div id="output">
+                    
+                </div>
+<!--                <div class="adds-wrapper" id="search-result">
 
                 </div>
-                <!-- Adds wrapper End -->
+                 Adds wrapper End 
 
-                <!-- Start Pagination -->
+                 Start Pagination 
                 <div class="pagination-bar">
                     <ul class="pagination">
                         <li class="active"><a href="#">1</a></li>
@@ -63,7 +66,7 @@ use yii\widgets\LinkPager;
                         <li><a class="pagination-btn" href="#">Next »</a></li>
                     </ul>
                 </div>
-                <!-- End Pagination -->
+                 End Pagination -->
 
                 <div class="post-promo text-center">
                     <h2> Do you get anything for sell ? </h2>

@@ -174,7 +174,7 @@ if (($controller == 'site' && $action == 'index')) {
                     <div class="advanced-search">
                         <form id="searchForm" action="<?= Yii::$app->request->baseUrl . '/search/index' ?>">
                             <input type="hidden" name="city" id="hidden_city" value="<?= (isset($_GET['city']) && $_GET['city'] != '') ? $_GET['city'] : '' ?>">
-                            <input type="hidden" name="limit" id="limit" value="20">
+                            <input type="hidden" name="limit" id="limit" value="5">
                             <input type="hidden" name="offset" id="offset" value="0">
                             <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
                                 <div class="input-group-addon search-category-container">

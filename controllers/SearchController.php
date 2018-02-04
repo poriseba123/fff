@@ -45,12 +45,12 @@ class SearchController extends FrontendController {
             $data_msg = [];
             $all_result = [];
             $total_results_count = 0;
-            $limit = $_POST['limit'];
-            $offset = $_POST['offset'];
-            $city = $_POST['city'];
-            $categories = $_POST['categories'];
-            $state = $_POST['state'];
-            $keyword = $_POST['keyword'];
+            $limit = $_REQUEST['limit'];
+            $offset = $_REQUEST['offset'];
+            $city = $_REQUEST['city'];
+            $categories = $_REQUEST['categories'];
+            $state = $_REQUEST['state'];
+            $keyword = $_REQUEST['keyword'];
             $services=ServicesList::findOne($categories);
             $category_table=$services->table_name;
             $search_sql = "select * from $category_table where city_id=$city AND status=1 LIMIT $limit OFFSET $offset";
@@ -61,7 +61,7 @@ class SearchController extends FrontendController {
             $data['image_folder_name'] = $services->image_folder_name;
             $data['limit'] = $limit;
             $data['offset'] = $offset;
-            $data['total_results_count'] = $total_results_count;
+            $data['total_results_count'] = $total_results_count['count(*)'];
             $data_msg['html'] = $this->renderPartial('_get_search', $data, true);
 //            $data_msg['url'] = Yii::$app->request->baseUrl . '/search/';
             $data_msg['res'] = 1;
