@@ -82,3 +82,4 @@ $this->registerJsFile(
         Yii::$app->request->baseUrl . '/themes/frontend/custom/js/search.js', ['depends' => [\yii\web\JqueryAsset::className()]]
 );
 ?>
+<script src="http://esimakin.github.io/twbs-pagination/js/jquery.twbsPagination.js"></script> 

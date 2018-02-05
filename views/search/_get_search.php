@@ -63,103 +63,18 @@ if ((int) $total_results_count > 0) {
     }
 }
 ?>
-<ul class="pagination">
-    <?php
-    $k = 0;
-    for ($i = 1; $i <= $total_no_pages; $i++) {
-        if ($i < 5) {
-            ?>
-            <li class="tapo <?= ($i == 1) ? 'active' : ''; ?>"><a href="javascript:void(0);" id="<?= $i; ?>"><?= $i; ?></a></li>
-            <?php
-        } else {
-            if ($k == 0) {
-                $last_one = $i - 1;
-                ?>
-                <li class="boka"><a href="javascript:void(0);" > ...</a></li>
-                <li><a class="pagination-btn next" href="javascript:void(0);">Next »</a></li>
-                    <?php
-                    $k++;
-                    //exit;
-                }
-            }
-            ?>
-
-    <?php }
-    ?>
-</ul>
+<ul id="pagination-demo" class="pagination-sm pagination"></ul>
 <!-- End Pagination -->
+<!--http://jsfiddle.net/freedawirl/dc4zebow/-->
+
 <script>
     $(document).ready(function () {
-        tapo = false;
-        final = false;
-        $('body').on('click', 'li.tapo', function () {
-            // do something
-            tapo = true;
-            $('.tapo').removeClass('active');
-            $(this).addClass('active');
-        });
-//        $(".tapo").click(function () {
-//            
-//        })
-        totalpage_count = "<?= $total_no_pages; ?>";
-        flag = false;
-        last_one = "<?= $last_one; ?>";
-        $(".next").click(function () {
-            if (final) {
-                now = $(".active").children('a').attr('id');
-                console.log("now" + now);
-                $("#" + now).parent().removeClass('active');
-                then = parseInt(now) + parseInt(1);
-                console.log("then" + then);
-                $("#" + then).parent().addClass('active');
+        $('#pagination-demo').twbsPagination({
+            totalPages: <?= $total_no_pages; ?>,
+            visiblePages: 4,
+            onPageClick: function (event, page) {
+                $('#page-content').text('Page ' + page);
             }
-            if (tapo && !(final)) {
-                activeID = $(".active").children('a').attr('id');
-                next_countactive = parseInt(activeID) + parseInt(1);
-                if (last_one != activeID) {
-                    $("#" + activeID).parent().removeClass('active');
-                    alert("next_countactive"+next_countactive)
-                    $("#" + next_countactive).parent().addClass('active');
-                }
-                console.log(next_countactive);
-
-            }
-
-            if (flag) {
-                id = newid;
-            } else {
-                id = $(".active").children('a').attr('id');
-                alert(id);
-
-            }
-            if (id != totalpage_count) {
-                $("#" + id).parent().removeClass('active');
-            }
-            if (!tapo) {
-                next_count = parseInt(id) + parseInt(1);
-            }else{
-                next_count = parseInt(id) + parseInt(0);
-            }
-
-
-            if (id >= last_one) {
-                if (totalpage_count >= next_count) {
-                    alert("id"+id)
-                    flag = true;
-                    newid = parseInt(id) + parseInt(1);
-                    $('<li class="tapo active"><a href="javascript:void(0);" id="' + newid + '">' + newid + '</a></li>').insertBefore(".boka");
-                    if (newid == (parseInt(totalpage_count))) {
-                        $(".boka").remove();
-                        final = true;
-                    }
-                }
-            } else {
-
-                if (totalpage_count >= next_count) {
-                    $("#" + next_count).parent().addClass('active');
-                }
-            }
-
         })
     });
 
