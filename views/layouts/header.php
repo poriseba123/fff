@@ -103,7 +103,7 @@ if (($controller == 'site' && $action == 'index')) {
                     <div class="row search-bar">
                         <div class="advanced-search">
                             <form action="<?= Yii::$app->request->baseUrl . '/search/index' ?>">
-                                <input type="hidden" name="city" id="hidden_city" value="<?= (isset($_GET['city']) && $_GET['city'] != '') ? $_GET['city'] : '' ?>">
+                                <input type="hidden" name="cityid" id="hidden_city" value="<?= (isset($_GET['city']) && $_GET['city'] != '') ? $_GET['city'] : '' ?>">
                                 <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
                                     <div class="input-group-addon search-category-container">
                                         <label class="styled-select">

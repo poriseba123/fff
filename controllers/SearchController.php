@@ -6,7 +6,6 @@ use Yii;
 use yii\web\Controller;
 use app\components\FrontendController;
 use yii\db\Query;
-
 use app\models\ServicesList;
 
 class SearchController extends FrontendController {
@@ -17,10 +16,21 @@ class SearchController extends FrontendController {
     }
 
     public function actionIndex() {
-        $page_no = 1;
-        $limit = 20;
-        $offset = 0;
-        return $this->render('searchlist', ['page_no' => $page_no, 'limit' => $limit, 'offset' => $offset]);
+        $total_results_count = 0;
+        $limit = 5;
+        //$offset = $_REQUEST['offset'];
+        $data['city'] = $city = $_REQUEST['city'];
+        $data['categories'] = $categories = $_REQUEST['categories'];
+        $data['state'] = $state = $_REQUEST['state'];
+        $data['keyword'] = $keyword = $_REQUEST['keyword'];
+        $services = ServicesList::findOne($categories);
+        $category_table = $services->table_name;
+        $total_result_sql = "select count(*) from $category_table where city_id=$city AND status=1";
+        $total_results_count = Yii::$app->db->createCommand($total_result_sql)->queryOne();
+        $data['limit'] = $limit;
+        //$data['offset'] = $offset;
+        $data['total_results_count'] = $total_results_count['count(*)'];
+        return $this->render('searchlist', $data);
     }
 
     public function actionPostdetail($id) {
@@ -51,14 +61,15 @@ class SearchController extends FrontendController {
             $categories = $_REQUEST['categories'];
             $state = $_REQUEST['state'];
             $keyword = $_REQUEST['keyword'];
-            $services=ServicesList::findOne($categories);
-            $category_table=$services->table_name;
+            $services = ServicesList::findOne($categories);
+            $category_table = $services->table_name;
             $search_sql = "select * from $category_table where city_id=$city AND status=1 LIMIT $limit OFFSET $offset";
             $results = Yii::$app->db->createCommand($search_sql)->queryAll();
             $total_result_sql = "select count(*) from $category_table where city_id=$city AND status=1";
             $total_results_count = Yii::$app->db->createCommand($total_result_sql)->queryOne();
             $data['results'] = $results;
             $data['image_folder_name'] = $services->image_folder_name;
+            $data['fa_icon'] = $services->fa_icon;
             $data['limit'] = $limit;
             $data['offset'] = $offset;
             $data['total_results_count'] = $total_results_count['count(*)'];

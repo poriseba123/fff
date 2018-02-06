@@ -17,28 +17,28 @@ use yii\widgets\LinkPager;
                         <a class="list switchToGrid" href="#"><i class="fa fa-list"></i></a>
                         <a class="grid switchToList" href="#"><i class="fa fa-th-large"></i></a>
                     </div>
-                    <div class="short-name">
-                        <span>Short By</span>
-                        <form class="name-ordering" method="post">
-                            <label>
-                                <select name="order" class="orderby">
-                                    <option selected="selected" value="menu-order">Short by</option>
-                                    <option value="popularity">Price: Low to High</option>
-                                    <option value="popularity">Price: High to Low</option>
-                                </select>
-                            </label>
-                        </form>
-                    </div>
+                    <!--                    <div class="short-name">
+                                            <span>Short By</span>
+                                            <form class="name-ordering" method="post">
+                                                <label>
+                                                    <select name="order" class="orderby">
+                                                        <option selected="selected" value="menu-order">Short by</option>
+                                                        <option value="popularity">Price: Low to High</option>
+                                                        <option value="popularity">Price: High to Low</option>
+                                                    </select>
+                                                </label>
+                                            </form>
+                                        </div>-->
                     <div class="Show-item">
                         <span>Show Items</span>
                         <form class="woocommerce-ordering" method="post">
                             <label>
                                 <select name="order" class="orderby">
-                                    <option selected="selected" value="menu-order">49 items</option>
-                                    <option value="popularity">popularity</option>
-                                    <option value="popularity">Average ration</option>
-                                    <option value="popularity">newness</option>
-                                    <option value="popularity">price</option>
+                                    <option selected="selected" value="menu-order"> 5 items</option>
+                                    <option value="popularity">10 items</option>
+                                    <option value="popularity">20 items</option>
+                                    <option value="popularity">30 items</option>
+
                                 </select>
                             </label>
                         </form>
@@ -47,39 +47,72 @@ use yii\widgets\LinkPager;
                 <!-- Product filter End -->
 
                 <!-- Adds wrapper Start -->
-                <div id="output">
-                    
-                </div>
-<!--                <div class="adds-wrapper" id="search-result">
+
+                <div class="adds-wrapper" id="search-result">
 
                 </div>
-                 Adds wrapper End 
+                <!--                 Adds wrapper End -->
 
-                 Start Pagination 
+                <!--                 Start Pagination -->
                 <div class="pagination-bar">
-                    <ul class="pagination">
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#"> ...</a></li>
-                        <li><a class="pagination-btn" href="#">Next »</a></li>
-                    </ul>
+                    <ul id="pagination-demo" class="pagination-sm pagination"></ul>
                 </div>
-                 End Pagination -->
+                <!--                 End Pagination -->
 
-                <div class="post-promo text-center">
-                    <h2> Do you get anything for sell ? </h2>
-                    <h5>Sell your products online FOR FREE. It's easier than you think !</h5>
-                    <a href="post-ads.html" class="btn btn-post btn-danger">Post a Free Ad </a>
-                </div>
+                <!--                <div class="post-promo text-center">
+                                    <h2> Do you get anything for sell ? </h2>
+                                    <h5>Sell your products online FOR FREE. It's easier than you think !</h5>
+                                    <a href="post-ads.html" class="btn btn-post btn-danger">Post a Free Ad </a>
+                                </div>-->
             </div>
         </div>
     </div>
 </div>
+<!-- Start Pagination -->
+<?php
+if ((int) $total_results_count > 0) {
+    $result = (int) ($total_results_count % $limit);
+    if ($result == 0) {
+        (int) $total_no_pages = (int) ($total_results_count / $limit);
+    } else {
+        (int) $total_no_pages = (int) ($total_results_count / $limit) + 1;
+    }
+}
+?>
+<!--<form id="pagiForm" action="/search/index">
+    <input type="hidden" name="keyword"  value="<?= $keyword; ?>">
+    <input type="hidden" name="city"  value="<?= $city; ?>">
+    <input type="hidden" name="state"  value="<?= $state; ?>">
+    <input type="hidden" name="categories" value="<?= $categories; ?>">
+    <input type="hidden" name="limit" id="limitpagi" value="5">
+    <input type="hidden" name="offset"  id="offset" value="0"></form>-->
+<!-- End Pagination -->
+<!--http://jsfiddle.net/freedawirl/dc4zebow/-->
+
+
 <?php
 $this->registerJsFile(
         Yii::$app->request->baseUrl . '/themes/frontend/custom/js/search.js', ['depends' => [\yii\web\JqueryAsset::className()]]
 );
 ?>
 <script src="http://esimakin.github.io/twbs-pagination/js/jquery.twbsPagination.js"></script> 
+<script>
+    $(document).ready(function () {
+        $('#pagination-demo').twbsPagination({
+            totalPages: <?= $total_no_pages; ?>,
+            visiblePages: 4,
+            onPageClick: function (event, page) {
+                items_per_page = parseInt($("#limit").val());
+                offset = (page - 1) * items_per_page;
+                $("#offset").val(offset);
+                setTimeout(function () {
+                    search();
+                }, '400');
+
+
+
+            }
+        })
+    });
+
+</script>

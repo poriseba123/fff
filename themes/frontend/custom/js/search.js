@@ -9,9 +9,11 @@ $(document).ready(function () {
         var state_id = $(this).val();
         var url = full_path + 'site/getsearchbarcities';
         $.post(url, {state_id: state_id, city_id: city_id}, function (data) {
-            $('#search_cities').html(data.html);
-            $("#search_cities").selectpicker('refresh');
-            search();
+            $("#search_cities").html(data.html, function () {
+                $("#search_cities").selectpicker('refresh');
+            }).callsearch()
+
+
         }, 'json');
     });
 
@@ -36,13 +38,18 @@ $.fn.bar = function () {
     $('#loader').css("display", "none");
     return this; //The magic statement
 }
+$.fn.callsearch = function () {
+   search();
+    return this; //The magic statement
+}
 function search() {
     var formData = $('#searchForm').serialize();
+    console.log(formData);
     var url = full_path + 'search/getsearch';
     $.post(url, formData, function (data) {
         //alert(data);
         if (data.res == 1) {
-            $("#output").html(data.html, function () {
+            $("#search-result").html(data.html, function () {
             }).bar();
         }
     }, 'json');

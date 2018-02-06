@@ -14,31 +14,37 @@ use app\models\TripLocation;
                 <div class="col-sm-2 no-padding photobox">
                     <div class="add-image">
                         <a href="javascript:;"><img src="<?= $this->context->getCategoryImage($image_folder_name, $val->image); ?>" alt=""></a>
-                        <span class="photo-count"><i class="fa fa-camera"></i>2</span>
+                        <span class="photo-count"><i class="fa fa-camera"></i>1</span>
                     </div>
                 </div>
                 <div class="col-sm-7 add-desc-box">
                     <div class="add-details">
-                        <h5 class="add-title"><a href="ads-details.html"><?= (strlen($val->name) > 20) ? substr($val->name, 0, 100) . '..' : $val->name ?></a></h5>
+                        <h5 class="add-title"><a href="javascript:void(0)"><?= (strlen($val->name) > 20) ? substr($val->name, 0, 100) . '..' : $val->name ?></a></h5>
                         <div class="info">
-                            <span class="add-type">B</span>
-                            <span class="date">
-                                <i class="fa fa-clock"></i>
+                            <span class="add-type"><i class="<?= isset($fa_icon) ? $fa_icon.' fa-2x' : ''; ?>"></i></span>
+<!--                            <span class="date">
+                                
                                 16:22:13 2017-02-29
-                            </span> -
-                            <span class="category">Electronics</span> -
-                            <span class="item-location"><i class="fa fa-map-marker"></i>London</span>
+                            </span> --->
+                            <span class="category">Contact No</span> -<?= isset($val->contact_no) ? $val->contact_no : ''; ?>
+                            <?php
+                            $city = \app\models\Cities::find()->select('name')->where(["id" => $val->city_id])->one();
+                            ?>
+                            <span class="item-location"><i class="fa fa-map-marker"></i><?= isset($city->name) ? $city->name : ''; ?></span>
                         </div>
                         <div class="item_desc">
-                            <a href="#">Donec ut quam felis. Cras egestas, quam in plac erat dictum, erat mauris inte rdum est nec.</a>
+                            <a href="#">Address: <?= (strlen($val->address) > 500) ? substr($val->address, 0, 400) . '..' : $val->address ?></a>
+                        </div>
+                        <div class="item_desc">
+                            <a href="#"><?= (strlen($val->description) > 500) ? substr($val->description, 0, 400) . '..' : $val->description ?></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-3 text-right  price-box">
-                    <h2 class="item-price"> $ 320 </h2>
+                    <!--                    <h2 class="item-price"> $ 320 </h2>-->
                     <a class="btn btn-danger btn-sm"><i class="fa fa-certificate"></i>
-                        <span>Top Ads</span></a> 
-                    <a class="btn btn-common btn-sm"> <i class="fa fa-eye"></i> <span>215</span> </a> 
+                        <span>View Details</span></a> 
+                    <a class="btn btn-common btn-sm"> <i class="fa fa-map-marker"></i> <span>Location</span> </a> 
                 </div>
             </div>
             <?php
@@ -52,30 +58,3 @@ use app\models\TripLocation;
         </div>
     <?php } ?>
 </div>
-<!-- Start Pagination -->
-<?php
-if ((int) $total_results_count > 0) {
-    $result = (int) ($total_results_count % $limit);
-    if ($result == 0) {
-        (int) $total_no_pages = (int) ($total_results_count / $limit);
-    } else {
-        (int) $total_no_pages = (int) ($total_results_count / $limit) + 1;
-    }
-}
-?>
-<ul id="pagination-demo" class="pagination-sm pagination"></ul>
-<!-- End Pagination -->
-<!--http://jsfiddle.net/freedawirl/dc4zebow/-->
-
-<script>
-    $(document).ready(function () {
-        $('#pagination-demo').twbsPagination({
-            totalPages: <?= $total_no_pages; ?>,
-            visiblePages: 4,
-            onPageClick: function (event, page) {
-                $('#page-content').text('Page ' + page);
-            }
-        })
-    });
-
-</script>
