@@ -9,40 +9,60 @@ use yii\widgets\LinkPager;
 <div class="main-container">
     <div class="container">
         <div class="row">
-            <?= Yii::$app->controller->renderPartial('@app/views/layouts/search_leftbar.php'); ?>
-            <div class="col-sm-9 page-content">
+            <?php
+//Yii::$app->controller->renderPartial('@app/views/layouts/search_leftbar.php'); 
+            ?>
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10 page-content">
+
+
                 <!-- Product filter Start -->
                 <div class="product-filter">
-                    <div class="grid-list-count">
-                        <a class="list switchToGrid" href="#"><i class="fa fa-list"></i></a>
-                        <a class="grid switchToList" href="#"><i class="fa fa-th-large"></i></a>
-                    </div>
-                    <!--                    <div class="short-name">
-                                            <span>Short By</span>
-                                            <form class="name-ordering" method="post">
-                                                <label>
-                                                    <select name="order" class="orderby">
-                                                        <option selected="selected" value="menu-order">Short by</option>
-                                                        <option value="popularity">Price: Low to High</option>
-                                                        <option value="popularity">Price: High to Low</option>
-                                                    </select>
-                                                </label>
-                                            </form>
-                                        </div>-->
-                    <div class="Show-item">
-                        <span>Show Items</span>
-                        <form class="woocommerce-ordering" method="post">
-                            <label>
-                                <select name="order" class="orderby">
-                                    <option selected="selected" value="menu-order"> 5 items</option>
-                                    <option value="popularity">10 items</option>
-                                    <option value="popularity">20 items</option>
-                                    <option value="popularity">30 items</option>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="grid-list-count">
+                                <a class="list switchToGrid" href="#"><i class="fa fa-list"></i></a>
+                                <a class="grid switchToList" href="#"><i class="fa fa-th-large"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <div style="float: right;">
+                                <ul class="pagination-sm pagination sync-pagination"></ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="Show-item">
+                                <span>Show Items</span>
+                                <form class="woocommerce-ordering" method="post">
+                                    <label>
+                                        <select name="order" class="orderby" id="setlimit">
+                                            <option selected="selected" value="5"> 5 items</option>
+                                            <option value="10">10 items</option>
+                                            <option value="20">20 items</option>
+                                            <option value="30">30 items</option>
+                                            <option value="50">50 items</option>
 
-                                </select>
-                            </label>
-                        </form>
+                                        </select>
+                                    </label>
+                                </form>
+                            </div>
+                        </div>
                     </div>
+
+
+
+<!--                                            <span>Short By</span>
+                            <form class="name-ordering" method="post">
+                                <label>
+                                    <select name="order" class="orderby">
+                                        <option selected="selected" value="menu-order">Short by</option>
+                                        <option value="popularity">Price: Low to High</option>
+                                        <option value="popularity">Price: High to Low</option>
+                                    </select>
+                                </label>
+                            </form>-->
+
+
                 </div>
                 <!-- Product filter End -->
 
@@ -55,7 +75,7 @@ use yii\widgets\LinkPager;
 
                 <!--                 Start Pagination -->
                 <div class="pagination-bar">
-                    <ul id="pagination-demo" class="pagination-sm pagination"></ul>
+                    <ul  class="pagination-sm pagination sync-pagination"></ul>
                 </div>
                 <!--                 End Pagination -->
 
@@ -65,6 +85,7 @@ use yii\widgets\LinkPager;
                                     <a href="post-ads.html" class="btn btn-post btn-danger">Post a Free Ad </a>
                                 </div>-->
             </div>
+            <div class="col-sm-1"></div>
         </div>
     </div>
 </div>
@@ -97,22 +118,36 @@ $this->registerJsFile(
 ?>
 <script src="http://esimakin.github.io/twbs-pagination/js/jquery.twbsPagination.js"></script> 
 <script>
-    $(document).ready(function () {
-        $('#pagination-demo').twbsPagination({
-            totalPages: <?= $total_no_pages; ?>,
+    function  pagination(paged = false) {
+        if (paged != false) {
+            Pages = parseInt("<?= $total_no_pages; ?>");
+        } else {
+            Pages = parseInt($("#pagecount").val());
+        }
+        $('.sync-pagination').twbsPagination({
+            totalPages: Pages,
             visiblePages: 4,
-            onPageClick: function (event, page) {
+            onPageClick: function (event, page, paged) {
                 items_per_page = parseInt($("#limit").val());
                 offset = (page - 1) * items_per_page;
                 $("#offset").val(offset);
-                setTimeout(function () {
+                if (paged == false)
                     search();
-                }, '400');
-
-
 
             }
         })
+    }
+    $(document).ready(function () {
+        pagination("<?= $total_no_pages; ?>");
+        $("#setlimit").change(function () {
+            $('#loader').css("display", "block");
+            $('.sync-pagination').twbsPagination('destroy');
+            $("#limit").val($(this).val());
+            search();
+            setTimeout(function () {
+                pagination();
+            }, 400);
+        });
     });
 
 </script>

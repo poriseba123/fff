@@ -72,7 +72,16 @@ class SearchController extends FrontendController {
             $data['fa_icon'] = $services->fa_icon;
             $data['limit'] = $limit;
             $data['offset'] = $offset;
-            $data['total_results_count'] = $total_results_count['count(*)'];
+            $total_results_count = $data['total_results_count'] = $total_results_count['count(*)'];
+            if ((int) $total_results_count > 0) {
+                $result = (int) ($total_results_count % $limit);
+                if ($result == 0) {
+                    (int) $total_no_pages = (int) ($total_results_count / $limit);
+                } else {
+                    (int) $total_no_pages = (int) ($total_results_count / $limit) + 1;
+                }
+            }
+            $data['total_no_pages'] = $total_no_pages;
             $data_msg['html'] = $this->renderPartial('_get_search', $data, true);
 //            $data_msg['url'] = Yii::$app->request->baseUrl . '/search/';
             $data_msg['res'] = 1;
