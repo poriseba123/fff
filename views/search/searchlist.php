@@ -127,13 +127,16 @@ $this->registerJsFile(
         $('.sync-pagination').twbsPagination({
             totalPages: Pages,
             visiblePages: 4,
-            onPageClick: function (event, page, paged) {
+            onPageClick: function (event, page) {
+                setTimeout(function () {
+                    paged = false;
+                }, 10);
                 items_per_page = parseInt($("#limit").val());
                 offset = (page - 1) * items_per_page;
                 $("#offset").val(offset);
-                if (paged == false)
+                if (paged == false) {
                     search();
-
+                }
             }
         })
     }

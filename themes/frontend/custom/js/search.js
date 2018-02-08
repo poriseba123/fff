@@ -44,7 +44,7 @@ $.fn.callsearch = function () {
 }
 function search() {
     var formData = $('#searchForm').serialize();
-    console.log(formData);
+    //console.log(formData);
     var url = full_path + 'search/getsearch';
     $.post(url, formData, function (data) {
         //alert(data);
