@@ -17,14 +17,15 @@ use yii\helpers\ArrayHelper;
                 <?php
                 if (isset($all_services) && count($all_services) > 0) {
                     foreach ($all_services as $key => $val) {
+                        $catagories = $val->id;
                         ?>
                         <div class="col-md-3 col-sm-6 col-xs-12">
                             <div class="category-box <?= $val->border_color ?> wow fadeInUpQuick" data-wow-delay="0.9s">
                                 <div class="icon">
-                                    <a href="category.html"><i class="<?= $val->fa_icon ?>"></i></a>
+                                    <a href="<?= Yii::$app->request->baseUrl . "/search/index?cityid=&categories=$catagories&state=&city=&keyword=" ?>" target="_blank"><i class="<?= $val->fa_icon ?>"></i></a>
                                 </div>
                                 <div class="category-header">
-                                    <a href="category.html">
+                                    <a href="<?= Yii::$app->request->baseUrl . "/search/index?cityid=&categories=$catagories&state=&city=&keyword=" ?>" target="_blank">
                                         <h4><?= $val->name ?></h4>
                                     </a>
                                 </div>
@@ -32,11 +33,14 @@ use yii\helpers\ArrayHelper;
                                     <ul>
                                         <?php
                                         $result = $val->model::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+
                                         if (isset($result) && count($result) > 0) {
                                             foreach ($result as $key => $val) {
+                                                $state_id = $val->state_id;
+                                                $city_id = $val->city->id;
                                                 ?>
                                                 <li>
-                                                    <a href="category.html"><?= $val->city->name ?></a>
+                                                    <a href="<?= Yii::$app->request->baseUrl . "/search/index?cityid=&categories=$catagories&state=$state_id&city=$city_id&keyword=" ?>" target="_blank"><?= $val->city->name ?></a>
                                                     <span class="category-counter"><?= $val->cityrow_count ?></span>
                                                 </li>
                                                 <?php
@@ -46,11 +50,11 @@ use yii\helpers\ArrayHelper;
                                             }
                                             ?>
                                             <li>
-                                                <a href="category.html">View all →</a>
+                                                <a href="<?= Yii::$app->request->baseUrl . "/search/index?cityid=&categories=$catagories&state=&city=&keyword=" ?>" target="_blank">View all →</a>
                                             </li>
                                         <?php } else { ?>
                                             <li>
-                                                <a href="javascript:;">No Data Found</a>
+                                                <a href="javascript:void(0)">No Data Found</a>
                                             </li>
                                         <?php } ?>
                                     </ul>

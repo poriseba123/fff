@@ -19,34 +19,40 @@ use yii\widgets\LinkPager;
                 <!-- Product filter Start -->
                 <div class="product-filter">
                     <div class="row">
-                        <div class="col-sm-2">
-                            <div class="grid-list-count">
-                                <a class="list switchToGrid" href="#"><i class="fa fa-list"></i></a>
-                                <a class="grid switchToList" href="#"><i class="fa fa-th-large"></i></a>
+                        <?php
+                        if ($total_results_count > 0) {
+                            ?>
+                            <div class="col-sm-2">
+                                <div class="grid-list-count">
+                                    <a class="list switchToGrid" href="#"><i class="fa fa-list"></i></a>
+                                    <a class="grid switchToList" href="#"><i class="fa fa-th-large"></i></a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-7">
-                            <div style="float: right;">
-                                <ul class="pagination-sm pagination sync-pagination"></ul>
+                            <div class="col-sm-7">
+                                <div style="float: right;">
+                                    <ul class="pagination-sm pagination sync-pagination"></ul>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="Show-item">
-                                <span>Show Items</span>
-                                <form class="woocommerce-ordering" method="post">
-                                    <label>
-                                        <select name="order" class="orderby" id="setlimit">
-                                            <option selected="selected" value="5"> 5 items</option>
-                                            <option value="10">10 items</option>
-                                            <option value="20">20 items</option>
-                                            <option value="30">30 items</option>
-                                            <option value="50">50 items</option>
+                            <div class="col-sm-3">
+                                <div class="Show-item">
+                                    <span>Show Items</span>
+                                    <form class="woocommerce-ordering" method="post">
+                                        <label>
+                                            <select name="order" class="orderby" id="setlimit">
+                                                <option selected="selected" value="5"> 5 items</option>
+                                                <option value="10">10 items</option>
+                                                <option value="20">20 items</option>
+                                                <option value="30">30 items</option>
+                                                <option value="50">50 items</option>
 
-                                        </select>
-                                    </label>
-                                </form>
+                                            </select>
+                                        </label>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
+                        <?php }
+                        ?>
+
                     </div>
 
 
@@ -68,8 +74,17 @@ use yii\widgets\LinkPager;
 
                 <!-- Adds wrapper Start -->
 
-                <div class="adds-wrapper" id="search-result">
-
+                <div class="<?= ($total_results_count == 0) ? '' : 'adds-wrapper' ?>" id="search-result">
+                    <?php
+                    if ($total_results_count == 0) {
+                        ?>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h2>No Data Found!!</h2>
+                            </div>
+                        </div>
+                    <?php }
+                    ?>
                 </div>
                 <!--                 Adds wrapper End -->
 
@@ -91,6 +106,7 @@ use yii\widgets\LinkPager;
 </div>
 <!-- Start Pagination -->
 <?php
+$total_no_pages = 0;
 if ((int) $total_results_count > 0) {
     $result = (int) ($total_results_count % $limit);
     if ($result == 0) {
@@ -124,21 +140,23 @@ $this->registerJsFile(
         } else {
             Pages = parseInt($("#pagecount").val());
         }
-        $('.sync-pagination').twbsPagination({
-            totalPages: Pages,
-            visiblePages: 4,
-            onPageClick: function (event, page) {
-                setTimeout(function () {
-                    paged = false;
-                }, 10);
-                items_per_page = parseInt($("#limit").val());
-                offset = (page - 1) * items_per_page;
-                $("#offset").val(offset);
-                if (paged == false) {
-                    search();
+        if (Pages > 0) {
+            $('.sync-pagination').twbsPagination({
+                totalPages: Pages,
+                visiblePages: 4,
+                onPageClick: function (event, page) {
+                    setTimeout(function () {
+                        paged = false;
+                    }, 10);
+                    items_per_page = parseInt($("#limit").val());
+                    offset = (page - 1) * items_per_page;
+                    $("#offset").val(offset);
+                    if (paged == false) {
+                        search();
+                    }
                 }
-            }
-        })
+            })
+    }
     }
     $(document).ready(function () {
         pagination("<?= $total_no_pages; ?>");

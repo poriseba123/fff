@@ -9,7 +9,7 @@ if (count($results) > 0) {
         $val = (object) $val;
         ?>
         <div class="item-list">
-            <input type="hidden" id="pagecount" value="<?= isset($total_no_pages)?$total_no_pages:"8"?>">
+            <input type="hidden" id="pagecount" value="<?= isset($total_no_pages) ? $total_no_pages : "8" ?>">
             <div class="col-sm-2 no-padding photobox">
                 <div class="add-image">
                     <a href="javascript:;"><img src="<?= $this->context->getCategoryImage($image_folder_name, $val->image); ?>" alt=""></a>
@@ -32,10 +32,10 @@ if (count($results) > 0) {
                         <span class="item-location"><i class="fa fa-map-marker"></i><?= isset($city->name) ? $city->name : ''; ?></span>
                     </div>
                     <div class="item_desc">
-                        <a href="#">Address: <?= (strlen($val->address) > 500) ? substr($val->address, 0, 400) . '..' : $val->address ?></a>
+                        <a href="#">Address: <?= isset($val->address) ? (strlen($val->address) > 500) ? substr($val->address, 0, 400) . '..' : $val->address : 'Not available'; ?></a>
                     </div>
                     <div class="item_desc">
-                        <a href="#"><?= (strlen($val->description) > 500) ? substr($val->description, 0, 400) . '..' : $val->description ?></a>
+                        <a href="#">Description: <?= isset($val->description) ? (strlen($val->description) > 500) ? substr($val->description, 0, 400) . '..' : $val->description : 'Not available'; ?></a>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@ if (count($results) > 0) {
 } else {
     ?>
     <div class="row">
-        <div class="col-md-10 text-center">
+        <div class="col-md-12 text-center">
             <h2>No Data Found!!</h2>
         </div>
     </div>
