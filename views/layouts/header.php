@@ -30,10 +30,10 @@ $imgname = \app\models\Homepagesliderlogo::find()->select('slider_image1,slider_
         background:url(../../uploads/logoslider/original/<?= $imgname->slider_image4; ?>) center center no-repeat;
         background-size:cover
     }
-    
-  .dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
-    background-color: #337ab7 !important;
-}
+
+    .dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
+        background-color: #337ab7 !important;
+    }
 </style>
 <?php
 $controller = Yii::$app->controller->id;
@@ -47,37 +47,37 @@ $logoname = \app\models\Homepagesliderlogo::find()->select('logo_image')->one();
         <div class="container">
             <div class="navbar-header">
                 <!-- Stat Toggle Nav Link For Mobiles -->
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+                <!--                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>-->
                 <!-- End Toggle Nav Link For Mobiles -->
                 <a class="navbar-brand logo" href="<?= Yii::$app->request->baseUrl; ?>"><img src="<?= Yii::$app->request->baseUrl ?>uploads\logoslider\thumbnail\<?= $logoname->logo_image; ?>" alt=""></a>
             </div>
             <!-- brand and toggle menu for mobile End -->
             <!-- Navbar Start -->
-            <div class="collapse navbar-collapse" id="navbar">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="javascript:void(0);" id="login"><i class="lnr lnr-enter"></i> Login</a></li>
-                    <li><a href="javascript:void(0);" id="signup"><i class="lnr lnr-user"></i> Signup</a></li>
-                    <li><a href="javascript:void(0);"><i class="fa fa-rss"></i> Blog</a></li>
-                    <li class="postadd">
-                        <div class="btn btn-danger btn-post wow pulse" id="emergency" data-wow-iteration="infinite" data-wow-duration="500ms" data-toggle="offcanvas" data-target="">
-                            <p><i class="fa fa-globe fa-spin fa-1x fa-fw"></i>Emergency</p>
-                        </div>
-<!--                        <a class="btn btn-danger btn-post" href="post-ads.html"><span class="fa fa-plus-circle"></span> Post an Ad</a>-->
-                    </li>
-                </ul>
-
-            </div>
+            <!--            <div class="collapse navbar-collapse" id="navbar">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li><a href="javascript:void(0);" id="login"><i class="lnr lnr-enter"></i> Login</a></li>
+                                <li><a href="javascript:void(0);" id="signup"><i class="lnr lnr-user"></i> Signup</a></li>
+                                <li><a href="javascript:void(0);"><i class="fa fa-rss"></i> Blog</a></li>
+                                <li class="postadd">
+                                    <div class="btn btn-danger btn-post wow pulse" id="emergency" data-wow-iteration="infinite" data-wow-duration="500ms" data-toggle="offcanvas" data-target="">
+                                        <p><i class="fa fa-globe fa-spin fa-1x fa-fw"></i>Emergency</p>
+                                    </div>
+                                    <a class="btn btn-danger btn-post" href="post-ads.html"><span class="fa fa-plus-circle"></span> Post an Ad</a>
+                                </li>
+                            </ul>
+            
+                        </div>-->
 
             <!-- Navbar End -->
         </div>
     </nav>
     <!-- Off Canvas Navigation -->
-  <?= \Yii::$app->view->render('left_menue'); ?>
+    <?= \Yii::$app->view->render('left_menue'); ?>
     <!--- End Off Canvas Side Menu -->
 </div>
 <!--- End Off Canvas Side Menu -->
@@ -165,7 +165,10 @@ if (($controller == 'site' && $action == 'index')) {
         </div>
     </section>
     <!-- end intro section -->
-<?php } else { ?>
+<?php
+} else {
+    //die("hello");
+    ?>
     <div id="search-row-wrapper">
         <div class="container">
             <div class="search-inner">

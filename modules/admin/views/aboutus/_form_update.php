@@ -39,44 +39,33 @@ use dosamigos\ckeditor\CKEditor;
         <!-- BEGIN FORM-->
         <?php
         $form = ActiveForm::begin([
-                    'id' => 'update_features_form',
+                    'id' => 'update_aboutus_form',
                     'options' => ['class' => 'form-horizontal form-row-seperated', 'enctype' => 'multipart/form-data'],
                     'enableClientValidation' => false
                 ])
         ?>
         <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">Heading<span class="required">*</span></label>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'heading')->textInput(['class' => 'form-control'])->label(false); ?>
-                     <input type="hidden" name="option_id" value="<?= $model->id ?>">
+                <label class="control-label col-md-2">Youtube Url<span class="required">*</span></label>
+                <div class="col-md-10">
+                    <?= $form->field($model, 'youtube_url')->textInput(['class' => 'form-control'])->label(false); ?>
+                    <input type="hidden" name="option_id" value="<?= $model->id ?>">
                 </div>
             </div>
         </div>
         <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">Icon<span class="required">*</span></label>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'fav_icon')->textInput(['class' => 'form-control'])->label(false); ?>
+                <label class="control-label col-md-2">Description<span class="required">*</span></label>
+                <div class="col-md-10">
+                    <?= $form->field($model, 'description')->textArea(['class' => 'ckeditor form-control','rows' => '20'])->label(false); ?>
                 </div>
             </div>
         </div>
-
-        <div class="form-body">
-            <div class="form-group">
-                <label class="control-label col-md-3">Description<span class="required">*</span></label>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'description')->textArea(['class' => 'ckeditor form-control'])->label(false); ?>
-                </div>
-            </div>
-        </div>
-
-
         <div class="form-actions">
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
                     <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
-                    <a href="<?php echo Url::to(['homepagefeatures/index']); ?>" class="btn default">Back</a>
+                    <a href="<?php echo Url::to(['aboutus/index']); ?>" class="btn default">Back</a>
                 </div>
             </div>
         </div>

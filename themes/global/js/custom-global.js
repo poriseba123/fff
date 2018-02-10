@@ -22,9 +22,9 @@ function warning_msg(message) {
     notie.alert('warning', message, 5);
 }
 $(document).ready(function () {
-    $("#navbar").css("background-color", "transparent");
-    $(document).click(function (event) {
-        var clickover = $(event.target);
-        $("#navbar").toggleClass("main");
-    });
+//    $("#navbar").css("background-color", "transparent");
+//    $(document).click(function (event) {
+//        var clickover = $(event.target);
+//        $("#navbar").toggleClass("main");
+//    });
 })

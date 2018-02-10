@@ -27,7 +27,7 @@
                 </a>
             </li>
 
-            <?php $allControllers = ['leftmenu', 'homepagelogoslider', 'medicalnews','homepagefeatures']; ?>
+            <?php $allControllers = ['leftmenu', 'homepagelogoslider', 'medicalnews', 'homepagefeatures']; ?>
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-diamond"></i>
@@ -65,6 +65,13 @@
                         </a>
                     </li>
                 </ul>
+            </li>
+           <li class="nav-item start <?= (Yii::$app->controller->id == 'aboutus') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('aboutus'); ?>" class="nav-link ">
+                    <i class="icon-diamond fa-3x fa-fw"></i>
+                    <span class="title">About Us Page Content</span>
+                    <span class="selected"></span>
+                </a>
             </li>
 
             <li class="heading">
@@ -211,8 +218,8 @@
 
                 </ul>
             </li>
-            
-              <?php $allControllers = ['oldagehome', 'orphanehome']; ?>
+
+            <?php $allControllers = ['oldagehome', 'orphanehome']; ?>
 
 
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
