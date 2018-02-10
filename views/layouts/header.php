@@ -54,7 +54,8 @@ $logoname = \app\models\Homepagesliderlogo::find()->select('logo_image')->one();
                                     <span class="icon-bar"></span>
                                 </button>-->
                 <!-- End Toggle Nav Link For Mobiles -->
-                <a class="navbar-brand logo" href="<?= Yii::$app->request->baseUrl; ?>"><img src="<?= Yii::$app->request->baseUrl ?>uploads\logoslider\thumbnail\<?= $logoname->logo_image; ?>" alt=""></a>
+              
+                <a class="navbar-brand logo" href="http://poriseba.com/"><img src="http://poriseba.com\uploads\logoslider\thumbnail\<?= $logoname->logo_image; ?>" alt=""></a>
             </div>
             <!-- brand and toggle menu for mobile End -->
             <!-- Navbar Start -->

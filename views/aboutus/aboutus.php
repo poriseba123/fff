@@ -4,114 +4,92 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
+use yii\helpers\ArrayHelper;
+use app\models\ServicesList;
+
+$aboutusContent = \app\models\AboutUs::find()->all();
+$aboutusContent = $aboutusContent[0];
+$all_services = ServicesList::find()->where(['status' => '1'])->all();
 ?>
 <!-- Main container Start -->  
 <div class="main-container">
     <div class="container">
         <div class="row">          
             <div class="col-sm-8">
-                <img src="<?= Yii::$app->request->baseUrl; ?>/assets/img/about.jpg" alt="">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <?= isset($aboutusContent->youtube_url) ? $aboutusContent->youtube_url : ''; ?>
+                </div>
                 <div class="ad-detail-content">
-                    <p>This is an example page. It’s different from a blog post because it will stay in one place and will show up in your site navigation (in most themes). Most people start with an About page that introduces them to potential site visitors. It might say something like this:</p>
-                    <blockquote><p>Hi there! I’m a bike messenger by day, aspiring actor by night, and this is my blog. I live in Los Angeles, have a great dog named Jack, and I like piña coladas. (And gettin’ caught in the rain.)</p></blockquote>
-                    <p>…or something like this:</p>              
-                    <p>Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-                    <blockquote><p>The XYZ Doohickey Company was founded in 1971, and has been providing quality doohickeys to the public ever since. Located in Gotham City, XYZ employs over 2,000 people and does all kinds of awesome things for the Gotham community.</p></blockquote>
-                    <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius.</p>
+                    <?= isset($aboutusContent->description) ? $aboutusContent->description : ''; ?>
                 </div>
             </div>
             <div class="col-sm-4 page-sidebar">
                 <aside>
                     <div class="inner-box">
-                        <div class="categories">
-                            <div class="widget-title">
-                                <i class="fa fa-align-justify"></i>
-                                <h4>All Categories</h4>
-                            </div>
-                            <div class="categories-list">
-                                <ul>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-desktop"></i>
-                                            Electronics <span class="category-counter">(9)</span>
-                                        </a>
-                                    </li>
+                        <?php
+                        if (isset($all_services) && count($all_services) > 0) {
+                            ?>
+                            <div class="categories">
+                                <div class="widget-title">
+                                    <i class="fa fa-align-justify"></i>
+                                    <h4>All Categories</h4>
+                                </div>
+                                <div class="categories-list">
+                                    <ul>
+                                        <?php
+                                        foreach ($all_services as $key => $val) {
 
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-wrench"></i>
-                                            Services <span class="category-counter">(8)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-github-alt"></i>
-                                            Pets <span class="category-counter">(2)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-leaf"></i>
-                                            Fashion <span class="category-counter">(3)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-home"></i>
-                                            Real Estate <span class="category-counter">(4)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-black-tie"></i>
-                                            Jobs <span class="category-counter">(5)</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-cutlery"></i>
-                                            Hotel & Travels <span class="category-counter">(5)</span>
-                                        </a>
-                                    </li>
-                                </ul>
+                                            $result = $val->model::find()->where(['status' => '1'])->all();
+                                            ?>
+                                            <li>
+                                                <a href="<?= Yii::$app->request->baseUrl . "/search/index?cityid=&categories=$val->id&state=&city=&keyword=" ?>" target="_blank"">
+                                                    <i class="fa fa-desktop"></i>
+                                                    <?= isset($val->name) ? $val->name : ''; ?> <span class="category-counter">(<?= isset($result) ? count($result) : 0 ?>)</span>
+                                                </a>
+                                            </li>
+                                        <?php }
+                                        ?>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                            <?php
+                        }
+                        ?>
                     </div>
 
-                    <div class="inner-box">
-                        <div class="widget-title">
-                            <h4>Premium Ads</h4>
-                        </div>
-                        <div class="advimg">
-                            <ul class="featured-list">
-                                <li>
-                                    <img alt="" src="<?= Yii::$app->request->baseUrl; ?>/assets/img/featured/img1.jpg">
-                                    <div class="hover">
-                                        <a href="#"><span>$49</span></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <img alt="" src="<?= Yii::$app->request->baseUrl; ?>/assets/img/featured/img2.jpg">
-                                    <div class="hover">
-                                        <a href="#"><span>$49</span></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <img alt="" src="<?= Yii::$app->request->baseUrl; ?>/assets/img/featured/img3.jpg">
-                                    <div class="hover">
-                                        <a href="#"><span>$49</span></a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="inner-box">
-                        <div class="widget-title">
-                            <h4>Advertisement</h4>
-                        </div>
-                        <img src="<?= Yii::$app->request->baseUrl; ?>/assets/img/img1.jpg" alt="">
-                    </div>
+                    <!--                    <div class="inner-box">
+                                            <div class="widget-title">
+                                                <h4>Premium Ads</h4>
+                                            </div>
+                                            <div class="advimg">
+                                                <ul class="featured-list">
+                                                    <li>
+                                                        <img alt="" src="<?= Yii::$app->request->baseUrl; ?>/assets/img/featured/img1.jpg">
+                                                        <div class="hover">
+                                                            <a href="#"><span>$49</span></a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <img alt="" src="<?= Yii::$app->request->baseUrl; ?>/assets/img/featured/img2.jpg">
+                                                        <div class="hover">
+                                                            <a href="#"><span>$49</span></a>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <img alt="" src="<?= Yii::$app->request->baseUrl; ?>/assets/img/featured/img3.jpg">
+                                                        <div class="hover">
+                                                            <a href="#"><span>$49</span></a>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>-->
+                    <!--                    <div class="inner-box">
+                                            <div class="widget-title">
+                                                <h4>Advertisement</h4>
+                                            </div>
+                                            <img src="<?= Yii::$app->request->baseUrl; ?>/assets/img/img1.jpg" alt="">
+                                        </div>-->
                 </aside>
             </div>
         </div>

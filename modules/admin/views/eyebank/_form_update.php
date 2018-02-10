@@ -290,7 +290,7 @@ use kartik\select2\Select2;
                                     </div>
                                 </div>
                             </div>
-                        <?php
+                            <?php
                         }
                     }
                     ?>
@@ -316,7 +316,7 @@ use kartik\select2\Select2;
             <div class="form-group">
                 <label class="control-label col-md-3">address<span class="required">*</span></label>
                 <div class="col-md-6">
-<?= $form->field($model, 'description')->textArea(['class' => 'form-control', 'rows' => '3'])->label(false); ?>
+                    <?= $form->field($model, 'description')->textArea(['class' => 'form-control', 'rows' => '3'])->label(false); ?>
                 </div>
             </div>
         </div>
@@ -344,13 +344,13 @@ use kartik\select2\Select2;
                                                 </button>
                                             <?php } else { ?>
                                                 <button type="button" class="btn btn-danger" style="font-size:17px;" onclick="removeRow('<?= $key ?>')">X</button>
-    <?php } ?>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="help-block"></div>
                             </div>
-<?php } ?>
+                        <?php } ?>
 
                     </div>
                 </div>
@@ -360,7 +360,7 @@ use kartik\select2\Select2;
             <div class="form-group">
                 <label class="control-label col-md-3">Image<span class="required">*</span></label>
                 <div class="col-md-6">
-<?php echo $form->field($model, 'image')->fileInput(['class' => 'form-control image-input', 'placeholder' => 'Choose Image'])->label(false); ?>
+                    <?php echo $form->field($model, 'image')->fileInput(['class' => 'form-control image-input', 'placeholder' => 'Choose Image'])->label(false); ?>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group text-center" id='preview-img-holder'>
@@ -371,7 +371,7 @@ use kartik\select2\Select2;
             </div>
         </div>
 
-<?php if (!$model->isNewRecord) { ?>
+        <?php if (!$model->isNewRecord) { ?>
             <div class="form-group">
                 <label class="control-label col-md-3">Status <span class="required">*</span></label>
                 <div class="col-md-6">
@@ -384,18 +384,18 @@ use kartik\select2\Select2;
                     </div>
                 </div>
             </div>
-<?php } ?>
+        <?php } ?>
 
 
         <div class="form-actions">
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
-<?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
+                    <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
                     <a href="<?php echo Url::to(['eyebank/index']); ?>" class="btn default">Back</a>
                 </div>
             </div>
         </div>
-<?php ActiveForm::end() ?>
+        <?php ActiveForm::end() ?>
         <!-- END FORM-->
     </div>
 </div>

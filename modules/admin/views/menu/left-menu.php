@@ -73,6 +73,13 @@
                     <span class="selected"></span>
                 </a>
             </li>
+             <li class="nav-item start <?= (Yii::$app->controller->id == 'faq') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('faq'); ?>" class="nav-link ">
+                    <i class="icon-diamond fa-3x fa-fw"></i>
+                    <span class="title">Faq Page Content</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
 
             <li class="heading">
                 <h3 class="uppercase">location</h3>
