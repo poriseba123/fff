@@ -26,7 +26,8 @@ class SearchController extends FrontendController {
         if ($categories) {
             $services = ServicesList::findOne($categories);
             if ($services) {
-                $category_table = $services->table_name;
+                $data['category_table'] = $category_table = $services->table_name;
+                $data['image_folder_name'] = $image_folder_name = $services->image_folder_name;
                 if ($city && (is_numeric($city))) {
                     $total_result_sql = "select count(*) from $category_table where city_id=$city AND status=1";
                 } else {
@@ -39,13 +40,28 @@ class SearchController extends FrontendController {
             } else {
                 $data['total_results_count'] = 0;
             }
-        }else{
-             $data['total_results_count'] = 0;
+        } else {
+            $data['total_results_count'] = 0;
         }
 
 
 
         return $this->render('searchlist', $data);
+    }
+
+    public function actionDetails() {
+        $data['city'] = $city = isset($_REQUEST['city']) ? $_REQUEST['city'] : false;
+        $data['categories'] = $categories = isset($_REQUEST['categories']) ? $_REQUEST['categories'] : false;
+        $data['state'] = $state = isset($_REQUEST['state']) ? $_REQUEST['state'] : '1';
+        $data['table'] = $table = isset($_REQUEST['table']) ? $_REQUEST['table'] : '';
+        $data['imagefolder'] = $imagefolder = isset($_REQUEST['imagefolder']) ? $_REQUEST['imagefolder'] : false;
+        $data['id'] = $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : false;
+        if (($id) && ($table)) {
+            $total_result_sql = "select * from $table where id=$id AND status=1";
+        }
+        $data['result'] = Yii::$app->db->createCommand($total_result_sql)->queryOne();
+        $result_arr['all_data'] =$data;
+        return $this->render('details', $result_arr);
     }
 
     public function actionPostdetail($id) {
@@ -79,7 +95,7 @@ class SearchController extends FrontendController {
             if ($categories) {
                 $services = ServicesList::findOne($categories);
                 if ($services) {
-                   // die("hello");
+                    // die("hello");
                     $category_table = $services->table_name;
                     if ($city && (is_numeric($city))) {
                         $search_sql = "select * from $category_table where city_id=$city AND status=1 LIMIT $limit OFFSET $offset";

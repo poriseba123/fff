@@ -116,13 +116,15 @@ if ((int) $total_results_count > 0) {
     }
 }
 ?>
-<!--<form id="pagiForm" action="/search/index">
-    <input type="hidden" name="keyword"  value="<?= $keyword; ?>">
-    <input type="hidden" name="city"  value="<?= $city; ?>">
-    <input type="hidden" name="state"  value="<?= $state; ?>">
-    <input type="hidden" name="categories" value="<?= $categories; ?>">
-    <input type="hidden" name="limit" id="limitpagi" value="5">
-    <input type="hidden" name="offset"  id="offset" value="0"></form>-->
+<form id="details" action="/search/details">
+
+    <input type="hidden" name="city"  value="<?= isset($city)?$city:''; ?>">
+    <input type="hidden" name="state"  value="<?= isset($state)?$state:''; ?>">
+    <input type="hidden" name="categories" value="<?= isset($categories)?$categories:''; ?>">
+    <input type="hidden" name="table"  value="<?= isset($category_table)?$category_table:''; ?>">
+    <input type="hidden" name="imagefolder"  value="<?=  isset($image_folder_name)?$image_folder_name:''; ?>">
+    <input type="hidden" name="id"  id="contentid" value="">
+</form>
 <!-- End Pagination -->
 <!--http://jsfiddle.net/freedawirl/dc4zebow/-->
 
@@ -169,6 +171,7 @@ $this->registerJsFile(
                 pagination();
             }, 400);
         });
+
     });
 
 </script>

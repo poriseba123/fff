@@ -34,7 +34,12 @@ $imgname = \app\models\Homepagesliderlogo::find()->select('slider_image1,slider_
     .dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
         background-color: #337ab7 !important;
     }
+    .st-first{
+        display: none;
+    }
 </style>
+<script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a8065d9d4d59e0012e897a8&product=sop' async='async'></script>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5a806eefd4d59e0012e897b3&product=sticky-share-buttons"></script>
 <?php
 $controller = Yii::$app->controller->id;
 $action = Yii::$app->controller->action->id;
@@ -54,7 +59,7 @@ $logoname = \app\models\Homepagesliderlogo::find()->select('logo_image')->one();
                                     <span class="icon-bar"></span>
                                 </button>-->
                 <!-- End Toggle Nav Link For Mobiles -->
-              
+
                 <a class="navbar-brand logo" href="http://poriseba.com/"><img src="http://poriseba.com\uploads\logoslider\thumbnail\<?= $logoname->logo_image; ?>" alt=""></a>
             </div>
             <!-- brand and toggle menu for mobile End -->
@@ -166,7 +171,7 @@ if (($controller == 'site' && $action == 'index')) {
         </div>
     </section>
     <!-- end intro section -->
-<?php
+    <?php
 } else {
     //die("hello");
     ?>

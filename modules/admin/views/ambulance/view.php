@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
                 </div>
-                 <div class="row">
+                <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="control-label col-md-3">pin:</label>
@@ -97,11 +97,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="form-group">
                             <label class="control-label col-md-3">State:</label>
                             <div class="col-md-9">
-<?php
-$state_list = \app\models\States::find()->where(["id" => (isset($model->state_id) && $model->state_id != '') ? $model->state_id : 0])->all();
-$listData = ArrayHelper::map($state_list, 'id', 'name');
-$listData = implode(" ", $listData);
-?>
+                                <?php
+                                $state_list = \app\models\States::find()->where(["id" => (isset($model->state_id) && $model->state_id != '') ? $model->state_id : 0])->all();
+                                $listData = ArrayHelper::map($state_list, 'id', 'name');
+                                $listData = implode(" ", $listData);
+                                ?>
                                 <p class="form-control-static"> <?= (isset($listData) && $listData != '') ? $listData : "Not Set"; ?> </p>
                             </div>
                         </div>
@@ -112,11 +112,11 @@ $listData = implode(" ", $listData);
                         <div class="form-group">
                             <label class="control-label col-md-3">District:</label>
                             <div class="col-md-9">
-<?php
-$district_list = \app\models\Districts::find()->where(["id" => (isset($model->district_id) && $model->district_id != '') ? $model->district_id : 0])->all();
-$listData = ArrayHelper::map($district_list, 'id', 'name');
-$listData = implode(" ", $listData);
-?>
+                                <?php
+                                $district_list = \app\models\Districts::find()->where(["id" => (isset($model->district_id) && $model->district_id != '') ? $model->district_id : 0])->all();
+                                $listData = ArrayHelper::map($district_list, 'id', 'name');
+                                $listData = implode(" ", $listData);
+                                ?>
                                 <p class="form-control-static"> <?= (isset($listData) && $listData != '') ? $listData : "Not Set"; ?> </p>
                             </div>
                         </div>
@@ -127,11 +127,11 @@ $listData = implode(" ", $listData);
                         <div class="form-group">
                             <label class="control-label col-md-3">City:</label>
                             <div class="col-md-9">
-<?php
-$city_list = \app\models\Cities::find()->where(["id" => (isset($model->city_id) && $model->city_id != '') ? $model->city_id : 0])->all();
-$listData = ArrayHelper::map($city_list, 'id', 'name');
-$listData = implode(" ", $listData);
-?>
+                                <?php
+                                $city_list = \app\models\Cities::find()->where(["id" => (isset($model->city_id) && $model->city_id != '') ? $model->city_id : 0])->all();
+                                $listData = ArrayHelper::map($city_list, 'id', 'name');
+                                $listData = implode(" ", $listData);
+                                ?>
                                 <p class="form-control-static"> <?= (isset($listData) && $listData != '') ? $listData : "Not Set"; ?> </p>
                             </div>
                         </div>
@@ -198,10 +198,10 @@ $listData = implode(" ", $listData);
                         </div>
                     </div>
                 </div>
-<?php
-$contacts = explode(',', $model->contact_no);
-foreach ($contacts as $key => $value) {
-    ?>
+                <?php
+                $contacts = explode(',', $model->contact_no);
+                foreach ($contacts as $key => $value) {
+                    ?>
                     <div class="row">
                         <div class="col-md-12">
 
@@ -215,9 +215,9 @@ foreach ($contacts as $key => $value) {
                         </div>
                     </div>
 
-    <?php
-}
-?>
+                    <?php
+                }
+                ?>
 
 
 

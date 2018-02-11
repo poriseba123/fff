@@ -41,7 +41,7 @@ if (count($results) > 0) {
             </div>
             <div class="col-sm-3 text-right  price-box">
                 <!--                    <h2 class="item-price"> $ 320 </h2>-->
-                <a class="btn btn-danger btn-sm"><i class="fa fa-certificate"></i>
+                <a class="btn btn-danger btn-sm showdetails" href="javascript:void(0)" id="<?= isset($val->id) ? $val->id : 0; ?>"><i class="fa fa-certificate"></i>
                     <span>View Details</span></a> 
                 <a class="btn btn-common btn-sm"> <i class="fa fa-map-marker"></i> <span>Location</span> </a> 
             </div>
@@ -56,4 +56,14 @@ if (count($results) > 0) {
         </div>
     </div>
 <?php } ?>
-
+<script>
+    $(document).ready(function () {
+        $(".showdetails").click(function () {
+            
+            id = $(this).attr("id");
+            //alert(id);
+            $("#contentid").val(id);
+            $("#details").submit();
+        });
+    });
+</script>
