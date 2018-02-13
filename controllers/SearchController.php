@@ -58,9 +58,14 @@ class SearchController extends FrontendController {
         $data['id'] = $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : false;
         if (($id) && ($table)) {
             $total_result_sql = "select * from $table where id=$id AND status=1";
+            if ($city)
+                $total_result_sql2 = "select * from $table where city_id=$city AND id != $id AND status=1 order by name ASC";
+            else
+                 $total_result_sql2 = "select  * from $table where id != $id AND status=1 order by name ASC";
         }
         $data['result'] = Yii::$app->db->createCommand($total_result_sql)->queryOne();
-        $result_arr['all_data'] =$data;
+        $data['result_related'] = Yii::$app->db->createCommand($total_result_sql2)->queryAll();
+        $result_arr['all_data'] = $data;
         return $this->render('details', $result_arr);
     }
 

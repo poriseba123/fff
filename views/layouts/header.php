@@ -39,7 +39,8 @@ $imgname = \app\models\Homepagesliderlogo::find()->select('slider_image1,slider_
     }
 </style>
 <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a8065d9d4d59e0012e897a8&product=sop' async='async'></script>
-<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5a806eefd4d59e0012e897b3&product=sticky-share-buttons"></script>
+<script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5a830430e45fbb001343001e&product=sticky-share-buttons"></script>
+
 <?php
 $controller = Yii::$app->controller->id;
 $action = Yii::$app->controller->action->id;
