@@ -27,6 +27,14 @@ $config = [
                 ],
             ],
         ],
+        'userCounter' => [
+            'class' => 'app\components\UserCounter',
+            // You can setup these options:
+            'tableUsers' => 'pcounter_users',
+            'tableSave' => 'pcounter_save',
+            'autoInstallTables' => true,
+            'onlineTime' => 10, // min
+        ],
         'i18n' => [
             'translations' => [
                 'app*' => [

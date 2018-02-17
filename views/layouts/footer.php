@@ -21,10 +21,10 @@ use yii\helpers\Url;
                     <div class="widget">
                         <h3 class="block-title">Useful Links</h3>
                         <ul class="menu">
-                            <li><a href="<?= Yii::$app->request->baseUrl; ?>">Home</a></li>
-                            <li><a href="<?= Yii::$app->request->baseUrl; ?>/site/faq">FAQ</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="http://poriseba.com">Home</a></li>
+                            <li><a href="http://poriseba.com/site/faq">FAQ</a></li>
+                            <li><a href="http://poriseba.com/aboutus">About</a></li>
+                            <li><a href="http://poriseba.com/contactus">Contact</a></li>
                             <li><a href="#">Terms of Use</a></li>
                             <li><a href="#">Privacy Policy</a></li>
                         </ul>
@@ -52,7 +52,7 @@ use yii\helpers\Url;
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="1.5s">
-                    <div class="widget">
+<!--                    <div class="widget">
                         <h3 class="block-title">Random Ads</h3>
                         <ul class="featured-list">
                             <li>
@@ -92,7 +92,7 @@ use yii\helpers\Url;
                                 </div>
                             </li>
                         </ul>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>

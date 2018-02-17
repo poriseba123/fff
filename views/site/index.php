@@ -4,6 +4,10 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
 use yii\helpers\ArrayHelper;
+
+Yii::$app->userCounter->refresh();
+$online_user = Yii::$app->userCounter->getOnline();
+$total_visitor = Yii::$app->userCounter->getTotal();
 ?>
 
 <div class="wrapper">
@@ -32,12 +36,14 @@ use yii\helpers\ArrayHelper;
                                 <div class="category-content">
                                     <ul>
                                         <?php
+                                        $total[] = 0;
                                         $result = $val->model::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
 
                                         if (isset($result) && count($result) > 0) {
                                             foreach ($result as $key => $val) {
                                                 $state_id = $val->state_id;
                                                 $city_id = $val->city->id;
+                                                $total[] = $val->cityrow_count;
                                                 ?>
                                                 <li>
                                                     <a href="<?= Yii::$app->request->baseUrl . "/search/index?cityid=&categories=$catagories&state=$state_id&city=$city_id&keyword=" ?>" target="_blank"><?= $val->city->name ?></a>
@@ -168,6 +174,14 @@ use yii\helpers\ArrayHelper;
     <!-- Location Section End -->
 </div>
 <!-- Counter Section Start -->
+<?php
+$total_count = 0;
+if (!empty($total)) {
+    foreach ($total as $key => $value) {
+        $total_count += $value;
+    }
+}
+?>
 <section id="counter">
     <div class="container">
         <div class="row">
@@ -179,8 +193,8 @@ use yii\helpers\ArrayHelper;
                         </span>
                     </div>
                     <div class="desc">
-                        <h3 class="counter">12090</h3>
-                        <p>Regular Ads</p>
+                        <h3 class="counter"><?= isset($all_services) ? count($all_services) : 0 ?></h3>
+                        <p>Total Services</p>
                     </div>
                 </div>
             </div>
@@ -188,12 +202,12 @@ use yii\helpers\ArrayHelper;
                 <div class="counting wow fadeInDownQuick" data-wow-delay="1s">
                     <div class="icon">
                         <span>
-                            <i class="lnr lnr-map"></i>
+                            <i class="lnr lnr-users"></i>
                         </span>
                     </div>
                     <div class="desc">
-                        <h3 class="counter">350</h3>
-                        <p>Locations</p>
+                        <h3 class="counter"><?= isset($online_user) ? $online_user : 0; ?></h3>
+                        <p>Online User</p>
                     </div>
                 </div>
             </div>
@@ -205,8 +219,8 @@ use yii\helpers\ArrayHelper;
                         </span>
                     </div>
                     <div class="desc">
-                        <h3 class="counter">23453</h3>
-                        <p>Reguler Members</p>
+                        <h3 class="counter"><?= isset($total_visitor) ? $total_visitor : 0; ?></h3>
+                        <p>Total Visitor</p>
                     </div>
                 </div>
             </div>
@@ -218,13 +232,17 @@ use yii\helpers\ArrayHelper;
                         </span>
                     </div>
                     <div class="desc">
-                        <h3 class="counter">150</h3>
-                        <p>Premium Ads</p>
+                        <h3 class="counter"><?= isset($total_count) ? $total_count : 0; ?></h3>
+                        <p>Total Items</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Counter Section End -->
+
+
+
+
+
 

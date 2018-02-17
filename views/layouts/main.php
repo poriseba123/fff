@@ -16,6 +16,8 @@ use yii\helpers\Url;
         <meta http-equiv="Content-type" value="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="<?= Yii::$app->charset ?>">
+        <meta name="google-signin-client_id" content="682570649470-st4gt7dqvsr46cb4d3f4oh19ae6hjvha.apps.googleusercontent.com">
+        <meta name="google-signin-scope" content="https://www.googleapis.com/auth/analytics.readonly">
         <?= Html::csrfMetaTags() ?>
         <?php
         $this->title = $this->context->getPageMetaTitle(Yii::$app->controller->id, Yii::$app->controller->action->id);
@@ -26,14 +28,16 @@ use yii\helpers\Url;
         <link href="<?= $this->context->getProjectFavicon() ?>" rel="shortcut icon" type="image/x-icon"/>
 
         <?php $this->head() ?>
-        
+
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111092827-1"></script>
         <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
 
-          gtag('config', 'UA-111092827-1');
+            gtag('config', 'UA-111092827-1');
         </script>
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <script>

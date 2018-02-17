@@ -32,6 +32,7 @@ class SiteController extends FrontendController {
      * @inheritdoc
      */
     public function init() {
+
 //        if (!Yii::$app->user->isGuest) {
 //            return $this->redirect('dashboard/index');
 //        }
@@ -71,10 +72,31 @@ class SiteController extends FrontendController {
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+            'bootstrap' => ['log', 'userCounter'],
         ];
     }
 
+    public function google_count() {
+
+        require_once ('/var/www/html/vendor/autoload.php');
+        $client = new Google_Client();
+//        $client->setApplicationName("XXXX");
+//        $client->setAuthConfig('path_to_Auth_jsno_file');
+//        $client->addScope('https://www.googleapis.com/auth/analytics.readonly');
+//        $GA_VIEW_ID = 'ga:XXXX';
+//        $service = new Google_Service_Analytics($client);
+//        try {
+//            $result = $service->data_realtime->get($GA_VIEW_ID, 'rt:activeVisitors');
+//            $count = $result->totalsForAllResults['rt:activeVisitors'];
+//            echo $count;
+//        } catch (Exception $e) {
+//            var_dump($e);
+//        }
+    }
+
     public function actionIndex() {
+        //$this->google_count();
+
         $this->view->title = "Home";
         $data = [];
 
