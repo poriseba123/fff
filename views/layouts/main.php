@@ -47,6 +47,15 @@ use yii\helpers\Url;
             });
         </script>
         <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+        <script>
+                    var OneSignal = window.OneSignal || [];
+                    OneSignal.push(function () {
+                        OneSignal.init({
+                            appId: "5b15f2cc-2a04-4979-a90a-e9a59545990c",
+                        });
+                    });
+        </script>
 
 
     </head>

@@ -38,6 +38,7 @@ class SettingsController extends AdminController {
             Yii::$app->session->setFlash('success', "Global Settings updated successfully.");
             Yii::$app->session->setFlash('selected_tab', isset($_POST['tab']) ? $_POST['tab'] : 1);
             return $this->redirect(Yii::$app->urlManager->createAbsoluteUrl(['admin/settings/']));
+       
         }
         $data = array();
         $data['tab'] = 1;
@@ -57,6 +58,9 @@ class SettingsController extends AdminController {
                         'module' => $mod->module,
             );
         }
+//     
+//      print_r($data_arr);
+//      die();
         foreach ($systems as $system) {
             $system_tab[] = (object) array(
                         'slug' => isset($system['slug']) ? $system['slug'] : '',

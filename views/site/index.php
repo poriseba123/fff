@@ -7,7 +7,7 @@ use yii\helpers\ArrayHelper;
 
 Yii::$app->userCounter->refresh();
 $online_user = Yii::$app->userCounter->getOnline();
-$total_visitor = Yii::$app->userCounter->getTotal();
+$total_visitor = Yii::$app->userCounter->getMaximal();
 ?>
 
 <div class="wrapper">

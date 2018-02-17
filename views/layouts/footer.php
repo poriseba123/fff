@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+$data_arr = \app\models\Settings::find()->where(['options' => '1'])->all();
 ?>
 <!-- Footer Section Start -->
 <footer>
@@ -52,47 +54,47 @@ use yii\helpers\Url;
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="1.5s">
-<!--                    <div class="widget">
-                        <h3 class="block-title">Random Ads</h3>
-                        <ul class="featured-list">
-                            <li>
-                                <img alt="" src="assets/img/featured/img1.jpg">
-                                <div class="hover">
-                                    <a href="#"><span>$49</span></a>
-                                </div>
-                            </li>
-                            <li>
-                                <img alt="" src="assets/img/featured/img2.jpg">
-                                <div class="hover">
-                                    <a href="#"><span>$49</span></a>
-                                </div>
-                            </li>
-                            <li>
-                                <img alt="" src="assets/img/featured/img3.jpg">
-                                <div class="hover">
-                                    <a href="#"><span>$49</span></a>
-                                </div>
-                            </li>
-                            <li>
-                                <img alt="" src="assets/img/featured/img4.jpg">
-                                <div class="hover">
-                                    <a href="#"><span>$49</span></a>
-                                </div>
-                            </li>
-                            <li>
-                                <img alt="" src="assets/img/featured/img5.jpg">
-                                <div class="hover">
-                                    <a href="#"><span>$49</span></a>
-                                </div>
-                            </li>
-                            <li>
-                                <img alt="" src="assets/img/featured/img6.jpg">
-                                <div class="hover">
-                                    <a href="#"><span>$49</span></a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>-->
+                    <!--                    <div class="widget">
+                                            <h3 class="block-title">Random Ads</h3>
+                                            <ul class="featured-list">
+                                                <li>
+                                                    <img alt="" src="assets/img/featured/img1.jpg">
+                                                    <div class="hover">
+                                                        <a href="#"><span>$49</span></a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <img alt="" src="assets/img/featured/img2.jpg">
+                                                    <div class="hover">
+                                                        <a href="#"><span>$49</span></a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <img alt="" src="assets/img/featured/img3.jpg">
+                                                    <div class="hover">
+                                                        <a href="#"><span>$49</span></a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <img alt="" src="assets/img/featured/img4.jpg">
+                                                    <div class="hover">
+                                                        <a href="#"><span>$49</span></a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <img alt="" src="assets/img/featured/img5.jpg">
+                                                    <div class="hover">
+                                                        <a href="#"><span>$49</span></a>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <img alt="" src="assets/img/featured/img6.jpg">
+                                                    <div class="hover">
+                                                        <a href="#"><span>$49</span></a>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>-->
                 </div>
             </div>
         </div>
@@ -104,16 +106,24 @@ use yii\helpers\Url;
             <div class="row">
                 <div class="col-md-12">
                     <div class="site-info pull-left">
-                        <p>All copyrights reserved &copy; <?= date('Y') ?></p>
+                        <p>All copyrights reserved &copy; poriseba.com <?= date('Y') ?></p>
                     </div>
                     <div class="bottom-social-icons social-icon pull-right">  
-                        <a class="facebook" target="_blank" href="javascript:;"><i class="fa fa-facebook"></i></a> 
+                        <?php
+                        if (!empty($data_arr)) {
+                            foreach ($data_arr as $key => $value) {
+                                $class = explode('-', $value->slug);
+                                ?>
+                                <a class="<?= isset($value->slug) ? $class[1] : ''; ?>" target="_blank" href="<?= isset($value->value) ? $value->value : ''; ?>"><i class="fa <?= isset($value->slug) ? $value->slug : ''; ?>"></i></a> 
+                                <?php
+                            }
+                        }
+                        ?>
+<!--                        <a class="facebook" target="_blank" href="javascript:;"><i class="fa fa-facebook"></i></a> 
                         <a class="twitter" target="_blank" href="javascript:;"><i class="fa fa-twitter"></i></a>
-                        <a class="dribble" target="_blank" href="javascript:;"><i class="fa fa-dribbble"></i></a>
-                        <a class="flickr" target="_blank" href="javascript:;"><i class="fa fa-flickr"></i></a>
                         <a class="youtube" target="_blank" href="javascript:;"><i class="fa fa-youtube"></i></a>
                         <a class="google-plus" target="_blank" href="javascript:;"><i class="fa fa-google-plus"></i></a>
-                        <a class="linkedin" target="_blank" href="javascript:;"><i class="fa fa-linkedin"></i></a>
+                        <a class="linkedin" target="_blank" href="javascript:;"><i class="fa fa-linkedin"></i></a>-->
                     </div>
                 </div>
             </div>
