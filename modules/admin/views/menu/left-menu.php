@@ -27,7 +27,7 @@
                 </a>
             </li>
 
-            <?php $allControllers = ['leftmenu', 'homepagelogoslider', 'medicalnews', 'homepagefeatures']; ?>
+            <?php $allControllers = ['leftmenu', 'homepagelogoslider', 'medicalnews', 'homepagefeatures','landingpage']; ?>
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-diamond"></i>
@@ -39,6 +39,13 @@
                         <a href="<?= $this->context->adminUrl('leftmenu'); ?>" class="nav-link ">
                             <i class="fa fa-bars"></i>
                             <span class="title">Left Menu</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                     <li class="nav-item start <?= (Yii::$app->controller->id == 'landingpage') ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('landingpage'); ?>" class="nav-link ">
+                            <i class="fa fa-bars"></i>
+                            <span class="title">Home Page Content</span>
                             <span class="selected"></span>
                         </a>
                     </li>
