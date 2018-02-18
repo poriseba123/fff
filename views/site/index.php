@@ -16,7 +16,7 @@ $total_visitor = Yii::$app->userCounter->getMaximal();
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-title">over view of our listed poriseba you can acess</h3>
+                    <h3 class="section-title"><?= isset($landing_page[0]->listing_line)?strip_tags($landing_page[0]->listing_line):'';?></h3>
                 </div>
                 <?php
                 if (isset($all_services) && count($all_services) > 0) {
@@ -86,7 +86,7 @@ $total_visitor = Yii::$app->userCounter->getMaximal();
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
-                        <h3 class="section-title">Medical News</h3>
+                        <h3 class="section-title"><?= isset($landing_page[0]->slider_line)?strip_tags($landing_page[0]->slider_line):'';?></h3>
                         <div id="new-products" class="owl-carousel">
                             <?php
                             foreach ($medicalnews_list as $key => $value) {
@@ -154,7 +154,7 @@ $total_visitor = Yii::$app->userCounter->getMaximal();
                 <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-delay="0.5s">
                     <h3 class="title-2"><i class="fa fa-envelope"></i> Subscribe for updates</h3>
                     <form id="subscribe" action="">
-                        <p>Join our 10,000+ subscribers and get access to the latest templates, freebies, announcements and resources!</p>
+                        <p><?= isset($landing_page[0]->subscription_line)?ucfirst(strip_tags($landing_page[0]->subscription_line)):'';?></p>
                         <div class="subscribe">
                             <input class="form-control" name="EMAIL" placeholder="Your email here" required="" type="email">
                             <button class="btn btn-common" type="submit">Subscribe</button>
@@ -233,7 +233,7 @@ if (!empty($total)) {
                     </div>
                     <div class="desc">
                         <h3 class="counter"><?= isset($total_count) ? $total_count : 0; ?></h3>
-                        <p>Total Items</p>
+                        <p>Total Listed Data</p>
                     </div>
                 </div>
             </div>

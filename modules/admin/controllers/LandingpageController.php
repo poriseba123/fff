@@ -71,6 +71,22 @@ class LandingpageController extends AdminController {
             ],
             [
                 'class' => '\kartik\grid\DataColumn',
+                'label' => 'Tearms of Use',
+                'attribute' => 'tearmsof_use',
+                'value' => function($data) {
+                    return substr(strip_tags($data->tearmsof_use), 1, 100) . '...';
+                }
+            ],
+            [
+                'class' => '\kartik\grid\DataColumn',
+                'label' => 'Privacy Policy',
+                'attribute' => 'privacy_policy',
+                'value' => function($data) {
+                    return substr(strip_tags($data->privacy_policy), 1, 100) . '...';
+                }
+            ],
+            [
+                'class' => '\kartik\grid\DataColumn',
                 'label' => 'About Us',
                 'attribute' => 'about_us',
                 'value' => function($data) {
@@ -87,7 +103,8 @@ class LandingpageController extends AdminController {
                             return Url::to(['landingpage/update', 'id' => $model->id]);
                             break;
                     }
-                }
+                },
+                'template' => '{update}',
             ]
         ];
         return $gridColumns;

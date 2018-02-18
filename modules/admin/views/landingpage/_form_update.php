@@ -103,6 +103,26 @@ use dosamigos\ckeditor\CKEditor;
                 </div>
             </div>
         </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Terms of Use<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'tearmsof_use')->textArea(['class' => 'ckeditor form-control ', 'rows' => '2'])->label(false); ?>
+
+
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Privacy Policy<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'privacy_policy')->textArea(['class' => 'ckeditor form-control ', 'rows' => '2'])->label(false); ?>
+
+
+                </div>
+            </div>
+        </div>
 
 
         <div class="form-actions">

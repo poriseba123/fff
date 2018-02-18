@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $data_arr = \app\models\Settings::find()->where(['options' => '1'])->all();
+$landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
 ?>
 <!-- Footer Section Start -->
 <footer>
@@ -15,7 +16,7 @@ $data_arr = \app\models\Settings::find()->where(['options' => '1'])->all();
                     <div class="widget">
                         <h3 class="block-title">About us</h3>
                         <div class="textwidget">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lobortis tincidunt est, et euismod purus suscipit quis. Etiam euismod ornare elementum. Sed ex est, consectetur eget facilisis sed, auctor ut purus.</p>
+                            <p><?= isset($landing_page[0]->about_us) ? ucfirst($landing_page[0]->about_us) : ''; ?></p>
                         </div>
                     </div>
                 </div>
@@ -34,26 +35,38 @@ $data_arr = \app\models\Settings::find()->where(['options' => '1'])->all();
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="1s">
                     <div class="widget">
-                        <h3 class="block-title">Latest Tweets</h3>
-                        <div class="twitter-content clearfix">
-                            <ul class="twitter-list">
-                                <li class="clearfix">
-                                    <span>
-                                        Platform to Download and Submit #Bootstrap Templates via @ProductHunt @GrayGrids
-                                        <a href="#">http://t.co/cLo2w7rWOx</a>
-                                    </span>
-                                </li>
-                                <li class="clearfix">
-                                    <span>
-                                        Introducing Bootstrap 4 Features: What’s new, What’s gone!
-                                        <a href="#">http://t.co/cLo2w7rWOx</a>
-                                    </span>
-                                </li>
-                            </ul>
+                        <h3 class="block-title">Terms of Use</h3>
+                        <div class="textwidget">
+                            <p><?= isset($landing_page[0]->tearmsof_use) ? ucfirst($landing_page[0]->tearmsof_use) : ''; ?></p>
                         </div>
                     </div>
+                    <!--                    <div class="widget">
+                                            <h3 class="block-title">Latest Tweets</h3>
+                                            <div class="twitter-content clearfix">
+                                                <ul class="twitter-list">
+                                                    <li class="clearfix">
+                                                        <span>
+                                                            Platform to Download and Submit #Bootstrap Templates via @ProductHunt @GrayGrids
+                                                            <a href="#">http://t.co/cLo2w7rWOx</a>
+                                                        </span>
+                                                    </li>
+                                                    <li class="clearfix">
+                                                        <span>
+                                                            Introducing Bootstrap 4 Features: What’s new, What’s gone!
+                                                            <a href="#">http://t.co/cLo2w7rWOx</a>
+                                                        </span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>-->
                 </div>
                 <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-delay="1.5s">
+                    <div class="widget">
+                        <h3 class="block-title">Privacy policy</h3>
+                        <div class="textwidget">
+                            <p><?= isset($landing_page[0]->privacy_policy) ? ucfirst($landing_page[0]->privacy_policy) : ''; ?></p>
+                        </div>
+                    </div>
                     <!--                    <div class="widget">
                                             <h3 class="block-title">Random Ads</h3>
                                             <ul class="featured-list">
@@ -120,10 +133,10 @@ $data_arr = \app\models\Settings::find()->where(['options' => '1'])->all();
                         }
                         ?>
 <!--                        <a class="facebook" target="_blank" href="javascript:;"><i class="fa fa-facebook"></i></a> 
-                        <a class="twitter" target="_blank" href="javascript:;"><i class="fa fa-twitter"></i></a>
-                        <a class="youtube" target="_blank" href="javascript:;"><i class="fa fa-youtube"></i></a>
-                        <a class="google-plus" target="_blank" href="javascript:;"><i class="fa fa-google-plus"></i></a>
-                        <a class="linkedin" target="_blank" href="javascript:;"><i class="fa fa-linkedin"></i></a>-->
+        <a class="twitter" target="_blank" href="javascript:;"><i class="fa fa-twitter"></i></a>
+        <a class="youtube" target="_blank" href="javascript:;"><i class="fa fa-youtube"></i></a>
+        <a class="google-plus" target="_blank" href="javascript:;"><i class="fa fa-google-plus"></i></a>
+        <a class="linkedin" target="_blank" href="javascript:;"><i class="fa fa-linkedin"></i></a>-->
                     </div>
                 </div>
             </div>

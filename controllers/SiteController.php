@@ -25,6 +25,7 @@ use app\models\BloodBankMaster;
 use app\models\MortuaryMaster;
 use app\models\DiagnosticCentre;
 use app\models\ServicesList;
+use app\models\Landingpage;
 
 class SiteController extends FrontendController {
 
@@ -99,9 +100,12 @@ class SiteController extends FrontendController {
 
         $this->view->title = "Home";
         $data = [];
-
+        
         $all_services = ServicesList::find()->where(['status' => '1'])->all();
         $data['all_services'] = $all_services;
+        
+        $landing_page = Landingpage::find()->where(['id' => '1'])->all();
+        $data['landing_page'] = $landing_page;
 
         $med_shop_result = MedicineShopMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
         $data['med_shop_result'] = $med_shop_result;

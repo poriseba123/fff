@@ -7,6 +7,7 @@ use app\models\States;
 use app\models\Cities;
 
 $imgname = \app\models\Homepagesliderlogo::find()->select('slider_image1,slider_image2,slider_image3,slider_image4')->one();
+$landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
 ?>
 <style>
 
@@ -104,8 +105,8 @@ if (($controller == 'site' && $action == 'index')) {
         <div class="overlay">
             <div class="container">
                 <div class="main-text">
-                    <h1 class="intro-title">Welcome To <span style="color: #3498DB">poriseba.com</span></h1>
-                    <p class="sub-title">We are here to give you poriseba.One importent information can save a presious life and open up millions of posibility.</p>
+                    <h1 class="intro-title"><?= isset($landing_page[0]->heading) ? ucfirst($landing_page[0]->heading) : ''; ?></h1>
+                    <p class="sub-title"><?= isset($landing_page[0]->tagline) ? ucfirst(strip_tags($landing_page[0]->tagline)) : ''; ?></p>
                     <!-- Start Search box -->
                     <div class="row search-bar">
                         <div class="advanced-search">
