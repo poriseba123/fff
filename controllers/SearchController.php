@@ -10,11 +10,6 @@ use app\models\ServicesList;
 
 class SearchController extends FrontendController {
 
-    public function actionViewall() {
-        Yii::$app->session->setFlash('error', 'Rellene el formulario de búsqueda');
-        return $this->redirect(['search/searchtrip']);
-    }
-
     public function actionIndex() {
         $total_results_count = 0;
         $limit = 5;
@@ -43,10 +38,12 @@ class SearchController extends FrontendController {
         } else {
             $data['total_results_count'] = 0;
         }
-
-
-
         return $this->render('searchlist', $data);
+    }
+
+    public function actionLocation() {
+        $result_arr = [];
+        return $this->render('location', $result_arr);
     }
 
     public function actionDetails() {
@@ -61,7 +58,7 @@ class SearchController extends FrontendController {
             if ($city)
                 $total_result_sql2 = "select * from $table where city_id=$city AND id != $id AND status=1 order by name ASC";
             else
-                 $total_result_sql2 = "select  * from $table where id != $id AND status=1 order by name ASC";
+                $total_result_sql2 = "select  * from $table where id != $id AND status=1 order by name ASC";
         }
         $data['result'] = Yii::$app->db->createCommand($total_result_sql)->queryOne();
         $data['result_related'] = Yii::$app->db->createCommand($total_result_sql2)->queryAll();
@@ -69,21 +66,21 @@ class SearchController extends FrontendController {
         return $this->render('details', $result_arr);
     }
 
-    public function actionPostdetail($id) {
-        $data = [];
-        $data['trip_id'] = $id;
-        $data['location_a_name'] = isset($_REQUEST['location_a_name']) ? $_REQUEST['location_a_name'] : "";
-        $data['location_b_name'] = isset($_REQUEST['location_b_name']) ? $_REQUEST['location_b_name'] : "";
-
-        $tm = TripMaster::findOne($id);
-        $driver_id = $tm->user_id;
-        $rating_master = \app\models\RatingMaster::find()->where(['driver_id' => $driver_id, 'status' => 1])->orderBy('id DESC')->all();
-        $avg_sql = "select avg(rating) as avg_rating from rating_master where status=1 and driver_id=$driver_id";
-        $avg_rating = Yii::$app->db->createCommand($avg_sql)->queryOne();
-        $data['rating_master'] = $rating_master;
-        $data['avg_rating'] = $avg_rating;
-        return $this->render('post_details', $data, TRUE);
-    }
+//    public function actionPostdetail($id) {
+//        $data = [];
+//        $data['trip_id'] = $id;
+//        $data['location_a_name'] = isset($_REQUEST['location_a_name']) ? $_REQUEST['location_a_name'] : "";
+//        $data['location_b_name'] = isset($_REQUEST['location_b_name']) ? $_REQUEST['location_b_name'] : "";
+//
+//        $tm = TripMaster::findOne($id);
+//        $driver_id = $tm->user_id;
+//        $rating_master = \app\models\RatingMaster::find()->where(['driver_id' => $driver_id, 'status' => 1])->orderBy('id DESC')->all();
+//        $avg_sql = "select avg(rating) as avg_rating from rating_master where status=1 and driver_id=$driver_id";
+//        $avg_rating = Yii::$app->db->createCommand($avg_sql)->queryOne();
+//        $data['rating_master'] = $rating_master;
+//        $data['avg_rating'] = $avg_rating;
+//        return $this->render('post_details', $data, TRUE);
+//    }
 
     public function actionGetsearch() {
         if (Yii::$app->request->isAjax) {
@@ -140,28 +137,6 @@ class SearchController extends FrontendController {
             }
             echo json_encode($data_msg);
             exit;
-        }
-    }
-
-    public function actionGettravelfees() {
-        if (Yii::$app->request->isAjax) {
-            $resp = [];
-            $resp['flag'] = true;
-
-            $tripStartId = $_REQUEST['tripStartId'];
-            $tripEndId = $_REQUEST['tripEndId'];
-            $totalSeat = $_REQUEST['totalSeat'];
-
-            if ($tripStartId == $tripEndId) {
-                $getLocation = TripLocation::findOne($tripStartId);
-                $distance = $getLocation->total_distance;
-                $price = $getLocation->total_price;
-                $userViewableFee = $price * $totalSeat;
-                $resp['price'] = $userViewableFee;
-                $resp['totalDistance'] = $distance;
-            } elseif ($tripEndId > $tripStartId) {
-                
-            }
         }
     }
 

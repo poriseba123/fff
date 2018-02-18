@@ -16,7 +16,7 @@ $total_visitor = Yii::$app->userCounter->getMaximal();
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-title"><?= isset($landing_page[0]->listing_line)?strip_tags($landing_page[0]->listing_line):'';?></h3>
+                    <h3 class="section-title"><?= isset($landing_page[0]->listing_line) ? strip_tags($landing_page[0]->listing_line) : ''; ?></h3>
                 </div>
                 <?php
                 if (isset($all_services) && count($all_services) > 0) {
@@ -86,7 +86,7 @@ $total_visitor = Yii::$app->userCounter->getMaximal();
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
-                        <h3 class="section-title"><?= isset($landing_page[0]->slider_line)?strip_tags($landing_page[0]->slider_line):'';?></h3>
+                        <h3 class="section-title"><?= isset($landing_page[0]->slider_line) ? strip_tags($landing_page[0]->slider_line) : ''; ?></h3>
                         <div id="new-products" class="owl-carousel">
                             <?php
                             foreach ($medicalnews_list as $key => $value) {
@@ -154,7 +154,7 @@ $total_visitor = Yii::$app->userCounter->getMaximal();
                 <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-delay="0.5s">
                     <h3 class="title-2"><i class="fa fa-envelope"></i> Subscribe for updates</h3>
                     <form id="subscribe" action="">
-                        <p><?= isset($landing_page[0]->subscription_line)?ucfirst(strip_tags($landing_page[0]->subscription_line)):'';?></p>
+                        <p><?= isset($landing_page[0]->subscription_line) ? ucfirst(strip_tags($landing_page[0]->subscription_line)) : ''; ?></p>
                         <div class="subscribe">
                             <input class="form-control" name="EMAIL" placeholder="Your email here" required="" type="email">
                             <button class="btn btn-common" type="submit">Subscribe</button>
@@ -164,7 +164,7 @@ $total_visitor = Yii::$app->userCounter->getMaximal();
                 <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInRight" data-wow-delay="1s">
                     <h3 class="title-2"><i class="fa fa-youtube fa-1x"></i>Visit our Youtube Chanel</h3>
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/ZQ_fOV5iWq4" frameborder="0" allowfullscreen></iframe>
+                        <?= isset($landing_page[0]->youtube_url) ? $landing_page[0]->youtube_url : ''; ?>
                     </div>
 
                 </div>

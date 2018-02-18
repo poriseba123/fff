@@ -28,8 +28,8 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                             <li><a href="http://poriseba.com/site/faq">FAQ</a></li>
                             <li><a href="http://poriseba.com/aboutus">About</a></li>
                             <li><a href="http://poriseba.com/contactus">Contact</a></li>
-                            <li><a href="#">Terms of Use</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
+<!--                            <li><a href="#">Terms of Use</a></li>
+                            <li><a href="#">Privacy Policy</a></li>-->
                         </ul>
                     </div>
                 </div>
@@ -133,10 +133,10 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                         }
                         ?>
 <!--                        <a class="facebook" target="_blank" href="javascript:;"><i class="fa fa-facebook"></i></a> 
-        <a class="twitter" target="_blank" href="javascript:;"><i class="fa fa-twitter"></i></a>
-        <a class="youtube" target="_blank" href="javascript:;"><i class="fa fa-youtube"></i></a>
-        <a class="google-plus" target="_blank" href="javascript:;"><i class="fa fa-google-plus"></i></a>
-        <a class="linkedin" target="_blank" href="javascript:;"><i class="fa fa-linkedin"></i></a>-->
+<a class="twitter" target="_blank" href="javascript:;"><i class="fa fa-twitter"></i></a>
+<a class="youtube" target="_blank" href="javascript:;"><i class="fa fa-youtube"></i></a>
+<a class="google-plus" target="_blank" href="javascript:;"><i class="fa fa-google-plus"></i></a>
+<a class="linkedin" target="_blank" href="javascript:;"><i class="fa fa-linkedin"></i></a>-->
                     </div>
                 </div>
             </div>

@@ -88,7 +88,7 @@ use dosamigos\ckeditor\CKEditor;
             <div class="form-group">
                 <label class="control-label col-md-3">Youtube url<span class="required">*</span></label>
                 <div class="col-md-6">
-                    <?= $form->field($model, 'youtube_url')->textArea(['class' => 'ckeditor form-control ', 'rows' => '2'])->label(false); ?>
+                    <?= $form->field($model, 'youtube_url')->textInput(['class' => 'form-control'])->label(false); ?>
                 </div>
             </div>
         </div>
