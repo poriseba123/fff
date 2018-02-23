@@ -156,8 +156,9 @@ $total_visitor = Yii::$app->userCounter->getMaximal();
                     <form id="subscribe" action="">
                         <p><?= isset($landing_page[0]->subscription_line) ? ucfirst(strip_tags($landing_page[0]->subscription_line)) : ''; ?></p>
                         <div class="subscribe">
-                            <input class="form-control" name="EMAIL" placeholder="Your email here" required="" type="email">
-                            <button class="btn btn-common" type="submit">Subscribe</button>
+                            <input class="form-control" id="email" name="Newsletter[email_id]" placeholder="Your email here" required="" type="email">
+                            <button class="btn btn-common" type="submit" id="sub">Subscribe</button>
+                            <spna style="color:#a94442;" id="eror_msg"></spna>
                         </div>
                     </form>
                 </div>

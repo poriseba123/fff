@@ -100,10 +100,10 @@ class SiteController extends FrontendController {
 
         $this->view->title = "Home";
         $data = [];
-        
+
         $all_services = ServicesList::find()->where(['status' => '1'])->all();
         $data['all_services'] = $all_services;
-        
+
         $landing_page = Landingpage::find()->where(['id' => '1'])->all();
         $data['landing_page'] = $landing_page;
 
@@ -320,7 +320,6 @@ class SiteController extends FrontendController {
             $model->scenario = 'subscribe';
             $model->attributes = $_POST['Newsletter'];
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-                $model->full_name = $_POST['Newsletter']['full_name'];
                 $model->email_id = $_POST['Newsletter']['email_id'];
                 $email_check = \app\models\Newsletter::find()->where(['email_id' => $model->email_id])->one();
                 if (count($email_check) > 0) {
@@ -329,14 +328,13 @@ class SiteController extends FrontendController {
                         $resp['error'] = $model->getErrors();
                     } else {
                         $model->status = 1;
-                        $model->updated_at = date("Y-m-d H:i:s");
+                        $model->subscription_data = date("Y-m-d");
                         $model->save(false);
                         $resp['flag'] = true;
                         $resp['msg'] = Yii::t('app', 'newsletter subscribed');
                     }
                 } else {
-                    $model->created_at = date("Y-m-d H:i:s");
-                    $model->updated_at = date("Y-m-d H:i:s");
+                    $model->subscription_data = date("Y-m-d");
                     $model->save(false);
                     $resp['flag'] = true;
                     $resp['msg'] = Yii::t('app', 'newsletter subscribed');
@@ -448,11 +446,11 @@ class SiteController extends FrontendController {
     }
 
     public function actionCheckmailtemplate() {
-        $to = "satyajit.ghosh@cyber-swift.com";
+        $to = "poriseba.com@gmail.com";
         $body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.";
         $content = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php', array('message' => $body), true);
-        echo "<pre>";
-        print_r($content);
+//        echo "<pre>";
+//        print_r($content);
 //        exit;
 //        $result = Yii::$app->mailer->compose()
 //                ->setTo($to)

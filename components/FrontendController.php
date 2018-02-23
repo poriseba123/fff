@@ -178,13 +178,13 @@ class FrontendController extends Controller {
 //        $content = Yii::$app->controller->renderPartial('@app/mail/' . $data['template'] . '.php', array('message' => $data['body']));
         $content = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php', array('message' => $data['body']));
 //        $view = str_replace('{{email_message}}', $content, $template);
-//        return Yii::$app->mailer->compose()
-//                ->setTo($data['to'])
-//                ->setFrom([])
-//                ->setFrom(['noreply@sportsnotion.com' => 'Sportsnotion'])
-//                ->setSubject(isset($data['subject']) ? $data['subject'] : '')
-//                ->setHtmlBody($view)
-//                ->send();
+        return Yii::$app->mailer->compose()
+                ->setTo($data['to'])
+                ->setFrom([])
+                ->setFrom(['noreply@sportsnotion.com' => 'Sportsnotion'])
+                ->setSubject(isset($data['subject']) ? $data['subject'] : '')
+                ->setHtmlBody($view)
+                ->send();
 
         $headers = 'From:"' . $this->getProjectName() . '" <admin@' . $this->getProjectName() . '.co>' . "\r\n";
         $headers .= 'Reply-To: noreply@' . $this->getProjectName() . '.co' . "\r\n";
@@ -477,18 +477,18 @@ class FrontendController extends Controller {
     }
 
     public function getFacebookLink() {
-        $seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'facebook_url'])->one();
-        return $seting->value;
+        //$seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'facebook_url'])->one();
+//        return $seting->value;
     }
 
     public function getGoogleLink() {
-        $seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'google_plus_url'])->one();
-        return $seting->value;
+        //$seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'google_plus_url'])->one();
+        //return $seting->value;
     }
 
     public function getInstagramLink() {
-        $seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'instagram'])->one();
-        return $seting->value;
+        //$seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'instagram'])->one();
+        //return $seting->value;
     }
 
     public function getUserVehicleImg($img = "") {
