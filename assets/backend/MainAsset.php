@@ -12,6 +12,7 @@ class MainAsset extends AssetBundle {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        
         'themes/global/plugins/font-awesome/css/font-awesome.min.css',
         'themes/global/plugins/simple-line-icons/simple-line-icons.min.css',
         'themes/global/plugins/bootstrap/css/bootstrap.min.css',
@@ -33,6 +34,7 @@ class MainAsset extends AssetBundle {
         'themes/global/css/lobibox.min.css',
         'themes/global/css/loader.css',
         'themes/global/css/jquery-ui.css',
+        
         'themes/backend/custom/css/profile.css',
         'themes/backend/custom/css/custom.css',
     ];

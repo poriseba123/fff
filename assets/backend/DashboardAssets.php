@@ -27,6 +27,7 @@ class DashboardAssets extends AssetBundle
         'themes/global/css/lobibox.min.css',
         'themes/global/css/loader.css',
         'themes/backend/custom/css/dashboard.css',
+        'themes/global/css/AdminLTE.min.css',
         'themes/backend/custom/css/common.css',
     ];
     public $js = [

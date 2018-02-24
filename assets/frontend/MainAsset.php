@@ -24,6 +24,7 @@ class MainAsset extends AssetBundle {
         'themes/frontend/css/bootstrap-select.min.css',
         'themes/frontend/custom/css/custom.css',
         'themes/global/plugins/toast/toast.css',
+        
     ];
     public $js = [
         ['themes/global/plugins/jquery.min.js', 'position' => \yii\web\View::POS_HEAD],
