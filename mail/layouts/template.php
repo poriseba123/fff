@@ -31,8 +31,9 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                                                             <!--<span style="font-size: 20px; font-weight: bold"> <?= $this->context->getProjectName() ?></span>-->
                                                                 <img src="https://image.ibb.co/gF6fLn/IMG_20171212_103050.png" class="img-responsive" height="150"/>
                                                         </a>
-                                                        <p style="text-align: center;color:#47c1c1;font-family:Verdana, Sans-serif;font-size:20px;">
-                                                            <?= isset($landing_page[0]->tagline) ? ucfirst(strip_tags($landing_page[0]->tagline)) : ''; ?>
+                                                        <p style="text-align: center;color:#FF5353;font-family:Verdana, Sans-serif;font-size:20px;">
+                                                            We Are Here To Give You Poriseba
+                                                            
                                                         </p>
                                                     </div>
                                                 </td>
