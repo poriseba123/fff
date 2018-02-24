@@ -20,19 +20,19 @@ use yii\widgets\LinkPager;
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="Full Name" required data-error="Please enter your name">
+                                        <input type="text" class="form-control" id="name" name="ContactUs[name]" placeholder="Full Name" required data-error="Please enter your name">
                                         <div class="help-block with-errors"></div>
                                     </div>                    
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">                      
-                                        <input type="email" class="form-control" id="email" placeholder="you@yoursite.com" required data-error="Please enter your email">
+                                        <input type="email" class="form-control" id="email" placeholder="you@yoursite.com" name="ContactUs[email]" required data-error="Please enter your email">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group"> 
-                                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required data-error="Please enter your subject">
+                                        <input type="text" class="form-control" id="subject" name="ContactUs[subject]" placeholder="Subject" required data-error="Please enter your subject">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div> 
@@ -43,7 +43,7 @@ use yii\widgets\LinkPager;
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group"> 
-                                        <textarea class="form-control" placeholder="Massage" rows="10" data-error="Write your message" required></textarea>
+                                        <textarea class="form-control" placeholder="Massage" rows="10" data-error="Write your message" required name="ContactUs[message]"></textarea>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>

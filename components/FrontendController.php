@@ -174,17 +174,20 @@ class FrontendController extends Controller {
     }
 
     public function SendMail($data) {
-//        $template = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php');
+//        print_r($data);
+
+        $template = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php');
+
 //        $content = Yii::$app->controller->renderPartial('@app/mail/' . $data['template'] . '.php', array('message' => $data['body']));
-        $content = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php', array('message' => $data['body']));
-//        $view = str_replace('{{email_message}}', $content, $template);
+        //$content = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php', ['message' => $data['body']]);
+        $view = str_replace('{{email_message}}', $data['body'], $template);
         return Yii::$app->mailer->compose()
-                ->setTo($data['to'])
-                ->setFrom([])
-                ->setFrom(['noreply@sportsnotion.com' => 'Sportsnotion'])
-                ->setSubject(isset($data['subject']) ? $data['subject'] : '')
-                ->setHtmlBody($view)
-                ->send();
+                        ->setTo($data['to'])
+                        ->setFrom([])
+                        ->setFrom(['poriseba.com@gmail.com' => 'Poriseba'])
+                        ->setSubject(isset($data['subject']) ? $data['subject'] : '')
+                        ->setHtmlBody($view)
+                        ->send();
 
         $headers = 'From:"' . $this->getProjectName() . '" <admin@' . $this->getProjectName() . '.co>' . "\r\n";
         $headers .= 'Reply-To: noreply@' . $this->getProjectName() . '.co' . "\r\n";
