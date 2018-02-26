@@ -29,15 +29,18 @@ use yii\helpers\ArrayHelper;
         <h1 class="page-title"> Dashboard <small>dashboard & statistics</small></h1>
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="javascript:void(0);">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('feedback'); ?>">
                     <div class="visual">
                         <i class="fa fa-users"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="0">0</span>
+                            <?php
+                           $contact_email = \app\models\ContactUs::find()->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($contact_email) > 0) ? count($contact_email) : 0 ?>"><?= (count($contact_email) > 0) ? count($contact_email) : 0 ?></span>
                         </div>
-                        <div class="desc bold"> Total Members</div>
+                        <div class="desc bold"> Total Feedback Received</div>
                     </div>
                 </a>
             </div>

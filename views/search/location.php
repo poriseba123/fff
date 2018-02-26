@@ -146,7 +146,7 @@ use yii\helpers\ArrayHelper;
         destilat = "<?= (isset($all_data['result']['latitude']) && $all_data['result']['latitude'] != '') ? $all_data['result']['latitude'] : 20.5937; ?>";
         destilong = "<?= (isset($all_data['result']['longitude']) && $all_data['result']['longitude'] != '') ? $all_data['result']['longitude'] : 20.5937; ?>";
         markers = [[<?= (isset($all_data['result']['latitude']) && $all_data['result']['latitude'] != '') ? $all_data['result']['latitude'] : 20.5937; ?>, <?= (isset($all_data['result']['longitude']) && $all_data['result']['longitude'] != '') ? $all_data['result']['longitude'] : 78.9629; ?>,
-<?= (isset($all_data['result']['address']) && $all_data['result']['name'] != '') ? "'" . preg_replace('/\s+/', '', $all_data['result']['name'] . '<br>' . $all_data['result']['address']) . "'" : "'Not Set'"; ?>]];
+        <?= (isset($all_data['result']['address']) && $all_data['result']['name'] != '') ? "'" . preg_replace('/\s+/', '', $all_data['result']['name'] . '<br>' . $all_data['result']['address']) . "'" : "'Not Set'"; ?>]];
         directionsDisplay = new google.maps.DirectionsRenderer({draggable: true});
         directionsService = new google.maps.DirectionsService();
         infowindow = new google.maps.InfoWindow({});
@@ -203,7 +203,7 @@ use yii\helpers\ArrayHelper;
 
             if (status == google.maps.DirectionsStatus.OK) {
                 setTimeout(function () {
-                   setMapOnAll(null);
+                    setMapOnAll(null);
                     directionsDisplay.setDirections(response);
                 }, 100);
 
@@ -244,13 +244,13 @@ use yii\helpers\ArrayHelper;
 
         });
     }
-    
-     // Sets the map on all markers in the array.
-      function setMapOnAll(map) {
+
+    // Sets the map on all markers in the array.
+    function setMapOnAll(map) {
         for (var i = 0; i < global_markers.length; i++) {
-          global_markers[i].setMap(map);
+            global_markers[i].setMap(map);
         }
-      }
+    }
     function addMarkers() {
         //alert();
         for (var i = 0; i < markers.length; i++) {

@@ -8,6 +8,13 @@
         padding: 2px 3px;
         line-height: .9;
     </style>
+    <?php
+
+    use yii\helpers\Html;
+    use yii\helpers\Url;
+
+$contact_email = \app\models\ContactUs::find()->where(['status' => '0'])->all();
+    ?>
     <div class="page-header navbar navbar-fixed-top" style="height: 57px;">
         <div class="page-header-inner">
 
@@ -17,7 +24,7 @@
                     $logoname = \app\models\Homepagesliderlogo::find()->select('logo_image')->one();
                     ?>
                     <img src="http://poriseba.com/../uploads\logoslider\thumbnail\<?= $logoname->logo_image; ?>" alt="logo" class="logo-default" style="height: 61px !important;background-color: #FFF;" /> </a>
-                    <!--<span><?php // $this->context->getProjectName()      ?></span>-->
+                    <!--<span><?php // $this->context->getProjectName()              ?></span>-->
                 </a>
                 <div class="menu-toggler sidebar-toggler">
                     <span></span>
@@ -34,43 +41,34 @@
                     <li class="dropdown notifications-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="label label-warning">10</span>
+                            <span class="label label-warning"><?= isset($contact_email) ? count($contact_email) : '0'; ?></span>
                         </a>
-                        <ul class="dropdown-menu">
-                            <li class="header">You have 10 notifications</li>
-                            <li>
-                                <!-- inner menu: contains the actual data -->
-                                <ul class="menu">
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                                            page and may cause design problems
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-users text-red"></i> 5 new members joined
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa fa-user text-red"></i> You changed your username
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="footer"><a href="#">View all</a></li>
-                        </ul>
+                        <?php
+                        if (!empty($contact_email) && count($contact_email) > 0) {
+                            ?> 
+                            <ul class="dropdown-menu">
+                                <li class="header">You have <?= isset($contact_email) ? count($contact_email) : '0'; ?> unseen email</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <?php
+                                        foreach ($contact_email as $key => $value) {
+                                            ?>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="fa fa-users text-aqua"></i><?= isset($value->name)?$value->name:'';?> (<?= isset($value->submit_date)?date('d-M-Y',strtotime(str_replace('-','/',$value->submit_date))):'';?>)
+                                                </a>
+                                            </li>
+                                        <?php }
+                                        ?>
+
+                                    </ul>
+                                </li>
+                                <li class="footer"><a href="<?=$this->context->adminUrl('feedback') ?>">View all</a></li>
+                            </ul>
+                        <?php }
+                        ?>
+
                     </li>
                     <li class="dropdown dropdown-user" id="dh-user-opt">
                         <?php

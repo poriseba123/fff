@@ -27,9 +27,9 @@ class ContactUs extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['name', 'email', 'subject', 'message'], 'required', 'on' => ['create', 'update']],
-            [['submit_date', 'reply_date', 'status'], 'safe'],
+            [['submit_date', 'reply_date', 'status', 'reply_message'], 'safe'],
             [['name', 'email', 'subject'], 'string', 'max' => 200],
-            [['message'], 'string'],
+            [['message', 'reply_message'], 'string'],
         ];
     }
 
@@ -44,6 +44,7 @@ class ContactUs extends \yii\db\ActiveRecord {
             'email' => 'Email',
             'subject' => 'Subject',
             'message' => 'Message',
+            'reply_message' => 'Reply Message',
             'submit_date' => 'Submit Date',
             'reply_date' => 'Reply Date',
             'status' => 'Status'
@@ -84,7 +85,8 @@ class ContactUs extends \yii\db\ActiveRecord {
 
         $query->andFilterWhere(['like', 'name', $this->name])
                 ->andFilterWhere(['like', 'email', $this->email])
-                ->andFilterWhere(['like', 'email', $this->status]);
+                ->andFilterWhere(['like', 'subject', $this->subject])
+                ->andFilterWhere(['like', 'status', $this->status]);
 
         return $dataProvider;
     }
