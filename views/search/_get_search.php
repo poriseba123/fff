@@ -32,10 +32,10 @@ if (count($results) > 0) {
                         <span class="item-location"><i class="fa fa-map-marker"></i><?= isset($city->name) ? $city->name : ''; ?></span>
                     </div>
                     <div class="item_desc">
-                        <a href="#">Address: <?= isset($val->address) ? (strlen($val->address) > 500) ? substr($val->address, 0, 400) . '..' : $val->address : 'Not available'; ?></a>
+                        <a href="javascript:void(0);">Address: <?= isset($val->address) ? (strlen($val->address) > 500) ? substr($val->address, 0, 400) . '..' : $val->address : 'Not available'; ?></a>
                     </div>
                     <div class="item_desc">
-                        <a href="#">Description: <?= isset($val->description) ? (strlen($val->description) > 500) ? substr($val->description, 0, 400) . '..' : $val->description : 'Not available'; ?></a>
+                        <a href="javascript:void(0);">Description: <?= isset($val->description) ? (strlen($val->description) > 500) ? substr($val->description, 0, 400) . '..' : $val->description : 'Not available'; ?></a>
                     </div>
                 </div>
             </div>
@@ -43,7 +43,7 @@ if (count($results) > 0) {
                 <!--                    <h2 class="item-price"> $ 320 </h2>-->
                 <a class="btn btn-danger btn-sm showdetails" href="javascript:void(0)" id="<?= isset($val->id) ? $val->id : 0; ?>"><i class="fa fa-certificate"></i>
                     <span>View Details</span></a> 
-                <a class="btn btn-common btn-sm"> <i class="fa fa-map-marker"></i> <span>Location</span> </a> 
+                <a class="btn btn-common btn-sm showlocation" href="javascript:void(0)" id="location_<?= isset($val->id) ? $val->id : 0; ?>"> <i class="fa fa-map-marker"></i> <span>Location</span> </a> 
             </div>
         </div>
         <?php
@@ -64,6 +64,14 @@ if (count($results) > 0) {
             //alert(id);
             $("#contentid").val(id);
             $("#details").submit();
+        });
+        $(".showlocation").click(function () {
+            
+            id = $(this).attr("id");
+            newid=id.split("_");
+            //alert(id);
+            $("#locationcontentid").val(newid[1]);
+            $("#detailslocation").submit();
         });
     });
 </script>

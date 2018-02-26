@@ -125,6 +125,15 @@ if ((int) $total_results_count > 0) {
     <input type="hidden" name="imagefolder"  value="<?=  isset($image_folder_name)?$image_folder_name:''; ?>">
     <input type="hidden" name="id"  id="contentid" value="">
 </form>
+<form id="detailslocation" action="/search/location">
+
+    <input type="hidden" name="city"  value="<?= isset($city)?$city:''; ?>">
+    <input type="hidden" name="state"  value="<?= isset($state)?$state:''; ?>">
+    <input type="hidden" name="categories" value="<?= isset($categories)?$categories:''; ?>">
+    <input type="hidden" name="table"  value="<?= isset($category_table)?$category_table:''; ?>">
+    <input type="hidden" name="imagefolder"  value="<?=  isset($image_folder_name)?$image_folder_name:''; ?>">
+    <input type="hidden" name="id"  id="locationcontentid" value="">
+</form>
 <!-- End Pagination -->
 <!--http://jsfiddle.net/freedawirl/dc4zebow/-->
 

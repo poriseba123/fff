@@ -42,7 +42,18 @@ class SearchController extends FrontendController {
     }
 
     public function actionLocation() {
-        $result_arr = [];
+        $data['city'] = $city = isset($_REQUEST['city']) ? $_REQUEST['city'] : false;
+        $data['categories'] = $categories = isset($_REQUEST['categories']) ? $_REQUEST['categories'] : false;
+        $data['state'] = $state = isset($_REQUEST['state']) ? $_REQUEST['state'] : '1';
+        $data['table'] = $table = isset($_REQUEST['table']) ? $_REQUEST['table'] : '';
+        $data['imagefolder'] = $imagefolder = isset($_REQUEST['imagefolder']) ? $_REQUEST['imagefolder'] : false;
+        $data['id'] = $id = isset($_REQUEST['id']) ? $_REQUEST['id'] : false;
+        if (($id) && ($table)) {
+            $total_result_sql = "select * from $table where id=$id AND status=1";
+        }
+        $data['result'] = Yii::$app->db->createCommand($total_result_sql)->queryOne();
+
+        $result_arr['all_data'] = $data;
         return $this->render('location', $result_arr);
     }
 

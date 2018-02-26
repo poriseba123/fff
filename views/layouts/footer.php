@@ -2,7 +2,9 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\models\Settings;
 
+$google_map_key = Settings::find()->where(['slug' => 'google_map_key'])->one();
 $data_arr = \app\models\Settings::find()->where(['options' => '1'])->all();
 $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
 ?>
@@ -28,8 +30,8 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                             <li><a href="http://poriseba.com/site/faq">FAQ</a></li>
                             <li><a href="http://poriseba.com/aboutus">About</a></li>
                             <li><a href="http://poriseba.com/contactus">Contact</a></li>
-<!--                            <li><a href="#">Terms of Use</a></li>
-                            <li><a href="#">Privacy Policy</a></li>-->
+                            <!--                            <li><a href="#">Terms of Use</a></li>
+                                                        <li><a href="#">Privacy Policy</a></li>-->
                         </ul>
                     </div>
                 </div>
@@ -275,3 +277,183 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
         </div>
     </div>
 </div>
+<script src="http://maps.google.com/maps/api/js?v=3.30&key=<?php echo $google_map_key->value ?>&libraries=places&region=in&language=en&callback=initAutocomplete"></script>
+<script type="text/javascript">
+
+                            var apiGeolocationSuccess = function (position) {
+                                console.log("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+                            };
+
+                            var tryAPIGeolocation = function () {
+                                jQuery.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBOtvKwP4T1s3wOZ5h9QjDP2dSrly-SJXA", function (success) {
+                                    apiGeolocationSuccess({coords: {latitude: success.location.lat, longitude: success.location.lng}});
+                                })
+                                        .fail(function (err) {
+                                            console.log("API Geolocation error! \n\n" + err);
+                                            console.log(err);
+                                        });
+                            };
+
+                            var browserGeolocationSuccess = function (position) {
+                                console.log("Browser geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+                            };
+
+                            var browserGeolocationFail = function (error) {
+                                switch (error.code) {
+                                    case error.TIMEOUT:
+                                        console.log("Browser geolocation error !\n\nTimeout.");
+                                        break;
+                                    case error.PERMISSION_DENIED:
+                                        if (error.message.indexOf("Only secure origins are allowed") == 0) {
+                                            tryAPIGeolocation();
+                                        }
+                                        break;
+                                    case error.POSITION_UNAVAILABLE:
+                                        console.log("Browser geolocation error !\n\nPosition unavailable.");
+                                        break;
+                                }
+                            };
+
+                            var tryGeolocation = function () {
+                                if (navigator.geolocation) {
+                                    navigator.geolocation.getCurrentPosition(
+                                            browserGeolocationSuccess,
+                                            browserGeolocationFail,
+                                            {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
+                                }
+                            };
+
+                            tryGeolocation();
+                            var map;
+                            var plain = new google.maps.LatLng(22.7483, 88.3385);
+                            var mapCoordinates = new google.maps.LatLng(22.7483, 88.3385);
+                            var markers = [];
+                            var image = new google.maps.MarkerImage(
+                                    '<?= Yii::$app->request->baseUrl; ?>/assets/img/map-marker.png',
+                                    new google.maps.Size(84, 70),
+                                    new google.maps.Point(0, 0),
+                                    new google.maps.Point(60, 60)
+                                    );
+                            function addMarker() {
+                                markers.push(new google.maps.Marker({
+                                    position: plain,
+                                    raiseOnDrag: false,
+                                    icon: image,
+                                    map: map,
+                                    draggable: false
+                                }));
+                            }
+                            function initialize() {
+                                var mapOptions = {
+                                    backgroundColor: "#ffffff",
+                                    zoom: 15,
+                                    disableDefaultUI: true,
+                                    center: mapCoordinates,
+                                    zoomControl: false,
+                                    scaleControl: false,
+                                    scrollwheel: false,
+                                    disableDoubleClickZoom: true,
+                                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                                    styles: [{
+                                            "featureType": "landscape.natural",
+                                            "elementType": "geometry.fill",
+                                            "stylers": [{
+                                                    "color": "#ffffff"
+                                                }
+                                            ]
+                                        }
+                                        , {
+                                            "featureType": "landscape.man_made",
+                                            "stylers": [{
+                                                    "color": "#ffffff"
+                                                }
+                                                , {
+                                                    "visibility": "off"
+                                                }
+                                            ]
+                                        }
+                                        , {
+                                            "featureType": "water",
+                                            "stylers": [{
+                                                    "color": "#80C8E5"
+                                                }
+                                                , {
+                                                    "saturation": 0
+                                                }
+                                            ]
+                                        }
+                                        , {
+                                            "featureType": "road.arterial",
+                                            "elementType": "geometry",
+                                            "stylers": [{
+                                                    "color": "#999999"
+                                                }
+                                            ]
+                                        }
+                                        , {
+                                            "elementType": "labels.text.stroke",
+                                            "stylers": [{
+                                                    "visibility": "off"
+                                                }
+                                            ]
+                                        }
+                                        , {
+                                            "elementType": "labels.text",
+                                            "stylers": [{
+                                                    "color": "#333333"
+                                                }
+                                            ]
+                                        }
+
+                                        , {
+                                            "featureType": "road.local",
+                                            "stylers": [{
+                                                    "color": "#dedede"
+                                                }
+                                            ]
+                                        }
+                                        , {
+                                            "featureType": "road.local",
+                                            "elementType": "labels.text",
+                                            "stylers": [{
+                                                    "color": "#666666"
+                                                }
+                                            ]
+                                        }
+                                        , {
+                                            "featureType": "transit.station.bus",
+                                            "stylers": [{
+                                                    "saturation": -57
+                                                }
+                                            ]
+                                        }
+                                        , {
+                                            "featureType": "road.highway",
+                                            "elementType": "labels.icon",
+                                            "stylers": [{
+                                                    "visibility": "off"
+                                                }
+                                            ]
+                                        }
+                                        , {
+                                            "featureType": "poi",
+                                            "stylers": [{
+                                                    "visibility": "off"
+                                                }
+                                            ]
+                                        }
+
+                                    ]
+
+                                }
+                                ;
+                                map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+                                addMarker();
+
+                            }
+                            var elementExists = document.getElementById("google-map");
+                            if (elementExists != null) {
+                                google.maps.event.addDomListener(window, 'load', initialize);
+                            }
+
+</script>

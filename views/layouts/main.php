@@ -59,7 +59,7 @@ $this->beginPage();
                 });
             });
         </script>
-        <script src="http://maps.google.com/maps/api/js?v=3.30&key=<?php echo $google_map_key->value ?>&libraries=places&region=in&language=en&callback=initAutocomplete"></script>
+       
 
     </head>
     <?php $this->beginBody() ?>
