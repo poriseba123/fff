@@ -155,13 +155,34 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label class="control-label col-md-3">No of room:</label>
+                            <label class="control-label col-md-3">Total Capacity:</label>
                             <div class="col-md-9">
-                                <p class="form-control-static"> <?= (isset($model->noof_room) && $model->noof_room != '') ? $model->noof_room : "Not Set"; ?> </p>
+                                <p class="form-control-static"> <?= (isset($model->total_capacity) && $model->total_capacity != '') ? $model->total_capacity : "Not Set"; ?> </p>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Monthly Rent:</label>
+                            <div class="col-md-9">
+                                <p class="form-control-static"> <?= (isset($model->monthly_rent) && $model->monthly_rent != '') ? $model->monthly_rent : "Not Set"; ?> </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Security Deposit:</label>
+                            <div class="col-md-9">
+                                <p class="form-control-static"> <?= (isset($model->deposite_money) && $model->deposite_money != '') ? $model->deposite_money : "Not Set"; ?> </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-body">
                     <div class="form-group">
                         <label class="control-label col-md-3">Map<span class="required">*</span></label>

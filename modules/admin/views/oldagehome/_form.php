@@ -56,7 +56,7 @@ use kartik\select2\Select2;
                 <label class="control-label col-md-3">Type<span class="required">*</span></label>
                 <div class="col-md-6">
                     <?php
-                    $type_list = \app\models\Typeofhospital::find()->where(['<>','id', '2'])->all();
+                    $type_list = \app\models\Typeofhospital::find()->where(['<>', 'id', '2'])->all();
                     $listData = ArrayHelper::map($type_list, 'id', 'name');
                     echo $form->field($model, 'type')->widget(Select2::classname(), [
                         'data' => $listData,
@@ -177,9 +177,25 @@ use kartik\select2\Select2;
         </div>
         <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">No of room<span class="required">*</span></label>
+                <label class="control-label col-md-3">Total Capacity<span class="required">*</span></label>
                 <div class="col-md-6">
-                   <?= $form->field($model, 'noof_room')->textInput(['class' => 'form-control'])->label(false); ?>
+                    <?= $form->field($model, 'total_capacity')->textInput(['class' => 'form-control'])->label(false); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Monthly Rent<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'monthly_rent')->textInput(['class' => 'form-control'])->label(false); ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Security Deposit<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?= $form->field($model, 'deposite_money')->textInput(['class' => 'form-control'])->label(false); ?>
                 </div>
             </div>
         </div>

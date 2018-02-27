@@ -42,7 +42,7 @@ class Oldagehome extends \yii\db\ActiveRecord {
     public function rules() {
         return [
             [['name', 'country_id', 'state_id', 'district_id', 'city_id', 'address', 'status', 'type'], 'required', 'on' => ['create', 'update']],
-            [['country_id', 'state_id', 'city_id', 'status','type', 'ac', 'noof_room'], 'integer'],
+            [['country_id', 'state_id', 'city_id', 'status', 'type', 'ac', 'total_capacity', 'monthly_rent', 'deposite_money'], 'integer'],
             [['description', 'contact_no', 'name', 'pin', 'image'], 'string'],
             [['created_at', 'updated_at', 'establishment_date', 'facility'], 'safe'],
             [['name'], 'string', 'max' => 100],
@@ -70,6 +70,9 @@ class Oldagehome extends \yii\db\ActiveRecord {
             'description' => 'Description',
             'contact_no' => 'Contact No',
             'image' => 'Image',
+            'total_capacity' => 'Total Capacity',
+            'monthly_rent' => 'MonthlyRent',
+            'deposite_money' => 'Security Deposit',
             'facility' => 'Facility',
             'establishment_date' => 'Establishment Date',
             'status' => 'Status',
