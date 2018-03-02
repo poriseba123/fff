@@ -24,8 +24,8 @@ use yii\widgets\LinkPager;
                             ?>
                             <div class="col-sm-2">
                                 <div class="grid-list-count">
-                                    <a class="list switchToGrid" href="#"><i class="fa fa-list"></i></a>
-                                    <a class="grid switchToList" href="#"><i class="fa fa-th-large"></i></a>
+                                    <a class="list switchToGrid" href="javascript:void(0)"><i class="fa fa-list"></i></a>
+                                    <a class="grid switchToList" href="javascript:void(0)"><i class="fa fa-th-large"></i></a>
                                 </div>
                             </div>
                             <div class="col-sm-7">
@@ -82,7 +82,20 @@ use yii\widgets\LinkPager;
                             <div class="col-md-12 text-center">
                                 <h2>No Data Found!!</h2>
                             </div>
+                            <div class="col-sm-5"></div>
+                            <div class="col-sm-2" style="padding-top: 5px;">
+                                <a href="<?= Yii::$app->homeUrl;?>">
+                                    <button class="btn btn-common btn-block">
+                                        <strong>Reload</strong>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </a>
+
+                            </div>
+
+                            <div class="col-sm-5"></div>
                         </div>
+
                     <?php }
                     ?>
                 </div>
@@ -118,20 +131,20 @@ if ((int) $total_results_count > 0) {
 ?>
 <form id="details" action="/search/details">
 
-    <input type="hidden" name="city"  value="<?= isset($city)?$city:''; ?>">
-    <input type="hidden" name="state"  value="<?= isset($state)?$state:''; ?>">
-    <input type="hidden" name="categories" value="<?= isset($categories)?$categories:''; ?>">
-    <input type="hidden" name="table"  value="<?= isset($category_table)?$category_table:''; ?>">
-    <input type="hidden" name="imagefolder"  value="<?=  isset($image_folder_name)?$image_folder_name:''; ?>">
+    <input type="hidden" name="city"  value="<?= isset($city) ? $city : ''; ?>">
+    <input type="hidden" name="state"  value="<?= isset($state) ? $state : ''; ?>">
+    <input type="hidden" name="categories" value="<?= isset($categories) ? $categories : ''; ?>">
+    <input type="hidden" name="table"  value="<?= isset($category_table) ? $category_table : ''; ?>">
+    <input type="hidden" name="imagefolder"  value="<?= isset($image_folder_name) ? $image_folder_name : ''; ?>">
     <input type="hidden" name="id"  id="contentid" value="">
 </form>
 <form id="detailslocation" action="/search/location">
 
-    <input type="hidden" name="city"  value="<?= isset($city)?$city:''; ?>">
-    <input type="hidden" name="state"  value="<?= isset($state)?$state:''; ?>">
-    <input type="hidden" name="categories" value="<?= isset($categories)?$categories:''; ?>">
-    <input type="hidden" name="table"  value="<?= isset($category_table)?$category_table:''; ?>">
-    <input type="hidden" name="imagefolder"  value="<?=  isset($image_folder_name)?$image_folder_name:''; ?>">
+    <input type="hidden" name="city"  value="<?= isset($city) ? $city : ''; ?>">
+    <input type="hidden" name="state"  value="<?= isset($state) ? $state : ''; ?>">
+    <input type="hidden" name="categories" value="<?= isset($categories) ? $categories : ''; ?>">
+    <input type="hidden" name="table"  value="<?= isset($category_table) ? $category_table : ''; ?>">
+    <input type="hidden" name="imagefolder"  value="<?= isset($image_folder_name) ? $image_folder_name : ''; ?>">
     <input type="hidden" name="id"  id="locationcontentid" value="">
 </form>
 <!-- End Pagination -->

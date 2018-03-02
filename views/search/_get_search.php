@@ -54,21 +54,33 @@ if (count($results) > 0) {
         <div class="col-md-12 text-center">
             <h2>No Data Found!!</h2>
         </div>
+        <div class="col-sm-5"></div>
+        <div class="col-sm-2" style="padding-top: 5px;">
+            <a href="<?= Yii::$app->homeUrl; ?>">
+                <button class="btn btn-common btn-block">
+                    <strong>Reload</strong>
+                    <div class="ripple-container"></div>
+                </button>
+            </a>
+
+        </div>
+
+        <div class="col-sm-5"></div>
     </div>
 <?php } ?>
 <script>
     $(document).ready(function () {
         $(".showdetails").click(function () {
-            
+
             id = $(this).attr("id");
             //alert(id);
             $("#contentid").val(id);
             $("#details").submit();
         });
         $(".showlocation").click(function () {
-            
+
             id = $(this).attr("id");
-            newid=id.split("_");
+            newid = id.split("_");
             //alert(id);
             $("#locationcontentid").val(newid[1]);
             $("#detailslocation").submit();

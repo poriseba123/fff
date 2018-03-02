@@ -13,7 +13,7 @@ use yii\helpers\ArrayHelper;
 <div id="content">
     <div class="container">
         <div class="row">
-            <div class="col-sm-3 page-sideabr">
+            <div class="col-sm-4 page-sideabr">
                 <aside>
                     <div class="inner-box">
                         <div class="user-panel-sidebar">
@@ -22,7 +22,7 @@ use yii\helpers\ArrayHelper;
                                 <div  id="myclassified" class="table-search">
                                     <div class="form-group">
 
-                                        <div class="col-md-12 col-sm-12 col-xs-12 searchpan">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 searchpan" style="padding: 0px;">
                                             <input class="form-control" id="filter" type="text">
                                         </div>
 
@@ -115,7 +115,7 @@ use yii\helpers\ArrayHelper;
                     </div>
                 </aside>
             </div>
-            <div class="col-sm-9 page-content">
+            <div class="col-sm-8 page-content">
                 <div class="inner-box">
                     <h2 class="title-2"><i class="fa fa-globe fa-spin fa-1x fa-fw"></i>service map view</h2>
                     <div class="table-responsive">
@@ -146,7 +146,7 @@ use yii\helpers\ArrayHelper;
         destilat = "<?= (isset($all_data['result']['latitude']) && $all_data['result']['latitude'] != '') ? $all_data['result']['latitude'] : 20.5937; ?>";
         destilong = "<?= (isset($all_data['result']['longitude']) && $all_data['result']['longitude'] != '') ? $all_data['result']['longitude'] : 20.5937; ?>";
         markers = [[<?= (isset($all_data['result']['latitude']) && $all_data['result']['latitude'] != '') ? $all_data['result']['latitude'] : 20.5937; ?>, <?= (isset($all_data['result']['longitude']) && $all_data['result']['longitude'] != '') ? $all_data['result']['longitude'] : 78.9629; ?>,
-        <?= (isset($all_data['result']['address']) && $all_data['result']['name'] != '') ? "'" . preg_replace('/\s+/', '', $all_data['result']['name'] . '<br>' . $all_data['result']['address']) . "'" : "'Not Set'"; ?>]];
+<?= (isset($all_data['result']['address']) && $all_data['result']['name'] != '') ? "'" . preg_replace('/\s+/', '', $all_data['result']['name'] . '<br>' . $all_data['result']['address']) . "'" : "'Not Set'"; ?>]];
         directionsDisplay = new google.maps.DirectionsRenderer({draggable: true});
         directionsService = new google.maps.DirectionsService();
         infowindow = new google.maps.InfoWindow({});

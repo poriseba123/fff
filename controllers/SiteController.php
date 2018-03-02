@@ -95,6 +95,110 @@ class SiteController extends FrontendController {
 //        }
     }
 
+    public function actionSuggestion() {
+        $limit = 10;  //no of value to be fatched.
+        $arr_result = array();
+        $arr_result_second = array();
+        $result_empty = array();
+        $match_result = array();
+
+//$value=trim($_REQUEST['key']);
+        $raw_value = trim(strtolower($_REQUEST['key']));
+        $explode_value = explode(" ", $raw_value);
+        $explode_end_value = end($explode_value);
+
+        if ((count($explode_value) > 1) && (strlen($explode_end_value) == 1)) {
+            if (ctype_alpha($explode_end_value) == true) {
+                $msg = "last char alpha";
+                echo json_encode($msg);
+                die();
+            }
+        } else {
+            $value = $raw_value;
+        }
+
+        if ($value != "") {
+
+
+            if ($_REQUEST['flag'] == 0) {
+                $url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"should":[{"match_phrase_prefix":{"name":"' . $value . '"}}]}}}\'';
+            } else {
+                $url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"should":[{"match_phrase_prefix":{"name":"' . $value . '"}}]}}}\'';
+            }
+//die();
+
+            $value_users = exec($url);
+            $value_users = json_decode($value_users);
+            $total = $value_users->hits->total;     // total number of result found.
+            $arr = $value_users->hits->hits;         // store result value.
+            //foreach($arr as $values){
+            //        echo $values->_source->name."<br/>";
+            //}
+            //die();
+            //print_r($arr);die();
+            if ($total < $limit) {
+                $limit = $total;
+            }
+            $j = 0;
+            $val_hal = ucwords($value);
+            for ($i = 0; $i < $limit; $i++) {
+                //echo $value."<br/>";
+                //print_r($arr[$i]);
+                //$pregmeatch = "/^'.$value.'(.*)/i";
+                //$preg_match_all($pregmeatch,$arr[$i]->_source->brand,$val);
+                //print_r($val);
+                //var_dump($value);
+                //echo $arr[$i]->_source->brand;
+
+                if ($j < $limit) {
+                    $finder = $this->startsWith($arr[$i]->_source->name, $val_hal);
+                    //echo $finder;
+                    if ($finder == true) {
+                        if ($arr[$i]->_source->name != null) {
+                            array_push($arr_result, $arr[$i]->_source->name . '@' . $arr[$i]->_source->category_id . '@' . $arr[$i]->_source->city_id);
+                            $j++;
+                        }
+                    } else {
+                        if ($arr[$i]->_source->name != null) {
+                            array_push($arr_result_second, $arr[$i]->_source->name . '@' . $arr[$i]->_source->category_id . '@' . $arr[$i]->_source->city_id);
+                        }
+                    }
+                } else {
+                    break;
+                }
+            }
+
+
+            $result = array_merge($arr_result, $arr_result_second);
+
+            if ($result[0] != null) {
+
+                echo json_encode($result);
+                //echo implode(",",$result);   
+            } else {
+                //ucwords()
+                //array_push($arr_result_second,$arr[$i]->_source->name);
+                $value_users = exec($url);
+                $value_users = json_decode($value_users);
+                $arr = $value_users->hits->hits;
+                //print_r($arr);
+                //die();
+                if ($arr[0]->_source->name != null) {
+                    array_push($match_result, $arr[0]->_source->name . '@' . $arr[0]->_source->category_id . '@' . $arr[0]->_source->city_id);
+                    echo json_encode($match_result);
+                } else {
+                    $result_empty[0] = "No result found";
+                    echo json_encode($result_empty);
+                }
+            }
+        }
+    }
+
+    function startsWith($haystack, $needle) {
+        // search backwards starting from haystack length characters from the end
+        return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
+    }
+
     public function actionIndex() {
         //$this->google_count();
 

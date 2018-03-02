@@ -455,5 +455,110 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                             if (elementExists != null) {
                                 google.maps.event.addDomListener(window, 'load', initialize);
                             }
+                            var availableTags = []; // store ajax resposnce to this array
+                            var new_tag = [];
+                            var content = [];
+                            var keyword;
+                            var flag = 1;
+                            $(document).ready(function () {
+                                flag = 1;
+                                SearchText();
+                            });
+
+                            function capitalise(text) {
+                                var split = text.split(" "),
+                                        res = [],
+                                        i,
+                                        len,
+                                        component;
+                                for (i = 0, len = split.length; i < len; i++) {
+                                    component = split[i];
+                                    res.push(component.substring(0, 1).toUpperCase());
+                                    res.push(component.substring(1));
+                                    res.push(" "); // put space back in
+                                }
+                                return res.join("");
+
+
+                            }
+
+                            function SearchText() {
+                                var globalSatya;
+                                $("#tags").autocomplete({
+                                    source: function (request, response) {
+                                        keyword = request.term;
+                                        $(window).keypress(function (e) {
+                                            if (e.keyCode == 0 || e.keyCode == 32) {
+                                                flag = 0;
+                                            } else {
+                                                flag = 1;
+                                            }
+                                        });
+
+                                        $.ajax({
+                                            type: "POST",
+                                            url: full_path + "site/suggestion",
+                                            data: {
+                                                key: request.term,
+                                                flag: flag
+                                            },
+                                            async: true,
+                                            dataType: "json",
+                                            success: function (data) {
+                                                console.log(data);
+                                                if (data[0] != null) {
+                                                    globalSatya = data;
+                                                    response(data);
+
+                                                }
+                                            },
+                                            error: function (result) {
+                                                //alert("Error");
+                                            }
+                                        });
+                                    },
+                                    focus: function (event, globalSatya) {
+                                        console.log(globalSatya.item.value);
+                                        var globalSatyaDataVal = globalSatya.item.value;
+                                        globalSatyaDataVal = globalSatyaDataVal.split("@");
+                                        $("#tags").val(globalSatyaDataVal[0]);
+                                        return false;
+                                    },
+                                    select: function (event, globalSatya) {
+                                        console.log(globalSatya);
+                                        var globalSatyaDataVal = globalSatya.item.value;
+                                        globalSatyaDataVal = globalSatyaDataVal.split("@");
+                                        $("#tags").val(globalSatyaDataVal[0]);
+                                        return false;
+                                    }
+                                }).autocomplete("instance")._renderItem = function (ul, data) {
+                                    console.log(data.value);
+                                    var str = data.label;
+                                    if (/\s/g.test(keyword.slice(1)) == true) {
+                                        k = 1;
+                                        var flag = capitalise(keyword);
+                                        //console.log("flag"+flag);
+
+                                    } else {
+                                        k = 0;
+                                        var flag = keyword.charAt(0).toUpperCase() + keyword.slice(1);
+                                    }
+
+                                    var show = str.split("@");
+                                    //alert(show[0]+"  "+show[1]);
+                                    if (k == 0) {
+                                        var res = show[0].replace(flag, '<span style="color:blue;">' + flag + '</span>');
+                                    } else {
+                                        //console.log("show[0]"+show[0].replace(/ /g,''));
+                                        //console.log("flaggggggggggg"+flag.replace(/ /g,''));
+                                        var res = show[0].replace(/ /g, '').replace(flag.replace(/ /g, ''), '<span style="color:blue;">' + flag + '</span>');
+                                        //console.log("res"+res);
+                                    }
+                                    var dataValue = data.value;
+                                    dataValue = dataValue.split("@");
+                                    console.log(dataValue[0]);
+                                    return $("<li>").attr("data-value", dataValue[0]).append("<a>" + res + "</a>").appendTo(ul);
+                                };
+                            }
 
 </script>

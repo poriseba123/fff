@@ -158,11 +158,13 @@ $day_master = \app\models\DayMaster::find()->where(["id" => (isset($all_data['re
                                             $type_list = \app\models\Typeofhospital::find()->where(["id" => (isset($all_data['result']['type']) && $all_data['result']['type'] != '') ? $all_data['result']['type'] : 0])->all();
                                             ?>
                                             <li><i class="fa fa-check-circle"></i>Type: <?= !empty($type_list) ? $type_list[0]->name : ''; ?></li>
-                                            <li><i class="fa fa-check-circle"></i>No of rooms: <?=
-                                                ( isset($all_data['result']['noof_room']) && $all_data['result']['noof_room'] != '') ?
-                                                        $all_data['result']['noof_room'] : 'Not known';
+                                            <li><i class="fa fa-check-circle"></i>Total Capacity: <?=
+                                                ( isset($all_data['result']['total_capacity']) && $all_data['result']['total_capacity'] != '') ?
+                                                        $all_data['result']['total_capacity'] : 'Not known';
                                                 ?></li>
                                             <li><i class="fa fa-check-circle"></i>Ac: <?= ( isset($all_data['result']['ac']) && $all_data['result']['ac'] != '') ? ($all_data['result']['ac'] == "1") ? 'Yes' : 'No' : 'Not known'; ?></li>
+                                            <li><i class="fas fa-rupee-sign"></i>Deposit Money: <?= ( isset($all_data['result']['deposite_money']) && $all_data['result']['deposite_money'] != '') ? $all_data['result']['deposite_money'] : 'Not known'; ?></li>
+                                            <li><i class="fas fa-rupee-sign"></i>Monthly Rent: <?= ( isset($all_data['result']['monthly_rent']) && $all_data['result']['monthly_rent'] != '') ? $all_data['result']['monthly_rent'] : 'Not known'; ?></li>
                                             <?php
                                         } else if ($all_data['categories'] == '17') {      /// orphan  home
                                             $type_list = \app\models\Typeofhospital::find()->where(["id" => (isset($all_data['result']['type']) && $all_data['result']['type'] != '') ? $all_data['result']['type'] : 0])->all();
@@ -358,7 +360,7 @@ $day_master = \app\models\DayMaster::find()->where(["id" => (isset($all_data['re
                                 $table = Yii::$app->getRequest()->getQueryParam('table');
                                 $imagefolder = Yii::$app->getRequest()->getQueryParam('imagefolder');
                                 $id = $value['id'];
-                                $newUrl =Yii::$app->urlManager->createUrl(['search/details','city' => $cityId, 'state' => $stateId, 'categories' => $categoriesId,'table' => $table, 'imagefolder' => $imagefolder, 'id' => $id]);
+                                $newUrl = Yii::$app->urlManager->createUrl(['search/details', 'city' => $cityId, 'state' => $stateId, 'categories' => $categoriesId, 'table' => $table, 'imagefolder' => $imagefolder, 'id' => $id]);
                                 ?>
                                 <div class="item">
                                     <div class="product-item">

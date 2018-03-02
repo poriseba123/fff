@@ -41,7 +41,7 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
 </style>
 <script type='text/javascript' src='//platform-api.sharethis.com/js/sharethis.js#property=5a8065d9d4d59e0012e897a8&product=sop' async='async'></script>
 <script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=5a830430e45fbb001343001e&product=sticky-share-buttons"></script>
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <?php
 $controller = Yii::$app->controller->id;
 $action = Yii::$app->controller->action->id;
@@ -132,7 +132,7 @@ if (($controller == 'site' && $action == 'index')) {
                                 </div>
                                 <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
                                     <div class="input-group-addon search-category-container">
-                                        <label class="styled-select">
+                                        <label class="styled-select location-select">
                                             <select class="dropdown-product selectpicker" name="state" id="search_states" data-live-search="true" >
                                                 <option value="">Choose States</option>
                                                 <?php
@@ -158,7 +158,7 @@ if (($controller == 'site' && $action == 'index')) {
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-6 search-col">
-                                    <input class="form-control keyword" name="keyword" value="" placeholder="Enter Keyword" type="text">
+                                    <input class="form-control keyword" name="keyword" value="" id="tags" placeholder="Enter Keyword" type="text">
                                     <i class="fa fa-search"></i>
                                 </div>
                                 <div class="col-md-1 col-sm-6 search-col" style="width:150px">
@@ -233,7 +233,7 @@ if (($controller == 'site' && $action == 'index')) {
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-6 search-col">
-                                <input class="form-control keyword" name="keyword" value="" placeholder="Enter Keyword" type="text">
+                                <input class="form-control keyword" name="keyword" value="" id="tags" placeholder="Enter Keyword" type="text">
                                 <i class="fa fa-search"></i>
                             </div>
                             <div class="col-md-1 col-sm-6 search-col" style="width:150px">
