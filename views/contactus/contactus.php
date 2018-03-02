@@ -63,7 +63,7 @@ use yii\widgets\LinkPager;
                     Contact Information
                 </h2>
                 <div class="information">
-                    <div class="contact-datails">
+<!--                    <div class="contact-datails">
                         <div class="icon">
                             <i class="fa fa-map-marker icon-radius"></i>
                         </div>
@@ -72,8 +72,8 @@ use yii\widgets\LinkPager;
                             <span class="detail">Main Office: NO.22-23 Street Name- City,Country</span>
                             <span class="datail">Customer Center: NO.130-45 Streen Name- City, Country</span>
                         </div>
-                    </div>                
-                    <div class="contact-datails">
+                    </div>                -->
+<!--                    <div class="contact-datails">
                         <div class="icon">
                             <i class="fa fa-phone icon-radius"></i>
                         </div>
@@ -82,7 +82,7 @@ use yii\widgets\LinkPager;
                             <span class="detail">Main Office: +880 123 456 789</span>
                             <span class="datail">Customer Supprort: +880 123 456 789 </span>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="contact-datails">
                         <div class="icon">
                             <i class="fa fa-location-arrow icon-radius"></i>
@@ -90,8 +90,8 @@ use yii\widgets\LinkPager;
                         <div class="info">
                             <h3>Email Address</h3>
                             <span class="detail">Customer 
-                                Support: info&copy;mail.com</span>
-                            <span class="detail">Technical Support: support&copy;mail.com</span>
+                                Support: poriseba.com&copy;gmail.com</span>
+<!--                            <span class="detail">Technical Support: support&copy;mail.com</span>-->
                         </div>
                     </div>
                 </div>
