@@ -104,6 +104,9 @@ class SiteController extends FrontendController {
 
 //$value=trim($_REQUEST['key']);
         $raw_value = trim(strtolower($_REQUEST['key']));
+        $category = trim($_REQUEST['category']);
+        $state = trim($_REQUEST['state']);
+        $city = trim($_REQUEST['city']);
         $explode_value = explode(" ", $raw_value);
         $explode_end_value = end($explode_value);
 
@@ -119,17 +122,34 @@ class SiteController extends FrontendController {
 
         if ($value != "") {
 
-
-            if ($_REQUEST['flag'] == 0) {
-                $url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"should":[{"match_phrase_prefix":{"name":"' . $value . '"}}]}}}\'';
-            } else {
-                $url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"should":[{"match_phrase_prefix":{"name":"' . $value . '"}}]}}}\'';
+            if ($category != "") {
+                $url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"must":[{"term":{"category_id":"' . $category . '"}},{"wildcard":{"name":{ "value" : "' . $value . '*", "boost" : 2.0 }}}]}}}\'';
             }
-//die();
+            if ($category != "" && $state != '') {
+                $url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"must":[{"term":{"category_id":"' . $category . '"}},{"term":{"state_id":"' . $state . '"}},{"wildcard":{"name":{ "value" : "' . $value . '*", "boost" : 2.0 }}}]}}}\'';
+                //$url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"should":[{"term":{"category_id":"' . $category . '"}},{"term":{"state_id":"' . $state . '"}},{"term":{"name":"' . $value . '"}]}}}\'';
+                //$url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"should":[{"term":{"category_id":"' . $category . '"}},{"term":{"state_id":"' . $state . '"}},{"match_phrase_prefix":{"name":"' . $value . '"}}]}}}\'';
+            }
+            if ($category != "" && $state != '' && $city != "") {
+//                die('sss');
+                $url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"must":[{"term":{"category_id":"' . $category . '"}},{"term":{"state_id":"' . $state . '"}},{"term":{"city_id":"' . $city . '"}},{"wildcard":{"name":{ "value" : "' . $value . '*", "boost" : 2.0 }}}]}}}\'';
+                //$url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"should":[{"term":{"category_id":"' . $category . '"}},{"term":{"state_id":"' . $state . '"}},{"term":{"city_id":"' . $city . '"}},{"term":{"name":"' . $value . '"}]}}}\'';
+                //$url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"should":[{"term":{"category_id":"' . $category . '"}},{"term":{"state_id":"' . $state . '"}},{"term":{"city_id":"' . $city . '"}},{"match_phrase_prefix":{"name":"' . $value . '"}}]}}}\'';
+            } if ($category == "" && $state == '' && $city == "") {
+                $url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"must":[{"match_phrase_prefix":{"name":"' . $value . '"}}]}}}\'';
+            }
+
+//            if ($_REQUEST['flag'] == 0) {
+//                
+//            } else {
+//                $url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"should":[{"match_phrase_prefix":{"name":"' . $value . '"}}]}}}\'';
+//            }
+////die();
 
             $value_users = exec($url);
             $value_users = json_decode($value_users);
             $total = $value_users->hits->total;     // total number of result found.
+
             $arr = $value_users->hits->hits;         // store result value.
             //foreach($arr as $values){
             //        echo $values->_source->name."<br/>";
@@ -151,15 +171,15 @@ class SiteController extends FrontendController {
                 //echo $arr[$i]->_source->brand;
 
                 if ($j < $limit) {
-                    $finder = $this->startsWith($arr[$i]->_source->name, $val_hal);
+                    $finder = isset($arr[$i]) ? $this->startsWith($arr[$i]->_source->name, $val_hal) : false;
                     //echo $finder;
                     if ($finder == true) {
-                        if ($arr[$i]->_source->name != null) {
+                        if (isset($arr[$i]) && ($arr[$i]->_source->name != null)) {
                             array_push($arr_result, $arr[$i]->_source->name . '@' . $arr[$i]->_source->category_id . '@' . $arr[$i]->_source->city_id);
                             $j++;
                         }
                     } else {
-                        if ($arr[$i]->_source->name != null) {
+                        if (isset($arr[$i]) && ($arr[$i]->_source->name != null)) {
                             array_push($arr_result_second, $arr[$i]->_source->name . '@' . $arr[$i]->_source->category_id . '@' . $arr[$i]->_source->city_id);
                         }
                     }
@@ -170,26 +190,32 @@ class SiteController extends FrontendController {
 
 
             $result = array_merge($arr_result, $arr_result_second);
+//            print_r($result);
+//            die();
+            if (!empty($result)) {
+                if (isset($result[0]) && ($result[0] != null)) {
 
-            if ($result[0] != null) {
-
-                echo json_encode($result);
-                //echo implode(",",$result);   
-            } else {
-                //ucwords()
-                //array_push($arr_result_second,$arr[$i]->_source->name);
-                $value_users = exec($url);
-                $value_users = json_decode($value_users);
-                $arr = $value_users->hits->hits;
-                //print_r($arr);
-                //die();
-                if ($arr[0]->_source->name != null) {
-                    array_push($match_result, $arr[0]->_source->name . '@' . $arr[0]->_source->category_id . '@' . $arr[0]->_source->city_id);
-                    echo json_encode($match_result);
+                    echo json_encode($result);
+                    //echo implode(",",$result);   
                 } else {
-                    $result_empty[0] = "No result found";
-                    echo json_encode($result_empty);
+                    //ucwords()
+                    //array_push($arr_result_second,$arr[$i]->_source->name);
+                    $value_users = exec($url);
+                    $value_users = json_decode($value_users);
+                    $arr = $value_users->hits->hits;
+                    //print_r($arr);
+                    //die();
+                    if (isset($arr[0]) && ($arr[0]->_source->name != null)) {
+                        array_push($match_result, $arr[0]->_source->name . '@' . $arr[0]->_source->category_id . '@' . $arr[0]->_source->city_id);
+                        echo json_encode($match_result);
+                    } else {
+                        $result_empty[0] = "No result found";
+                        echo json_encode($result_empty);
+                    }
                 }
+            } else {
+                $result_empty[0] = "No result found";
+                echo json_encode($result_empty);
             }
         }
     }

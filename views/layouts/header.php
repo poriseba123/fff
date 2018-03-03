@@ -111,11 +111,12 @@ if (($controller == 'site' && $action == 'index')) {
                     <div class="row search-bar">
                         <div class="advanced-search">
                             <form action="<?= Yii::$app->request->baseUrl . '/search/index' ?>">
-                                <input type="hidden" name="cityid" id="hidden_city" value="<?= (isset($_GET['city']) && $_GET['city'] != '') ? $_GET['city'] : '' ?>">
+                                <input type="hidden" name="trick" id="trick" value="<?= (isset($_GET['trick']) && $_GET['trick'] != '') ? $_GET['trick'] : '0' ?>">
+                                <input type="hidden" name="cityids" id="hidden_city" value="<?= (isset($_GET['cityids']) && $_GET['cityids'] != '') ? $_GET['cityids'] : '' ?>">
                                 <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
                                     <div class="input-group-addon search-category-container">
                                         <label class="styled-select">
-                                            <select class="dropdown-product selectpicker" name="categories" data-live-search="true"  >
+                                            <select class="dropdown-product selectpicker" name="categories" id="category_id" data-live-search="true"  >
                                                 <option value="">All Categories</option>
                                                 <?php
                                                 if (isset($all_services) && count($all_services) > 0) {
@@ -158,7 +159,7 @@ if (($controller == 'site' && $action == 'index')) {
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-6 search-col">
-                                    <input class="form-control keyword" name="keyword" value="" id="tags" placeholder="Enter Keyword" type="text">
+                                    <input class="form-control keyword" name="keyword" value="<?= (isset($_GET['keyword']) && $_GET['keyword'] != '') ? $_GET['keyword'] : '' ?>" id="tags" placeholder="Enter Keyword" type="text">
                                     <i class="fa fa-search"></i>
                                 </div>
                                 <div class="col-md-1 col-sm-6 search-col" style="width:150px">
@@ -184,13 +185,14 @@ if (($controller == 'site' && $action == 'index')) {
                 <div class="row search-bar">
                     <div class="advanced-search">
                         <form id="searchForm" action="<?= Yii::$app->request->baseUrl . '/search/index' ?>">
-                            <input type="hidden" name="city" id="hidden_city" value="<?= (isset($_GET['city']) && $_GET['city'] != '') ? $_GET['city'] : '' ?>">
+                            <input type="hidden" name="cityids" id="hidden_city" value="<?= (isset($_GET['cityids']) && $_GET['cityids'] != '') ? $_GET['cityids'] : '' ?>">
+                            <input type="hidden" name="trick" id="trick" value="<?= (isset($_GET['trick']) && $_GET['trick'] != '') ? $_GET['trick'] : '0' ?>">
                             <input type="hidden" name="limit" id="limit" value="5">
                             <input type="hidden" name="offset" id="offset" value="0">
                             <div class="col-md-2 col-sm-6 search-col" style="margin-right:45px;">
                                 <div class="input-group-addon search-category-container">
                                     <label class="styled-select">
-                                        <select class="dropdown-product selectpicker" name="categories" data-live-search="true">
+                                        <select class="dropdown-product selectpicker" name="categories" id="category_id" data-live-search="true">
                                             <option value="">All Categories</option>
                                             <?php
                                             if (isset($all_services) && count($all_services) > 0) {
@@ -233,7 +235,7 @@ if (($controller == 'site' && $action == 'index')) {
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-6 search-col">
-                                <input class="form-control keyword" name="keyword" value="" id="tags" placeholder="Enter Keyword" type="text">
+                                <input class="form-control keyword" name="keyword" value="<?= (isset($_GET['keyword']) && $_GET['keyword'] != '') ? $_GET['keyword'] : '' ?>" id="tags" placeholder="Enter Keyword" type="text">
                                 <i class="fa fa-search"></i>
                             </div>
                             <div class="col-md-1 col-sm-6 search-col" style="width:150px">

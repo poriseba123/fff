@@ -486,6 +486,13 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                                 var globalSatya;
                                 $("#tags").autocomplete({
                                     source: function (request, response) {
+                                        category = $("#category_id").val();
+                                        state = $("#search_states").val();
+                                        city = $("#search_cities").val();
+                                        if ((category) || (state) || (city)) {
+                                            $("#trick").val('1');
+                                        }
+                                        // alert(category+' '+state+' '+city);
                                         keyword = request.term;
                                         $(window).keypress(function (e) {
                                             if (e.keyCode == 0 || e.keyCode == 32) {
@@ -500,7 +507,10 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                                             url: full_path + "site/suggestion",
                                             data: {
                                                 key: request.term,
-                                                flag: flag
+                                                flag: flag,
+                                                category: category,
+                                                state: state,
+                                                city: city
                                             },
                                             async: true,
                                             dataType: "json",
@@ -528,6 +538,9 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                                         console.log(globalSatya);
                                         var globalSatyaDataVal = globalSatya.item.value;
                                         globalSatyaDataVal = globalSatyaDataVal.split("@");
+                                        $("#category_id").val(globalSatyaDataVal[1]);
+                                        $("#hidden_city").val(globalSatyaDataVal[2]);
+                                        $("#search_cities").val(globalSatyaDataVal[2]);
                                         $("#tags").val(globalSatyaDataVal[0]);
                                         return false;
                                     }
@@ -556,9 +569,15 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                                     }
                                     var dataValue = data.value;
                                     dataValue = dataValue.split("@");
+
                                     console.log(dataValue[0]);
                                     return $("<li>").attr("data-value", dataValue[0]).append("<a>" + res + "</a>").appendTo(ul);
                                 };
                             }
+                            $(document).on('change', '#search_cities', function (e) {
+                                cityid_new = $(this).val();
+                                //How do i fire this event ??
+                                $("#hidden_city").val(cityid_new);
+                            });
 
 </script>
