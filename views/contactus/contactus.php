@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
+
+$content = \app\models\Contactinformation::find()->where(['id' => '2'])->all();
 ?>
 <!-- Start Contact Us Section -->
 <section id="content">
@@ -69,8 +71,8 @@ use yii\widgets\LinkPager;
                         </div>
                         <div class="info">
                             <h3>Address</h3>
-                            <span class="detail">Main Office: NO.22-23 Street Name- City,Country</span>
-                            <span class="datail">Customer Center: NO.130-45 Streen Name- City, Country</span>
+                            <span class="detail"> <?= isset($content[0]->text1) ? $content[0]->text1 : ''; ?></span>
+                            
                         </div>
                     </div>                
                     <div class="contact-datails">
@@ -79,8 +81,7 @@ use yii\widgets\LinkPager;
                         </div>
                         <div class="info">
                             <h3>Phone Numbers</h3>
-                            <span class="detail">Main Office: +880 123 456 789</span>
-                            <span class="datail">Customer Supprort: +880 123 456 789 </span>
+                            <span class="detail"> <?= isset($content[0]->text2) ? $content[0]->text2 : ''; ?></span>
                         </div>
                     </div>
                     <div class="contact-datails">
@@ -89,9 +90,8 @@ use yii\widgets\LinkPager;
                         </div>
                         <div class="info">
                             <h3>Email Address</h3>
-                            <span class="detail">Customer 
-                                Support: poriseba.com&copy;gmail.com</span>
-                            <span class="detail">Technical Support: support&copy;mail.com</span>
+                            <span class="detail"> <?= isset($content[0]->text3) ? $content[0]->text3 : ''; ?></span>
+                           
                         </div>
                     </div>
                 </div>

@@ -27,7 +27,7 @@
                 </a>
             </li>
 
-            <?php $allControllers = ['leftmenu', 'homepagelogoslider', 'medicalnews', 'homepagefeatures','landingpage']; ?>
+            <?php $allControllers = ['leftmenu', 'homepagelogoslider', 'medicalnews', 'homepagefeatures', 'landingpage']; ?>
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="icon-diamond"></i>
@@ -42,7 +42,7 @@
                             <span class="selected"></span>
                         </a>
                     </li>
-                     <li class="nav-item start <?= (Yii::$app->controller->id == 'landingpage') ? 'active' : '' ?>">
+                    <li class="nav-item start <?= (Yii::$app->controller->id == 'landingpage') ? 'active' : '' ?>">
                         <a href="<?= $this->context->adminUrl('landingpage'); ?>" class="nav-link ">
                             <i class="fa fa-bars"></i>
                             <span class="title">Home Page Content</span>
@@ -73,17 +73,24 @@
                     </li>
                 </ul>
             </li>
-           <li class="nav-item start <?= (Yii::$app->controller->id == 'aboutus') ? 'active' : '' ?>">
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'aboutus') ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('aboutus'); ?>" class="nav-link ">
                     <i class="icon-diamond fa-3x fa-fw"></i>
                     <span class="title">About Us Page Content</span>
                     <span class="selected"></span>
                 </a>
             </li>
-             <li class="nav-item start <?= (Yii::$app->controller->id == 'faq') ? 'active' : '' ?>">
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'faq') ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('faq'); ?>" class="nav-link ">
                     <i class="icon-diamond fa-3x fa-fw"></i>
                     <span class="title">Faq Page Content</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'contactinformation') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('contactinformation'); ?>" class="nav-link ">
+                    <i class="icon-diamond fa-3x fa-fw"></i>
+                    <span class="title">Contact us Page Content</span>
                     <span class="selected"></span>
                 </a>
             </li>
