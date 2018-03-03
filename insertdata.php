@@ -22,6 +22,14 @@ while($rows = $result->fetch_assoc())
 }
 if(!empty($master_array))
 {
+	$url='curl -X POST "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_delete_by_query?conflicts=proceed" -d \'{"query" : {"match_all" : {}}"}\'';
+           //die();
+   exec($url);
+   if(curl_error($url))
+	{
+		echo 'error:' . curl_error($url);
+	}
+	//die();
     $idss=0;
     foreach($master_array as $index=>$value)
     {
