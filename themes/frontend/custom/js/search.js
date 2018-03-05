@@ -35,11 +35,14 @@ $(document).ready(function () {
     }
 })(jQuery);
 $.fn.bar = function () {
-    $('#loader').css("display", "none");
+    setTimeout(function () {
+        $('#loader').css("display", "none");
+    }, 1500);
+
     return this; //The magic statement
 }
 $.fn.callsearch = function () {
-   search();
+    search();
     return this; //The magic statement
 }
 function search() {

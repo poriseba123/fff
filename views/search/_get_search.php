@@ -12,13 +12,13 @@ if (count($results) > 0) {
             <input type="hidden" id="pagecount" value="<?= isset($total_no_pages) ? $total_no_pages : "8" ?>">
             <div class="col-sm-2 no-padding photobox">
                 <div class="add-image">
-                    <a href="javascript:;"><img src="<?= $this->context->getCategoryImage($image_folder_name, $val->image); ?>" alt=""></a>
+                    <a href="javascript:;" class="showdetails" id="<?= isset($val->id) ? $val->id : 0; ?>"><img src="<?= $this->context->getCategoryImage($image_folder_name, $val->image); ?>" alt=""></a>
                     <span class="photo-count"><i class="fa fa-camera"></i>1</span>
                 </div>
             </div>
             <div class="col-sm-7 add-desc-box">
                 <div class="add-details">
-                    <h5 class="add-title"><a href="javascript:void(0)"><?= (strlen($val->name) > 20) ? substr($val->name, 0, 100) . '..' : $val->name ?></a></h5>
+                    <h5 class="add-title"><a class="showdetails" href="javascript:void(0)" id="<?= isset($val->id) ? $val->id : 0; ?>"><?= (strlen($val->name) > 20) ? substr($val->name, 0, 100) . '..' : $val->name ?></a></h5>
                     <div class="info">
                         <span class="add-type"><i class="<?= isset($fa_icon) ? $fa_icon . ' fa-2x' : ''; ?>"></i></span>
         <!--                            <span class="date">

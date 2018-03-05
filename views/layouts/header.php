@@ -159,7 +159,7 @@ if (($controller == 'site' && $action == 'index')) {
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-6 search-col">
-                                    <input class="form-control keyword" name="keyword" value="<?= (isset($_GET['keyword']) && $_GET['keyword'] != '') ? $_GET['keyword'] : '' ?>" id="tags" placeholder="Enter Keyword" type="text">
+                                    <input class="form-control keyword" style="text-transform: uppercase;" name="keyword" value="<?= (isset($_GET['keyword']) && $_GET['keyword'] != '') ? $_GET['keyword'] : '' ?>" id="tags" placeholder="Enter Keyword" type="text">
                                     <i class="fa fa-search"></i>
                                 </div>
                                 <div class="col-md-1 col-sm-6 search-col" style="width:150px">
@@ -235,7 +235,7 @@ if (($controller == 'site' && $action == 'index')) {
                                 </div>
                             </div>
                             <div class="col-md-3 col-sm-6 search-col">
-                                <input class="form-control keyword" name="keyword" value="<?= (isset($_GET['keyword']) && $_GET['keyword'] != '') ? $_GET['keyword'] : '' ?>" id="tags" placeholder="Enter Keyword" type="text">
+                                <input class="form-control keyword" style="text-transform: uppercase;" name="keyword" value="<?= (isset($_GET['keyword']) && $_GET['keyword'] != '') ? $_GET['keyword'] : '' ?>" id="tags" placeholder="Enter Keyword" type="text">
                                 <i class="fa fa-search"></i>
                             </div>
                             <div class="col-md-1 col-sm-6 search-col" style="width:150px">

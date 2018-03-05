@@ -84,7 +84,7 @@ use yii\widgets\LinkPager;
                             </div>
                             <div class="col-sm-5"></div>
                             <div class="col-sm-2" style="padding-top: 5px;">
-                                <a href="<?= Yii::$app->homeUrl;?>">
+                                <a href="<?= Yii::$app->homeUrl; ?>">
                                     <button class="btn btn-common btn-block">
                                         <strong>Reload</strong>
                                         <div class="ripple-container"></div>
@@ -163,6 +163,7 @@ $this->registerJsFile(
             Pages = parseInt("<?= $total_no_pages; ?>");
         } else {
             Pages = parseInt($("#pagecount").val());
+            //alert("hrl"+Pages);
         }
         if (Pages > 0) {
             $('.sync-pagination').twbsPagination({
@@ -174,6 +175,7 @@ $this->registerJsFile(
                     }, 10);
                     items_per_page = parseInt($("#limit").val());
                     offset = (page - 1) * items_per_page;
+
                     $("#offset").val(offset);
                     if (paged == false) {
                         search();
@@ -189,9 +191,10 @@ $this->registerJsFile(
             $('.sync-pagination').twbsPagination('destroy');
             $("#limit").val($(this).val());
             search();
+            //alert("<?= $total_no_pages; ?>");
             setTimeout(function () {
                 pagination();
-            }, 400);
+            }, 1200);
         });
 
     });

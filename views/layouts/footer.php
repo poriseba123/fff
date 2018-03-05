@@ -493,7 +493,7 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                                             $("#trick").val('1');
                                         }
                                         // alert(category+' '+state+' '+city);
-                                        keyword = request.term;
+                                        keyword = request.term.toUpperCase();
                                         $(window).keypress(function (e) {
                                             if (e.keyCode == 0 || e.keyCode == 32) {
                                                 flag = 0;
@@ -515,7 +515,7 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                                             async: true,
                                             dataType: "json",
                                             success: function (data) {
-                                                console.log(data);
+                                                //console.log(data);
                                                 if (data[0] != null) {
                                                     globalSatya = data;
                                                     response(data);
@@ -528,14 +528,14 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                                         });
                                     },
                                     focus: function (event, globalSatya) {
-                                        console.log(globalSatya.item.value);
+                                        //console.log(globalSatya.item.value);
                                         var globalSatyaDataVal = globalSatya.item.value;
                                         globalSatyaDataVal = globalSatyaDataVal.split("@");
                                         $("#tags").val(globalSatyaDataVal[0]);
                                         return false;
                                     },
                                     select: function (event, globalSatya) {
-                                        console.log(globalSatya);
+                                        //console.log(globalSatya);
                                         var globalSatyaDataVal = globalSatya.item.value;
                                         globalSatyaDataVal = globalSatyaDataVal.split("@");
                                         $("#category_id").val(globalSatyaDataVal[1]);
@@ -545,7 +545,7 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                                         return false;
                                     }
                                 }).autocomplete("instance")._renderItem = function (ul, data) {
-                                    console.log(data.value);
+                                    //console.log(data.value);
                                     var str = data.label;
                                     if (/\s/g.test(keyword.slice(1)) == true) {
                                         k = 1;
@@ -560,17 +560,18 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                                     var show = str.split("@");
                                     //alert(show[0]+"  "+show[1]);
                                     if (k == 0) {
-                                        var res = show[0].replace(flag, '<span style="color:blue;">' + flag + '</span>');
+                                        var res = show[0].replace(flag, '<span style="color:#f44336;">' + flag + '</span>');
                                     } else {
                                         //console.log("show[0]"+show[0].replace(/ /g,''));
                                         //console.log("flaggggggggggg"+flag.replace(/ /g,''));
-                                        var res = show[0].replace(/ /g, '').replace(flag.replace(/ /g, ''), '<span style="color:blue;">' + flag + '</span>');
+                                        
+                                        var res = show[0].replace(/ /g, '').replace(flag.replace(/ /g, ''), '<span style="color:#f44336;">' + flag + '</span>');
                                         //console.log("res"+res);
                                     }
                                     var dataValue = data.value;
                                     dataValue = dataValue.split("@");
 
-                                    console.log(dataValue[0]);
+                                    //console.log(dataValue[0]);
                                     return $("<li>").attr("data-value", dataValue[0]).append("<a>" + res + "</a>").appendTo(ul);
                                 };
                             }
