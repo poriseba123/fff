@@ -52,7 +52,9 @@ $logoname = \app\models\Homepagesliderlogo::find()->select('logo_image')->one();
 <div class="header">
     <nav class="navbar navbar-default main-navigation"  role="navigation">
         <div class="container">
-            <div class="navbar-header">
+            <div class="row">
+                <div class="col-md-3">
+                  <div class="navbar-header">
                 <!-- Stat Toggle Nav Link For Mobiles -->
                 <!--                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                                     <span class="sr-only">Toggle navigation</span>
@@ -63,23 +65,30 @@ $logoname = \app\models\Homepagesliderlogo::find()->select('logo_image')->one();
                 <!-- End Toggle Nav Link For Mobiles -->
 
                 <a class="navbar-brand logo" href="http://poriseba.com/"><img src="http://poriseba.com\uploads\logoslider\thumbnail\<?= $logoname->logo_image; ?>" alt=""></a>
-            </div>
-            <!-- brand and toggle menu for mobile End -->
-            <!-- Navbar Start -->
-            <!--            <div class="collapse navbar-collapse" id="navbar">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" style="z-index: 9999999999;"><i class="fa fa-bars"></i></button>
+            </div>  
+                </div>
+                <div class="col-md-9 cst-mobile">
+                     <div class="collapse navbar-collapse" id="navbar">
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="javascript:void(0);" id="login"><i class="lnr lnr-enter"></i> Login</a></li>
-                                <li><a href="javascript:void(0);" id="signup"><i class="lnr lnr-user"></i> Signup</a></li>
-                                <li><a href="javascript:void(0);"><i class="fa fa-rss"></i> Blog</a></li>
-                                <li class="postadd">
+                                <li><a href="javascript:void(0);" id="login"> Login</a></li>
+                                <li><a href="javascript:void(0);" id="signup"> Signup</a></li>
+                                <li><a href="javascript:void(0);" id="menu"  data-toggle="offcanvas" data-target=".navmenu"> Menu</a></li>
+<!--                                <li class="postadd">
                                     <div class="btn btn-danger btn-post wow pulse" id="emergency" data-wow-iteration="infinite" data-wow-duration="500ms" data-toggle="offcanvas" data-target="">
                                         <p><i class="fa fa-globe fa-spin fa-1x fa-fw"></i>Emergency</p>
                                     </div>
                                     <a class="btn btn-danger btn-post" href="post-ads.html"><span class="fa fa-plus-circle"></span> Post an Ad</a>
-                                </li>
+                                </li>-->
                             </ul>
             
-                        </div>-->
+                        </div>
+                </div>
+            </div>
+            
+            <!-- brand and toggle menu for mobile End -->
+            <!-- Navbar Start -->
+                       
 
             <!-- Navbar End -->
         </div>
@@ -96,9 +105,9 @@ $logoname = \app\models\Homepagesliderlogo::find()->select('logo_image')->one();
     <p><i class="fa fa-file-text-o"></i>Menu</p>
 </div>-->
 
-<div class="tbtn wow pulse" id="menu"  data-toggle="offcanvas" data-target=".navmenu">
+<!--<div class="tbtn wow pulse" id="menu"  data-toggle="offcanvas" data-target=".navmenu">
     <p><i class="fa fa-file-text-o"></i>Menus</p>
-</div>
+</div>-->
 
 <!-- Header Section End -->
 <!-- Start intro section -->
@@ -164,11 +173,11 @@ if (($controller == 'site' && $action == 'index')) {
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-md-3 col-sm-6 search-col">
+                                <div class="col-md-3 col-sm-6 search-col keyword-search">
                                     <input class="form-control keyword" style="text-transform: uppercase;" name="keyword" value="<?= (isset($_GET['keyword']) && $_GET['keyword'] != '') ? $_GET['keyword'] : '' ?>" id="tags" placeholder="Enter Keyword" type="text">
                                     <i class="fa fa-search"></i>
                                 </div>
-                                <div class="col-md-1 col-sm-6 search-col" style="width:150px">
+                                <div class="col-md-3 col-sm-6 search-col searchbtn-div" style="/*width:150px*/">
                                     <button type="submit" class="btn btn-common btn-search btn-block"><strong>Search</strong></button>
                                 </div>
                             </form>
