@@ -14,42 +14,38 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  */
-class Newsletter extends \yii\db\ActiveRecord
-{
+class Newsletter extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
-        return 'newsletter';
+    public static function tableName() {
+        return 'subscription';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['full_name', 'email_id'], 'required','on'=>'subscribe'],
+            [['email_id'], 'required', 'on' => 'subscribe'],
             [['status'], 'integer'],
             ['email_id', 'email'],
-            [['created_at', 'updated_at'], 'safe'],
-            [['full_name', 'email_id'], 'string', 'max' => 255],
+            [['subscription_data'], 'safe'],
+            [['email_id'], 'string', 'max' => 255],
         ];
     }
 
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
-            'full_name' => 'Nombre completo',
-            'email_id' => 'Correo electrónico',
+            'email_id' => 'Email Id',
             'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'subscription_data' => 'Created At'
         ];
     }
+
 }

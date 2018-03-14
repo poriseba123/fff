@@ -174,17 +174,20 @@ class FrontendController extends Controller {
     }
 
     public function SendMail($data) {
-//        $template = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php');
+//        print_r($data);
+
+        $template = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php');
+
 //        $content = Yii::$app->controller->renderPartial('@app/mail/' . $data['template'] . '.php', array('message' => $data['body']));
-        $content = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php', array('message' => $data['body']));
-//        $view = str_replace('{{email_message}}', $content, $template);
-//        return Yii::$app->mailer->compose()
-//                ->setTo($data['to'])
-//                ->setFrom([])
-//                ->setFrom(['noreply@sportsnotion.com' => 'Sportsnotion'])
-//                ->setSubject(isset($data['subject']) ? $data['subject'] : '')
-//                ->setHtmlBody($view)
-//                ->send();
+        //$content = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php', ['message' => $data['body']]);
+        $view = str_replace('{{email_message}}', $data['body'], $template);
+        return Yii::$app->mailer->compose()
+                        ->setTo($data['to'])
+                        ->setFrom([])
+                        ->setFrom(['poriseba.com@gmail.com' => 'Poriseba'])
+                        ->setSubject(isset($data['subject']) ? $data['subject'] : '')
+                        ->setHtmlBody($view)
+                        ->send();
 
         $headers = 'From:"' . $this->getProjectName() . '" <admin@' . $this->getProjectName() . '.co>' . "\r\n";
         $headers .= 'Reply-To: noreply@' . $this->getProjectName() . '.co' . "\r\n";
@@ -220,13 +223,18 @@ class FrontendController extends Controller {
         return Yii::$app->request->baseUrl . '/themes/common-images/undefind_pro_pic/user-no-img-pro-1.png/';
     }
 
-    public function getCategoryImage($foldername='',$image='') {
-        if (file_exists(Yii::$app->basePath . '/uploads/'.$foldername.'/thumbnail/' . $image)) {
-                    return Yii::$app->request->baseUrl . '/uploads/'.$foldername.'/thumbnail/' . $image;
-                } else {
-                    return Yii::$app->request->baseUrl . '/uploads/noimage/noimg.jpg';
-                }
+    public function getCategoryImage($foldername = '', $image = '') {
+        if ($image != "") {
+            if (file_exists(Yii::$app->basePath . '/uploads/' . $foldername . '/thumbnail/' . $image)) {
+                return Yii::$app->request->baseUrl . '/uploads/' . $foldername . '/thumbnail/' . $image;
+            } else {
+                return Yii::$app->request->baseUrl . '/uploads/noimage/noimg.jpg';
+            }
+        } else {
+            return Yii::$app->request->baseUrl . '/uploads/noimage/noimg.jpg';
+        }
     }
+
     public function getUserProfileImage($id = '') {
         if (!Yii::$app->user->isGuest) {
             if ($id == '') {
@@ -472,18 +480,18 @@ class FrontendController extends Controller {
     }
 
     public function getFacebookLink() {
-        $seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'facebook_url'])->one();
-        return $seting->value;
+        //$seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'facebook_url'])->one();
+//        return $seting->value;
     }
 
     public function getGoogleLink() {
-        $seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'google_plus_url'])->one();
-        return $seting->value;
+        //$seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'google_plus_url'])->one();
+        //return $seting->value;
     }
 
     public function getInstagramLink() {
-        $seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'instagram'])->one();
-        return $seting->value;
+        //$seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'instagram'])->one();
+        //return $seting->value;
     }
 
     public function getUserVehicleImg($img = "") {

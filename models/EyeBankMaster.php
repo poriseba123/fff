@@ -25,25 +25,23 @@ use yii\data\ActiveDataProvider;
  * @property string $created_at
  * @property string $updated_at
  */
-class EyeBankMaster extends \yii\db\ActiveRecord
-{
+class EyeBankMaster extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
     public $cityrow_count;
-    
-    public static function tableName()
-    {
+
+    public static function tableName() {
         return 'eye_bank_master';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['name', 'country_id', 'state_id', 'district_id','city_id','open_time', 'close_time','close_day','address','description','establishment_date','status'], 'required','on'=>['create','update']],
+            [['name', 'country_id', 'state_id', 'district_id', 'city_id', 'open_time', 'close_time', 'close_day', 'address', 'description', 'establishment_date', 'status'], 'required', 'on' => ['create', 'update']],
             [['country_id', 'state_id', 'city_id', 'close_day', 'status'], 'integer'],
             [['description', 'contact_no'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
@@ -57,13 +55,13 @@ class EyeBankMaster extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'name' => 'Name',
             'country_id' => 'Country ID',
             'state_id' => 'State ID',
+            'district_id' => 'District ID',
             'city_id' => 'City ID',
             'address' => 'Address',
             'latitude' => 'Latitude',
@@ -73,15 +71,15 @@ class EyeBankMaster extends \yii\db\ActiveRecord
             'close_day' => 'Close Day',
             'description' => 'Description',
             'contact_no' => 'Contact No',
-			'establishment_date' =>'Establishment Date',
-			'free_eyetest' => 'Free Check-up Time',
+            'establishment_date' => 'Establishment Date',
+            'free_eyetest' => 'Free Check-up Time',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
     }
-    
-     public function search($params) {
+
+    public function search($params) {
         $query = EyeBankMaster::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -134,7 +132,9 @@ class EyeBankMaster extends \yii\db\ActiveRecord
 
         return $dataProvider;
     }
+
     public function getCity() {
         return $this->hasOne(Cities::className(), ['id' => 'city_id']);
     }
+
 }

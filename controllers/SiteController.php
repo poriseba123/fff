@@ -2,10 +2,14 @@
 
 namespace app\controllers;
 
+//namespace yashop\ses;
+//use ofat\yii2-yashop-ses\libs\SimpleEmailService;
+///var/www/html/vendor/ofat/yii2-yashop-ses/libs
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
+//use yii\mail\BaseMailer;
 use app\models\UserMaster;
 use app\models\SuccessNotify;
 use app\models\Fellowship;
@@ -14,15 +18,14 @@ use app\models\ContactForm;
 use app\components\FrontendController;
 use app\models\MetaLocation;
 use app\models\Cms;
-
 use app\models\MedicineShopMaster;
 use app\models\AmbulanceMaster;
 use app\models\EyeBankMaster;
 use app\models\BloodBankMaster;
 use app\models\MortuaryMaster;
 use app\models\DiagnosticCentre;
-
 use app\models\ServicesList;
+use app\models\Landingpage;
 
 class SiteController extends FrontendController {
 
@@ -30,6 +33,7 @@ class SiteController extends FrontendController {
      * @inheritdoc
      */
     public function init() {
+
 //        if (!Yii::$app->user->isGuest) {
 //            return $this->redirect('dashboard/index');
 //        }
@@ -69,35 +73,190 @@ class SiteController extends FrontendController {
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
+            'bootstrap' => ['log', 'userCounter'],
         ];
     }
+
+    public function google_count() {
+
+        require_once ('/var/www/html/vendor/autoload.php');
+        $client = new Google_Client();
+//        $client->setApplicationName("XXXX");
+//        $client->setAuthConfig('path_to_Auth_jsno_file');
+//        $client->addScope('https://www.googleapis.com/auth/analytics.readonly');
+//        $GA_VIEW_ID = 'ga:XXXX';
+//        $service = new Google_Service_Analytics($client);
+//        try {
+//            $result = $service->data_realtime->get($GA_VIEW_ID, 'rt:activeVisitors');
+//            $count = $result->totalsForAllResults['rt:activeVisitors'];
+//            echo $count;
+//        } catch (Exception $e) {
+//            var_dump($e);
+//        }
+    }
+
+    public function actionSuggestion() {
+        $limit = 10;  //no of value to be fatched.
+        $arr_result = array();
+        $arr_result_second = array();
+        $result_empty = array();
+        $match_result = array();
+
+//$value=trim($_REQUEST['key']);
+        $raw_value = trim(strtolower($_REQUEST['key']));
+        $category = trim($_REQUEST['category']);
+        $state = trim($_REQUEST['state']);
+        $city = trim($_REQUEST['city']);
+        $explode_value = explode(" ", $raw_value);
+        $explode_end_value = end($explode_value);
+
+        if ((count($explode_value) > 1) && (strlen($explode_end_value) == 1)) {
+            if (ctype_alpha($explode_end_value) == true) {
+                $msg[0] = "last char alpha";
+                echo json_encode($msg);
+                die();
+            }
+        } else {
+            $value = $raw_value;
+        }
+
+        if ($value != "") {
+
+            if ($category != "") {
+                $url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"must":[{"term":{"category_id":"' . $category . '"}},{"wildcard":{"name":{ "value" : "*' . $value . '*", "boost" : 2.0 }}}]}}}\'';
+            }
+            if ($category != "" && $state != '') {
+                $url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"must":[{"term":{"category_id":"' . $category . '"}},{"term":{"state_id":"' . $state . '"}},{"wildcard":{"name":{ "value" : "*' . $value . '*", "boost" : 2.0 }}}]}}}\'';
+                //$url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"should":[{"term":{"category_id":"' . $category . '"}},{"term":{"state_id":"' . $state . '"}},{"term":{"name":"' . $value . '"}]}}}\'';
+                //$url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"should":[{"term":{"category_id":"' . $category . '"}},{"term":{"state_id":"' . $state . '"}},{"match_phrase_prefix":{"name":"' . $value . '"}}]}}}\'';
+            }
+            if ($category != "" && $state != '' && $city != "") {
+//                die('sss');
+                $url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"must":[{"term":{"category_id":"' . $category . '"}},{"term":{"state_id":"' . $state . '"}},{"term":{"city_id":"' . $city . '"}},{"wildcard":{"name":{ "value" : "*' . $value . '*", "boost" : 2.0 }}}]}}}\'';
+                //$url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"should":[{"term":{"category_id":"' . $category . '"}},{"term":{"state_id":"' . $state . '"}},{"term":{"city_id":"' . $city . '"}},{"term":{"name":"' . $value . '"}]}}}\'';
+                //$url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"should":[{"term":{"category_id":"' . $category . '"}},{"term":{"state_id":"' . $state . '"}},{"term":{"city_id":"' . $city . '"}},{"match_phrase_prefix":{"name":"' . $value . '"}}]}}}\'';
+            } if ($category == "" && $state == '' && $city == "") {
+                $url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"must":[{"match_phrase_prefix":{"name":"' . $value . '"}}]}}}\'';
+            }
+
+//            if ($_REQUEST['flag'] == 0) {
+//                
+//            } else {
+//                $url = 'curl -X GET "https://search-poriseba007--7zqiehj6l6mmfrl3tno3i3pp4m.ap-south-1.es.amazonaws.com/poriseba/bomsankar/_search?size=25" -d \'{"query":{"bool":{"should":[{"match_phrase_prefix":{"name":"' . $value . '"}}]}}}\'';
+//            }
+////die();
+
+            $value_users = exec($url);
+            $value_users = json_decode($value_users);
+            $total = $value_users->hits->total;     // total number of result found.
+
+            $arr = $value_users->hits->hits;         // store result value.
+            //foreach($arr as $values){
+            //        echo $values->_source->name."<br/>";
+            //}
+            //die();
+            //print_r($arr);die();
+            if ($total < $limit) {
+                $limit = $total;
+            }
+            $j = 0;
+            $val_hal = ucwords($value);
+            for ($i = 0; $i < $limit; $i++) {
+                //echo $value."<br/>";
+                //print_r($arr[$i]);
+                //$pregmeatch = "/^'.$value.'(.*)/i";
+                //$preg_match_all($pregmeatch,$arr[$i]->_source->brand,$val);
+                //print_r($val);
+                //var_dump($value);
+                //echo $arr[$i]->_source->brand;
+
+                if ($j < $limit) {
+                    $finder = isset($arr[$i]) ? $this->startsWith($arr[$i]->_source->name, $val_hal) : false;
+                    //echo $finder;
+                    if ($finder == true) {
+                        if (isset($arr[$i]) && ($arr[$i]->_source->name != null)) {
+                            array_push($arr_result, strtoupper($arr[$i]->_source->name) . '@' . $arr[$i]->_source->category_id . '@' . $arr[$i]->_source->city_id);
+                            $j++;
+                        }
+                    } else {
+                        if (isset($arr[$i]) && ($arr[$i]->_source->name != null)) {
+                            array_push($arr_result_second, strtoupper($arr[$i]->_source->name) . '@' . $arr[$i]->_source->category_id . '@' . $arr[$i]->_source->city_id);
+                        }
+                    }
+                } else {
+                    break;
+                }
+            }
+
+
+            $result = array_merge($arr_result, $arr_result_second);
+//            print_r($result);
+//            die();
+            if (!empty($result)) {
+                if (isset($result[0]) && ($result[0] != null)) {
+
+                    echo json_encode(array_unique($result));
+                    //echo implode(",",$result);   
+                } else {
+                    //ucwords()
+                    //array_push($arr_result_second,$arr[$i]->_source->name);
+                    $value_users = exec($url);
+                    $value_users = json_decode($value_users);
+                    $arr = $value_users->hits->hits;
+                    //print_r($arr);
+                    //die();
+                    if (isset($arr[0]) && ($arr[0]->_source->name != null)) {
+                        array_push($match_result, strtoupper($arr[0]->_source->name) . '@' . $arr[0]->_source->category_id . '@' . $arr[0]->_source->city_id);
+                        echo json_encode(array_unique($match_result));
+                    } else {
+                        $result_empty[0] = "No result found";
+                        echo json_encode($result_empty);
+                    }
+                }
+            } else {
+                $result_empty[0] = "No result found";
+                echo json_encode($result_empty);
+            }
+        }
+    }
+
+    function startsWith($haystack, $needle) {
+        // search backwards starting from haystack length characters from the end
+        return $needle === "" || strrpos($haystack, $needle, -strlen($haystack)) !== FALSE;
+    }
+
     public function actionIndex() {
+        //$this->google_count();
+
         $this->view->title = "Home";
-        $data=[];
-        
-        $all_services=ServicesList::find()->where(['status'=>'1'])->all();
-        $data['all_services']=$all_services;
-        
-        $med_shop_result= MedicineShopMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-        $data['med_shop_result']=$med_shop_result;
-        
-        $ambulance_result= AmbulanceMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-        $data['ambulance_result']=$ambulance_result;
-        
-        $ambulance_result= AmbulanceMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-        $data['ambulance_result']=$ambulance_result;
-        
-        $eyebank_result= EyeBankMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-        $data['eyebank_result']=$eyebank_result;
-        
-        $bloodbank_result= BloodBankMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-        $data['eyebank_result']=$eyebank_result;
-        
-        $mortuary_result= MortuaryMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-        $data['mortuary_result']=$mortuary_result;
-        
-        $diagnostic_result= DiagnosticCentre::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-        $data['diagnostic_result']=$diagnostic_result;
+        $data = [];
+
+        $all_services = ServicesList::find()->where(['status' => '1'])->all();
+        $data['all_services'] = $all_services;
+
+        $landing_page = Landingpage::find()->where(['id' => '1'])->all();
+        $data['landing_page'] = $landing_page;
+
+        $med_shop_result = MedicineShopMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+        $data['med_shop_result'] = $med_shop_result;
+
+        $ambulance_result = AmbulanceMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+        $data['ambulance_result'] = $ambulance_result;
+
+        $ambulance_result = AmbulanceMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+        $data['ambulance_result'] = $ambulance_result;
+
+        $eyebank_result = EyeBankMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+        $data['eyebank_result'] = $eyebank_result;
+
+        $bloodbank_result = BloodBankMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+        $data['eyebank_result'] = $eyebank_result;
+
+        $mortuary_result = MortuaryMaster::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+        $data['mortuary_result'] = $mortuary_result;
+
+        $diagnostic_result = DiagnosticCentre::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+        $data['diagnostic_result'] = $diagnostic_result;
 
 
         return $this->render('index', $data);
@@ -111,6 +270,7 @@ class SiteController extends FrontendController {
     public function actionUrlerror() {
         return $this->render("url-error");
     }
+
     public function actionActivateaccount() {
         if (Yii::$app->request->get('tId') != '') {
             $trackId = Yii::$app->request->get('tId');
@@ -195,7 +355,6 @@ class SiteController extends FrontendController {
         }
         echo json_encode($resp);
     }
-    
 
     public function actionForgotpassword() {
         return $this->render("forgot-password");
@@ -282,7 +441,7 @@ class SiteController extends FrontendController {
             return $this->render('url-error');
         }
     }
-    
+
     public function actionNewsletter() {
         $resp = [];
         $resp['flag'] = false;
@@ -291,26 +450,24 @@ class SiteController extends FrontendController {
             $model->scenario = 'subscribe';
             $model->attributes = $_POST['Newsletter'];
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-                $model->full_name=$_POST['Newsletter']['full_name'];
-                $model->email_id=$_POST['Newsletter']['email_id'];
-                $email_check= \app\models\Newsletter::find()->where(['email_id'=>$model->email_id])->one();
-                if(count($email_check)>0){
-                    if($email_check->status==1){
+                $model->email_id = $_POST['Newsletter']['email_id'];
+                $email_check = \app\models\Newsletter::find()->where(['email_id' => $model->email_id])->one();
+                if (count($email_check) > 0) {
+                    if ($email_check->status == 1) {
                         $model->addError('email_id', Yii::t('app', 'Already subscribed'));
                         $resp['error'] = $model->getErrors();
-                    }else{
-                        $model->status=1;
-                        $model->updated_at=date("Y-m-d H:i:s");
-                        $model->save(false); 
+                    } else {
+                        $model->status = 1;
+                        $model->subscription_data = date("Y-m-d");
+                        $model->save(false);
                         $resp['flag'] = true;
                         $resp['msg'] = Yii::t('app', 'newsletter subscribed');
                     }
-                }else{
-                $model->created_at=date("Y-m-d H:i:s");
-                $model->updated_at=date("Y-m-d H:i:s");
-                $model->save(false);
-                $resp['flag'] = true;
-                $resp['msg'] = Yii::t('app', 'newsletter subscribed');
+                } else {
+                    $model->subscription_data = date("Y-m-d");
+                    $model->save(false);
+                    $resp['flag'] = true;
+                    $resp['msg'] = Yii::t('app', 'newsletter subscribed');
                 }
             } else {
                 $error = $model->getErrors();
@@ -329,30 +486,8 @@ class SiteController extends FrontendController {
         return $this->goHome();
     }
 
-    public function actionContact() {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-                    'model' => $model,
-        ]);
-    }
-
     public function actionHowitworks() {
         $model = Cms::find()->where(['slug' => "how_it_works"])->one();
-        return $this->render('cms', ['model' => $model]);
-    }
-
-    public function actionFaq() {
-        $model = Cms::find()->where(['slug' => "faq"])->one();
-        return $this->render('cms', ['model' => $model]);
-    }
-
-    public function actionAboutus() {
-        $model = Cms::find()->where(['slug' => "about_us"])->one();
         return $this->render('cms', ['model' => $model]);
     }
 
@@ -417,43 +552,43 @@ class SiteController extends FrontendController {
     }
 
     public function actionGetsearchbarcities() {
-        $resp=[];
-        $html='<option class="subitem" value="">All Cities</option>';
-        if(isset($_POST['state_id']) && $_POST['state_id']!=''){
-        $state_id=$_POST['state_id'];
-        $city_id=$_POST['city_id'];
-        $sql = "select c.* from cities as c LEFT JOIN districts as d ON c.district_id=d.id LEFT JOIN states as s ON d.state_id=s.id where s.id=$state_id and d.status=1 and c.status=1 order by c.name ASC";
-        $result = Yii::$app->db->createCommand($sql)->queryAll();
-        if(count($result) > 0){
-        foreach ($result as $key => $value) {
-            $val=(object)$value;
-            $select='';
-            if($city_id==$val->id){
-                $select='selected="selected"';
+        $resp = [];
+        $html = '<option class="subitem" value="">All Cities</option>';
+        if (isset($_POST['state_id']) && $_POST['state_id'] != '') {
+            $state_id = $_POST['state_id'];
+            $city_id = $_POST['city_id'];
+            $sql = "select c.* from cities as c LEFT JOIN districts as d ON c.district_id=d.id LEFT JOIN states as s ON d.state_id=s.id where s.id=$state_id and d.status=1 and c.status=1 order by c.name ASC";
+            $result = Yii::$app->db->createCommand($sql)->queryAll();
+            if (count($result) > 0) {
+                foreach ($result as $key => $value) {
+                    $val = (object) $value;
+                    $select = '';
+                    if ($city_id == $val->id) {
+                        $select = 'selected="selected"';
+                    }
+                    $html .= '<option class="subitem" value="' . $val->id . '" ' . $select . '>' . $val->name . '</option>';
+                }
             }
-            $html.='<option class="subitem" value="'.$val->id.'" '.$select.'>'.$val->name.'</option>';
         }
-        }
-        }
-        $resp['html']=$html;
+        $resp['html'] = $html;
         echo json_encode($resp);
         exit;
     }
-    public function actionCheckmailtemplate() {
-        $to = "taslimislam02@gmail.com";
-        $body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.";
 
+    public function actionCheckmailtemplate() {
+        $to = "poriseba.com@gmail.com";
+        $body = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.";
         $content = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php', array('message' => $body), true);
         echo "<pre>";
         print_r($content);
-//        exit;
-        $result = Yii::$app->mailer->compose()
-                ->setTo($to)
-                ->setFrom([])
-                ->setFrom(['noreply@123Vmos.com' => '123Vmos'])
-                ->setSubject("testing Email Template")
-                ->setHtmlBody($content)
-                ->send();
+        exit;
+//        $result = Yii::$app->mailer->compose()
+//                ->setTo($to)
+////                ->setFrom([])
+//                ->setFrom('poriseba.com@gmail.com')
+//                ->setSubject("testing Email Template")
+//                ->setHtmlBody($content)
+//                ->send();
         echo "<pre>";
         echo "here</br/>";
         print_r($result);

@@ -5,7 +5,6 @@ namespace app\models;
 use Yii;
 use yii\data\ActiveDataProvider;
 
-
 /**
  * This is the model class for table "ambulance_master".
  *
@@ -27,27 +26,25 @@ use yii\data\ActiveDataProvider;
  * @property string $created_at
  * @property string $updated_at
  */
-class AmbulanceMaster extends \yii\db\ActiveRecord
-{
+class AmbulanceMaster extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
     public $cityrow_count;
-    
-    public static function tableName()
-    {
+
+    public static function tableName() {
         return 'ambulance_master';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['name', 'country_id', 'state_id', 'city_id','district_id', 'ac', 'oxygen','lifesupport','all_time','address','description','vehicle_no','status'], 'required','on'=>['create','update']],
-            [['country_id', 'state_id', 'city_id', 'all_time', 'ac', 'oxygen', 'lifesupport','status'], 'integer'],
-            [['description', 'contact_no'], 'string'],
+            [['name', 'country_id', 'state_id', 'city_id', 'district_id', 'ac', 'oxygen', 'lifesupport', 'all_time', 'address', 'description', 'vehicle_no', 'status'], 'required', 'on' => ['create', 'update']],
+            [['country_id', 'state_id', 'city_id', 'all_time', 'ac', 'oxygen', 'lifesupport', 'status'], 'integer'],
+            [['description', 'contact_no', 'pin'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 100],
             [['vehicle_no'], 'string', 'max' => 30],
@@ -59,8 +56,7 @@ class AmbulanceMaster extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'name' => 'Name',
@@ -74,16 +70,17 @@ class AmbulanceMaster extends \yii\db\ActiveRecord
             'all_time' => '24 X 7',
             'ac' => 'Ac',
             'oxygen' => 'Oxygen',
-			'lifesupport' =>'Life support',
+            'lifesupport' => 'Life support',
             'description' => 'Description',
             'contact_no' => 'Contact No',
             'status' => 'Status',
+            'pin' => 'Pin',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
     }
-    
-     public function search($params) {
+
+    public function search($params) {
         $query = AmbulanceMaster::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -105,13 +102,13 @@ class AmbulanceMaster extends \yii\db\ActiveRecord
                         'label' => 'address',
                         'default' => SORT_DESC
                     ],
-					'vehicle_no' => [
+                    'vehicle_no' => [
                         'asc' => ['vehicle_no' => SORT_ASC],
                         'desc' => ['vehicle_no' => SORT_DESC],
                         'label' => 'Vehicle no',
                         'default' => SORT_DESC
                     ],
-					'contact_no' => [
+                    'contact_no' => [
                         'asc' => ['contact_no' => SORT_ASC],
                         'desc' => ['contact_no' => SORT_DESC],
                         'label' => 'Contact No',
@@ -130,15 +127,17 @@ class AmbulanceMaster extends \yii\db\ActiveRecord
 
         $query->andFilterWhere(['like', 'name', $this->name])
                 ->andFilterWhere(['like', 'address', $this->address])
-				->andFilterWhere(['like', 'contact_no', $this->contact_no])
-				->andFilterWhere(['like', 'vehicle_no', $this->vehicle_no])
+                ->andFilterWhere(['like', 'contact_no', $this->contact_no])
+                ->andFilterWhere(['like', 'vehicle_no', $this->vehicle_no])
                 ->andFilterWhere(['like', 'all_time', $this->all_time])
                 ->andFilterWhere(['like', 'status', $this->status])
                 ->andWhere('status <> \'3\'');
 
         return $dataProvider;
     }
+
     public function getCity() {
         return $this->hasOne(Cities::className(), ['id' => 'city_id']);
     }
+
 }

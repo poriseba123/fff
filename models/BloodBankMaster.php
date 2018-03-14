@@ -45,7 +45,7 @@ class BloodBankMaster extends \yii\db\ActiveRecord
         return [
             [['name','establishment_date', 'country_id', 'state_id', 'city_id','district_id','open_time', 'close_time','close_day','address','description','status'], 'required','on'=>['create','update']],
             [['country_id', 'state_id', 'city_id', 'close_day', 'status'], 'integer'],
-            [['description', 'contact_no'], 'string'],
+            [['description', 'contact_no','pin'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['name'], 'string', 'max' => 100],
             [['address'], 'string', 'max' => 200],
@@ -74,6 +74,7 @@ class BloodBankMaster extends \yii\db\ActiveRecord
             'description' => 'Description',
             'contact_no' => 'Contact No',
             'status' => 'Status',
+            'pin' => 'Pin',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

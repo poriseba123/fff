@@ -12,25 +12,23 @@ use yii\data\ActiveDataProvider;
  * @property string $name
  * @property int $state_id
  */
-class Cities extends \yii\db\ActiveRecord
-{
+class Cities extends \yii\db\ActiveRecord {
+
     /**
      * @inheritdoc
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'cities';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['name','district_id','status'], 'required','on'=>['create','update']],
-            [['district_id','status'], 'integer'],
-			[['name'], 'unique'],
+            [['name', 'district_id', 'status'], 'required', 'on' => ['create', 'update']],
+            [['district_id', 'status'], 'integer'],
+            [['name'], 'unique'],
             [['name'], 'string', 'max' => 30],
         ];
     }
@@ -38,18 +36,17 @@ class Cities extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
-    public function attributeLabels()
-    {
-        
-		return [
+    public function attributeLabels() {
+
+        return [
             'id' => 'ID',
             'name' => 'Name',
             'district_id' => 'District',
-			'status' =>'Status'
+            'status' => 'Status'
         ];
     }
-	
-	public function search($params) {
+
+    public function search($params) {
         $query = Cities::find();
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -65,7 +62,7 @@ class Cities extends \yii\db\ActiveRecord
                         'label' => 'name',
                         'default' => SORT_DESC
                     ],
-                   'district_id' => [
+                    'district_id' => [
                         'asc' => ['district_id' => SORT_ASC],
                         'desc' => ['district_id' => SORT_DESC],
                         'label' => 'District',
@@ -83,9 +80,10 @@ class Cities extends \yii\db\ActiveRecord
 
         $query->andFilterWhere(['like', 'name', $this->name])
                 ->andFilterWhere(['like', 'district_id', $this->district_id])
-				->andFilterWhere(['like', 'status', $this->status])
+                ->andFilterWhere(['like', 'status', $this->status])
                 ->andWhere('status <> \'3\'');
 
         return $dataProvider;
     }
+
 }

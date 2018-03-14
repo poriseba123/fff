@@ -12,7 +12,7 @@ class BootstrapAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'themes/frontend/css/bootstrap.css',
+        'themes/frontend/css/bootstrap.min.css',
         'themes/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker.es.css',
     ];
     public $js = [

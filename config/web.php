@@ -21,12 +21,20 @@ $config = [
     ],
     'components' => [
         'assetManager' => [
-           'bundles' => [
-               'yii\web\JqueryAsset' => [
-                   'js' => []
-               ],
-           ],
-       ],
+            'bundles' => [
+                'yii\web\JqueryAsset' => [
+                    'js' => []
+                ],
+            ],
+        ],
+        'userCounter' => [
+            'class' => 'app\components\UserCounter',
+            // You can setup these options:
+            'tableUsers' => 'pcounter_users',
+            'tableSave' => 'pcounter_save',
+            'autoInstallTables' => true,
+            'onlineTime' => 10, // min
+        ],
         'i18n' => [
             'translations' => [
                 'app*' => [
@@ -39,15 +47,12 @@ $config = [
                 ],
             ],
         ],
-         'nexmo' => [
- 
+        'nexmo' => [
             'class' => 'app\components\Nexmo',
- 
-            ],
+        ],
         'instagram' => [
             'class' => 'app\components\Instagram',
         ],
-
         'request' => [
 // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'enter your secret key here',
@@ -80,20 +85,30 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.gmail.com', // e.g. smtp.mandrillapp.com or smtp.gmail.com
-                'username' => 'taslimislam02@gmail.com',
-                'password' => 'fe383a96e1cc07acc194286ceda0dd32',
-                'port' => '587', // Port 25 is a very common port too
-                'encryption' => 'tls', // It is often used, check your provider or mail server specs
-            ],
-            // send all mails to a file by default. You have to set
+//        'mailer' => [
+//            'class' => 'yii\swiftmailer\Mailer',
+//            'transport' => [
+//                'class' => 'Swift_SmtpTransport',
+//                'host' => 'email-smtp.us-east-1.amazonaws.com', // e.g. smtp.mandrillapp.com or smtp.gmail.com
+//                'username' => 'poriseba.com@gmail.com',
+//                'password' => 'Password!@3',
+//                'port' => '25', // Port 25 is a very common port too
+//                'encryption' => 'tls', // It is often used, check your provider or mail server specs
+//            ],
+//            // send all mails to a file by default. You have to set
+//// 'useFileTransport' to false and configure a transport
+//// for the mailer to send real emails.
+//            'useFileTransport' => false,
+//        ],
+        'mail' => [
+            'class' => 'yashop\ses\Mailer',
+            'access_key' => 'AKIAJSNACDPWRHTNISTA',
+            'secret_key' => 'Alih89gKNRT2zExyA8amVe7OLlLmBmqKQldQ/CcTEpbq',
+            'host' => 'email-smtp.us-east-1.amazonaws.com' // not required
+        // send all mails to a file by default. You have to set
 // 'useFileTransport' to false and configure a transport
 // for the mailer to send real emails.
-            'useFileTransport' => false,
+        //'useFileTransport' => false,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -105,21 +120,35 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        /*'urlManager' => [
-            'enablePrettyUrl' => true,
+        /* 'urlManager' => [
+          'enablePrettyUrl' => true,
+          'showScriptName' => false,
+          'rules' => include_once 'routes.php',
+          ], */
+        'urlManager' => [
+            'class' => 'yii\web\UrlManager',
+            // Disable index.php
             'showScriptName' => false,
-            'rules' => include_once 'routes.php',
-        ],*/
-		'urlManager' => [		
-		'class' => 'yii\web\UrlManager',
-			// Disable index.php
-		'showScriptName' => false,
-			// Disable r= routes
-		'enablePrettyUrl' => true,
-		/*'rules' => array(
-					
-				),*/
-		],
+            // Disable r= routes
+            'enablePrettyUrl' => true,
+        /* 'rules' => array(
+
+          ), */
+        ],
+        'cdn' => [
+            'class' => '\yii2cdn\Cdn',
+            'baseUrl' => '/cdn',
+            'basePath' => dirname(dirname(__DIR__)) . '/cdn',
+            'components' => [
+                'script' => [
+                    'js' => [
+                        [
+                            '@cdn' => 'https://cdn.ckeditor.com/4.5.1/standard/ckeditor.js', // online version
+                        ]
+                    ]
+                ]
+            ],
+        ],
     ],
     'params' => $params,
 ];

@@ -31,6 +31,10 @@ class MedicineshopController extends AdminController {
     public function column() {
         $viewMsg = 'View';
         $updateMsg = 'Update';
+		$city_list = \app\models\Cities::find()->select('name, id')->where('status <> \'3\'')->all();
+					 foreach($city_list as $model){
+					  $rowsall[] = array_filter($model->attributes);
+				   }
         $gridColumns = [
             ['class' => 'kartik\grid\SerialColumn'],
             [
@@ -44,16 +48,6 @@ class MedicineshopController extends AdminController {
                 'attribute' => 'address',
             ],
             [
-                'class' => '\kartik\grid\DataColumn',
-                'label' => 'open_time',
-                'attribute' => 'open_time',
-            ],
-            [
-                'class' => '\kartik\grid\DataColumn',
-                'label' => 'close_time',
-                'attribute' => 'close_time',
-            ],
-			[
                 'attribute' => 'category_id',
                 'value' => function($data) {
                     if ($data->category_id == 1) {
@@ -74,15 +68,20 @@ class MedicineshopController extends AdminController {
                 'filterInputOptions' => ['placeholder' => 'Select']
             ],
 			[
+                'class' => '\kartik\grid\DataColumn',
+                'label' => 'City',
                 'attribute' => 'city_id',
-                'value' => function($data) {
-                    if ($data->city_id == 1) {
-                        $city = "Serampore";
-                    } 
-                    return $city;
-                },
-                'filterType' => GridView::FILTER_SELECT2,
-                'filter' => ArrayHelper::map(array('0' => array('id' => '1', 'city_id' => 'Serampore')), 'id', 'city_id'),
+				'value' => function($data){
+					 $country_list = \app\models\Cities::find()->select('name, id')->where(["id" => $data->city_id])->all();
+					 foreach($country_list as $model){
+					  $rows[] = array_filter($model->attributes);
+				   }
+					 $listData = ArrayHelper::map($rows, 'id', 'name');
+					
+					 return $listData[$data->city_id];
+				},
+				'filterType' => GridView::FILTER_SELECT2,
+                'filter' => ArrayHelper::map($rowsall, 'id', 'name'),
                 'filterWidgetOptions' => [
                     'pluginOptions' => ['allowClear' => true],
                     'options' => ['multiple' => false],

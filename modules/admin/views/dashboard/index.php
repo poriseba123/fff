@@ -1,9 +1,9 @@
 <?php
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
-
 ?>
 
 <div class="page-content-wrapper">
@@ -29,15 +29,18 @@ use yii\helpers\ArrayHelper;
         <h1 class="page-title"> Dashboard <small>dashboard & statistics</small></h1>
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="javascript:void(0);">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('feedback'); ?>">
                     <div class="visual">
                         <i class="fa fa-users"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="0">0</span>
+                            <?php
+                           $contact_email = \app\models\ContactUs::find()->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($contact_email) > 0) ? count($contact_email) : 0 ?>"><?= (count($contact_email) > 0) ? count($contact_email) : 0 ?></span>
                         </div>
-                        <div class="desc bold"> Total Members</div>
+                        <div class="desc bold"> Total Feedback Received</div>
                     </div>
                 </a>
             </div>
@@ -54,99 +57,195 @@ use yii\helpers\ArrayHelper;
                     </div>
                 </a>
             </div>
-			 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('diagnosticcentre'); ?>">
                     <div class="visual">
                         <i class="fa fa-h-square fa-fw fa-1x"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-						<?php
-						$diagnosticcentreTotal = \app\models\DiagnosticCentre::find()->where(['status'=>'1'])->all();
-						?>
-                            <span data-counter="counterup" data-value="<?= (count($diagnosticcentreTotal)>0)?count($diagnosticcentreTotal):0 ?>"><?= (count($diagnosticcentreTotal)>0)?count($diagnosticcentreTotal):0 ?></span>
+                            <?php
+                            $diagnosticcentreTotal = \app\models\DiagnosticCentre::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($diagnosticcentreTotal) > 0) ? count($diagnosticcentreTotal) : 0 ?>"><?= (count($diagnosticcentreTotal) > 0) ? count($diagnosticcentreTotal) : 0 ?></span>
                         </div>
                         <div class="desc bold"> Total Diagnostic Center</div>
                     </div>
                 </a>
             </div>
-			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('ambulance'); ?>">
                     <div class="visual">
                         <i class="fa fa-ambulance fa-fw"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-						<?php
-						$ambulanceTotal = \app\models\AmbulanceMaster::find()->where(['status'=>'1'])->all();
-						?>
-                            <span data-counter="counterup" data-value="<?= (count($ambulanceTotal)>0)?count($ambulanceTotal):0 ?>"><?= (count($ambulanceTotal)>0)?count($ambulanceTotal):0 ?></span>
+                            <?php
+                            $ambulanceTotal = \app\models\AmbulanceMaster::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($ambulanceTotal) > 0) ? count($ambulanceTotal) : 0 ?>"><?= (count($ambulanceTotal) > 0) ? count($ambulanceTotal) : 0 ?></span>
                         </div>
                         <div class="desc bold"> Total Ambulance</div>
                     </div>
                 </a>
             </div>
-			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('mortuary'); ?>">
                     <div class="visual">
                         <i class="fa fa-car fa-fw"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-						<?php
-						$mortuaryTotal = \app\models\MortuaryMaster::find()->where(['status'=>'1'])->all();
-						?>
-                            <span data-counter="counterup" data-value="<?= (count($mortuaryTotal)>0)?count($mortuaryTotal):0 ?>"><?= (count($mortuaryTotal)>0)?count($mortuaryTotal):0 ?></span>
+                            <?php
+                            $mortuaryTotal = \app\models\MortuaryMaster::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($mortuaryTotal) > 0) ? count($mortuaryTotal) : 0 ?>"><?= (count($mortuaryTotal) > 0) ? count($mortuaryTotal) : 0 ?></span>
                         </div>
                         <div class="desc bold"> Total Mortuary van</div>
                     </div>
                 </a>
             </div>
-			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('eyebank'); ?>">
                     <div class="visual">
                         <i class="fa fa-eye fa-fw"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-						<?php
-						$eyebankTotal = \app\models\EyeBankMaster::find()->where(['status'=>'1'])->all();
-						?>
-                            <span data-counter="counterup" data-value="<?= (count($eyebankTotal)>0)?count($eyebankTotal):0 ?>"><?= (count($eyebankTotal)>0)?count($eyebankTotal):0 ?></span>
+                            <?php
+                            $eyebankTotal = \app\models\EyeBankMaster::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($eyebankTotal) > 0) ? count($eyebankTotal) : 0 ?>"><?= (count($eyebankTotal) > 0) ? count($eyebankTotal) : 0 ?></span>
                         </div>
                         <div class="desc bold"> Total EyeBank</div>
                     </div>
                 </a>
             </div>
-			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('bloodbank'); ?>">
                     <div class="visual">
                         <i class="fa fa-tint"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-						<?php
-						$bloodbankTotal = \app\models\BloodBankMaster::find()->where(['status'=>'1'])->all();
-						?>
-                          <span data-counter="counterup" data-value="<?= (count($bloodbankTotal)>0)?count($bloodbankTotal):0 ?>"><?= (count($bloodbankTotal)>0)?count($bloodbankTotal):0 ?></span>
+                            <?php
+                            $bloodbankTotal = \app\models\BloodBankMaster::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($bloodbankTotal) > 0) ? count($bloodbankTotal) : 0 ?>"><?= (count($bloodbankTotal) > 0) ? count($bloodbankTotal) : 0 ?></span>
                         </div>
                         <div class="desc bold"> Total BloodBank</div>
                     </div>
                 </a>
             </div>
-			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('medicineshop'); ?>">
                     <div class="visual">
                         <i class="fa fa-medkit"></i>
                     </div>
                     <div class="details">
                         <div class="number">
-						<?php
-						$MedicineShopTotal = \app\models\MedicineShopMaster::find()->where(['status'=>'1'])->all();
-						?>
-                            <span data-counter="counterup" data-value="<?= (count($MedicineShopTotal)>0)?count($MedicineShopTotal):0 ?>"><?= (count($MedicineShopTotal)>0)?count($MedicineShopTotal):0 ?></span>
+                            <?php
+                            $MedicineShopTotal = \app\models\MedicineShopMaster::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($MedicineShopTotal) > 0) ? count($MedicineShopTotal) : 0 ?>"><?= (count($MedicineShopTotal) > 0) ? count($MedicineShopTotal) : 0 ?></span>
                         </div>
                         <div class="desc bold"> Total Medicine Shop</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('ayacenter'); ?>">
+                    <div class="visual">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <?php
+                            $ayacenterTotal = \app\models\AyaMaster::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($ayacenterTotal) > 0) ? count($ayacenterTotal) : 0 ?>"><?= (count($ayacenterTotal) > 0) ? count($ayacenterTotal) : 0 ?></span>
+                        </div>
+                        <div class="desc bold"> Total Aya center</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('hospitalnursing'); ?>">
+                    <div class="visual">
+                        <i class="fa fa-hospital-o"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <?php
+                            $nursinghomeTotal = \app\models\HospitalNursingMaster::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($nursinghomeTotal) > 0) ? count($nursinghomeTotal) : 0 ?>"><?= (count($nursinghomeTotal) > 0) ? count($nursinghomeTotal) : 0 ?></span>
+                        </div>
+                        <div class="desc bold"> Total Hospital/Nursing-home</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('oldagehome'); ?>">
+                    <div class="visual">
+                        <i class="fa fa-home"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <?php
+                            $oldagehomeTotal = \app\models\Oldagehome::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($oldagehomeTotal) > 0) ? count($oldagehomeTotal) : 0 ?>"><?= (count($oldagehomeTotal) > 0) ? count($oldagehomeTotal) : 0 ?></span>
+                        </div>
+                        <div class="desc bold"> Old age home Total</div>
+                    </div>
+                </a>
+            </div>
+             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('orphanehome'); ?>">
+                    <div class="visual">
+                        <i class="fa fa-home"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <?php
+                            $orphanhomeTotal = \app\models\Orphanehome::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($orphanhomeTotal) > 0) ? count($orphanhomeTotal) : 0 ?>"><?= (count($orphanhomeTotal) > 0) ? count($orphanhomeTotal) : 0 ?></span>
+                        </div>
+                        <div class="desc bold"> Orphan home Total</div>
+                    </div>
+                </a>
+            </div>
+             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('gymcenter'); ?>">
+                    <div class="visual">
+                        <i class="fa fa-spotify fa-fw"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <?php
+                            $gymTotal = \app\models\GymCenter::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($gymTotal) > 0) ? count($gymTotal) : 0 ?>"><?= (count($gymTotal) > 0) ? count($gymTotal) : 0 ?></span>
+                        </div>
+                        <div class="desc bold"> Gym Center Total</div>
+                    </div>
+                </a>
+            </div>
+              <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat dashboard-stat-v2" style="background-color: #32c5d2; color:#fff ;" href="<?= $this->context->adminUrl('yogacenter'); ?>">
+                    <div class="visual">
+                        <i class="fa fa-spotify fa-fw"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <?php
+                            $yogaTotal = \app\models\YogaCenter::find()->where(['status' => '1'])->all();
+                            ?>
+                            <span data-counter="counterup" data-value="<?= (count($yogaTotal) > 0) ? count($yogaTotal) : 0 ?>"><?= (count($yogaTotal) > 0) ? count($yogaTotal) : 0 ?></span>
+                        </div>
+                        <div class="desc bold"> Yoga Center Total</div>
                     </div>
                 </a>
             </div>

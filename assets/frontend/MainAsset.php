@@ -4,10 +4,8 @@ namespace app\assets\frontend;
 
 use yii\web\AssetBundle;
 
-
 class MainAsset extends AssetBundle {
-    
-      
+
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
@@ -25,9 +23,11 @@ class MainAsset extends AssetBundle {
         'themes/frontend/css/slicknav.css',
         'themes/frontend/css/bootstrap-select.min.css',
         'themes/frontend/custom/css/custom.css',
+        'themes/global/plugins/toast/toast.css',
     ];
     public $js = [
-        ['themes/global/plugins/jquery.min.js','position' => \yii\web\View::POS_HEAD],
+        ['themes/global/plugins/jquery.min.js', 'position' => \yii\web\View::POS_HEAD],
+        'themes/global/plugins/jquery-ui.js',
         'themes/frontend/js/bootstrap.min.js',
         'themes/frontend/js/material.min.js',
         'themes/frontend/js/material-kit.js',
@@ -45,13 +45,15 @@ class MainAsset extends AssetBundle {
         'themes/frontend/js/bootstrap-select.min.js',
         'themes/global/js/custom-global.js',
         'themes/frontend/js/loginmodal.js',
+        'themes/global/plugins/toast/toast.js',
+        'themes/frontend/custom/js/search.js',
         'themes/frontend/custom/js/custom.js'
     ];
 //    public $depends = [
 //        'app\assets\common\JqueryAsset',
 //        'app\assets\frontend\BootstrapAsset',
 //    ];
-    
+
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',

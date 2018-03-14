@@ -3,6 +3,11 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\View;
+use yii\helpers\ArrayHelper;
+
+Yii::$app->userCounter->refresh();
+$online_user = Yii::$app->userCounter->getOnline();
+$total_visitor = Yii::$app->userCounter->getMaximal();
 ?>
 
 <div class="wrapper">
@@ -11,47 +16,61 @@ use yii\web\View;
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="section-title">over view of our listed poriseba you can acess</h3>
+                    <h3 class="section-title"><?= isset($landing_page[0]->listing_line) ? strip_tags($landing_page[0]->listing_line) : ''; ?></h3>
                 </div>
                 <?php
-                if(isset($all_services) && count($all_services)>0){
+                if (isset($all_services) && count($all_services) > 0) {
                     foreach ($all_services as $key => $val) {
-                ?>
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="category-box <?=$val->border_color?> wow fadeInUpQuick" data-wow-delay="0.9s">
-                        <div class="icon">
-                            <a href="category.html"><i class="<?=$val->fa_icon?>"></i></a>
+                        $catagories = $val->id;
+                        ?>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                            <div class="category-box <?= $val->border_color ?> wow fadeInUpQuick" data-wow-delay="0.9s">
+                                <div class="icon">
+                                    <a href="<?= Yii::$app->request->baseUrl . "/search/index?cityid=&categories=$catagories&state=&city=&keyword=" ?>" target="_blank"><i class="<?= $val->fa_icon ?>"></i></a>
+                                </div>
+                                <div class="category-header">
+                                    <a href="<?= Yii::$app->request->baseUrl . "/search/index?cityid=&categories=$catagories&state=&city=&keyword=" ?>" target="_blank">
+                                        <h4><?= $val->name ?></h4>
+                                    </a>
+                                </div>
+                                <div class="category-content">
+                                    <ul>
+                                        <?php
+                                        $total[] = 0;
+                                        $result = $val->model::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status' => '1'])->groupBy(['city_id'])->all();
+
+                                        if (isset($result) && count($result) > 0) {
+                                            foreach ($result as $key => $val) {
+                                                $state_id = $val->state_id;
+                                                $city_id = $val->city->id;
+                                                $total[] = $val->cityrow_count;
+                                                ?>
+                                                <li>
+                                                    <a href="<?= Yii::$app->request->baseUrl . "/search/index?cityid=&categories=$catagories&state=$state_id&city=$city_id&keyword=" ?>" target="_blank"><?= $val->city->name ?></a>
+                                                    <span class="category-counter"><?= $val->cityrow_count ?></span>
+                                                </li>
+                                                <?php
+                                                if ($key == 5) {
+                                                    break;
+                                                }
+                                            }
+                                            ?>
+                                            <li>
+                                                <a href="<?= Yii::$app->request->baseUrl . "/search/index?cityid=&categories=$catagories&state=&city=&keyword=" ?>" target="_blank">View all →</a>
+                                            </li>
+                                        <?php } else { ?>
+                                            <li>
+                                                <a href="javascript:void(0)">No Data Found</a>
+                                            </li>
+                                        <?php } ?>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div class="category-header">
-                            <a href="category.html">
-                                <h4><?=$val->name?></h4>
-                            </a>
-                        </div>
-                        <div class="category-content">
-                            <ul>
-                                <?php
-                                $result=$val->model::find()->select(['*,COUNT(id) as cityrow_count'])->where(['status'=>'1'])->groupBy(['city_id'])->all();
-                                if(isset($result) && count($result) >0){
-                                    foreach ($result as $key => $val) {
-                                ?>
-                                <li>
-                                    <a href="category.html"><?=$val->city->name?></a>
-                                    <span class="category-counter"><?=$val->cityrow_count?></span>
-                                </li>
-                                    <?php if($key==5){break;}} ?>
-                                <li>
-                                    <a href="category.html">View all →</a>
-                                </li>
-                                    <?php }else{ ?>
-                                <li>
-                                    <a href="javascript:;">No Data Found</a>
-                                </li>
-                                    <?php } ?>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <?php }}else{ ?>
+                        <?php
+                    }
+                } else {
+                    ?>
                 <?php } ?>
 
             </div>
@@ -59,242 +78,71 @@ use yii\web\View;
     </section>
     <!-- Categories Homepage Section End -->
     <!-- Featured Listings Start -->
-    <section class="featured-lis" >
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
-                    <h3 class="section-title">Medical News</h3>
-                    <div id="new-products" class="owl-carousel">
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="https://pbs.twimg.com/media/DOSktI3WsAARky9.jpg" alt=""> 
-                                    <div class="overlay">
-                                        <a href="https://twitter.com/mnt"><i class="fa fa-link"></i></a>
+    <?php
+    $medicalnews_list = \app\models\MedicalnewsMaster::find()->where(['status' => '1'])->all();
+    if (!empty($medicalnews_list)) {
+        ?>
+        <section class="featured-lis" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
+                        <h3 class="section-title"><?= isset($landing_page[0]->slider_line) ? strip_tags($landing_page[0]->slider_line) : ''; ?></h3>
+                        <div id="new-products" class="owl-carousel">
+                            <?php
+                            foreach ($medicalnews_list as $key => $value) {
+                                ?>
+                                <div class="item">
+                                    <div class="product-item">
+                                        <div class="carousel-thumb">
+                                            <img src="<?= (isset($value->image) && $value->image != '') ? Yii::$app->request->baseUrl . '\uploads\medicalnews\thumbnail\\' . $value->image : Yii::$app->request->baseUrl . '\uploads\noimage\noimg.jpg' ?>" alt=""> 
+                                            <div class="overlay">
+                                                <a href="<?= $value->link; ?>"><i class="fa fa-link"></i></a>
+                                            </div>
+                                        </div>
+                                        <a href="<?= $value->link; ?>" class="item-name" target="_blank"><?= substr($value->description, 0, 50) . ".."; ?></a>  
+                                        <br>
+                                        <span class="info">Sourse:<?= $value->sourse; ?></span>
                                     </div>
                                 </div>
-                                <a href="https://twitter.com/mntl" class="item-name">Psychedelic plant brew could improve mental health </a>  
-                                <span class="info">Sourse:Twitter/mnt</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="https://pbs.twimg.com/media/DOSW_0QW0AEo_Kr.jpg" alt=""> 
-                                    <div class="overlay">
-                                        <a href="https://twitter.com/mntl"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="https://twitter.com/mntl" class="item-name">Mushrooms may help you fight off aging </a>  
-                                <span class="info">Sourse:Twitter/mnt</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="https://pbs.twimg.com/media/DOSW-V5W4AAMELM.jpg" alt=""> 
-                                    <div class="overlay">
-                                        <a href="https://twitter.com/mntl"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="https://twitter.com/mntl" class="item-name">Best essential oils for treating cold sores </a>  
-                                <span class="info">Sourse:Twitter/mnt</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="https://pbs.twimg.com/media/DOSJPQKW0AEYzO0.jpg" alt=""> 
-                                    <div class="overlay">
-                                        <a href="https://twitter.com/mnt"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="https://twitter.com/mnt" class="item-name">The legacy of grief: Coping with loss </a>  
-                                <span class="info">Sourse:Twitter/mnt</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="https://pbs.twimg.com/media/DOR7gcyWsAY7SrA.jpg" alt=""> 
-                                    <div class="overlay">
-                                        <a href="https://twitter.com/mnt"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="https://twitter.com/mnt" class="item-name">Bugs in the basement? Here's why </a>  
-                                <span class="info">Sourse:Twitter/mnt</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="https://www.menshealth.com/sites/menshealth.com/files/styles/listicle_slide_custom_user_phone_1x/public/images/slideshow2/fecal-transplant.jpg?itok=4HLba1GI" alt=""> 
-                                    <div class="overlay">
-                                        <a href="https://www.menshealth.com/health/medical-breakthroughs/slide/4"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="https://www.menshealth.com/health/medical-breakthroughs/slide/4" class="item-name">The Fecal Transplant</a>  
-                                <span class="info">Sourse:menshealth.com</span>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product-item">
-                                <div class="carousel-thumb">
-                                    <img src="https://www.menshealth.com/sites/menshealth.com/files/styles/listicle_slide_custom_user_phone_1x/public/images/slideshow2/Hepatitis%20Cure.jpg?itok=6Q6XCQMv" alt=""> 
-                                    <div class="overlay">
-                                        <a href="https://www.menshealth.com/health/medical-breakthroughs/slide/7"><i class="fa fa-link"></i></a>
-                                    </div>
-                                </div>
-                                <a href="https://www.menshealth.com/health/medical-breakthroughs/slide/7" class="item-name">The Hepatitis Cure</a>  
-                                <span class="info">Sourse:menshealth.com</span>
-                            </div>
+                            <?php }
+                            ?>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    <?php }
+    ?>
+
     <!-- Featured Listings End -->
     <!-- Start Services Section -->
+    <?php
+    $feature_list = \app\models\Homepagefeatures::find()->all();
+    ?>
     <div class="features">
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="0.3s">
-                        <div class="features-icon">
-                            <i class="fa fa-book">
-                            </i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                Full Documented
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="0.6s">
-                        <div class="features-icon">
-                            <i class="fa fa-paper-plane"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                Clean & Modern Design
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
+                <?php
+                foreach ($feature_list as $key => $value) {
+                    ?>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="features-box wow fadeInDownQuick" data-wow-delay="0.3s">
+                            <div class="features-icon">
+                                <i class="fa <?= $value->fav_icon; ?>">
+                                </i>
+                            </div>
+                            <div class="features-content">
+                                <h4>
+                                    <?= $value->heading; ?>
+                                </h4>
+                                <p>
+                                    <?= $value->description; ?> 
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="0.9s">
-                        <div class="features-icon">
-                            <i class="fa fa-map"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                Great Features
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="1.2s">
-                        <div class="features-icon">
-                            <i class="fa fa-cogs"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                Completely Customizable
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="1.5s">
-                        <div class="features-icon">
-                            <i class="fa fa-hourglass"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                100% Responsive Layout
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="1.8s">
-                        <div class="features-icon">
-                            <i class="fa fa-hashtag"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                User Friendly
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="2.1s">
-                        <div class="features-icon">
-                            <i class="fa fa-newspaper-o"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                Awesome Layout
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="2.4s">
-                        <div class="features-icon">
-                            <i class="fa fa-leaf"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                High Quality
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6">
-                    <div class="features-box wow fadeInDownQuick" data-wow-delay="2.7s">
-                        <div class="features-icon">
-                            <i class="fa fa-google"></i>
-                        </div>
-                        <div class="features-content">
-                            <h4>
-                                Free Google Fonts Use
-                            </h4>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo aut magni perferendis repellat rerum assumenda facere. 
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <?php }
+                ?>
             </div>
         </div>
     </div>
@@ -306,17 +154,18 @@ use yii\web\View;
                 <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-delay="0.5s">
                     <h3 class="title-2"><i class="fa fa-envelope"></i> Subscribe for updates</h3>
                     <form id="subscribe" action="">
-                        <p>Join our 10,000+ subscribers and get access to the latest templates, freebies, announcements and resources!</p>
+                        <p><?= isset($landing_page[0]->subscription_line) ? ucfirst(strip_tags($landing_page[0]->subscription_line)) : ''; ?></p>
                         <div class="subscribe">
-                            <input class="form-control" name="EMAIL" placeholder="Your email here" required="" type="email">
-                            <button class="btn btn-common" type="submit">Subscribe</button>
+                            <input class="form-control" id="email" name="Newsletter[email_id]" placeholder="Your email here" required="" type="email">
+                            <button class="btn btn-common" type="submit" id="sub">Subscribe</button>
+                            <spna style="color:#a94442;" id="eror_msg"></spna>
                         </div>
                     </form>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12 wow fadeInRight" data-wow-delay="1s">
                     <h3 class="title-2"><i class="fa fa-youtube fa-1x"></i>Visit our Youtube Chanel</h3>
                     <div class="embed-responsive embed-responsive-16by9">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/ZQ_fOV5iWq4" frameborder="0" allowfullscreen></iframe>
+                        <?= isset($landing_page[0]->youtube_url) ? $landing_page[0]->youtube_url : ''; ?>
                     </div>
 
                 </div>
@@ -326,6 +175,14 @@ use yii\web\View;
     <!-- Location Section End -->
 </div>
 <!-- Counter Section Start -->
+<?php
+$total_count = 0;
+if (!empty($total)) {
+    foreach ($total as $key => $value) {
+        $total_count += $value;
+    }
+}
+?>
 <section id="counter">
     <div class="container">
         <div class="row">
@@ -337,8 +194,8 @@ use yii\web\View;
                         </span>
                     </div>
                     <div class="desc">
-                        <h3 class="counter">12090</h3>
-                        <p>Regular Ads</p>
+                        <h3 class="counter"><?= isset($all_services) ? count($all_services) : 0 ?></h3>
+                        <p>Total Services</p>
                     </div>
                 </div>
             </div>
@@ -346,12 +203,12 @@ use yii\web\View;
                 <div class="counting wow fadeInDownQuick" data-wow-delay="1s">
                     <div class="icon">
                         <span>
-                            <i class="lnr lnr-map"></i>
+                            <i class="lnr lnr-users"></i>
                         </span>
                     </div>
                     <div class="desc">
-                        <h3 class="counter">350</h3>
-                        <p>Locations</p>
+                        <h3 class="counter"><?= isset($online_user) ? $online_user : 0; ?></h3>
+                        <p>Online User</p>
                     </div>
                 </div>
             </div>
@@ -363,8 +220,8 @@ use yii\web\View;
                         </span>
                     </div>
                     <div class="desc">
-                        <h3 class="counter">23453</h3>
-                        <p>Reguler Members</p>
+                        <h3 class="counter"><?= isset($total_visitor) ? $total_visitor : 0; ?></h3>
+                        <p>Total Visitor</p>
                     </div>
                 </div>
             </div>
@@ -376,13 +233,17 @@ use yii\web\View;
                         </span>
                     </div>
                     <div class="desc">
-                        <h3 class="counter">150</h3>
-                        <p>Premium Ads</p>
+                        <h3 class="counter"><?= isset($total_count) ? $total_count : 0; ?></h3>
+                        <p>Total Listed Data</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Counter Section End -->
+
+
+
+
+
 

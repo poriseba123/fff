@@ -26,7 +26,76 @@
                     <span class="selected"></span>
                 </a>
             </li>
-			 <li class="heading">
+
+            <?php $allControllers = ['leftmenu', 'homepagelogoslider', 'medicalnews', 'homepagefeatures', 'landingpage']; ?>
+            <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="icon-diamond"></i>
+                    <span class="title">Home-Page content Management</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item start <?= (Yii::$app->controller->id == 'leftmenu') ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('leftmenu'); ?>" class="nav-link ">
+                            <i class="fa fa-bars"></i>
+                            <span class="title">Left Menu</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item start <?= (Yii::$app->controller->id == 'landingpage') ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('landingpage'); ?>" class="nav-link ">
+                            <i class="fa fa-bars"></i>
+                            <span class="title">Home Page Content</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item start <?= (Yii::$app->controller->id == 'homepagefeatures') ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('homepagefeatures'); ?>" class="nav-link ">
+                            <i class="fa fa-star"></i>
+                            <span class="title">Features</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item start <?= (Yii::$app->controller->id == 'homepagelogoslider') ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('homepagelogoslider'); ?>" class="nav-link ">
+                            <i class="fa fa-picture-o fa-3x fa-fw"></i>
+                            <span class="title">Upload Logo/Slider</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item start <?= (Yii::$app->controller->id == 'medicalnews') ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('medicalnews'); ?>" class="nav-link ">
+                            <i class="fa fa-newspaper-o fa-3x fa-fw"></i>
+                            <span class="title">Medical News</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'aboutus') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('aboutus'); ?>" class="nav-link ">
+                    <i class="icon-diamond fa-3x fa-fw"></i>
+                    <span class="title">About Us Page Content</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'faq') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('faq'); ?>" class="nav-link ">
+                    <i class="icon-diamond fa-3x fa-fw"></i>
+                    <span class="title">Faq Page Content</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'contactinformation') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('contactinformation'); ?>" class="nav-link ">
+                    <i class="icon-diamond fa-3x fa-fw"></i>
+                    <span class="title">Contact us Page Content</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+
+            <li class="heading">
                 <h3 class="uppercase">location</h3>
             </li>
             <li class="nav-item start <?= (Yii::$app->controller->id == 'state') ? 'active' : '' ?>">
@@ -36,14 +105,14 @@
                     <span class="selected"></span>
                 </a>
             </li>
-			<li class="nav-item start <?= (Yii::$app->controller->id == 'district') ? 'active' : '' ?>">
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'district') ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('district'); ?>" class="nav-link ">
                     <i class="fa fa-globe fa-spin fa-3x fa-fw"></i>
                     <span class="title">District</span>
                     <span class="selected"></span>
                 </a>
             </li>
-			<li class="nav-item start <?= (Yii::$app->controller->id == 'city') ? 'active' : '' ?>">
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'city') ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('city'); ?>" class="nav-link ">
                     <i class="fa fa-globe fa-spin fa-3x fa-fw"></i>
                     <span class="title">City</span>
@@ -77,6 +146,21 @@
             <li class="heading">
                 <h3 class="uppercase">Generals</h3>
             </li>
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'medicaltest') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('medicaltest'); ?>" class="nav-link ">
+                    <i class="fa fa-flask  fa-3x fa-fw"></i>
+                    <span class="title">Medical Test</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+            <li class="nav-item start <?= (Yii::$app->controller->id == 'hospitalunits') ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('hospitalunits'); ?>" class="nav-link ">
+                    <i class="fa fa-cogs  fa-3x fa-fw"></i>
+                    <span class="title">Hospital/Nursing-home Unit</span>
+                    <span class="selected"></span>
+                </a>
+            </li>
+
             <!--user management section start-->
             <?php $allControllers = ['admin', 'subadmin', 'users']; ?>
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
@@ -106,10 +190,10 @@
                         </a>
                     </li>
                 </ul>
-                    </li>
-                <!--user management section end-->
-                <!--Doctor management section start-->
-			<li class="nav-item <?= (Yii::$app->controller->id == "doctorspecialities") ? 'active' : '' ?>">
+            </li>
+            <!--user management section end-->
+            <!--Doctor management section start-->
+            <li class="nav-item <?= (Yii::$app->controller->id == "doctorspecialities") ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('doctorspecialities') ?>" class="nav-link ">
                     <i class="fa fa-user-md" aria-hidden="true"></i>
                     <span class="title">Doctor Specialities Management</span>
@@ -121,6 +205,7 @@
                     <span class="title">Doctor Management</span>
                 </a>
             </li>
+
             <li class="nav-item <?= (Yii::$app->controller->id == "medicineshop") ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('medicineshop') ?>" class="nav-link ">
                     <i class="fa fa-medkit" aria-hidden="true"></i>
@@ -155,9 +240,35 @@
                 </ul>
             </li>
 
-                <!--emergency transport management end-->
-                <!--health care bank  management section start-->
-                <?php $allControllers = ['bloodbank', 'eyebank']; ?>
+            <?php $allControllers = ['oldagehome', 'orphanehome']; ?>
+
+
+            <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
+                <a href="javascript:;" class="nav-link nav-toggle">
+                    <i class="fa fa-home fa-fw"></i>
+                    <span class="title">Shelter Home</span>
+                    <span class="arrow"></span>
+                </a>
+                <ul class="sub-menu">
+                    <li class="nav-item <?= (Yii::$app->controller->id == "oldagehome") ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('oldagehome') ?>" class="nav-link ">
+                            <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                            <span class="title">Old-age Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item <?= (Yii::$app->controller->id == "orphanehome") ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('orphanehome') ?>" class="nav-link ">
+                            <i class="fa fa-home fa-fw" aria-hidden="true"></i>
+                            <span class="title">Orphan Home</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <!--emergency transport management end-->
+            <!--health care bank  management section start-->
+            <?php $allControllers = ['bloodbank', 'eyebank']; ?>
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-university fa-fw"></i>
@@ -181,15 +292,15 @@
                 </ul>
             </li>
 
-                <!--health care management end-->
-                <!--shop management section start-->
+            <!--health care management end-->
+            <!--shop management section start-->
 
-                <?php $allControllers = ['allopathicshop', 'homeopathyshop', 'ayurvedicshop']; ?>
+            <?php $allControllers = ['allopathicshop', 'homeopathyshop', 'ayurvedicshop']; ?>
 
-                <!--bank management end-->
+            <!--bank management end-->
 
-                <!--fitness section start-->
-                <?php $allControllers = ['gym', 'yogacenter', 'physiotherapy', 'swimmingclub', 'karateclub']; ?>
+            <!--fitness section start-->
+            <?php $allControllers = ['gymcenter', 'yogacenter', 'physiotherapy', 'swimmingclub', 'karateclub']; ?>
             <li class="nav-item <?= (in_array(Yii::$app->controller->id, $allControllers)) ? 'active' : '' ?>">
                 <a href="javascript:;" class="nav-link nav-toggle">
                     <i class="fa fa-spotify fa-fw"></i>
@@ -197,16 +308,16 @@
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
-                    <li class="nav-item <?= (Yii::$app->controller->id == "gym") ? 'active' : '' ?>">
-                        <a href="<?= $this->context->adminUrl('multilingual/') ?>" class="nav-link ">
+                    <li class="nav-item <?= (Yii::$app->controller->id == "gymcenter") ? 'active' : '' ?>">
+                        <a href="<?= $this->context->adminUrl('gymcenter') ?>" class="nav-link ">
                             <i class="fa fa-spotify fa-fw" aria-hidden="true"></i>
                             <span class="title">Gym Center</span>
                         </a>
                     </li>
                     <li class="nav-item <?= (Yii::$app->controller->id == "yogacenter") ? 'active' : '' ?>">
-                        <a href="<?= $this->context->adminUrl('seo/') ?>" class="nav-link ">
+                        <a href="<?= $this->context->adminUrl('yogacenter/') ?>" class="nav-link ">
                             <i class="fa fa-spotify fa-fw" aria-hidden="true"></i>
-                            <span class="title">Physiotherapy Center</span>
+                            <span class="title">Yoga Center</span>
                         </a>
                     </li>
                     <li class="nav-item <?= (Yii::$app->controller->id == "swimmingclub") ? 'active' : '' ?>">
@@ -224,7 +335,7 @@
 
                 </ul>
             </li>
-                <!--fitness management end-->
+            <!--fitness management end-->
 
             <li class="nav-item <?= (Yii::$app->controller->id == "diagnosticcentre") ? 'active' : '' ?>">
                 <a href="<?= $this->context->adminUrl('diagnosticcentre') ?>" class="nav-link ">
@@ -233,10 +344,16 @@
                 </a>
             </li>
 
-            <li class="nav-item <?= (Yii::$app->controller->id == "hospital") ? 'active' : '' ?>">
-                <a href="<?= $this->context->adminUrl('seo/') ?>" class="nav-link ">
+            <li class="nav-item <?= (Yii::$app->controller->id == "hospitalnursing") ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('hospitalnursing') ?>" class="nav-link ">
                     <i class="fa fa-hospital-o fa-fw" aria-hidden="true"></i>
                     <span class="title">Hospital/Nursing-home</span>
+                </a>
+            </li>
+            <li class="nav-item <?= (Yii::$app->controller->id == "ayacenter") ? 'active' : '' ?>">
+                <a href="<?= $this->context->adminUrl('ayacenter/') ?>" class="nav-link ">
+                    <i class="fa fa-users fa-fw" aria-hidden="true"></i>
+                    <span class="title">Aya Center</span>
                 </a>
             </li>
             <li class="nav-item <?= (Yii::$app->controller->id == "blog") ? 'active' : '' ?>">

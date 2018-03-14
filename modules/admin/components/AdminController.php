@@ -6,7 +6,6 @@ use Yii;
 use yii\web\Controller;
 use app\modules\admin\models\UserMaster;
 use app\models\EmailNotify;
-
 use yii\imagine\Image;
 use Imagine\Gd;
 use Imagine\Image\Box;
@@ -26,10 +25,10 @@ class AdminController extends Controller {
     public function getProjectLogo() {
         return Yii::$app->request->baseUrl . '/assets/img/adminlogo.png';
     }
-    public function resizeImage($foldername,$imgName) {
-       Image::getImagine()->open(Yii::$app->basePath . '/uploads/'.$foldername.'/original/' . $imgName)->thumbnail(new Box(120, 120))->save(Yii::$app->basePath . '/uploads/'.$foldername.'/thumbnail/' . $imgName, ['quality' => 90]);
-       Image::getImagine()->open(Yii::$app->basePath . '/uploads/'.$foldername.'/original/' . $imgName)->thumbnail(new Box(180, 250))->save(Yii::$app->basePath . '/uploads/'.$foldername.'/preview/' . $imgName, ['quality' => 90]);
-                        
+
+    public function resizeImage($foldername, $imgName) {
+        Image::getImagine()->open(Yii::$app->basePath . '/uploads/' . $foldername . '/original/' . $imgName)->thumbnail(new Box(120, 120))->save(Yii::$app->basePath . '/uploads/' . $foldername . '/thumbnail/' . $imgName, ['quality' => 90]);
+        Image::getImagine()->open(Yii::$app->basePath . '/uploads/' . $foldername . '/original/' . $imgName)->thumbnail(new Box(180, 250))->save(Yii::$app->basePath . '/uploads/' . $foldername . '/preview/' . $imgName, ['quality' => 90]);
     }
 
     public function getProjectFavicon() {
@@ -76,24 +75,29 @@ class AdminController extends Controller {
     }
 
     public function SendMail($data) {
-        $template = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php');
-        $content = Yii::$app->controller->renderPartial('@app/mail/' . $data['template'] . '.php', array('message' => $data['body']));
-        $view = str_replace('{{email_message}}', $content, $template);
-//        return Yii::$app->mailer->compose()
-//                ->setTo($data['to'])
-//                ->setFrom([])
-//                ->setFrom(['noreply@poriseba.com' => $this->getProjectName()])
-//                ->setSubject(isset($data['subject']) ? $data['subject'] : '')
-//                ->setHtmlBody($view)
-//                ->send();
+//        print_r($data);
 
-        $headers = 'From:"' . $this->getProjectName() . '" <admin@' . $this->getProjectName() . '.com>' . "\r\n";
-        $headers .= 'Reply-To: noreply@' . $this->getProjectName() . '.com' . "\r\n";
+        $template = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php');
+
+//        $content = Yii::$app->controller->renderPartial('@app/mail/' . $data['template'] . '.php', array('message' => $data['body']));
+        //$content = Yii::$app->controller->renderPartial('@app/mail/layouts/template.php', ['message' => $data['body']]);
+        $view = str_replace('{{email_message}}', $data['body'], $template);
+        return Yii::$app->mailer->compose()
+                        ->setTo($data['to'])
+                        ->setFrom([])
+                        ->setFrom(['poriseba.com@gmail.com' => 'Poriseba'])
+                        ->setSubject(isset($data['subject']) ? $data['subject'] : '')
+                        ->setHtmlBody($view)
+                        ->send();
+
+        $headers = 'From:"' . $this->getProjectName() . '" <admin@' . $this->getProjectName() . '.co>' . "\r\n";
+        $headers .= 'Reply-To: noreply@' . $this->getProjectName() . '.co' . "\r\n";
         $headers .= 'X-Mailer: PHP/' . phpversion();
-        $headers .="MIME-Version: 1.0" . "\r\n";
+        $headers .= "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-        return mail($data['to'], $data['subject'], $view, $headers);
+        //$va = str_replace('{{email_message}}', $content, $template);
+        return mail($data['to'], $data['subject'], $content, $headers);
     }
 
     public function get_email_data($code, $replacedata = array()) {
@@ -161,7 +165,7 @@ class AdminController extends Controller {
         $userIdentification = \app\models\IdentityDocument::find()->where("user_id=:userId", [":userId" => $id])->orderBy("id desc")->one();
         return Yii::$app->request->baseUrl . '/uploads/identify_document/' . $userIdentification->file_name;
     }
-    
+
     public function getTimeDifference($date1, $date2) {
         $interval = "";
 //       return $date1.' '.$date2;
@@ -186,43 +190,43 @@ class AdminController extends Controller {
                             }
                         } else {
                             if ($intervalDiff->i == 1) {
-                                $interval .= $intervalDiff->i . " " . yii::t('app', "minute");//minute
+                                $interval .= $intervalDiff->i . " " . yii::t('app', "minute"); //minute
                             } else {
                                 $interval .= $intervalDiff->i . " " . yii::t('app', "minutes");
                             }
                         }
                     } else {
                         if ($intervalDiff->h == 1) {
-                            $interval .= $intervalDiff->h . " " . yii::t('app', 'hour');//hour
+                            $interval .= $intervalDiff->h . " " . yii::t('app', 'hour'); //hour
                         } else {
                             $interval .= $intervalDiff->h . " " . yii::t('app', 'hours');
                         }
                     }
                 } else {
                     if ($intervalDiff->d == 1) {
-                        $interval .= $intervalDiff->d . " " . yii::t('app', 'day');//day
+                        $interval .= $intervalDiff->d . " " . yii::t('app', 'day'); //day
                     } else {
                         $interval .= $intervalDiff->d . " " . yii::t('app', 'days');
                     }
                 }
             } else {
                 if ($intervalDiff->m == 1) {
-                    $interval .= $intervalDiff->m . " " .  'month';//month
+                    $interval .= $intervalDiff->m . " " . 'month'; //month
                 } else {
-                    $interval .= $intervalDiff->m . " " .  'months';
+                    $interval .= $intervalDiff->m . " " . 'months';
                 }
             }
         } else {
             if ($intervalDiff->y == 1) {
-                $interval .= $intervalDiff->y . " " .  'year';//years
+                $interval .= $intervalDiff->y . " " . 'year'; //years
             } else {
-                $interval .= $intervalDiff->y . " " .  'years';
+                $interval .= $intervalDiff->y . " " . 'years';
             }
         }
 
         return $interval;
     }
-    
+
     public function getTimeDifferenceinHour($date1, $date2) {
         $interval = "";
 //       return $date1.' '.$date2;
@@ -235,57 +239,74 @@ class AdminController extends Controller {
 
         $intervalDiff = date_diff($datetime1, $datetime2);
 
-        
+
 //        echo "<pre>";
 //        print_r($intervalDiff);
 //        exit;
-        $total_hours=0;
-        if($intervalDiff->d > 0){
-           $total_hours+= $intervalDiff->d*24;
-        }if($intervalDiff->h>0){
-             $total_hours+= $intervalDiff->h;
+        $total_hours = 0;
+        if ($intervalDiff->d > 0) {
+            $total_hours += $intervalDiff->d * 24;
+        }if ($intervalDiff->h > 0) {
+            $total_hours += $intervalDiff->h;
         }
         return $total_hours;
     }
-    
+
     public function actionGetstates() {
-        $type_id=$_REQUEST['id'];
-        $doc_specialities= \app\models\States::find()->where("country_id=:country_id",[":country_id"=>$type_id])->all();
-        $html='<option value="">Select</option>';
-        if(count($doc_specialities)>0){
-        foreach ($doc_specialities as $key => $value) {
-            $html.='<option value="'.$value->id.'">'.$value->name.'</option>';
-        }
-        }else{
-           $html.='<option value="">No Data</option>';  
-        }
-        return $html;
-    }
-     public function getdistricts() {
-        $type_id=$_REQUEST['id'];
-        $doc_specialities= \app\models\Districts::find()->where("state_id=:state_id",[":state_id"=>$type_id])->all();
-        $html='<option value="">Select</option>';
-        if(count($doc_specialities)>0){
-        foreach ($doc_specialities as $key => $value) {
-            $html.='<option value="'.$value->id.'">'.$value->name.'</option>';
-        }
-        }else{
-           $html.='<option value="">No Data</option>';  
+        $type_id = $_REQUEST['id'];
+        $doc_specialities = \app\models\States::find()->where("country_id=:country_id", [":country_id" => $type_id])->all();
+        $html = '<option value="">Select</option>';
+        if (count($doc_specialities) > 0) {
+            foreach ($doc_specialities as $key => $value) {
+                $html .= '<option value="' . $value->id . '">' . $value->name . '</option>';
+            }
+        } else {
+            $html .= '<option value="">No Data</option>';
         }
         return $html;
     }
+
+    public function getdistricts() {
+        $type_id = $_REQUEST['id'];
+        $doc_specialities = \app\models\Districts::find()->where("state_id=:state_id", [":state_id" => $type_id])->all();
+        $html = '<option value="">Select</option>';
+        if (count($doc_specialities) > 0) {
+            foreach ($doc_specialities as $key => $value) {
+                $html .= '<option value="' . $value->id . '">' . $value->name . '</option>';
+            }
+        } else {
+            $html .= '<option value="">No Data</option>';
+        }
+        return $html;
+    }
+
     public function actionGetcities() {
-        $type_id=$_REQUEST['id'];
-        $doc_specialities= \app\models\Cities::find()->where("district_id=:district_id",[":district_id"=>$type_id])->all();
-        $html="";
-        if(count($doc_specialities)>0){
-        foreach ($doc_specialities as $key => $value) {
-            $html.='<option value="'.$value->id.'">'.$value->name.'</option>';
-        }
-        }else{
-           $html.='<option value="">No Data</option>';  
+        $type_id = $_REQUEST['id'];
+        $doc_specialities = \app\models\Cities::find()->where("district_id=:district_id", [":district_id" => $type_id])->all();
+        $html = "";
+        if (count($doc_specialities) > 0) {
+            foreach ($doc_specialities as $key => $value) {
+                $html .= '<option value="' . $value->id . '">' . $value->name . '</option>';
+            }
+        } else {
+            $html .= '<option value="">No Data</option>';
         }
         return $html;
+    }
+
+    public function getFacebookLink() {
+        //$seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'facebook_url'])->one();
+//        return $seting->value;
+    }
+
+    public function getGoogleLink() {
+        //$seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'google_plus_url'])->one();
+        //return $seting->value;
+    }
+
+    public function getInstagramLink() {
+        //$seting = Settings::find()->select('value')->where('slug=:slug', [':slug' => 'instagram'])->one();
+        //return $seting->value;
     }
 
 }
