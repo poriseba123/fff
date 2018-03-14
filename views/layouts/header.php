@@ -70,12 +70,12 @@ $action = Yii::$app->controller->action->id;
     <!--- End Off Canvas Side Menu -->
 </div>
 <!--- End Off Canvas Side Menu -->
-<div class="tbtnemergency wow pulse" id="emergency" data-wow-iteration="infinite" data-wow-duration="500ms" data-toggle="offcanvas" data-target="">
+<!--<div class="tbtnemergency wow pulse" id="emergency" data-wow-iteration="infinite" data-wow-duration="500ms" data-toggle="offcanvas" data-target="">
     <p><i class="fa fa-globe fa-spin fa-1x fa-fw"></i>Emergency</p>
 </div>
 <div class="tbtn wow pulse" id="menu"  data-toggle="offcanvas" data-target=".navmenu">
     <p><i class="fa fa-file-text-o"></i>Menu</p>
-</div>
+</div>-->
 
 <!-- Header Section End -->
 <!-- Start intro section -->

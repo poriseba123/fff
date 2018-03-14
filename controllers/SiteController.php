@@ -111,43 +111,6 @@ class SiteController extends FrontendController {
     public function actionUrlerror() {
         return $this->render("url-error");
     }
-
-    public function actionComo_funciona() {
-        $this->view->title = "como-funciona";
-//        return $this->redirect(Yii::$app->urlManager->createUrl('/admin/'));
-        return $this->render('como_funciona');
-    }
-
-    public function actionQuien_somos() {
-        $this->view->title = "Quien somos";
-//        return $this->redirect(Yii::$app->urlManager->createUrl('/admin/'));
-        return $this->render('quien_somos');
-    }
-
-    public function actionReglamento_interno() {
-        $this->view->title = "reglamento-interno";
-//        return $this->redirect(Yii::$app->urlManager->createUrl('/admin/'));
-        return $this->render('reglamento_interno');
-    }
-
-    public function actionPreguntas_y_respuestas() {
-        $this->view->title = "Preguntas_y_respuestas";
-//        return $this->redirect(Yii::$app->urlManager->createUrl('/admin/'));
-        return $this->render('preguntas_y_respuestas');
-    }
-
-    public function actionTerminos_y_condiciones() {
-        $this->view->title = "Terminos_y_condiciones";
-//        return $this->redirect(Yii::$app->urlManager->createUrl('/admin/'));
-        return $this->render('terminos_y_condiciones');
-    }
-
-    public function actionPreceptos_de_confidencialidad() {
-        $this->view->title = "Preceptos_de_confidencialidad";
-//        return $this->redirect(Yii::$app->urlManager->createUrl('/admin/'));
-        return $this->render('preceptos_de_confidencialidad');
-    }
-
     public function actionActivateaccount() {
         if (Yii::$app->request->get('tId') != '') {
             $trackId = Yii::$app->request->get('tId');
