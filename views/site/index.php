@@ -133,10 +133,10 @@ $total_visitor = Yii::$app->userCounter->getMaximal();
                             </div>
                             <div class="features-content">
                                 <h4>
-                                    <?= $value->heading; ?>
+                                    <?= isset($value->heading) ? strip_tags($value->heading) : ''; ?>
                                 </h4>
                                 <p>
-                                    <?= $value->description; ?> 
+                                    <?= isset($value->description) ? strip_tags($value->description) : ''; ?> 
                                 </p>
                             </div>
                         </div>

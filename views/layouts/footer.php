@@ -7,6 +7,21 @@ use app\models\Settings;
 $google_map_key = Settings::find()->where(['slug' => 'google_map_key'])->one();
 $data_arr = \app\models\Settings::find()->where(['options' => '1'])->all();
 $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
+
+function contentsort($msg, $url = false) {
+    $string = $msg;
+    if (strlen($string) > 200) {
+
+        // truncate string
+        $stringCut = substr($string, 0, 200);
+        $endPoint = strrpos($stringCut, ' ');
+
+        //if the string doesn't contain any space then it will cut without word basis.
+        $string = $endPoint ? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
+        $string .= '... <a href="' . $url . '" target="_blank">Read More</a>';
+    }
+    return $string;
+}
 ?>
 <!-- Footer Section Start -->
 <footer>
@@ -18,7 +33,7 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                     <div class="widget">
                         <h3 class="block-title">About us</h3>
                         <div class="textwidget">
-                            <p><?= isset($landing_page[0]->about_us) ? ucfirst($landing_page[0]->about_us) : ''; ?></p>
+                            <p><?= isset($landing_page[0]->about_us) ? ucfirst(contentsort($landing_page[0]->about_us, 'http://poriseba.com/aboutus')) : ''; ?></p>
                         </div>
                     </div>
                 </div>
@@ -28,8 +43,10 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                         <ul class="menu">
                             <li><a href="http://poriseba.com">Home</a></li>
                             <li><a href="http://poriseba.com/site/faq">FAQ</a></li>
-                            <li><a href="http://poriseba.com/aboutus">About</a></li>
-                            <li><a href="http://poriseba.com/contactus">Contact</a></li>
+                            <li><a href="http://poriseba.com/aboutus">About Us</a></li>
+                            <li><a href="http://poriseba.com/contactus">Contact Us</a></li>
+                            <li><a href="http://poriseba.com/termsofuse">Terms of Use</a></li>
+                            <li><a href="http://poriseba.com/privacypolicy">Privacy Policy</a></li>
                             <!--                            <li><a href="#">Terms of Use</a></li>
                                                         <li><a href="#">Privacy Policy</a></li>-->
                         </ul>
@@ -39,7 +56,7 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                     <div class="widget">
                         <h3 class="block-title">Terms of Use</h3>
                         <div class="textwidget">
-                            <p><?= isset($landing_page[0]->tearmsof_use) ? ucfirst($landing_page[0]->tearmsof_use) : ''; ?></p>
+                            <p><?= isset($landing_page[0]->tearmsof_use) ? ucfirst(contentsort($landing_page[0]->tearmsof_use, 'http://poriseba.com/termsofuse')) : ''; ?></p>
                         </div>
                     </div>
                     <!--                    <div class="widget">
@@ -66,7 +83,7 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                     <div class="widget">
                         <h3 class="block-title">Privacy policy</h3>
                         <div class="textwidget">
-                            <p><?= isset($landing_page[0]->privacy_policy) ? ucfirst($landing_page[0]->privacy_policy) : ''; ?></p>
+                            <p><?= isset($landing_page[0]->privacy_policy) ? ucfirst(contentsort($landing_page[0]->privacy_policy, 'http://poriseba.com/privacypolicy')) : ''; ?></p>
                         </div>
                     </div>
                     <!--                    <div class="widget">
@@ -564,7 +581,7 @@ $landing_page = \app\models\Landingpage::find()->where(['id' => '1'])->all();
                                     } else {
                                         //console.log("show[0]"+show[0].replace(/ /g,''));
                                         //console.log("flaggggggggggg"+flag.replace(/ /g,''));
-                                        
+
                                         var res = show[0].replace(/ /g, '').replace(flag.replace(/ /g, ''), '<span style="color:#f44336;">' + flag + '</span>');
                                         //console.log("res"+res);
                                     }
