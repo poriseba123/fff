@@ -71,8 +71,8 @@ $logoname = \app\models\Homepagesliderlogo::find()->select('logo_image')->one();
                 <div class="col-md-9 cst-mobile">
                      <div class="collapse navbar-collapse" id="navbar">
                             <ul class="nav navbar-nav navbar-right">
-                                <li><a href="javascript:void(0);" id="login"> Login</a></li>
-                                <li><a href="javascript:void(0);" id="signup"> Signup</a></li>
+<!--                                <li><a href="javascript:void(0);" id="login"> Login</a></li>
+                                <li><a href="javascript:void(0);" id="signup"> Signup</a></li>-->
                                 <li><a href="javascript:void(0);" id="menu"  data-toggle="offcanvas" data-target=".navmenu"> Menu</a></li>
 <!--                                <li class="postadd">
                                     <div class="btn btn-danger btn-post wow pulse" id="emergency" data-wow-iteration="infinite" data-wow-duration="500ms" data-toggle="offcanvas" data-target="">
