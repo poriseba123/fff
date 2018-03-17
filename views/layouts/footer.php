@@ -597,5 +597,9 @@ function contentsort($msg, $url = false) {
                                 //How do i fire this event ??
                                 $("#hidden_city").val(cityid_new);
                             });
+                            $("#usercategory_id").on('change', function () {
+                                categoryID=$(this).val();
+                                window.location="<?= Yii::$app->urlManager->createUrl('user/postdata?category=') ?>"+categoryID;
+                            });
 
 </script>

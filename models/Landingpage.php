@@ -28,7 +28,7 @@ class Landingpage extends \yii\db\ActiveRecord {
         return [
             [['heading', 'tagline', 'listing_line', 'slider_line', 'subscription_line', 'youtube_url', 'about_us','tearmsof_use','privacy_policy'], 'required', 'on' => ['create', 'update']],
             [['heading'], 'string', 'max' => 150],
-            [['tagline'], 'string', 'max' => 150],
+            [['tagline'], 'string', 'max' => 500],
             [['listing_line'], 'string', 'max' => 150],
             [['slider_line'], 'string', 'max' => 150],
             [['subscription_line'], 'string', 'max' => 150],

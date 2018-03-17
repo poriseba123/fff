@@ -13,20 +13,20 @@ use app\components\FrontendController;
 
 class UserController extends FrontendController {
 
-    public function behaviors() {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                // ...
-                ],
-            ],
-        ];
-    }
+//    public function behaviors() {
+//        return [
+//            'access' => [
+//                'class' => AccessControl::className(),
+////                'rules' => [
+////                    [
+////                        'allow' => true,
+////                        'roles' => ['@'],
+////                    ],
+////                // ...
+////                ],
+//            ],
+//        ];
+//    }
 
     /**
      * @inheritdoc
@@ -361,6 +361,13 @@ class UserController extends FrontendController {
             echo json_encode($resp);
             exit;
         }
+    }
+
+    public function actionPostdata() {
+        //$this->view->title = "Home";
+        $this->view->title = "";
+        $model = [];
+        return $this->render('postdata', ['model' => $model]);
     }
 
 }
