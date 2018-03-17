@@ -72,8 +72,8 @@ class RegistrationController extends FrontendController {
                 $activToken = strtoupper($this->rand_string(10));
                 $model->user_type = 2;
                 $model->activation_token = $activToken;
-                $model->added_date = date('Y-m-d H:i:s');
-                $model->update_date = date('Y-m-d H:i:s');
+                $model->created_at = date('Y-m-d H:i:s');
+                $model->updated_at = date('Y-m-d H:i:s');
                 $model->status = 0;
                 if ($model->validate() && $model->save()) {
                     $model->password = Yii::$app->security->generatePasswordHash($model->password);

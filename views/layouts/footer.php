@@ -41,12 +41,12 @@ function contentsort($msg, $url = false) {
                     <div class="widget">
                         <h3 class="block-title">Useful Links</h3>
                         <ul class="menu">
-                            <li><a href="http://poriseba.com">Home</a></li>
-                            <li><a href="http://poriseba.com/site/faq">FAQ</a></li>
-                            <li><a href="http://poriseba.com/aboutus">About Us</a></li>
-                            <li><a href="http://poriseba.com/contactus">Contact Us</a></li>
-                            <li><a href="http://poriseba.com/termsofuse">Terms of Use</a></li>
-                            <li><a href="http://poriseba.com/privacypolicy">Privacy Policy</a></li>
+                            <li><a href="<?= Yii::$app->urlManager->createUrl('/') ?>">Home</a></li>
+                            <li><a href="<?= Yii::$app->urlManager->createUrl('site/faq') ?>">FAQ</a></li>
+                            <li><a href="<?= Yii::$app->urlManager->createUrl('aboutus') ?>">About Us</a></li>
+                            <li><a href="<?= Yii::$app->urlManager->createUrl('contactus') ?>">Contact Us</a></li>
+                            <li><a href="<?= Yii::$app->urlManager->createUrl('termsofuse') ?>">Terms of Use</a></li>
+                            <li><a href="<?= Yii::$app->urlManager->createUrl('privacypolicy') ?>">Privacy Policy</a></li>
                             <!--                            <li><a href="#">Terms of Use</a></li>
                                                         <li><a href="#">Privacy Policy</a></li>-->
                         </ul>
@@ -598,8 +598,10 @@ function contentsort($msg, $url = false) {
                                 $("#hidden_city").val(cityid_new);
                             });
                             $("#usercategory_id").on('change', function () {
-                                categoryID=$(this).val();
-                                window.location="<?= Yii::$app->urlManager->createUrl('user/postdata?category=') ?>"+categoryID;
+
+                                categoryID = $(this).val();
+                                window.location = "<?= Yii::$app->urlManager->createUrl('user/postdata?category=') ?>" + categoryID;
                             });
+
 
 </script>
