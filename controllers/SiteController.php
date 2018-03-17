@@ -277,7 +277,7 @@ class SiteController extends FrontendController {
             $model = UserMaster::find()->where(["activation_token" => $trackId])->one();
             if ($model) {
                 $model->activation_token = '';
-                $model->email_varified = 1;
+                $model->email_verified = 1;
                 $model->status = 1;
                 $model->save(false);
                 Yii::$app->session->setFlash('success', Yii::t('app', 'Email Verified. Please Login to access your account.'));
@@ -316,9 +316,9 @@ class SiteController extends FrontendController {
     }
 
     public function actionLogin() {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+//        if (!Yii::$app->user->isGuest) {
+//            return $this->goHome();
+//        }
         $session = Yii::$app->session;
         if (isset($_GET['redirect']) && $_GET['redirect'] != '') {
             $b = (isset($_GET['location_b_name']) && $_GET['location_b_name'] != '') ? $_GET['location_b_name'] : '';
@@ -338,12 +338,12 @@ class SiteController extends FrontendController {
             $model = new LoginForm();
             if ($model->load(Yii::$app->request->post()) && $model->login()) {
                 $resp['flag'] = true;
-                $resp['msg'] = Yii::t('app', 'You are successfully Signin. Please wait we are redirecting you..');
+                $resp['msg'] = Yii::t('app', 'You are successfully Signin.');
                 if (isset(Yii::$app->session['requrl']) && Yii::$app->session['requrl'] != "") {
                     $resp['redirectUrl'] = Yii::$app->session['requrl'];
                     unset(Yii::$app->session['requrl']);
                 } else {
-                    $resp['redirectUrl'] = Yii::$app->urlManager->createAbsoluteUrl('user/profile');
+                    $resp['redirectUrl'] = Yii::$app->urlManager->createAbsoluteUrl('/');
                 }
             } else {
                 $error = $model->getErrors();

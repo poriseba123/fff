@@ -64,15 +64,15 @@ $logoname = \app\models\Homepagesliderlogo::find()->select('logo_image')->one();
                                 </button>-->
                 <!-- End Toggle Nav Link For Mobiles -->
 
-                <a class="navbar-brand logo" href="http://poriseba.com/"><img src="http://poriseba.com\uploads\logoslider\thumbnail\<?= $logoname->logo_image; ?>" alt=""></a>
+                <a class="navbar-brand logo" href="<?= Yii::$app->urlManager->createUrl("/") ?>"><img src="http://poriseba.com\uploads\logoslider\thumbnail\<?= $logoname->logo_image; ?>" alt=""></a>
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" style="z-index: 9999999999;"><i class="fa fa-bars"></i></button>
             </div>  
                 </div>
                 <div class="col-md-9 cst-mobile">
                      <div class="collapse navbar-collapse" id="navbar">
                             <ul class="nav navbar-nav navbar-right">
-<!--                                <li><a href="javascript:void(0);" id="login"> Login</a></li>
-                                <li><a href="javascript:void(0);" id="signup"> Signup</a></li>-->
+                                <li><a href="<?= Yii::$app->urlManager->createUrl('site/login') ?>"> Login</a></li>
+                                <li><a href="<?= Yii::$app->urlManager->createUrl('registration/index') ?>"> Signup</a></li>
                                 <li><a href="javascript:void(0);" id="menu"  data-toggle="offcanvas" data-target=".navmenu"> Menu</a></li>
 <!--                                <li class="postadd">
                                     <div class="btn btn-danger btn-post wow pulse" id="emergency" data-wow-iteration="infinite" data-wow-duration="500ms" data-toggle="offcanvas" data-target="">

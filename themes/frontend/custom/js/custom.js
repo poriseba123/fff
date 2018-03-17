@@ -1,3 +1,171 @@
+$('form#user_signup').submit(function (e) {
+    e.preventDefault();
+    loader_start();
+    var _this = $(this);
+
+    _this.find('.has-error').removeClass('has-error');
+    _this.find('.help-block').html('');
+
+    var data = _this.serialize();
+    var url = full_path + 'registration/registration';
+    $.post(url, data,
+            function (resp) {
+                if (resp.flag == true) {
+                    success_msg(resp.msg);
+                    setTimeout(function () {
+                        window.location.href = resp.redirectUrl;
+                    }, '3000');
+                } else {
+                    $.each(resp.error, function (item, value) {
+                        if(item=='gender'){
+                           _this.find('#usermaster-' + item).parent('div').addClass('has-error');
+                        _this.find('#usermaster-' + item).parent('div').find('.help-block').html(value);  
+                        }else{
+                        _this.find('#usermaster-' + item).parent('div').addClass('has-error');
+                        _this.find('#usermaster-' + item).parent('div').find('.material-input').html(value);
+                    }
+                    });
+                    loader_stop();
+                }
+            }, 'json');
+});
+
+$('form#userloginForm').submit(function (e) {
+    e.preventDefault();
+    loader_start();
+    var _this = $(this);
+
+    _this.find('.has-error').removeClass('has-error');
+    _this.find('.help-block').html('');
+
+    var data = _this.serialize();
+    var url = full_path + 'site/ajaxlogin';
+    $.post(url, data,
+            function (resp) {
+                if (resp.flag == true) {
+                    success_msg(resp.msg);
+                    setTimeout(function () {
+                        window.location.href = resp.redirectUrl;
+                    }, 3000);
+                } else {
+                    $.each(resp.error, function (item, value) {
+                        _this.find('#loginform-' + item).parent('div').addClass('has-error');
+                        _this.find('#loginform-' + item).parent('div').find('.material-input').html(value);
+                    });
+                    loader_stop();
+                }
+            }, 'json');
+});
+
+showForgotPassModal = function () {
+    $('#forgotpassemail').val("");
+    $('#forgotPassModal').modal();
+};
+
+$('form#forget_password_form').submit(function (e) {
+    e.preventDefault();
+    var _this = $(this);
+    loader_start();
+    _this.find('.has-error').removeClass('has-error');
+    _this.find('.help-block').html('');
+
+    var data = _this.serialize();
+    var url = full_path + 'site/sentforgotpassmail';
+    $.post(url, data,
+            function (resp) {
+                loader_stop();
+                if (resp.flag == true) {
+                    _this.find('input').val('');
+                    $('#forgotPassModal').modal('hide');
+                    success_msg(resp.msg);
+                } else {
+                    _this.find('#forgotpassemail').parent('div').addClass('has-error');
+                    _this.find('#UserMaster-for-email').parent('div').find('.help-block').html(resp.msg);
+
+                }
+            }, 'json');
+});
+
+$('#userchangeforgotpassword').submit(function (e) {
+    e.preventDefault();
+    loader_start();
+    var _this = $(this);
+
+    _this.find('.has-error').removeClass("has-error");
+    _this.find('.help-block').html('');
+
+    var data = _this.serialize();
+
+    var url = full_path + "site/changepass";
+
+    $.post(url, data,
+            function (resp) {
+                if (resp.flag == true) {
+                    success_msg(resp.msg);
+                    setTimeout(function () {
+                        window.location.href = resp.redirectUrl
+                    });
+                } else {
+                    loader_stop();
+                    $.each(resp.error, function (item, value) {
+                        _this.find('#usermaster-' + item).parent('div').addClass('has-error');
+                        _this.find('#usermaster-' + item).parent('div').find('.help-block').html(value);
+                    });
+                }
+            }, 'json');
+});
+
+function toggleFn(divid) {
+    var x = document.getElementById(divid);
+    if (x.style.display === 'none') {
+        x.style.display = 'block';
+    } else {
+        x.style.display = 'none';
+    }
+//    $("#editsubmit").click();
+}
+function phoneVerify() {
+    var url = full_path + 'user/verifyphone';
+    loader_start();
+    $.post(url, '',
+            function (resp) {
+                if (resp.type == 'success') {
+                    $('#verfyModal').modal('show');
+                    success_msg(resp.msg);
+                } else {
+                    error_msg(resp.msg);
+                }
+                loader_stop();
+            }, 'json');
+}
+
+$('form#verify_form').submit(function (e) {
+    e.preventDefault();
+    $("#err_verifyCode").parent('div').removeClass('has-error');
+    $("#err_verifyCode").html('');
+    var _this = $(this);
+    loader_start();
+    _this.find('.has-error').removeClass('has-error');
+    _this.find('.help-block').html('');
+
+    var data = _this.serialize();
+    var url = full_path + 'user/checkotp';
+    $.post(url, data,
+            function (resp) {
+                if (resp.type == 'success') {
+                    $('#verfyModal').modal('hide');
+                    success_msg(resp.msg);
+                    setTimeout(function () {
+                        window.location.reload()
+                    })
+                } else {
+                    loader_stop();
+                    $("#err_verifyCode").parent('div').addClass('has-error');
+                    $("#err_verifyCode").html(resp.msg);
+                }
+            }, 'json');
+});
+
 (function ($) {
 
     $(function () {
