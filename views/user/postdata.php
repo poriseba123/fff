@@ -77,7 +77,7 @@ $all_services = ServicesList::find()->where(['status' => '1'])->all();
                     <div class="mb30"></div>
                     <div class="form-group">
                         <div class="page-ads box">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent sit amet porta eros, eget facilisis arcu. Duis condimentum fermentum enim, ac rutrum erat venenatis vel Morbi pharetra viverra faucibus.</p>
+                            <p></p>
                             <div class="checkbox">
                                 <label><input type="checkbox"> I agree to the <a href="#">Terms of Use</a></label>
                             </div><br>

@@ -23,6 +23,7 @@ class MainAsset extends AssetBundle {
         'themes/frontend/css/responsive.css',
         'themes/frontend/css/slicknav.css',
         'themes/frontend/css/bootstrap-select.min.css',
+        'themes/frontend/css/fileinput.css',
         'themes/frontend/custom/css/custom.css',
         'themes/global/plugins/toast/toast.css',
     ];
@@ -45,11 +46,14 @@ class MainAsset extends AssetBundle {
         'themes/frontend/js/jquery.themepunch.revolution.min.js',
         'themes/frontend/js/jquery.themepunch.tools.min.js',
         'themes/frontend/js/bootstrap-select.min.js',
+        'themes/frontend/js/fileinput.js',
         'themes/global/js/custom-global.js',
         'themes/frontend/js/loginmodal.js',
         'themes/global/plugins/toast/toast.js',
         'themes/frontend/custom/js/search.js',
-        'themes/frontend/custom/js/custom.js'
+        'themes/frontend/custom/js/custom.js',
+        'themes/frontend/custom/js/common.js',
+        'themes/backend/custom/js/custom.js',
     ];
 //    public $depends = [
 //        'app\assets\common\JqueryAsset',

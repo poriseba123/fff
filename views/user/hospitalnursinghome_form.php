@@ -26,13 +26,13 @@ use kartik\select2\Select2;
 
 <div class="portlet light bordered form-fit">
     <div class="portlet-title">
-<!--        <div class="caption">
-            <i class="fa <?= $model->isNewRecord ? 'fa-plus' : 'fa-edit'; ?> font-green-haze" aria-hidden="true"></i>
-
-            <span class="caption-subject font-green-haze bold uppercase">
-                <?= Html::encode($this->title) ?>
-            </span>
-        </div>-->
+        <!--        <div class="caption">
+                    <i class="fa <?= $model->isNewRecord ? 'fa-plus' : 'fa-edit'; ?> font-green-haze" aria-hidden="true"></i>
+        
+                    <span class="caption-subject font-green-haze bold uppercase">
+        <?= Html::encode($this->title) ?>
+                    </span>
+                </div>-->
     </div>
     <div class="portlet-body form">
         <!-- BEGIN FORM-->
@@ -200,23 +200,23 @@ use kartik\select2\Select2;
                     <input id="pac-input" class="pac-input form-control controls1" type="text" placeholder="Search Box"><br>
                     <div id="map" class="map" style="height: 324px;width: 100%;"></div>
                 </div>
-                <div class="col-md-3">
-                    <div class="btn-group btn-group-solid">
-                        <button type="button" class="btn btn-success" style="font-size:17px;" onclick="getLocation();">
-                            MY LOCATION
-                        </button>
-                    </div>
-                </div>
+                <!--                <div class="col-md-3">
+                                    <div class="btn-group btn-group-solid">
+                                        <button type="button" class="btn btn-success" style="font-size:17px;" onclick="getLocation();">
+                                            MY LOCATION
+                                        </button>
+                                    </div>
+                                </div>-->
                 <div class="row">
                     <div class="col-md-3">
                         <div class="col-md-12">
                             <div class="col-md-6">
-                                <label class="control-label col-md-3">Lat(First one)</label>
-                                <input type="text" id="hospitalnursingmaster-latitude" class="latitude form-control" name="HospitalNursingMaster[latitude]">
+                                <!--                                <label class="control-label col-md-3">Lat(First one)</label>-->
+                                <input type="hidden" id="hospitalnursingmaster-latitude" class="latitude form-control" name="HospitalNursingMaster[latitude]">
                             </div>
                             <div class="col-md-6">
-                                <label class="control-label col-md-3">Long(Second one)</label>
-                                <input type="text" id="hospitalnursingmaster-longitude" class="longitude form-control" name="HospitalNursingMaster[longitude]">
+                                <!--                                <label class="control-label col-md-3">Long(Second one)</label>-->
+                                <input type="hidden" id="hospitalnursingmaster-longitude" class="longitude form-control" name="HospitalNursingMaster[longitude]">
                             </div>
                         </div>
 
@@ -227,13 +227,20 @@ use kartik\select2\Select2;
         <div class="form-group">
             <label class="control-label col-md-3">Out door <span class="required">*</span></label>
             <div class="col-md-6">
-                <div class="radio-list">                        
-                    <label class="radio-inline">
-                        <?php
-                        echo $form->field($model, 'outdore')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
-                        ?>
-                    </label>
+                <div class="input-group">
+                    <div id="radioBtn" class="btn-group">
+                        <a class="btn btn-primary btn-sm active outdore" data-toggle="hospitalnursingmaster-outdore" data-title="1">YES</a>
+                        <a class="btn btn-primary btn-sm notActive outdore" data-toggle="hospitalnursingmaster-outdore" data-title="0">NO</a>
+                    </div>
+                    <input type="hidden" name="HospitalNursingMaster[outdore]" id="hospitalnursingmaster-outdore">
                 </div>
+                <!--                <div class="radio-list">                        
+                                    <label class="radio-inline">
+                <?php
+                echo $form->field($model, 'outdore')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                ?>
+                                    </label>
+                                </div>-->
             </div>
         </div>
         <div class="form-body showme" style="display: none;">
@@ -288,8 +295,10 @@ use kartik\select2\Select2;
                                     </div>
                                 </div>
                             </div>
-    <?php }
-} ?>
+                            <?php
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -328,12 +337,10 @@ use kartik\select2\Select2;
         </div>
         <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">Image<span class="required">*</span></label>
-                <div class="col-md-6">
-                    <?php echo $form->field($model, 'image')->fileInput(['class' => 'form-control image-input', 'placeholder' => 'Choose Image'])->label(false); ?>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group text-center" id='preview-img-holder'>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Featured Image<span class="required">*</span></label> 
+                    <div class="col-md-9">
+                        <input class="file" id="featured-img" type="file" name="HospitalNursingMaster[image]"><br>
                     </div>
                 </div>
                 <div class="help-block"></div>
@@ -343,86 +350,135 @@ use kartik\select2\Select2;
         <div class="form-group">
             <label class="control-label col-md-3">Emergency Word<span class="required">*</span></label>
             <div class="col-md-6">
-                <div class="radio-list">                        
-                    <label class="radio-inline">
-                        <?php
-                        echo $form->field($model, 'emergency')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
-                        ?>
-                    </label>
+                <div class="input-group">
+                    <div id="radioBtn" class="btn-group">
+                        <a class="btn btn-primary btn-sm active" data-toggle="hospitalnursingmaster-emergency" data-title="1">YES</a>
+                        <a class="btn btn-primary btn-sm notActive" data-toggle="hospitalnursingmaster-emergency" data-title="0">NO</a>
+                    </div>
+                    <input type="hidden" name="HospitalNursingMaster[emergency]" id="hospitalnursingmaster-emergency">
                 </div>
+                <!--                <div class="radio-list">                        
+                                    <label class="radio-inline">
+                <?php
+                echo $form->field($model, 'emergency')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                ?>
+                                    </label>
+                                </div>-->
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3">OT <span class="required">*</span></label>
             <div class="col-md-6">
-                <div class="radio-list">                        
-                    <label class="radio-inline">
-                        <?php
-                        echo $form->field($model, 'ot')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
-                        ?>
-                    </label>
+                <div class="input-group">
+                    <div id="radioBtn" class="btn-group">
+                        <a class="btn btn-primary btn-sm active" data-toggle="hospitalnursingmaster-ot" data-title="1">YES</a>
+                        <a class="btn btn-primary btn-sm notActive" data-toggle="hospitalnursingmaster-ot" data-title="0">NO</a>
+                    </div>
+                    <input type="hidden" name="HospitalNursingMaster[ot]" id="hospitalnursingmaster-ot">
                 </div>
+                <!--                <div class="radio-list">                        
+                                    <label class="radio-inline">
+                <?php
+                echo $form->field($model, 'ot')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                ?>
+                                    </label>
+                                </div>-->
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3">Life support <span class="required">*</span></label>
             <div class="col-md-6">
-                <div class="radio-list">                        
-                    <label class="radio-inline">
-                        <?php
-                        echo $form->field($model, 'life_support')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
-                        ?>
-                    </label>
+                <div class="input-group">
+                    <div id="radioBtn" class="btn-group">
+                        <a class="btn btn-primary btn-sm active" data-toggle="hospitalnursingmaster-life_support" data-title="1">YES</a>
+                        <a class="btn btn-primary btn-sm notActive" data-toggle="hospitalnursingmaster-life_support" data-title="0">NO</a>
+                    </div>
+                    <input type="hidden" name="HospitalNursingMaster[life_support]" id="hospitalnursingmaster-life_support">
                 </div>
+                <!--                <div class="radio-list">                        
+                                    <label class="radio-inline">
+                <?php
+                echo $form->field($model, 'life_support')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                ?>
+                                    </label>
+                                </div>-->
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3">Ambulance Service<span class="required">*</span></label>
             <div class="col-md-6">
-                <div class="radio-list">                        
-                    <label class="radio-inline">
-                        <?php
-                        echo $form->field($model, 'ambulance')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
-                        ?>
-                    </label>
+                <div class="input-group">
+                    <div id="radioBtn" class="btn-group">
+                        <a class="btn btn-primary btn-sm active" data-toggle="hospitalnursingmaster-ambulance" data-title="1">YES</a>
+                        <a class="btn btn-primary btn-sm notActive" data-toggle="hospitalnursingmaster-ambulance" data-title="0">NO</a>
+                    </div>
+                    <input type="hidden" name="HospitalNursingMaster[ambulance]" id="hospitalnursingmaster-ambulance">
                 </div>
+                <!--                <div class="radio-list">                        
+                                    <label class="radio-inline">
+                <?php
+                echo $form->field($model, 'ambulance')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                ?>
+                                    </label>
+                                </div>-->
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3">Own medicine shop <span class="required">*</span></label>
             <div class="col-md-6">
-                <div class="radio-list">                        
-                    <label class="radio-inline">
-                        <?php
-                        echo $form->field($model, 'medicine_shop')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
-                        ?>
-                    </label>
+                <div class="input-group">
+                    <div id="radioBtn" class="btn-group">
+                        <a class="btn btn-primary btn-sm active" data-toggle="hospitalnursingmaster-medicine_shop" data-title="1">YES</a>
+                        <a class="btn btn-primary btn-sm notActive" data-toggle="hospitalnursingmaster-medicine_shop" data-title="0">NO</a>
+                    </div>
+                    <input type="hidden" name="HospitalNursingMaster[medicine_shop]" id="hospitalnursingmaster-medicine_shop">
                 </div>
+                <!--                <div class="radio-list">                        
+                                    <label class="radio-inline">
+                <?php
+                echo $form->field($model, 'medicine_shop')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                ?>
+                                    </label>
+                                </div>-->
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-md-3">Payment accepted other than cash <span class="required">*</span></label>
             <div class="col-md-6">
-                <div class="radio-list">                        
-                    <label class="radio-inline">
-                        <?php
-                        echo $form->field($model, 'payment_otherthancash')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
-                        ?>
-                    </label>
+                <div class="input-group">
+                    <div id="radioBtn" class="btn-group">
+                        <a class="btn btn-primary btn-sm active" data-toggle="hospitalnursingmaster-payment_otherthancash" data-title="1">YES</a>
+                        <a class="btn btn-primary btn-sm notActive" data-toggle="hospitalnursingmaster-payment_otherthancash" data-title="0">NO</a>
+                    </div>
+                    <input type="hidden" name="HospitalNursingMaster[payment_otherthancash]" id="hospitalnursingmaster-payment_otherthancash">
                 </div>
+                <!--                <div class="radio-list">                        
+                                    <label class="radio-inline">
+                <?php
+                echo $form->field($model, 'payment_otherthancash')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
+                ?>
+                                    </label>
+                                </div>-->
             </div>
         </div>
 
         <div class="form-group">
             <label class="control-label col-md-3">Status <span class="required">*</span></label>
             <div class="col-md-6">
-                <div class="radio-list">                        
-                    <label class="radio-inline">
-                        <?php
-                        echo $form->field($model, 'status')->radioList(['1' => 'Active', '0' => 'Inactive'])->label(false);
-                        ?>
-                    </label>
+                <div class="input-group">
+                    <div id="radioBtn" class="btn-group">
+                        <a class="btn btn-primary btn-sm active" data-toggle="hospitalnursingmaster-status" data-title="1">YES</a>
+                        <a class="btn btn-primary btn-sm notActive" data-toggle="hospitalnursingmaster-status" data-title="0">NO</a>
+                    </div>
+                    <input type="hidden" name="HospitalNursingMaster[status]" id="hospitalnursingmaster-status">
                 </div>
+                <!--                <div class="radio-list">                        
+                                    <label class="radio-inline">
+                <?php
+                echo $form->field($model, 'status')->radioList(['1' => 'Active', '0' => 'Inactive'])->label(false);
+                ?>
+                                    </label>
+                                </div>-->
             </div>
         </div>
 
@@ -430,8 +486,8 @@ use kartik\select2\Select2;
         <div class="form-actions">
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
-                    <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn green']) ?>
-                    <a href="<?php echo Url::to(['hospitalnursing/index']); ?>" class="btn default">Back</a>
+                    <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => 'btn btn-info']) ?>
+                    <a href="<?php echo Url::to(['hospitalnursing/index']); ?>" class="btn btn-warning">Back</a>
                 </div>
             </div>
         </div>

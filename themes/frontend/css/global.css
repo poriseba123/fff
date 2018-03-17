@@ -350,3 +350,7 @@ select.form-control:focus {
     opacity: 0;
   }
 }
+#radioBtn .notActive{
+    color: #3276b1;
+    background-color: #fff;
+}

@@ -294,9 +294,9 @@ function contentsort($msg, $url = false) {
         </div>
     </div>
 </div>
-<script src="http://maps.google.com/maps/api/js?v=3.30&key=<?php echo $google_map_key->value ?>&libraries=places&region=in&language=en&callback=initAutocomplete"></script>
+<script src="http://maps.google.com/maps/api/js?v=3.30&key=<?php echo $google_map_key->value ?>&libraries=places&region=in&language=en"></script>
 <script type="text/javascript">
-
+                           
                             var apiGeolocationSuccess = function (position) {
                                 console.log("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
                             };
