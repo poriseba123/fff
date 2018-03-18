@@ -30,20 +30,20 @@ use kartik\select2\Select2;
     }
 </style>
 <div class="portlet light bordered form-fit">
-    <div class="portlet-title">
-        <!--        <div class="caption">
-                    <i class="fa <?= $model->isNewRecord ? 'fa-plus' : 'fa-edit'; ?> font-green-haze" aria-hidden="true"></i>
-        
-                    <span class="caption-subject font-green-haze bold uppercase">
-        <?= Html::encode($this->title) ?>
-                    </span>
-                </div>-->
-    </div>
+    <!--    <div class="portlet-title">
+            <div class="caption">
+                <i class="fa <?= $model->isNewRecord ? 'fa-plus' : 'fa-edit'; ?> font-green-haze" aria-hidden="true"></i>
+    
+                <span class="caption-subject font-green-haze bold uppercase">
+    <?= Html::encode($this->title) ?>
+                </span>
+            </div>
+        </div>-->
     <div class="portlet-body form">
         <!-- BEGIN FORM-->
         <?php
         $form = ActiveForm::begin([
-                    'id' => 'create_hospitalnursinghome_form',
+                    'id' => 'create_eye_bank_form',
                     'options' => ['class' => 'form-horizontal form-row-seperated', 'enctype' => 'multipart/form-data'],
                     'enableClientValidation' => false
                 ])
@@ -53,42 +53,6 @@ use kartik\select2\Select2;
                 <label class="control-label col-md-3">Name<span class="required">*</span></label>
                 <div class="col-md-6">
                     <?= $form->field($model, 'name')->textInput(['class' => 'form-control'])->label(false); ?>
-                </div>
-            </div>
-        </div>
-        <div class="form-body">
-            <div class="form-group">
-                <label class="control-label col-md-3">Type<span class="required">*</span></label>
-                <div class="col-md-6">
-                    <?php
-                    $type_list = \app\models\Typeofhospital::find()->all();
-                    $listData = ArrayHelper::map($type_list, 'id', 'name');
-                    echo $form->field($model, 'type')->widget(Select2::classname(), [
-                        'data' => $listData,
-                        'options' => ['placeholder' => 'Search type', 'multiple' => false],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],
-                    ])->label(false);
-                    ?>
-                </div>
-            </div>
-        </div>
-        <div class="form-body">
-            <div class="form-group">
-                <label class="control-label col-md-3">Units<span class="required">*</span></label>
-                <div class="col-md-6">
-                    <?php
-                    $facility_list = \app\models\Hospitalfacility::find()->all();
-                    $listData = ArrayHelper::map($facility_list, 'id', 'name');
-                    echo $form->field($model, 'facility')->widget(Select2::classname(), [
-                        'data' => $listData,
-                        'options' => ['placeholder' => 'Search Units', 'multiple' => true],
-                        'pluginOptions' => [
-                            'allowClear' => true
-                        ],
-                    ])->label(false);
-                    ?>
                 </div>
             </div>
         </div>
@@ -111,14 +75,6 @@ use kartik\select2\Select2;
         </div>
         <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">Pin<span class="required">*</span></label>
-                <div class="col-md-6">
-                    <?= $form->field($model, 'pin')->textInput(['class' => 'form-control', 'maxlength' => '6'])->label(false); ?>
-                </div>
-            </div>
-        </div>
-        <div class="form-body">
-            <div class="form-group">
                 <label class="control-label col-md-3">Country<span class="required">*</span></label>
                 <div class="col-md-6">
                     <?php
@@ -128,7 +84,7 @@ use kartik\select2\Select2;
                         'data' => $listData,
                         'options' => ['placeholder' => 'Search Country', 'multiple' => false, 'onchange' => '
                     $.post("' . Url::to(['dashboard/getstates']) . '?id=' . '"+$(this).val(),function(data){
-                      $("select#hospitalnursingmaster-state_id").html(data);
+                      $("select#eyebankmaster-state_id").html(data);
                     });'],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -149,7 +105,7 @@ use kartik\select2\Select2;
                         'data' => $listData,
                         'options' => ['placeholder' => 'Search State', 'multiple' => false, 'onchange' =>
                             '$.post("' . Url::to(['dashboard/getdistricts']) . '?id=' . '"+$(this).val(),function(data){
-                         $("select#hospitalnursingmaster-district_id").html(data);
+                         $("select#eyebankmaster-district_id").html(data);
                         });'],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -170,7 +126,7 @@ use kartik\select2\Select2;
                         'data' => $listData,
                         'options' => ['placeholder' => 'Search District', 'multiple' => false, 'onchange' =>
                             '$.post("' . Url::to(['dashboard/getcities']) . '?id=' . '"+$(this).val(),function(data){
-                         $("select#hospitalnursingmaster-city_id").html(data);
+                         $("select#eyebankmaster-city_id").html(data);
                         });'],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -217,11 +173,11 @@ use kartik\select2\Select2;
                         <div class="col-md-12">
                             <div class="col-md-6">
                                 <!--                                <label class="control-label col-md-3">Lat(First one)</label>-->
-                                <input type="hidden" id="hospitalnursingmaster-latitude" class="latitude form-control" name="HospitalNursingMaster[latitude]">
+                                <input type="hidden" id="eyebankmaster-latitude" class="latitude form-control" name="EyeBankMaster[latitude]">
                             </div>
                             <div class="col-md-6">
                                 <!--                                <label class="control-label col-md-3">Long(Second one)</label>-->
-                                <input type="hidden" id="hospitalnursingmaster-longitude" class="longitude form-control" name="HospitalNursingMaster[longitude]">
+                                <input type="hidden" id="eyebankmaster-longitude" class="longitude form-control" name="EyeBankMaster[longitude]">
                             </div>
                         </div>
 
@@ -229,35 +185,52 @@ use kartik\select2\Select2;
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label col-md-3">Out door <span class="required">*</span></label>
-            <div class="col-md-6">
-
-                <div class="input-group">
-                    <div id="radioBtn" class="btn-group">
-                        <a class="btn btn-primary btn-sm active outdore" data-toggle="hospitalnursingmaster-outdore" data-title="1">YES</a>
-                        <a class="btn btn-primary btn-sm notActive outdore" data-toggle="hospitalnursingmaster-outdore" data-title="0">NO</a>
+        <div class="form-body">
+            <div class="form-group">
+                <label class="control-label col-md-3">Time<span class="required">*</span></label>
+                <div class="col-md-7">
+                    <div class="daymaster_main_div">
+                        <div class="row">
+                            <div class="col-md-6">
+                                Open Time
+                            </div>
+                            <div class="col-md-6">
+                                Close time
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class='input-group date timepicker'>
+                                    <input type="text" id="eyebankmaster-open_time" class="form-control" name="EyeBankMaster[open_time]">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                </div>
+                                <div class="help-block"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class='input-group date timepicker'>
+                                    <input type="text" id="eyebankmaster-close_time" class="form-control" name="EyeBankMaster[close_time]">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-time"></span>
+                                    </span>
+                                </div>
+                                <div class="help-block"></div>
+                            </div>
+                        </div>
                     </div>
-                    <input type="hidden" name="HospitalNursingMaster[outdore]" id="hospitalnursingmaster-outdore">
                 </div>
-                <!--                <div class="radio-list">                        
-                                    <label class="radio-inline">
-                <?php
-                echo $form->field($model, 'outdore')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
-                ?>
-                                    </label>
-                                </div>-->
             </div>
         </div>
-        <div class="form-body showme" style="display: none;">
+
+        <div class="form-body">
             <div class="form-group">
-                <label class="control-label col-md-3">Out doer Time<span class="required">*</span></label>
+                <label class="control-label col-md-3">Free Check-up Time<span class="required">*</span></label>
                 <div class="col-md-9">
                     <?php
                     $day_master = \app\models\DayMaster::find()->all();
                     foreach ($day_master as $key => $val) {
                         if ($val->id != '8') {
-                            //echo $val;
                             ?>
                             <div class="daymaster_main_div">
                                 <div class="row" style="margin-bottom:5px;">
@@ -310,6 +283,24 @@ use kartik\select2\Select2;
         </div>
         <div class="form-body">
             <div class="form-group">
+                <label class="control-label col-md-3">Close day<span class="required">*</span></label>
+                <div class="col-md-6">
+                    <?php
+                    $day_master = \app\models\DayMaster::find()->all();
+                    $listData = ArrayHelper::map($day_master, 'id', 'day');
+                    echo $form->field($model, 'close_day')->widget(Select2::classname(), [
+                        'data' => $listData,
+                        'options' => ['placeholder' => 'Search Day', 'multiple' => false],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ])->label(false);
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-body">
+            <div class="form-group">
                 <label class="control-label col-md-3">Description<span class="required">*</span></label>
                 <div class="col-md-6">
                     <?= $form->field($model, 'description')->textArea(['class' => 'form-control', 'rows' => '3'])->label(false); ?>
@@ -346,149 +337,27 @@ use kartik\select2\Select2;
                 <div class="form-group">
                     <label class="control-label col-md-3">Featured Image<span class="required">*</span></label> 
                     <div class="col-md-9">
-                        <input class="file" id="featured-img" type="file" name="HospitalNursingMaster[image]"><br>
+                        <input class="file" id="featured-img" type="file" name="EyeBankMaster[image]"><br>
                     </div>
                 </div>
                 <div class="help-block"></div>
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control-label col-md-3">Emergency Word<span class="required">*</span></label>
-            <div class="col-md-6">
-                <div class="input-group">
-                    <div id="radioBtn" class="btn-group">
-                        <a class="btn btn-primary btn-sm active" data-toggle="hospitalnursingmaster-emergency" data-title="1">YES</a>
-                        <a class="btn btn-primary btn-sm notActive" data-toggle="hospitalnursingmaster-emergency" data-title="0">NO</a>
-                    </div>
-                    <input type="hidden" name="HospitalNursingMaster[emergency]" id="hospitalnursingmaster-emergency">
-                </div>
-                <!--                <div class="radio-list">                        
-                                    <label class="radio-inline">
-                <?php
-                echo $form->field($model, 'emergency')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
-                ?>
-                                    </label>
-                                </div>-->
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-3">OT <span class="required">*</span></label>
-            <div class="col-md-6">
-                <div class="input-group">
-                    <div id="radioBtn" class="btn-group">
-                        <a class="btn btn-primary btn-sm active" data-toggle="hospitalnursingmaster-ot" data-title="1">YES</a>
-                        <a class="btn btn-primary btn-sm notActive" data-toggle="hospitalnursingmaster-ot" data-title="0">NO</a>
-                    </div>
-                    <input type="hidden" name="HospitalNursingMaster[ot]" id="hospitalnursingmaster-ot">
-                </div>
-                <!--                <div class="radio-list">                        
-                                    <label class="radio-inline">
-                <?php
-                echo $form->field($model, 'ot')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
-                ?>
-                                    </label>
-                                </div>-->
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-3">Life support <span class="required">*</span></label>
-            <div class="col-md-6">
-                <div class="input-group">
-                    <div id="radioBtn" class="btn-group">
-                        <a class="btn btn-primary btn-sm active" data-toggle="hospitalnursingmaster-life_support" data-title="1">YES</a>
-                        <a class="btn btn-primary btn-sm notActive" data-toggle="hospitalnursingmaster-life_support" data-title="0">NO</a>
-                    </div>
-                    <input type="hidden" name="HospitalNursingMaster[life_support]" id="hospitalnursingmaster-life_support">
-                </div>
-                <!--                <div class="radio-list">                        
-                                    <label class="radio-inline">
-                <?php
-                echo $form->field($model, 'life_support')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
-                ?>
-                                    </label>
-                                </div>-->
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-3">Ambulance Service<span class="required">*</span></label>
-            <div class="col-md-6">
-                <div class="input-group">
-                    <div id="radioBtn" class="btn-group">
-                        <a class="btn btn-primary btn-sm active" data-toggle="hospitalnursingmaster-ambulance" data-title="1">YES</a>
-                        <a class="btn btn-primary btn-sm notActive" data-toggle="hospitalnursingmaster-ambulance" data-title="0">NO</a>
-                    </div>
-                    <input type="hidden" name="HospitalNursingMaster[ambulance]" id="hospitalnursingmaster-ambulance">
-                </div>
-                <!--                <div class="radio-list">                        
-                                    <label class="radio-inline">
-                <?php
-                echo $form->field($model, 'ambulance')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
-                ?>
-                                    </label>
-                                </div>-->
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-3">Own medicine shop <span class="required">*</span></label>
-            <div class="col-md-6">
-                <div class="input-group">
-                    <div id="radioBtn" class="btn-group">
-                        <a class="btn btn-primary btn-sm active" data-toggle="hospitalnursingmaster-medicine_shop" data-title="1">YES</a>
-                        <a class="btn btn-primary btn-sm notActive" data-toggle="hospitalnursingmaster-medicine_shop" data-title="0">NO</a>
-                    </div>
-                    <input type="hidden" name="HospitalNursingMaster[medicine_shop]" id="hospitalnursingmaster-medicine_shop">
-                </div>
-                <!--                <div class="radio-list">                        
-                                    <label class="radio-inline">
-                <?php
-                echo $form->field($model, 'medicine_shop')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
-                ?>
-                                    </label>
-                                </div>-->
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="control-label col-md-3">Payment accepted other than cash <span class="required">*</span></label>
-            <div class="col-md-6">
-                <div class="input-group">
-                    <div id="radioBtn" class="btn-group">
-                        <a class="btn btn-primary btn-sm active" data-toggle="hospitalnursingmaster-payment_otherthancash" data-title="1">YES</a>
-                        <a class="btn btn-primary btn-sm notActive" data-toggle="hospitalnursingmaster-payment_otherthancash" data-title="0">NO</a>
-                    </div>
-                    <input type="hidden" name="HospitalNursingMaster[payment_otherthancash]" id="hospitalnursingmaster-payment_otherthancash">
-                </div>
-                <!--                <div class="radio-list">                        
-                                    <label class="radio-inline">
-                <?php
-                echo $form->field($model, 'payment_otherthancash')->radioList(['1' => 'Yes', '0' => 'No'])->label(false);
-                ?>
-                                    </label>
-                                </div>-->
-            </div>
-        </div>
 
         <div class="form-group">
             <label class="control-label col-md-3">Status <span class="required">*</span></label>
             <div class="col-md-6">
                 <div class="input-group">
                     <div id="radioBtn" class="btn-group">
-                        <a class="btn btn-primary btn-sm active" data-toggle="hospitalnursingmaster-status" data-title="1">YES</a>
-                        <a class="btn btn-primary btn-sm notActive" data-toggle="hospitalnursingmaster-status" data-title="0">NO</a>
+                        <a class="btn btn-primary btn-sm active" data-toggle="eyebankmaster-status" data-title="1">Active</a>
+                        <a class="btn btn-primary btn-sm notActive" data-toggle="eyebankmaster-status" data-title="0">Inactive</a>
                     </div>
-                    <input type="hidden" name="HospitalNursingMaster[status]" id="hospitalnursingmaster-status">
+                    <input type="hidden" name="EyeBankMaster[status]" id="eyebankmaster-status">
                 </div>
-                <!--                <div class="radio-list">                        
-                                    <label class="radio-inline">
-                <?php
-                echo $form->field($model, 'status')->radioList(['1' => 'Active', '0' => 'Inactive'])->label(false);
-                ?>
-                                    </label>
-                                </div>-->
             </div>
+
         </div>
-
-
         <div class="form-actions">
             <div class="row">
                 <div class="col-md-offset-3 col-md-6">
@@ -514,6 +383,7 @@ if ($model->isNewRecord) {
 }
 ?>
 </script>
+
 
 
 

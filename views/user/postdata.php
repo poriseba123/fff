@@ -5,12 +5,15 @@ use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
 use yii\helpers\ArrayHelper;
-
-define('COMMON_PATH', '/var/www/html/modules');
-Yii::setAlias('@foo', COMMON_PATH);
-
 use app\models\ServicesList;
 use app\models\HospitalNursingMaster;
+use app\models\MedicineShopMaster;
+use app\models\AmbulanceMaster;
+use app\models\MortuaryMaster;
+use app\models\DiagnosticCentre;
+use app\models\EyeBankMaster;
+use app\models\BloodBankMaster;
+use app\models\Oldagehome;
 
 $all_services = ServicesList::find()->where(['status' => '1'])->all();
 ?>
@@ -53,21 +56,31 @@ $all_services = ServicesList::find()->where(['status' => '1'])->all();
                     </div><!-- End Search box -->
                     <?php
                     if ($id != '') {
-
-                        $folder = Yii::getAlias('@foo/admin/views/hospitalnursing');
-
-                        if ($id == "2") {
+                        if ($id == "2") { // hospital
                             $model = new HospitalNursingMaster;
                             include('hospitalnursinghome_form.php');
-                        } else if ($id == "2") { // hospital
                         } else if ($id == "3") { // medicine shop
+                            $model = new MedicineShopMaster;
+                            include('medicineshop_form.php');
                         } else if ($id == "4") {  // ambulane
+                            $model = new AmbulanceMaster;
+                            include('ambulance_form.php');
                         } else if ($id == "5") {    // motoary van
+                            $model = new MortuaryMaster;
+                            include('motuaryvan_form.php');
                         } else if ($id == "6") {    // digonistic center
+                            $model = new DiagnosticCentre;
+                            include('digonisticcenter_form.php');
                         } else if ($id == "8") {     //nurse aya
                         } else if ($id == "10") { // blood bank
+                            $model = new BloodBankMaster;
+                            include('bloodbank_form.php');
                         } else if ($id == "11") {       //Eye Bank
+                            $model = new EyeBankMaster;
+                            include('eyebank_form.php');
                         } else if ($id == "12") {    //Old Age Home
+                            $model = new Oldagehome;
+                            include('oldage_form.php');
                         } else if ($id == "17") { //Orphan Home
                         } else if ($id == "18") {       //Gym Center
                         } else if ($id == "19") { //Yoga Center

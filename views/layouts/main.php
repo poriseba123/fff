@@ -21,10 +21,12 @@ $this->beginPage();
         <meta charset="<?= Yii::$app->charset ?>">
         <meta name="google-signin-client_id" content="682570649470-st4gt7dqvsr46cb4d3f4oh19ae6hjvha.apps.googleusercontent.com">
         <meta name="google-signin-scope" content="https://www.googleapis.com/auth/analytics.readonly">
+        <meta name="msvalidate.01" content="A98777032436CF09C413C484BFC1CD0E" />
         <?= Html::csrfMetaTags() ?>
         <?php
         $this->title = $this->context->getPageMetaTitle(Yii::$app->controller->id, Yii::$app->controller->action->id);
         ?>
+        <meta name="description" content="News,Gyms Near Me, Pathology, Blood Bank, Ambulance,Usefull Information,Locations,nursinghome,medicine shop,yoga center,orphan homw">
         <title><?= Html::encode($this->title) ?></title>
         <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i|Quicksand:300,400,500,700&amp;subset=latin-ext,vietnamese" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
