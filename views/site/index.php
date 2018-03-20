@@ -109,6 +109,16 @@ $total_visitor = Yii::$app->userCounter->getMaximal();
                         </div>
                     </div>
                 </div>
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- poriseba_add -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-4351265563256692"
+                     data-ad-slot="7788384865"
+                     data-ad-format="auto"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
         </section>
     <?php }
@@ -144,6 +154,16 @@ $total_visitor = Yii::$app->userCounter->getMaximal();
                 <?php }
                 ?>
             </div>
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- poriseba_add -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-4351265563256692"
+                 data-ad-slot="7788384865"
+                 data-ad-format="auto"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </div>
     <!-- End Services Section -->

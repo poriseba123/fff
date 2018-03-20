@@ -33,7 +33,13 @@ $this->beginPage();
         <link href="<?= $this->context->getProjectFavicon() ?>" rel="shortcut icon" type="image/x-icon"/>
 
         <?php $this->head() ?>
-
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-4351265563256692",
+                enable_page_level_ads: true
+            });
+        </script>
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111092827-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -44,13 +50,7 @@ $this->beginPage();
 
             gtag('config', 'UA-111092827-1');
         </script>
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({
-                google_ad_client: "ca-pub-4351265563256692",
-                enable_page_level_ads: true
-            });
-        </script>
+
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
         <script>
@@ -61,7 +61,7 @@ $this->beginPage();
                 });
             });
         </script>
-       
+
 
     </head>
     <?php $this->beginBody() ?>

@@ -24,7 +24,7 @@ use kartik\select2\Select2;
 
 </div>-->
 <style>
-    .notActive{
+    .notActve{
         background-color: #FFF;
         color: #204d74;
     }

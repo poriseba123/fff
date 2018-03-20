@@ -12,7 +12,10 @@ use yii\widgets\LinkPager;
             <?php
 //Yii::$app->controller->renderPartial('@app/views/layouts/search_leftbar.php'); 
             ?>
-            <div class="col-sm-1"></div>
+            <div class="col-sm-1">
+
+
+            </div>
             <div class="col-sm-10 page-content">
 
 
@@ -113,7 +116,9 @@ use yii\widgets\LinkPager;
                                     <a href="post-ads.html" class="btn btn-post btn-danger">Post a Free Ad </a>
                                 </div>-->
             </div>
-            <div class="col-sm-1"></div>
+            <div class="col-sm-1">
+
+            </div>
         </div>
     </div>
 </div>

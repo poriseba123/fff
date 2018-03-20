@@ -263,12 +263,21 @@ $day_master = \app\models\DayMaster::find()->where(["id" => (isset($all_data['re
                     </div>
                 </div>
                 <div class="col-sm-4">
-                    <!--                    <div class="inner-box">
-                                            <div class="widget-title">
-                                                <h4>Advertisement</h4>
-                                            </div>
-                                            <img src="assets/img/img1.jpg" alt="">
-                                        </div>-->
+                    <div class="inner-box">
+
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- poriseba_add -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-4351265563256692"
+                             data-ad-slot="7788384865"
+                             data-ad-format="auto"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+
+
+                    </div>
                     <div class="col-xs-12">
                         <div class="features-box wow fadeInDownQuick" data-wow-delay="0.3s">
                             <div class="features-icon">

@@ -113,6 +113,19 @@ use yii\helpers\ArrayHelper;
                             </div>
                         </div>
                     </div>
+                    <div class="inner-box">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- poriseba_add -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-4351265563256692"
+                             data-ad-slot="7788384865"
+                             data-ad-format="auto"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+
+                    </div>
                 </aside>
             </div>
             <div class="col-sm-8 page-content">
