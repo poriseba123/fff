@@ -154,7 +154,7 @@ use yii\helpers\ArrayHelper;
 </div>
 <script>
     $(document).ready(function () {
-
+        //initAutocomplete();
         global_markers = [];
         destilat = "<?= (isset($all_data['result']['latitude']) && $all_data['result']['latitude'] != '') ? $all_data['result']['latitude'] : 20.5937; ?>";
         destilong = "<?= (isset($all_data['result']['longitude']) && $all_data['result']['longitude'] != '') ? $all_data['result']['longitude'] : 20.5937; ?>";
@@ -299,3 +299,4 @@ use yii\helpers\ArrayHelper;
 //initialize();
 
 </script>
+<script src="http://maps.google.com/maps/api/js?v=3.30&key=AIzaSyBOtvKwP4T1s3wOZ5h9QjDP2dSrly-SJXA&libraries=places&region=in&language=en&callback=initAutocomplete"></script>

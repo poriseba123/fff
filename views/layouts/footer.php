@@ -294,314 +294,320 @@ function contentsort($msg, $url = false) {
         </div>
     </div>
 </div>
-<script src="http://maps.google.com/maps/api/js?v=3.30&key=<?php echo $google_map_key->value ?>&libraries=places&region=in&language=en"></script>
+<?php
+if (Yii::$app->controller->action->id != "location") {
+    ?>
+    <script src="http://maps.google.com/maps/api/js?v=3.30&key=<?php echo $google_map_key->value ?>&libraries=places&region=in&language=en"></script>
+<?php }
+?>
+
 <script type="text/javascript">
-                           
-                            var apiGeolocationSuccess = function (position) {
-                                console.log("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
-                            };
 
-                            var tryAPIGeolocation = function () {
-                                jQuery.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBOtvKwP4T1s3wOZ5h9QjDP2dSrly-SJXA", function (success) {
-                                    apiGeolocationSuccess({coords: {latitude: success.location.lat, longitude: success.location.lng}});
-                                })
-                                        .fail(function (err) {
-                                            console.log("API Geolocation error! \n\n" + err);
-                                            console.log(err);
-                                        });
-                            };
+                        var apiGeolocationSuccess = function (position) {
+                            console.log("API geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+                        };
 
-                            var browserGeolocationSuccess = function (position) {
-                                console.log("Browser geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
-                            };
+                        var tryAPIGeolocation = function () {
+                            jQuery.post("https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyBOtvKwP4T1s3wOZ5h9QjDP2dSrly-SJXA", function (success) {
+                                apiGeolocationSuccess({coords: {latitude: success.location.lat, longitude: success.location.lng}});
+                            })
+                                    .fail(function (err) {
+                                        console.log("API Geolocation error! \n\n" + err);
+                                        console.log(err);
+                                    });
+                        };
 
-                            var browserGeolocationFail = function (error) {
-                                switch (error.code) {
-                                    case error.TIMEOUT:
-                                        console.log("Browser geolocation error !\n\nTimeout.");
-                                        break;
-                                    case error.PERMISSION_DENIED:
-                                        if (error.message.indexOf("Only secure origins are allowed") == 0) {
-                                            tryAPIGeolocation();
-                                        }
-                                        break;
-                                    case error.POSITION_UNAVAILABLE:
-                                        console.log("Browser geolocation error !\n\nPosition unavailable.");
-                                        break;
-                                }
-                            };
+                        var browserGeolocationSuccess = function (position) {
+                            console.log("Browser geolocation success!\n\nlat = " + position.coords.latitude + "\nlng = " + position.coords.longitude);
+                        };
 
-                            var tryGeolocation = function () {
-                                if (navigator.geolocation) {
-                                    navigator.geolocation.getCurrentPosition(
-                                            browserGeolocationSuccess,
-                                            browserGeolocationFail,
-                                            {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
-                                }
-                            };
-
-                            tryGeolocation();
-                            var map;
-                            var plain = new google.maps.LatLng(22.7483, 88.3385);
-                            var mapCoordinates = new google.maps.LatLng(22.7483, 88.3385);
-                            var markers = [];
-                            var image = new google.maps.MarkerImage(
-                                    '<?= Yii::$app->request->baseUrl; ?>/assets/img/map-marker.png',
-                                    new google.maps.Size(84, 70),
-                                    new google.maps.Point(0, 0),
-                                    new google.maps.Point(60, 60)
-                                    );
-                            function addMarker() {
-                                markers.push(new google.maps.Marker({
-                                    position: plain,
-                                    raiseOnDrag: false,
-                                    icon: image,
-                                    map: map,
-                                    draggable: false
-                                }));
+                        var browserGeolocationFail = function (error) {
+                            switch (error.code) {
+                                case error.TIMEOUT:
+                                    console.log("Browser geolocation error !\n\nTimeout.");
+                                    break;
+                                case error.PERMISSION_DENIED:
+                                    if (error.message.indexOf("Only secure origins are allowed") == 0) {
+                                        tryAPIGeolocation();
+                                    }
+                                    break;
+                                case error.POSITION_UNAVAILABLE:
+                                    console.log("Browser geolocation error !\n\nPosition unavailable.");
+                                    break;
                             }
-                            function initialize() {
-                                var mapOptions = {
-                                    backgroundColor: "#ffffff",
-                                    zoom: 15,
-                                    disableDefaultUI: true,
-                                    center: mapCoordinates,
-                                    zoomControl: false,
-                                    scaleControl: false,
-                                    scrollwheel: false,
-                                    disableDoubleClickZoom: true,
-                                    mapTypeId: google.maps.MapTypeId.ROADMAP,
-                                    styles: [{
-                                            "featureType": "landscape.natural",
-                                            "elementType": "geometry.fill",
-                                            "stylers": [{
-                                                    "color": "#ffffff"
-                                                }
-                                            ]
-                                        }
-                                        , {
-                                            "featureType": "landscape.man_made",
-                                            "stylers": [{
-                                                    "color": "#ffffff"
-                                                }
-                                                , {
-                                                    "visibility": "off"
-                                                }
-                                            ]
-                                        }
-                                        , {
-                                            "featureType": "water",
-                                            "stylers": [{
-                                                    "color": "#80C8E5"
-                                                }
-                                                , {
-                                                    "saturation": 0
-                                                }
-                                            ]
-                                        }
-                                        , {
-                                            "featureType": "road.arterial",
-                                            "elementType": "geometry",
-                                            "stylers": [{
-                                                    "color": "#999999"
-                                                }
-                                            ]
-                                        }
-                                        , {
-                                            "elementType": "labels.text.stroke",
-                                            "stylers": [{
-                                                    "visibility": "off"
-                                                }
-                                            ]
-                                        }
-                                        , {
-                                            "elementType": "labels.text",
-                                            "stylers": [{
-                                                    "color": "#333333"
-                                                }
-                                            ]
-                                        }
+                        };
 
-                                        , {
-                                            "featureType": "road.local",
-                                            "stylers": [{
-                                                    "color": "#dedede"
-                                                }
-                                            ]
-                                        }
-                                        , {
-                                            "featureType": "road.local",
-                                            "elementType": "labels.text",
-                                            "stylers": [{
-                                                    "color": "#666666"
-                                                }
-                                            ]
-                                        }
-                                        , {
-                                            "featureType": "transit.station.bus",
-                                            "stylers": [{
-                                                    "saturation": -57
-                                                }
-                                            ]
-                                        }
-                                        , {
-                                            "featureType": "road.highway",
-                                            "elementType": "labels.icon",
-                                            "stylers": [{
-                                                    "visibility": "off"
-                                                }
-                                            ]
-                                        }
-                                        , {
-                                            "featureType": "poi",
-                                            "stylers": [{
-                                                    "visibility": "off"
-                                                }
-                                            ]
-                                        }
-
-                                    ]
-
-                                }
-                                ;
-                                map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
-                                addMarker();
-
+                        var tryGeolocation = function () {
+                            if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition(
+                                        browserGeolocationSuccess,
+                                        browserGeolocationFail,
+                                        {maximumAge: 50000, timeout: 20000, enableHighAccuracy: true});
                             }
-                            var elementExists = document.getElementById("google-map");
-                            if (elementExists != null) {
-                                google.maps.event.addDomListener(window, 'load', initialize);
-                            }
-                            var availableTags = []; // store ajax resposnce to this array
-                            var new_tag = [];
-                            var content = [];
-                            var keyword;
-                            var flag = 1;
-                            $(document).ready(function () {
-                                flag = 1;
-                                SearchText();
-                            });
+                        };
 
-                            function capitalise(text) {
-                                var split = text.split(" "),
-                                        res = [],
-                                        i,
-                                        len,
-                                        component;
-                                for (i = 0, len = split.length; i < len; i++) {
-                                    component = split[i];
-                                    res.push(component.substring(0, 1).toUpperCase());
-                                    res.push(component.substring(1));
-                                    res.push(" "); // put space back in
-                                }
-                                return res.join("");
-
-
-                            }
-
-                            function SearchText() {
-                                var globalSatya;
-                                $("#tags").autocomplete({
-                                    source: function (request, response) {
-                                        category = $("#category_id").val();
-                                        state = $("#search_states").val();
-                                        city = $("#search_cities").val();
-                                        if ((category) || (state) || (city)) {
-                                            $("#trick").val('1');
-                                        }
-                                        // alert(category+' '+state+' '+city);
-                                        keyword = request.term.toUpperCase();
-                                        $(window).keypress(function (e) {
-                                            if (e.keyCode == 0 || e.keyCode == 32) {
-                                                flag = 0;
-                                            } else {
-                                                flag = 1;
+                        tryGeolocation();
+                        var map;
+                        var plain = new google.maps.LatLng(22.7483, 88.3385);
+                        var mapCoordinates = new google.maps.LatLng(22.7483, 88.3385);
+                        var markers = [];
+                        var image = new google.maps.MarkerImage(
+                                '<?= Yii::$app->request->baseUrl; ?>/assets/img/map-marker.png',
+                                new google.maps.Size(84, 70),
+                                new google.maps.Point(0, 0),
+                                new google.maps.Point(60, 60)
+                                );
+                        function addMarker() {
+                            markers.push(new google.maps.Marker({
+                                position: plain,
+                                raiseOnDrag: false,
+                                icon: image,
+                                map: map,
+                                draggable: false
+                            }));
+                        }
+                        function initialize() {
+                            var mapOptions = {
+                                backgroundColor: "#ffffff",
+                                zoom: 15,
+                                disableDefaultUI: true,
+                                center: mapCoordinates,
+                                zoomControl: false,
+                                scaleControl: false,
+                                scrollwheel: false,
+                                disableDoubleClickZoom: true,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                                styles: [{
+                                        "featureType": "landscape.natural",
+                                        "elementType": "geometry.fill",
+                                        "stylers": [{
+                                                "color": "#ffffff"
                                             }
-                                        });
-
-                                        $.ajax({
-                                            type: "POST",
-                                            url: full_path + "site/suggestion",
-                                            data: {
-                                                key: request.term,
-                                                flag: flag,
-                                                category: category,
-                                                state: state,
-                                                city: city
-                                            },
-                                            async: true,
-                                            dataType: "json",
-                                            success: function (data) {
-                                                //console.log(data);
-                                                if (data[0] != null) {
-                                                    globalSatya = data;
-                                                    response(data);
-
-                                                }
-                                            },
-                                            error: function (result) {
-                                                //alert("Error");
+                                        ]
+                                    }
+                                    , {
+                                        "featureType": "landscape.man_made",
+                                        "stylers": [{
+                                                "color": "#ffffff"
                                             }
-                                        });
-                                    },
-                                    focus: function (event, globalSatya) {
-                                        //console.log(globalSatya.item.value);
-                                        var globalSatyaDataVal = globalSatya.item.value;
-                                        globalSatyaDataVal = globalSatyaDataVal.split("@");
-                                        $("#tags").val(globalSatyaDataVal[0]);
-                                        return false;
-                                    },
-                                    select: function (event, globalSatya) {
-                                        //console.log(globalSatya);
-                                        var globalSatyaDataVal = globalSatya.item.value;
-                                        globalSatyaDataVal = globalSatyaDataVal.split("@");
-                                        $("#category_id").val(globalSatyaDataVal[1]);
-                                        $("#hidden_city").val(globalSatyaDataVal[2]);
-                                        $("#search_cities").val(globalSatyaDataVal[2]);
-                                        $("#tags").val(globalSatyaDataVal[0]);
-                                        return false;
+                                            , {
+                                                "visibility": "off"
+                                            }
+                                        ]
                                     }
-                                }).autocomplete("instance")._renderItem = function (ul, data) {
-                                    //console.log(data.value);
-                                    var str = data.label;
-                                    if (/\s/g.test(keyword.slice(1)) == true) {
-                                        k = 1;
-                                        var flag = capitalise(keyword);
-                                        //console.log("flag"+flag);
-
-                                    } else {
-                                        k = 0;
-                                        var flag = keyword.charAt(0).toUpperCase() + keyword.slice(1);
+                                    , {
+                                        "featureType": "water",
+                                        "stylers": [{
+                                                "color": "#80C8E5"
+                                            }
+                                            , {
+                                                "saturation": 0
+                                            }
+                                        ]
+                                    }
+                                    , {
+                                        "featureType": "road.arterial",
+                                        "elementType": "geometry",
+                                        "stylers": [{
+                                                "color": "#999999"
+                                            }
+                                        ]
+                                    }
+                                    , {
+                                        "elementType": "labels.text.stroke",
+                                        "stylers": [{
+                                                "visibility": "off"
+                                            }
+                                        ]
+                                    }
+                                    , {
+                                        "elementType": "labels.text",
+                                        "stylers": [{
+                                                "color": "#333333"
+                                            }
+                                        ]
                                     }
 
-                                    var show = str.split("@");
-                                    //alert(show[0]+"  "+show[1]);
-                                    if (k == 0) {
-                                        var res = show[0].replace(flag, '<span style="color:#f44336;">' + flag + '</span>');
-                                    } else {
-                                        //console.log("show[0]"+show[0].replace(/ /g,''));
-                                        //console.log("flaggggggggggg"+flag.replace(/ /g,''));
-
-                                        var res = show[0].replace(/ /g, '').replace(flag.replace(/ /g, ''), '<span style="color:#f44336;">' + flag + '</span>');
-                                        //console.log("res"+res);
+                                    , {
+                                        "featureType": "road.local",
+                                        "stylers": [{
+                                                "color": "#dedede"
+                                            }
+                                        ]
                                     }
-                                    var dataValue = data.value;
-                                    dataValue = dataValue.split("@");
+                                    , {
+                                        "featureType": "road.local",
+                                        "elementType": "labels.text",
+                                        "stylers": [{
+                                                "color": "#666666"
+                                            }
+                                        ]
+                                    }
+                                    , {
+                                        "featureType": "transit.station.bus",
+                                        "stylers": [{
+                                                "saturation": -57
+                                            }
+                                        ]
+                                    }
+                                    , {
+                                        "featureType": "road.highway",
+                                        "elementType": "labels.icon",
+                                        "stylers": [{
+                                                "visibility": "off"
+                                            }
+                                        ]
+                                    }
+                                    , {
+                                        "featureType": "poi",
+                                        "stylers": [{
+                                                "visibility": "off"
+                                            }
+                                        ]
+                                    }
 
-                                    //console.log(dataValue[0]);
-                                    return $("<li>").attr("data-value", dataValue[0]).append("<a>" + res + "</a>").appendTo(ul);
-                                };
+                                ]
+
                             }
-                            $(document).on('change', '#search_cities', function (e) {
-                                cityid_new = $(this).val();
-                                //How do i fire this event ??
-                                $("#hidden_city").val(cityid_new);
-                            });
-                            $("#usercategory_id").on('change', function () {
+                            ;
+                            map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+                            addMarker();
 
-                                categoryID = $(this).val();
-                                window.location = "<?= Yii::$app->urlManager->createUrl('user/postdata?category=') ?>" + categoryID;
-                            });
+                        }
+                        var elementExists = document.getElementById("google-map");
+                        if (elementExists != null) {
+                            google.maps.event.addDomListener(window, 'load', initialize);
+                        }
+                        var availableTags = []; // store ajax resposnce to this array
+                        var new_tag = [];
+                        var content = [];
+                        var keyword;
+                        var flag = 1;
+                        $(document).ready(function () {
+                            flag = 1;
+                            SearchText();
+                        });
+
+                        function capitalise(text) {
+                            var split = text.split(" "),
+                                    res = [],
+                                    i,
+                                    len,
+                                    component;
+                            for (i = 0, len = split.length; i < len; i++) {
+                                component = split[i];
+                                res.push(component.substring(0, 1).toUpperCase());
+                                res.push(component.substring(1));
+                                res.push(" "); // put space back in
+                            }
+                            return res.join("");
+
+
+                        }
+
+                        function SearchText() {
+                            var globalSatya;
+                            $("#tags").autocomplete({
+                                source: function (request, response) {
+                                    category = $("#category_id").val();
+                                    state = $("#search_states").val();
+                                    city = $("#search_cities").val();
+                                    if ((category) || (state) || (city)) {
+                                        $("#trick").val('1');
+                                    }
+                                    // alert(category+' '+state+' '+city);
+                                    keyword = request.term.toUpperCase();
+                                    $(window).keypress(function (e) {
+                                        if (e.keyCode == 0 || e.keyCode == 32) {
+                                            flag = 0;
+                                        } else {
+                                            flag = 1;
+                                        }
+                                    });
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: full_path + "site/suggestion",
+                                        data: {
+                                            key: request.term,
+                                            flag: flag,
+                                            category: category,
+                                            state: state,
+                                            city: city
+                                        },
+                                        async: true,
+                                        dataType: "json",
+                                        success: function (data) {
+                                            //console.log(data);
+                                            if (data[0] != null) {
+                                                globalSatya = data;
+                                                response(data);
+
+                                            }
+                                        },
+                                        error: function (result) {
+                                            //alert("Error");
+                                        }
+                                    });
+                                },
+                                focus: function (event, globalSatya) {
+                                    //console.log(globalSatya.item.value);
+                                    var globalSatyaDataVal = globalSatya.item.value;
+                                    globalSatyaDataVal = globalSatyaDataVal.split("@");
+                                    $("#tags").val(globalSatyaDataVal[0]);
+                                    return false;
+                                },
+                                select: function (event, globalSatya) {
+                                    //console.log(globalSatya);
+                                    var globalSatyaDataVal = globalSatya.item.value;
+                                    globalSatyaDataVal = globalSatyaDataVal.split("@");
+                                    $("#category_id").val(globalSatyaDataVal[1]);
+                                    $("#hidden_city").val(globalSatyaDataVal[2]);
+                                    $("#search_cities").val(globalSatyaDataVal[2]);
+                                    $("#tags").val(globalSatyaDataVal[0]);
+                                    return false;
+                                }
+                            }).autocomplete("instance")._renderItem = function (ul, data) {
+                                //console.log(data.value);
+                                var str = data.label;
+                                if (/\s/g.test(keyword.slice(1)) == true) {
+                                    k = 1;
+                                    var flag = capitalise(keyword);
+                                    //console.log("flag"+flag);
+
+                                } else {
+                                    k = 0;
+                                    var flag = keyword.charAt(0).toUpperCase() + keyword.slice(1);
+                                }
+
+                                var show = str.split("@");
+                                //alert(show[0]+"  "+show[1]);
+                                if (k == 0) {
+                                    var res = show[0].replace(flag, '<span style="color:#f44336;">' + flag + '</span>');
+                                } else {
+                                    //console.log("show[0]"+show[0].replace(/ /g,''));
+                                    //console.log("flaggggggggggg"+flag.replace(/ /g,''));
+
+                                    var res = show[0].replace(/ /g, '').replace(flag.replace(/ /g, ''), '<span style="color:#f44336;">' + flag + '</span>');
+                                    //console.log("res"+res);
+                                }
+                                var dataValue = data.value;
+                                dataValue = dataValue.split("@");
+
+                                //console.log(dataValue[0]);
+                                return $("<li>").attr("data-value", dataValue[0]).append("<a>" + res + "</a>").appendTo(ul);
+                            };
+                        }
+                        $(document).on('change', '#search_cities', function (e) {
+                            cityid_new = $(this).val();
+                            //How do i fire this event ??
+                            $("#hidden_city").val(cityid_new);
+                        });
+                        $("#usercategory_id").on('change', function () {
+
+                            categoryID = $(this).val();
+                            window.location = "<?= Yii::$app->urlManager->createUrl('user/postdata?category=') ?>" + categoryID;
+                        });
 
 
 </script>
